@@ -1,0 +1,1404 @@
+0
+00:00:00,160 --> 00:00:03,199
+Before we start this class in earnest I
+
+1
+00:00:01,760 --> 00:00:05,359
+want to speak a little bit about my
+
+2
+00:00:03,199 --> 00:00:07,359
+motivations for teaching the class.
+
+3
+00:00:05,359 --> 00:00:08,880
+What it ultimately comes down to is that
+
+4
+00:00:07,359 --> 00:00:11,040
+I want peers who can
+
+5
+00:00:08,880 --> 00:00:12,960
+know what I know, do what I can do and
+
+6
+00:00:11,040 --> 00:00:14,799
+ultimately exceed me.
+
+7
+00:00:12,960 --> 00:00:16,480
+I want more cool kids doing cool
+
+8
+00:00:14,799 --> 00:00:19,920
+research that I can go watch
+
+9
+00:00:16,480 --> 00:00:21,520
+and say that's cool but obviously I've
+
+10
+00:00:19,920 --> 00:00:23,359
+got a bit of a head start on you
+
+11
+00:00:21,520 --> 00:00:26,240
+if you're going to ultimately exceed me
+
+12
+00:00:23,359 --> 00:00:28,160
+yes that's why I wanted you to know that
+
+13
+00:00:26,240 --> 00:00:29,920
+just watching the videos in this class
+
+14
+00:00:28,160 --> 00:00:30,880
+is not going to be the end of what's
+
+15
+00:00:29,920 --> 00:00:32,640
+required of you
+
+16
+00:00:30,880 --> 00:00:34,719
+if you truly want mastery of these
+
+17
+00:00:32,640 --> 00:00:35,120
+skills it's going to require significant
+
+18
+00:00:34,719 --> 00:00:36,880
+time
+
+19
+00:00:35,120 --> 00:00:39,200
+outside of this class honing those
+
+20
+00:00:36,880 --> 00:00:41,440
+skills to the tune of hundreds or
+
+21
+00:00:39,200 --> 00:00:43,280
+possibly even thousands of hours
+
+22
+00:00:41,440 --> 00:00:45,200
+now the best option of course is to go
+
+23
+00:00:43,280 --> 00:00:46,160
+get a job that lets you use these skills
+
+24
+00:00:45,200 --> 00:00:48,000
+routinely
+
+25
+00:00:46,160 --> 00:00:50,000
+that's certainly how i got my thousands
+
+26
+00:00:48,000 --> 00:00:51,920
+of hours in
+
+27
+00:00:50,000 --> 00:00:53,520
+but what i really wanted was that before
+
+28
+00:00:51,920 --> 00:00:55,920
+we even get more than one
+
+29
+00:00:53,520 --> 00:00:57,760
+slide into the rest of the class for you
+
+30
+00:00:55,920 --> 00:00:59,680
+to understand that these videos are not
+
+31
+00:00:57,760 --> 00:01:01,840
+the end they're just the beginning
+
+32
+00:00:59,680 --> 00:01:03,520
+I have very high expectations of the
+
+33
+00:01:01,840 --> 00:01:05,280
+people who start down these learning
+
+34
+00:01:03,520 --> 00:01:07,119
+paths on open security training
+
+35
+00:01:05,280 --> 00:01:08,400
+and I hope that you'll rise to meet my
+
+36
+00:01:07,119 --> 00:01:11,680
+expectations
+
+37
+00:01:08,400 --> 00:01:13,119
+alright so enough about that so let's
+
+38
+00:01:11,680 --> 00:01:15,119
+talk about the class well
+
+39
+00:01:13,119 --> 00:01:16,720
+the overall intent of the class is to
+
+40
+00:01:15,119 --> 00:01:18,720
+expose you to the most common
+
+41
+00:01:16,720 --> 00:01:20,000
+information about x86 assembly that I
+
+42
+00:01:18,720 --> 00:01:22,960
+think you need to know
+
+43
+00:01:20,000 --> 00:01:24,880
+in order to succeed in the future
+
+44
+00:01:22,960 --> 00:01:26,799
+follow-on classes in order to do
+
+45
+00:01:24,880 --> 00:01:28,640
+something useful with the material
+
+46
+00:01:26,799 --> 00:01:30,479
+so this includes things like learning
+
+47
+00:01:28,640 --> 00:01:32,560
+the general purpose registers
+
+48
+00:01:30,479 --> 00:01:34,560
+learning the most common assembly or
+
+49
+00:01:32,560 --> 00:01:36,479
+learning about how the stack is used by
+
+50
+00:01:34,560 --> 00:01:38,159
+this assembly
+
+51
+00:01:36,479 --> 00:01:40,240
+this means i'm explicitly and
+
+52
+00:01:38,159 --> 00:01:41,119
+intentionally leaving out some materials
+
+53
+00:01:40,240 --> 00:01:43,840
+such as
+
+54
+00:01:41,119 --> 00:01:46,880
+floating point instructions things like
+
+55
+00:01:43,840 --> 00:01:48,640
+the 16-bit reset vector
+
+56
+00:01:46,880 --> 00:01:50,240
+complicated and rare instructions
+
+57
+00:01:48,640 --> 00:01:52,159
+virtualization and so forth
+
+58
+00:01:50,240 --> 00:01:54,240
+some of these materials are going to be
+
+59
+00:01:52,159 --> 00:01:55,040
+covered by future classes that build on
+
+60
+00:01:54,240 --> 00:01:56,399
+top of this
+
+61
+00:01:55,040 --> 00:01:58,079
+and some of these are things that i just
+
+62
+00:01:56,399 --> 00:01:59,759
+really haven't encountered that much and
+
+63
+00:01:58,079 --> 00:02:01,119
+therefore they're pretty specialized and
+
+64
+00:01:59,759 --> 00:02:03,040
+most people aren't going to need to know
+
+65
+00:02:01,119 --> 00:02:05,280
+them
+
+66
+00:02:03,040 --> 00:02:06,320
+now if you get confused at some point in
+
+67
+00:02:05,280 --> 00:02:08,160
+this class and you want an
+
+68
+00:02:06,320 --> 00:02:10,000
+alternate explanation of course you can
+
+69
+00:02:08,160 --> 00:02:11,760
+just google around and find alternate
+
+70
+00:02:10,000 --> 00:02:13,920
+explanations on the internet
+
+71
+00:02:11,760 --> 00:02:15,200
+if however you want a more consistent
+
+72
+00:02:13,920 --> 00:02:18,080
+set of explanations
+
+73
+00:02:15,200 --> 00:02:18,560
+then i recommend checking out this book
+
+74
+00:02:18,080 --> 00:02:20,879
+i
+
+75
+00:02:18,560 --> 00:02:22,319
+cite references to which sections talk
+
+76
+00:02:20,879 --> 00:02:25,360
+about the same sort of material
+
+77
+00:02:22,319 --> 00:02:26,319
+in various slides later on so
+
+78
+00:02:25,360 --> 00:02:28,640
+let's talk about a little bit of
+
+79
+00:02:26,319 --> 00:02:31,040
+miscellaneous stuff so the first thing
+
+80
+00:02:28,640 --> 00:02:33,120
+is why is it even called x86 well that's
+
+81
+00:02:31,040 --> 00:02:35,760
+because the first intel chips that use
+
+82
+00:02:33,120 --> 00:02:39,200
+this architecture were the 8086
+
+83
+00:02:35,760 --> 00:02:40,959
+followed by the 80186 80286 and so forth
+
+84
+00:02:39,200 --> 00:02:42,959
+so the x is really just a
+
+85
+00:02:40,959 --> 00:02:44,239
+variable that's filling in for these
+
+86
+00:02:42,959 --> 00:02:47,599
+names they're all just
+
+87
+00:02:44,239 --> 00:02:50,000
+x86 family of chips.
+
+88
+00:02:47,599 --> 00:02:51,840
+Now originally, this first 8086 was a
+
+89
+00:02:50,000 --> 00:02:55,200
+16-bit architecture
+
+90
+00:02:51,840 --> 00:02:56,959
+and later on intel expanded it to 32-bit
+
+91
+00:02:55,200 --> 00:02:58,000
+and 64-bit operation
+
+92
+00:02:56,959 --> 00:03:00,080
+but they kept the backwards
+
+93
+00:02:58,000 --> 00:03:01,840
+compatibility because of course as you
+
+94
+00:03:00,080 --> 00:03:03,280
+introduce each new generation of
+
+95
+00:03:01,840 --> 00:03:04,080
+hardware you want to make sure they can
+
+96
+00:03:03,280 --> 00:03:06,959
+still run the
+
+97
+00:03:04,080 --> 00:03:07,519
+old software and actually when you get
+
+98
+00:03:06,959 --> 00:03:10,319
+to the
+
+99
+00:03:07,519 --> 00:03:11,519
+class about this reset vector for x86
+
+100
+00:03:10,319 --> 00:03:13,840
+you'll find that
+
+101
+00:03:11,519 --> 00:03:16,159
+it actually still continues to start up
+
+102
+00:03:13,840 --> 00:03:17,840
+in 16-bit mode on a lot of hardware
+
+103
+00:03:16,159 --> 00:03:20,959
+and then it has to transition into
+
+104
+00:03:17,840 --> 00:03:23,840
+32-bit operation later on
+
+105
+00:03:20,959 --> 00:03:25,040
+so when intel was expanding x86 to be
+
+106
+00:03:23,840 --> 00:03:27,200
+64-bit
+
+107
+00:03:25,040 --> 00:03:28,480
+capable uh they ultimately wanted to
+
+108
+00:03:27,200 --> 00:03:30,400
+make a complete break from the
+
+109
+00:03:28,480 --> 00:03:30,799
+architecture and you know do clean slate
+
+110
+00:03:30,400 --> 00:03:33,200
+and
+
+111
+00:03:30,799 --> 00:03:34,799
+invent something new this was called the
+
+112
+00:03:33,200 --> 00:03:37,920
+intel architecture 64
+
+113
+00:03:34,799 --> 00:03:39,040
+also known as itanium, but itanium
+
+114
+00:03:37,920 --> 00:03:41,519
+didn't really take off
+
+115
+00:03:39,040 --> 00:03:43,440
+it only saw some limited adoption on
+
+116
+00:03:41,519 --> 00:03:46,959
+server grade platforms
+
+117
+00:03:43,440 --> 00:03:49,280
+and ultimately in parallel amd decided
+
+118
+00:03:46,959 --> 00:03:51,200
+that they would go ahead and extend the
+
+119
+00:03:49,280 --> 00:03:54,400
+x86 32-bit architecture
+
+120
+00:03:51,200 --> 00:03:56,720
+to support 64-bit uh making the sort of
+
+121
+00:03:54,400 --> 00:03:58,879
+natural extensions to registers and
+
+122
+00:03:56,720 --> 00:04:00,720
+instructions that you might expect
+
+123
+00:03:58,879 --> 00:04:05,519
+ultimately intel had to
+
+124
+00:04:00,720 --> 00:04:08,560
+adopt and license this x86-64
+
+125
+00:04:05,519 --> 00:04:10,159
+extension later on when itanium didn't
+
+126
+00:04:08,560 --> 00:04:11,840
+take off
+
+127
+00:04:10,159 --> 00:04:13,680
+so also there's many different names
+
+128
+00:04:11,840 --> 00:04:17,000
+that you'll find in the intel manuals
+
+129
+00:04:13,680 --> 00:04:19,759
+such as IA32e for extended
+
+130
+00:04:17,000 --> 00:04:23,199
+EMT64 or intel 64.
+
+131
+00:04:19,759 --> 00:04:25,199
+but i just wanted to be clear that IA64
+
+132
+00:04:23,199 --> 00:04:26,800
+is a completely different architecture
+
+133
+00:04:25,199 --> 00:04:28,479
+itanium
+
+134
+00:04:26,800 --> 00:04:31,520
+is not using the same assembly
+
+135
+00:04:28,479 --> 00:04:33,680
+instructions as x86-64
+
+136
+00:04:31,520 --> 00:04:35,199
+furthermore you might see names such as
+
+137
+00:04:33,680 --> 00:04:38,400
+amd 64 or
+
+138
+00:04:35,199 --> 00:04:39,680
+x64 used by various linux distributions
+
+139
+00:04:38,400 --> 00:04:41,280
+or microsoft
+
+140
+00:04:39,680 --> 00:04:43,759
+but in this class i just want to be
+
+141
+00:04:41,280 --> 00:04:45,199
+clear we're just going to call it x86-64
+
+142
+00:04:43,759 --> 00:04:46,880
+so that it's very clear what we're
+
+143
+00:04:45,199 --> 00:04:49,919
+talking about
+
+144
+00:04:46,880 --> 00:04:52,479
+so where is x86-64 used well
+
+145
+00:04:49,919 --> 00:04:55,120
+more likely than not you probably know
+
+146
+00:04:52,479 --> 00:04:56,160
+and you're probably using an x86 system
+
+147
+00:04:55,120 --> 00:04:58,720
+right now
+
+148
+00:04:56,160 --> 00:04:59,840
+to watch this video on so most desktop
+
+149
+00:04:58,720 --> 00:05:02,080
+systems are still
+
+150
+00:04:59,840 --> 00:05:03,440
+x86 although ARM is starting to make
+
+151
+00:05:02,080 --> 00:05:05,759
+some inroads here
+
+152
+00:05:03,440 --> 00:05:09,120
+and then you have server systems or
+
+153
+00:05:05,759 --> 00:05:11,600
+super computers are even using x86-64
+
+154
+00:05:09,120 --> 00:05:13,919
+basically you can expect that the intel
+
+155
+00:05:11,600 --> 00:05:16,960
+architecture was generally optimized for
+
+156
+00:05:13,919 --> 00:05:19,039
+maximum performance as opposed to
+
+157
+00:05:16,960 --> 00:05:20,320
+lower power utilization like some other
+
+158
+00:05:19,039 --> 00:05:23,360
+architectures
+
+159
+00:05:20,320 --> 00:05:26,880
+so while intel did start to try to make
+
+160
+00:05:23,360 --> 00:05:29,360
+inroads into lower power places with
+
+161
+00:05:26,880 --> 00:05:30,479
+a line of chips called atom and other
+
+162
+00:05:29,360 --> 00:05:32,000
+various chips
+
+163
+00:05:30,479 --> 00:05:33,960
+they really haven't gotten too much
+
+164
+00:05:32,000 --> 00:05:37,360
+uptake there so you'll mostly see
+
+165
+00:05:33,960 --> 00:05:39,280
+x86-64 on desktop servers supercomputer
+
+166
+00:05:37,360 --> 00:05:40,560
+type stuff
+
+167
+00:05:39,280 --> 00:05:42,960
+so what are we going to learn in this
+
+168
+00:05:40,560 --> 00:05:44,000
+class well the most important thing that
+
+169
+00:05:42,960 --> 00:05:45,840
+i want to show you
+
+170
+00:05:44,000 --> 00:05:48,160
+is that we're going to be doing
+
+171
+00:05:45,840 --> 00:05:50,400
+translations between very simple c
+
+172
+00:05:48,160 --> 00:05:51,280
+programs and the assembly that underlies
+
+173
+00:05:50,400 --> 00:05:53,120
+them
+
+174
+00:05:51,280 --> 00:05:55,160
+so for instance here's a basic hello
+
+175
+00:05:53,120 --> 00:05:56,560
+world which you'll note is returning
+
+176
+00:05:55,160 --> 00:05:58,160
+0x1234
+
+177
+00:05:56,560 --> 00:06:00,560
+so that it's nice and easy to see where
+
+178
+00:05:58,160 --> 00:06:02,880
+the return value might appear
+
+179
+00:06:00,560 --> 00:06:03,759
+and when we go look at that we could use
+
+180
+00:06:02,880 --> 00:06:06,720
+for instance
+
+181
+00:06:03,759 --> 00:06:08,720
+windows visual studio 2019 if we
+
+182
+00:06:06,720 --> 00:06:10,639
+disassemble that with a variety of
+
+183
+00:06:08,720 --> 00:06:12,000
+compiler options set to make the
+
+184
+00:06:10,639 --> 00:06:13,840
+assembly simpler
+
+185
+00:06:12,000 --> 00:06:16,319
+we would see something like this and at
+
+186
+00:06:13,840 --> 00:06:19,360
+the high level you know we can see
+
+187
+00:06:16,319 --> 00:06:21,759
+well there's a call to printf
+
+188
+00:06:19,360 --> 00:06:22,479
+so okay that makes sense printf of hello
+
+189
+00:06:21,759 --> 00:06:26,240
+world
+
+190
+00:06:22,479 --> 00:06:27,199
+there's a move of 0x1234 into eax
+
+191
+00:06:26,240 --> 00:06:29,039
+register
+
+192
+00:06:27,199 --> 00:06:30,800
+so that's probably something to do with
+
+193
+00:06:29,039 --> 00:06:32,240
+our return value and so we might not
+
+194
+00:06:30,800 --> 00:06:34,400
+know what the rest of this is but we
+
+195
+00:06:32,240 --> 00:06:35,120
+have some hints about how that hello
+
+196
+00:06:34,400 --> 00:06:37,840
+world
+
+197
+00:06:35,120 --> 00:06:39,680
+elements translated into assembly so
+
+198
+00:06:37,840 --> 00:06:40,319
+here's that assembly disassembled right
+
+199
+00:06:39,680 --> 00:06:42,800
+from within
+
+200
+00:06:40,319 --> 00:06:44,160
+visual studio after compilation but you
+
+201
+00:06:42,800 --> 00:06:46,080
+could have also seen it in some
+
+202
+00:06:44,160 --> 00:06:48,479
+completely different format so
+
+203
+00:06:46,080 --> 00:06:50,160
+later on if you learn about the ghidra
+
+204
+00:06:48,479 --> 00:06:51,840
+multi-tool for disassembly and
+
+205
+00:06:50,160 --> 00:06:53,520
+decompilation
+
+206
+00:06:51,840 --> 00:06:55,039
+that same assembly would look like this
+
+207
+00:06:53,520 --> 00:06:55,840
+and then there we have a little more
+
+208
+00:06:55,039 --> 00:06:57,520
+clear
+
+209
+00:06:55,840 --> 00:06:58,880
+view that okay well there's a hello
+
+210
+00:06:57,520 --> 00:07:00,319
+world string in there somewhere there's
+
+211
+00:06:58,880 --> 00:07:01,280
+a printf in there there's the one two
+
+212
+00:07:00,319 --> 00:07:02,639
+three four
+
+213
+00:07:01,280 --> 00:07:04,479
+some other bytes we don't know what's
+
+214
+00:07:02,639 --> 00:07:06,960
+going on yet
+
+215
+00:07:04,479 --> 00:07:08,560
+additionally this same hello world if we
+
+216
+00:07:06,960 --> 00:07:10,800
+compiled and disassembled it on a
+
+217
+00:07:08,560 --> 00:07:13,840
+different architecture such as ubuntu
+
+218
+00:07:10,800 --> 00:07:15,680
+compiled with gcc could have
+
+219
+00:07:13,840 --> 00:07:17,599
+you know extra assembly instructions
+
+220
+00:07:15,680 --> 00:07:18,400
+that we didn't see in the visual studio
+
+221
+00:07:17,599 --> 00:07:20,000
+version
+
+222
+00:07:18,400 --> 00:07:22,479
+and it could be longer it could be
+
+223
+00:07:20,000 --> 00:07:25,039
+shorter and so here's an example that
+
+224
+00:07:22,479 --> 00:07:26,160
+disassembled with the objdump tool on
+
+225
+00:07:25,039 --> 00:07:27,919
+ubuntu
+
+226
+00:07:26,160 --> 00:07:30,080
+here is an example of the same hello
+
+227
+00:07:27,919 --> 00:07:34,080
+world compiled with clang
+
+228
+00:07:30,080 --> 00:07:35,199
+on mac os 11. and if we ultimately just
+
+229
+00:07:34,080 --> 00:07:37,280
+boil it down
+
+230
+00:07:35,199 --> 00:07:39,440
+this is still what it looks like it's
+
+231
+00:07:37,280 --> 00:07:40,240
+the simplest form is something to do
+
+232
+00:07:39,440 --> 00:07:43,599
+with
+
+233
+00:07:40,240 --> 00:07:45,599
+the hello world string being printf and
+
+234
+00:07:43,599 --> 00:07:47,280
+the one two three four being set to some
+
+235
+00:07:45,599 --> 00:07:48,560
+return value
+
+236
+00:07:47,280 --> 00:07:50,479
+and this is an example of it
+
+237
+00:07:48,560 --> 00:07:53,919
+disassembled in the ida
+
+238
+00:07:50,479 --> 00:07:56,400
+multi-tool so you can take heart
+
+239
+00:07:53,919 --> 00:07:58,240
+though because by one particular measure
+
+240
+00:07:56,400 --> 00:08:01,120
+it actually only takes 14
+
+241
+00:07:58,240 --> 00:08:02,720
+assembly instructions to account for 90
+
+242
+00:08:01,120 --> 00:08:03,919
+of the assembly code that you would need
+
+243
+00:08:02,720 --> 00:08:05,680
+to read
+
+244
+00:08:03,919 --> 00:08:07,599
+you've actually already seen 10
+
+245
+00:08:05,680 --> 00:08:09,680
+different assembly instructions in just
+
+246
+00:08:07,599 --> 00:08:11,520
+the different variations of hello world
+
+247
+00:08:09,680 --> 00:08:12,879
+that are created by multiple different
+
+248
+00:08:11,520 --> 00:08:14,960
+compilers
+
+249
+00:08:12,879 --> 00:08:17,520
+so ultimately i think that if you know a
+
+250
+00:08:14,960 --> 00:08:19,840
+good 20 to 30 assembly instructions
+
+251
+00:08:17,520 --> 00:08:21,199
+you'll have a pretty easy time of things
+
+252
+00:08:19,840 --> 00:08:24,080
+and you won't have to consult
+
+253
+00:08:21,199 --> 00:08:25,599
+the assembly manual that much and so
+
+254
+00:08:24,080 --> 00:08:27,840
+that reference was a little bit
+
+255
+00:08:25,599 --> 00:08:29,199
+getting stale from 2006. i went and
+
+256
+00:08:27,840 --> 00:08:31,440
+looked for another reference
+
+257
+00:08:29,199 --> 00:08:32,479
+and here's one from 2011 where they said
+
+258
+00:08:31,440 --> 00:08:35,440
+you know for instance
+
+259
+00:08:32,479 --> 00:08:37,120
+in web browser here are the assembly
+
+260
+00:08:35,440 --> 00:08:39,120
+instruction frequencies
+
+261
+00:08:37,120 --> 00:08:41,200
+and so it turns out that actually we are
+
+262
+00:08:39,120 --> 00:08:43,279
+going to see every single one of these
+
+263
+00:08:41,200 --> 00:08:45,519
+assembly instructions in this class
+
+264
+00:08:43,279 --> 00:08:46,959
+although there's four percent others so
+
+265
+00:08:45,519 --> 00:08:48,959
+at least 94%
+
+266
+00:08:46,959 --> 00:08:51,760
+of the assembly instructions will be
+
+267
+00:08:48,959 --> 00:08:53,440
+covered in this class alone
+
+268
+00:08:51,760 --> 00:08:54,880
+all right so what's the outcome going to
+
+269
+00:08:53,440 --> 00:08:56,880
+be of this class
+
+270
+00:08:54,880 --> 00:08:58,720
+well ultimately you're going to learn
+
+271
+00:08:56,880 --> 00:09:02,480
+the x86-64
+
+272
+00:08:58,720 --> 00:09:03,640
+64-bit registers as well as the 32 and
+
+273
+00:09:02,480 --> 00:09:06,240
+16-bit
+
+274
+00:09:03,640 --> 00:09:07,519
+sub-registers which still exist
+
+275
+00:09:06,240 --> 00:09:09,120
+originally they refer
+
+276
+00:09:07,519 --> 00:09:10,720
+you know they existed in their 16-bit
+
+277
+00:09:09,120 --> 00:09:12,160
+form the 32-bit form
+
+278
+00:09:10,720 --> 00:09:14,560
+and now they exist for backwards
+
+279
+00:09:12,160 --> 00:09:17,120
+compatibility and because you know the
+
+280
+00:09:14,560 --> 00:09:17,920
+sub portions of assembly registers can
+
+281
+00:09:17,120 --> 00:09:19,839
+still be
+
+282
+00:09:17,920 --> 00:09:20,959
+accessed by current assembly
+
+283
+00:09:19,839 --> 00:09:22,880
+instructions
+
+284
+00:09:20,959 --> 00:09:25,040
+you'll also learn about how things like
+
+285
+00:09:22,880 --> 00:09:25,839
+local variables or potentially function
+
+286
+00:09:25,040 --> 00:09:28,959
+arguments
+
+287
+00:09:25,839 --> 00:09:30,959
+can be pushed onto the stack and how the
+
+288
+00:09:28,959 --> 00:09:33,040
+assembly manipulates the stack in order
+
+289
+00:09:30,959 --> 00:09:34,640
+to get its job done
+
+290
+00:09:33,040 --> 00:09:36,080
+you'll learn things about calling
+
+291
+00:09:34,640 --> 00:09:38,320
+conventions and how
+
+292
+00:09:36,080 --> 00:09:40,000
+particular registers are used to store
+
+293
+00:09:38,320 --> 00:09:41,200
+particular values when functions are
+
+294
+00:09:40,000 --> 00:09:43,760
+being called
+
+295
+00:09:41,200 --> 00:09:45,600
+and this is a big one like i said this
+
+296
+00:09:43,760 --> 00:09:48,480
+class teaches you assembly by
+
+297
+00:09:45,600 --> 00:09:49,519
+translating from C code back down to
+
+298
+00:09:48,480 --> 00:09:51,279
+assembly
+
+299
+00:09:49,519 --> 00:09:53,440
+you're going to learn how to use
+
+300
+00:09:51,279 --> 00:09:54,560
+particular IDEs integrated development
+
+301
+00:09:53,440 --> 00:09:57,200
+environments
+
+302
+00:09:54,560 --> 00:09:57,920
+like visual studio in order to write
+
+303
+00:09:57,200 --> 00:10:00,000
+some assemb
+
+304
+00:09:57,920 --> 00:10:01,760
+write some source code in C and
+
+305
+00:10:00,000 --> 00:10:03,279
+ultimately compile it and see the
+
+306
+00:10:01,760 --> 00:10:04,880
+corresponding assembly
+
+307
+00:10:03,279 --> 00:10:06,800
+this is an intentional crutch to
+
+308
+00:10:04,880 --> 00:10:07,360
+basically say you know what the C code
+
+309
+00:10:06,800 --> 00:10:09,120
+is doing
+
+310
+00:10:07,360 --> 00:10:11,360
+or at least you're expected to because C
+
+311
+00:10:09,120 --> 00:10:13,200
+is a prerequisite for this class
+
+312
+00:10:11,360 --> 00:10:14,800
+you know what the c code is doing and
+
+313
+00:10:13,200 --> 00:10:16,560
+now you can see what the assembly is
+
+314
+00:10:14,800 --> 00:10:18,240
+doing and you can literally step step
+
+315
+00:10:16,560 --> 00:10:19,920
+step through every single instruction
+
+316
+00:10:18,240 --> 00:10:21,360
+and see how the register has changed see
+
+317
+00:10:19,920 --> 00:10:23,360
+how the memory changes
+
+318
+00:10:21,360 --> 00:10:24,880
+and in so doing get a get more
+
+319
+00:10:23,360 --> 00:10:26,800
+comfortable with the assembly
+
+320
+00:10:24,880 --> 00:10:28,959
+and how it corresponds back to the C
+
+321
+00:10:26,800 --> 00:10:30,640
+programming language
+
+322
+00:10:28,959 --> 00:10:33,360
+and finally at the very end of this
+
+323
+00:10:30,640 --> 00:10:34,240
+class you'll be expected to complete an
+
+324
+00:10:33,360 --> 00:10:37,360
+exercise
+
+325
+00:10:34,240 --> 00:10:40,399
+on reading assembly on a completely
+
+326
+00:10:37,360 --> 00:10:41,680
+opaque binary blob called the binary
+
+327
+00:10:40,399 --> 00:10:44,000
+bomb lab
+
+328
+00:10:41,680 --> 00:10:45,839
+which expects certain inputs and you're
+
+329
+00:10:44,000 --> 00:10:46,160
+supposed to read the assembly and figure
+
+330
+00:10:45,839 --> 00:10:48,959
+out
+
+331
+00:10:46,160 --> 00:10:51,120
+what inputs is it actually expecting and
+
+332
+00:10:48,959 --> 00:10:51,680
+by doing this exercise you'll ultimately
+
+333
+00:10:51,120 --> 00:10:54,079
+get a
+
+334
+00:10:51,680 --> 00:10:54,959
+very good understanding of the assembly
+
+335
+00:10:54,079 --> 00:10:57,760
+language
+
+336
+00:10:54,959 --> 00:10:58,959
+this is a exercise which is used in many
+
+337
+00:10:57,760 --> 00:11:01,360
+undergrad
+
+338
+00:10:58,959 --> 00:11:03,040
+computer architecture classes and which
+
+339
+00:11:01,360 --> 00:11:05,680
+ultimately leads to a deep understanding
+
+340
+00:11:03,040 --> 00:11:05,680
+of assembly
+
+341
+00:11:06,160 --> 00:11:10,399
+all right now i'm going to go ahead and
+
+342
+00:11:08,560 --> 00:11:13,120
+peace out of these videos for
+
+343
+00:11:10,399 --> 00:11:14,800
+a while because it's particularly
+
+344
+00:11:13,120 --> 00:11:17,360
+annoying to have to keep
+
+345
+00:11:14,800 --> 00:11:18,000
+the virtual eye contact with the camera
+
+346
+00:11:17,360 --> 00:11:20,000
+while
+
+347
+00:11:18,000 --> 00:11:21,519
+resisting the urge to look down at my
+
+348
+00:11:20,000 --> 00:11:23,600
+notes but
+
+349
+00:11:21,519 --> 00:11:27,920
+i'll appear again later on when i need
+
+350
+00:11:23,600 --> 00:11:27,920
+to emphasize things in the class
+

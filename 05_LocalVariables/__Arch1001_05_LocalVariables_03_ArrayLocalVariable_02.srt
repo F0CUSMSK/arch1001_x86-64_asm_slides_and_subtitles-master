@@ -1,0 +1,544 @@
+0
+00:00:00,160 --> 00:00:03,199
+so if you were to go through that
+
+1
+00:00:01,439 --> 00:00:05,600
+example you should see something
+
+2
+00:00:03,199 --> 00:00:07,279
+sort of like this you should have 0xbabe
+
+3
+00:00:05,600 --> 00:00:10,480
+at the low order bytes you should have
+
+4
+00:00:07,279 --> 00:00:11,200
+bulb should you should have balboa bled
+
+5
+00:00:10,480 --> 00:00:14,000
+blood
+
+6
+00:00:11,200 --> 00:00:15,519
+right here and then you should have some
+
+7
+00:00:14,000 --> 00:00:18,240
+stuff that was the b
+
+8
+00:00:15,519 --> 00:00:19,920
+array about right here filling in the
+
+9
+00:00:18,240 --> 00:00:23,119
+sign extended babe
+
+10
+00:00:19,920 --> 00:00:23,680
+and the result of the addition that took
+
+11
+00:00:23,119 --> 00:00:25,439
+place
+
+12
+00:00:23,680 --> 00:00:26,480
+now this is kind of difficult to look at
+
+13
+00:00:25,439 --> 00:00:28,080
+and it's hard to see kind of
+
+14
+00:00:26,480 --> 00:00:30,560
+semantically what's going on
+
+15
+00:00:28,080 --> 00:00:31,760
+since we had that four-byte sized
+
+16
+00:00:30,560 --> 00:00:33,520
+integer array
+
+17
+00:00:31,760 --> 00:00:35,600
+it's probably easier to look at this
+
+18
+00:00:33,520 --> 00:00:36,719
+in four-byte alignment rather than eight
+
+19
+00:00:35,600 --> 00:00:38,960
+byte alignment
+
+20
+00:00:36,719 --> 00:00:40,079
+so if i draw a stack diagram for that
+
+21
+00:00:38,960 --> 00:00:42,960
+where instead i have
+
+22
+00:00:40,079 --> 00:00:44,399
+every four bytes of memory shown then it
+
+23
+00:00:42,960 --> 00:00:45,520
+makes a little bit more clear what's
+
+24
+00:00:44,399 --> 00:00:47,760
+going on
+
+25
+00:00:45,520 --> 00:00:49,120
+so at the bottom we have hex babe taking
+
+26
+00:00:47,760 --> 00:00:51,520
+up two bytes and then
+
+27
+00:00:49,120 --> 00:00:53,199
+two bytes that are undefined we have
+
+28
+00:00:51,520 --> 00:00:54,960
+some alignment padding
+
+29
+00:00:53,199 --> 00:00:56,960
+for reasons that I'll talk about a
+
+30
+00:00:54,960 --> 00:01:00,320
+little bit we have
+
+31
+00:00:56,960 --> 00:01:02,160
+balboa blade blood as c and then we can
+
+32
+00:01:00,320 --> 00:01:04,960
+see b of zero b of one b of two
+
+33
+00:01:02,160 --> 00:01:07,040
+etcetera up through b of five and then
+
+34
+00:01:04,960 --> 00:01:08,320
+some further alignment padding
+
+35
+00:01:07,040 --> 00:01:10,000
+so that makes it a little more clear
+
+36
+00:01:08,320 --> 00:01:11,200
+semantically what's going on but what's
+
+37
+00:01:10,000 --> 00:01:13,920
+interesting is that we
+
+38
+00:01:11,200 --> 00:01:14,799
+declared our local variables a, b, c but we
+
+39
+00:01:13,920 --> 00:01:18,159
+see that they
+
+40
+00:01:14,799 --> 00:01:22,320
+got rearranged by the compiler a padding
+
+41
+00:01:18,159 --> 00:01:23,439
+c b padding so the takeaway from array
+
+42
+00:01:22,320 --> 00:01:25,360
+local variable.c
+
+43
+00:01:23,439 --> 00:01:27,119
+is that local variables do not need to
+
+44
+00:01:25,360 --> 00:01:28,240
+be stored on the stack in the same order
+
+45
+00:01:27,119 --> 00:01:29,520
+they're defined in the high level
+
+46
+00:01:28,240 --> 00:01:31,439
+language
+
+47
+00:01:29,520 --> 00:01:33,119
+furthermore we can see that visual
+
+48
+00:01:31,439 --> 00:01:36,799
+studio likes to
+
+49
+00:01:33,119 --> 00:01:38,560
+take indices of arrays and use them with
+
+50
+00:01:36,799 --> 00:01:40,960
+the imul instruction in order to
+
+51
+00:01:38,560 --> 00:01:42,240
+multiply out and you know access an
+
+52
+00:01:40,960 --> 00:01:43,680
+element of an array
+
+53
+00:01:42,240 --> 00:01:45,840
+so we talked about before you know the
+
+54
+00:01:43,680 --> 00:01:47,840
+r/mX form can allow us to
+
+55
+00:01:45,840 --> 00:01:49,920
+you know skip past stuff and can be used
+
+56
+00:01:47,840 --> 00:01:50,960
+for array indexing but in this
+
+57
+00:01:49,920 --> 00:01:53,600
+particular case
+
+58
+00:01:50,960 --> 00:01:54,399
+it's using imul in order to
+
+59
+00:01:53,600 --> 00:01:56,560
+access the array
+
+60
+00:01:54,399 --> 00:01:58,079
+so in particular if we look at these two
+
+61
+00:01:56,560 --> 00:01:59,280
+instructions right here we can see that
+
+62
+00:01:58,079 --> 00:02:02,560
+the first thing is a
+
+63
+00:01:59,280 --> 00:02:02,960
+going into b of one and so moving four
+
+64
+00:02:02,560 --> 00:02:06,880
+into
+
+65
+00:02:02,960 --> 00:02:08,640
+eax and then taking four times one
+
+66
+00:02:06,880 --> 00:02:11,200
+that essentially looks like we're
+
+67
+00:02:08,640 --> 00:02:13,200
+accessing index 1 of the thing
+
+68
+00:02:11,200 --> 00:02:15,200
+later on we see a similar you know
+
+69
+00:02:13,200 --> 00:02:17,920
+mechanism you can see you know
+
+70
+00:02:15,200 --> 00:02:20,080
+4 into here 4 into 1 that's this access of
+
+71
+00:02:17,920 --> 00:02:23,599
+b of 1.
+
+72
+00:02:20,080 --> 00:02:26,400
+even further down then we see 4 into ecx
+
+73
+00:02:23,599 --> 00:02:27,599
+rcx times 4 that probably then is the
+
+74
+00:02:26,400 --> 00:02:30,480
+indexing of
+
+75
+00:02:27,599 --> 00:02:31,200
+element 4 of the array 4 for the size
+
+76
+00:02:30,480 --> 00:02:33,360
+and 4 for the index
+
+77
+00:02:31,200 --> 00:02:34,879
+right so we can kind of
+
+78
+00:02:33,360 --> 00:02:37,840
+see that this is the index
+
+79
+00:02:34,879 --> 00:02:39,360
+this is the size this is the index this
+
+80
+00:02:37,840 --> 00:02:40,959
+this the size
+
+81
+00:02:39,360 --> 00:02:42,879
+and through the magic of video editing
+
+82
+00:02:40,959 --> 00:02:43,680
+i'm going to correct this assembly right
+
+83
+00:02:42,879 --> 00:02:45,360
+here quick
+
+84
+00:02:43,680 --> 00:02:47,599
+okay and then the other interesting
+
+85
+00:02:45,360 --> 00:02:49,440
+takeaway here was first of all there was
+
+86
+00:02:47,599 --> 00:02:52,640
+you know you might have noticed that
+
+87
+00:02:49,440 --> 00:02:55,680
+even though we only said hex babe in the
+
+88
+00:02:52,640 --> 00:02:56,560
+source code the compiler decided to sign
+
+89
+00:02:55,680 --> 00:03:00,159
+extend that
+
+90
+00:02:56,560 --> 00:03:02,000
+into a constant an immediate of FFFFBABE
+
+91
+00:03:00,159 --> 00:03:03,920
+and put it into this 32-bit
+
+92
+00:03:02,000 --> 00:03:05,040
+register it's doing that because it you
+
+93
+00:03:03,920 --> 00:03:08,159
+know sees that a
+
+94
+00:03:05,040 --> 00:03:10,239
+is a signed short value so it puts it
+
+95
+00:03:08,159 --> 00:03:11,120
+into eax but then it's actually only
+
+96
+00:03:10,239 --> 00:03:14,080
+moving
+
+97
+00:03:11,120 --> 00:03:15,040
+ax the bottom two bytes so really just
+
+98
+00:03:14,080 --> 00:03:18,000
+hex babe
+
+99
+00:03:15,040 --> 00:03:18,879
+goes into rsp one word pointer size
+
+100
+00:03:18,000 --> 00:03:20,560
+thing so
+
+101
+00:03:18,879 --> 00:03:22,400
+only the two bytes are actually going to
+
+102
+00:03:20,560 --> 00:03:24,720
+change there
+
+103
+00:03:22,400 --> 00:03:26,319
+and so we saw that you know that rsp is
+
+104
+00:03:24,720 --> 00:03:28,720
+going to be the two bytes babe
+
+105
+00:03:26,319 --> 00:03:30,319
+later on it can pull that back out it's
+
+106
+00:03:28,720 --> 00:03:30,959
+going to read a word pointer the two
+
+107
+00:03:30,319 --> 00:03:33,360
+bytes
+
+108
+00:03:30,959 --> 00:03:34,000
+and it will sign extend it and again put
+
+109
+00:03:33,360 --> 00:03:36,720
+it into
+
+110
+00:03:34,000 --> 00:03:37,360
+a 32-bit value because that's then going
+
+111
+00:03:36,720 --> 00:03:40,480
+to be
+
+112
+00:03:37,360 --> 00:03:43,200
+used to store into a 32-bit
+
+113
+00:03:40,480 --> 00:03:44,400
+b of 1 storage location so sign
+
+114
+00:03:43,200 --> 00:03:46,959
+extension happening
+
+115
+00:03:44,400 --> 00:03:49,200
+when some smaller value gets moved in
+
+116
+00:03:46,959 --> 00:03:50,720
+that is signed gets moved into a larger
+
+117
+00:03:49,200 --> 00:03:53,360
+value that's signed
+
+118
+00:03:50,720 --> 00:03:55,360
+whereas instead 0 extension happening or
+
+119
+00:03:53,360 --> 00:03:58,080
+essentially truncation happening
+
+120
+00:03:55,360 --> 00:04:00,799
+when this b of 4 gets turned back down
+
+121
+00:03:58,080 --> 00:04:03,040
+from a 32-bit value into a 16-bit value
+
+122
+00:04:00,799 --> 00:04:04,319
+truncating it down to a short so we just
+
+123
+00:04:03,040 --> 00:04:06,239
+added the three new assembly
+
+124
+00:04:04,319 --> 00:04:08,560
+instructions imul, move with zero
+
+125
+00:04:06,239 --> 00:04:12,080
+extension and move with sign extension
+
+126
+00:04:08,560 --> 00:04:13,760
+so where are they on our pie well imul
+
+127
+00:04:12,080 --> 00:04:16,320
+is in others because it doesn't get its
+
+128
+00:04:13,760 --> 00:04:18,799
+own slice not common enough
+
+129
+00:04:16,320 --> 00:04:21,120
+but move with zero extension is right
+
+130
+00:04:18,799 --> 00:04:23,680
+here coming in at one percent
+
+131
+00:04:21,120 --> 00:04:25,440
+and move with sign extension not enough
+
+132
+00:04:23,680 --> 00:04:26,320
+at least in this particular compiled
+
+133
+00:04:25,440 --> 00:04:28,560
+version
+
+134
+00:04:26,320 --> 00:04:32,000
+so we picked up our first others and
+
+135
+00:04:28,560 --> 00:04:32,000
+there are many more to come
+

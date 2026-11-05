@@ -1,0 +1,712 @@
+0
+00:00:00,399 --> 00:00:04,720
+so they're small storage areas which are
+
+1
+00:00:03,040 --> 00:00:05,839
+built into the processor and which are
+
+2
+00:00:04,720 --> 00:00:09,120
+volatile memory
+
+3
+00:00:05,839 --> 00:00:11,920
+so in the case of intel x86-64 it has
+
+4
+00:00:09,120 --> 00:00:13,360
+16 general purpose registers and then
+
+5
+00:00:11,920 --> 00:00:15,200
+it's going to have the instruction
+
+6
+00:00:13,360 --> 00:00:16,480
+pointer which points at the next
+
+7
+00:00:15,200 --> 00:00:18,720
+assembly instruction which should
+
+8
+00:00:16,480 --> 00:00:20,560
+execute of these 16
+
+9
+00:00:18,720 --> 00:00:22,400
+quote unquote general purpose registers
+
+10
+00:00:20,560 --> 00:00:24,000
+two of them are not that general we'll
+
+11
+00:00:22,400 --> 00:00:26,800
+talk about that in a bit
+
+12
+00:00:24,000 --> 00:00:28,720
+so when you have 32-bit systems you
+
+13
+00:00:26,800 --> 00:00:30,000
+didn't have 16 you actually only had
+
+14
+00:00:28,720 --> 00:00:32,079
+eight plus the instruction
+
+15
+00:00:30,000 --> 00:00:34,079
+pointer and when they expanded it to
+
+16
+00:00:32,079 --> 00:00:35,280
+64-bit they upset the number of general
+
+17
+00:00:34,079 --> 00:00:37,200
+purpose registers
+
+18
+00:00:35,280 --> 00:00:38,559
+to allow compilers to have more
+
+19
+00:00:37,200 --> 00:00:40,879
+registers in which to
+
+20
+00:00:38,559 --> 00:00:42,719
+juggle values 32-bit systems the
+
+21
+00:00:40,879 --> 00:00:46,079
+registers are 32-bit wide
+
+22
+00:00:42,719 --> 00:00:47,680
+64-bit there are 64 bits wide
+
+23
+00:00:46,079 --> 00:00:49,360
+so i want to talk briefly about the
+
+24
+00:00:47,680 --> 00:00:51,039
+evolution of the register and to do that
+
+25
+00:00:49,360 --> 00:00:54,640
+i have to actually start back at the
+
+26
+00:00:51,039 --> 00:00:57,680
+intel 8 bit 80 08
+
+27
+00:00:54,640 --> 00:01:00,800
+rather than an x86 processor so this
+
+28
+00:00:57,680 --> 00:01:02,559
+in the beginning had an a register and
+
+29
+00:01:00,800 --> 00:01:04,000
+it was only eight bits wide
+
+30
+00:01:02,559 --> 00:01:05,920
+the reason i need to mention that is
+
+31
+00:01:04,000 --> 00:01:06,640
+because when they then moved to the
+
+32
+00:01:05,920 --> 00:01:09,680
+16-bit
+
+33
+00:01:06,640 --> 00:01:13,200
+8086 architecture then you had
+
+34
+00:01:09,680 --> 00:01:13,840
+ax which stood for a-extended so you had
+
+35
+00:01:13,200 --> 00:01:16,400
+ax
+
+36
+00:01:13,840 --> 00:01:19,119
+16 bit wide extended over the previous a
+
+37
+00:01:16,400 --> 00:01:21,280
+register and the 8086
+
+38
+00:01:19,119 --> 00:01:23,600
+and you still could access that ax
+
+39
+00:01:21,280 --> 00:01:24,320
+register one byte at a time with the
+
+40
+00:01:23,600 --> 00:01:27,680
+a low (al)
+
+41
+00:01:24,320 --> 00:01:29,960
+or the a high (ah) when they then further
+
+42
+00:01:27,680 --> 00:01:32,960
+extended that to the 32-bit
+
+43
+00:01:29,960 --> 00:01:37,040
+80386 you had
+
+44
+00:01:32,960 --> 00:01:38,799
+extended ax or extended a extended
+
+45
+00:01:37,040 --> 00:01:41,200
+and in the 32-bit architecture you could
+
+46
+00:01:38,799 --> 00:01:43,360
+have 32 bits at a time in eax
+
+47
+00:01:41,200 --> 00:01:44,399
+or you could still access the 16-bit
+
+48
+00:01:43,360 --> 00:01:46,399
+register ax
+
+49
+00:01:44,399 --> 00:01:48,240
+or the a-high or a-low the assembly
+
+50
+00:01:46,399 --> 00:01:51,040
+instructions could still access these
+
+51
+00:01:48,240 --> 00:01:51,040
+sub-registers
+
+52
+00:01:51,280 --> 00:01:57,040
+and when amd did their 64-bit extensions
+
+53
+00:01:54,560 --> 00:01:58,159
+in the opteron or later on in the intel
+
+54
+00:01:57,040 --> 00:02:01,600
+pentium 4.
+
+55
+00:01:58,159 --> 00:02:03,119
+they had rax was the extended 64-bit
+
+56
+00:02:01,600 --> 00:02:05,360
+version of eax
+
+57
+00:02:03,119 --> 00:02:06,799
+but they also introduced a new naming
+
+58
+00:02:05,360 --> 00:02:10,160
+scheme
+
+59
+00:02:06,799 --> 00:02:12,800
+so rax could also be called r0
+
+60
+00:02:10,160 --> 00:02:15,520
+and this is going to lead to the 16
+
+61
+00:02:12,800 --> 00:02:18,319
+registers being r0 through r15
+
+62
+00:02:15,520 --> 00:02:19,120
+so rax well you could think of it like r
+
+63
+00:02:18,319 --> 00:02:21,599
+stands for
+
+64
+00:02:19,120 --> 00:02:22,160
+really wide ax or you can just think of
+
+65
+00:02:21,599 --> 00:02:26,800
+it like
+
+66
+00:02:22,160 --> 00:02:28,800
+register ax register 0.
+
+67
+00:02:26,800 --> 00:02:30,720
+furthermore this new naming scheme
+
+68
+00:02:28,800 --> 00:02:32,560
+introduced the
+
+69
+00:02:30,720 --> 00:02:34,319
+sub values instead of calling the old
+
+70
+00:02:32,560 --> 00:02:37,760
+register eax
+
+71
+00:02:34,319 --> 00:02:39,360
+they could call it r0d word size because
+
+72
+00:02:37,760 --> 00:02:42,959
+remember intel called
+
+73
+00:02:39,360 --> 00:02:43,760
+a four byte value a double word or a 16
+
+74
+00:02:42,959 --> 00:02:47,360
+bit value
+
+75
+00:02:43,760 --> 00:02:49,440
+a word or a eight bit value a byte
+
+76
+00:02:47,360 --> 00:02:50,800
+so they introduced this naming scheme
+
+77
+00:02:49,440 --> 00:02:52,720
+it's going to end up being
+
+78
+00:02:50,800 --> 00:02:55,120
+a consistent naming scheme across all of
+
+79
+00:02:52,720 --> 00:02:58,480
+these 16 general purpose registers
+
+80
+00:02:55,120 --> 00:03:01,440
+so r0 through r15 for the 64-bit
+
+81
+00:02:58,480 --> 00:03:02,319
+version r0 through r15d for the
+
+82
+00:03:01,440 --> 00:03:05,360
+double word
+
+83
+00:03:02,319 --> 00:03:07,280
+and the word and the byte so
+
+84
+00:03:05,360 --> 00:03:10,159
+these are the general purpose registers
+
+85
+00:03:07,280 --> 00:03:13,280
+that we have in x86 64.
+
+86
+00:03:10,159 --> 00:03:15,519
+let's zoom in on them so in my diagram
+
+87
+00:03:13,280 --> 00:03:16,400
+the blue color is going to be the 64-bit
+
+88
+00:03:15,519 --> 00:03:20,000
+version the
+
+89
+00:03:16,400 --> 00:03:23,120
+green the 32-bit version and the yellow
+
+90
+00:03:20,000 --> 00:03:25,360
+the 16-bit version and even though i
+
+91
+00:03:23,120 --> 00:03:26,959
+list you know the 16-bit yellow color
+
+92
+00:03:25,360 --> 00:03:29,040
+for here it's really just saying in the
+
+93
+00:03:26,959 --> 00:03:31,680
+original 16-bit architecture you had ax
+
+94
+00:03:29,040 --> 00:03:34,599
+and you had a low and you had a high
+
+95
+00:03:31,680 --> 00:03:35,840
+and like i mentioned there was the r0
+
+96
+00:03:34,599 --> 00:03:38,560
+r1r2r3
+
+97
+00:03:35,840 --> 00:03:39,920
+naming convention and the word and byte
+
+98
+00:03:38,560 --> 00:03:43,440
+version of that
+
+99
+00:03:39,920 --> 00:03:46,560
+but the ordering of the original x86 had
+
+100
+00:03:43,440 --> 00:03:49,760
+sort of alphabetically named
+
+101
+00:03:46,560 --> 00:03:53,040
+register so ax bx cx
+
+102
+00:03:49,760 --> 00:03:53,280
+dx but it turns out that abcd is not 0 1
+
+103
+00:03:53,040 --> 00:03:56,400
+2
+
+104
+00:03:53,280 --> 00:03:57,840
+3 for historical reasons and
+
+105
+00:03:56,400 --> 00:03:59,680
+instruction encoding reasons that we're
+
+106
+00:03:57,840 --> 00:04:01,680
+not going to get into it
+
+107
+00:03:59,680 --> 00:04:02,720
+so what it really comes down to though
+
+108
+00:04:01,680 --> 00:04:05,439
+is that these
+
+109
+00:04:02,720 --> 00:04:07,120
+these names rax or r0 these are
+
+110
+00:04:05,439 --> 00:04:09,040
+mnemonics for the particular register
+
+111
+00:04:07,120 --> 00:04:10,720
+and it actually ends up being
+
+112
+00:04:09,040 --> 00:04:12,319
+up to the particular disassembler for
+
+113
+00:04:10,720 --> 00:04:14,720
+whether it's going to call a register
+
+114
+00:04:12,319 --> 00:04:16,639
+rax or whether it's going to call it r0
+
+115
+00:04:14,720 --> 00:04:18,320
+and most of the time because it's easier
+
+116
+00:04:16,639 --> 00:04:19,919
+for folks who you know knew previous
+
+117
+00:04:18,320 --> 00:04:23,040
+architectures to know the
+
+118
+00:04:19,919 --> 00:04:25,120
+abcd most of the time disassemblers will
+
+119
+00:04:23,040 --> 00:04:26,560
+name these alphabetical registers in
+
+120
+00:04:25,120 --> 00:04:30,160
+their alphabetical form
+
+121
+00:04:26,560 --> 00:04:33,520
+so you won't actually see r0 r0d etc
+
+122
+00:04:30,160 --> 00:04:36,000
+used that much in disassemblers
+
+123
+00:04:33,520 --> 00:04:37,199
+so these are the the first four values
+
+124
+00:04:36,000 --> 00:04:40,080
+of registers
+
+125
+00:04:37,199 --> 00:04:41,759
+then we have the next four these are the
+
+126
+00:04:40,080 --> 00:04:43,600
+not quite generic generic general
+
+127
+00:04:41,759 --> 00:04:46,639
+purpose registers rsp
+
+128
+00:04:43,600 --> 00:04:49,040
+used for stack pointer rbp used for
+
+129
+00:04:46,639 --> 00:04:50,080
+base frame of a stack pointer talk about
+
+130
+00:04:49,040 --> 00:04:52,639
+it in a little bit
+
+131
+00:04:50,080 --> 00:04:53,199
+rsi for string operations the source
+
+132
+00:04:52,639 --> 00:04:54,960
+index
+
+133
+00:04:53,199 --> 00:04:56,240
+rdi for string operations the
+
+134
+00:04:54,960 --> 00:04:57,759
+destination index
+
+135
+00:04:56,240 --> 00:04:59,440
+but again their general purpose and the
+
+136
+00:04:57,759 --> 00:05:00,800
+compiler can really use them
+
+137
+00:04:59,440 --> 00:05:02,639
+any way that it wants these are just
+
+138
+00:05:00,800 --> 00:05:05,120
+sort of you know naming conventions that
+
+139
+00:05:02,639 --> 00:05:06,960
+have to do with usage conventions
+
+140
+00:05:05,120 --> 00:05:08,639
+now the thing i would point out here is
+
+141
+00:05:06,960 --> 00:05:10,479
+that rsp
+
+142
+00:05:08,639 --> 00:05:12,400
+is an extended version of esp is an
+
+143
+00:05:10,479 --> 00:05:14,240
+extended version of sp which existed
+
+144
+00:05:12,400 --> 00:05:16,960
+back in the 16-bit world
+
+145
+00:05:14,240 --> 00:05:19,199
+but there wasn't actually a way to
+
+146
+00:05:16,960 --> 00:05:22,160
+access just the least significant
+
+147
+00:05:19,199 --> 00:05:23,840
+byte of sp that was something that amd
+
+148
+00:05:22,160 --> 00:05:24,720
+introduced when they did their 16-bit
+
+149
+00:05:23,840 --> 00:05:26,240
+extensions
+
+150
+00:05:24,720 --> 00:05:27,680
+and they did that again so that they
+
+151
+00:05:26,240 --> 00:05:28,560
+could have a consistent naming
+
+152
+00:05:27,680 --> 00:05:30,560
+convention
+
+153
+00:05:28,560 --> 00:05:32,000
+and when we get into the extra registers
+
+154
+00:05:30,560 --> 00:05:33,600
+that they added
+
+155
+00:05:32,000 --> 00:05:36,639
+then they want to be able to access you
+
+156
+00:05:33,600 --> 00:05:41,360
+know byte 2 byte 4 byte
+
+157
+00:05:36,639 --> 00:05:41,360
+8 byte versions of these registers
+
+158
+00:05:41,600 --> 00:05:45,120
+so here is that uh instruction pointer
+
+159
+00:05:43,840 --> 00:05:47,199
+register it was originally
+
+160
+00:05:45,120 --> 00:05:48,320
+instruction pointer and 16 bit extended
+
+161
+00:05:47,199 --> 00:05:50,800
+instruction pointer
+
+162
+00:05:48,320 --> 00:05:52,240
+and really extended instruction pointer
+
+163
+00:05:50,800 --> 00:05:54,560
+in 64-bit
+
+164
+00:05:52,240 --> 00:05:56,880
+but then now we see these extra general
+
+165
+00:05:54,560 --> 00:06:00,160
+purpose registers which were introduced
+
+166
+00:05:56,880 --> 00:06:03,039
+in the 64-bit extension so if this was
+
+167
+00:06:00,160 --> 00:06:05,039
+r0 through r7 down there then we have r8
+
+168
+00:06:03,039 --> 00:06:06,720
+through r15 over here
+
+169
+00:06:05,039 --> 00:06:08,240
+and like i said they want to have a
+
+170
+00:06:06,720 --> 00:06:11,360
+consistent naming view
+
+171
+00:06:08,240 --> 00:06:12,400
+and so they have r8 byte r8 word r8
+
+172
+00:06:11,360 --> 00:06:15,600
+double word and
+
+173
+00:06:12,400 --> 00:06:18,800
+r8 all the way down through the
+
+174
+00:06:15,600 --> 00:06:21,280
+64 bit uh sorry through the r15 as well
+
+175
+00:06:18,800 --> 00:06:21,919
+so here you go we've got the general
+
+176
+00:06:21,280 --> 00:06:25,680
+versions
+
+177
+00:06:21,919 --> 00:06:25,680
+of r8 through r15
+

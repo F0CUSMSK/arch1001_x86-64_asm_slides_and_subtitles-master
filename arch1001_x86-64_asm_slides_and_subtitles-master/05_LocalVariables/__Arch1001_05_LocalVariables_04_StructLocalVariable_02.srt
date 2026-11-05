@@ -1,0 +1,120 @@
+1
+00:00:00,240 --> 00:00:04,240
+okay so if you chose to do that in the
+
+2
+00:00:02,320 --> 00:00:06,319
+four byte granularity that we ultimately
+
+3
+00:00:04,240 --> 00:00:08,400
+used for the local variables last time
+
+4
+00:00:06,319 --> 00:00:11,280
+you'd see something like this
+
+5
+00:00:08,400 --> 00:00:12,240
+a being 0xbabe the two bytes here but
+
+6
+00:00:11,280 --> 00:00:15,440
+there's an extra
+
+7
+00:00:12,240 --> 00:00:16,720
+two bytes of padding beyond it then we
+
+8
+00:00:15,440 --> 00:00:19,680
+have b
+
+9
+00:00:16,720 --> 00:00:20,160
+0 through 5 and a little bit of padding
+
+10
+00:00:19,680 --> 00:00:22,800
+and then
+
+11
+00:00:20,160 --> 00:00:24,240
+c and some padding so this is slightly
+
+12
+00:00:22,800 --> 00:00:27,359
+different before we add a
+
+13
+00:00:24,240 --> 00:00:28,000
+c b this time we have a b c so what this
+
+14
+00:00:27,359 --> 00:00:30,000
+implies
+
+15
+00:00:28,000 --> 00:00:32,399
+is that we should expect that the
+
+16
+00:00:30,000 --> 00:00:34,079
+variables the elements of a struct are
+
+17
+00:00:32,399 --> 00:00:36,079
+going to be in the same order that
+
+18
+00:00:34,079 --> 00:00:38,160
+they're declared a b c
+
+19
+00:00:36,079 --> 00:00:39,520
+upside down from the declaration order
+
+20
+00:00:38,160 --> 00:00:41,360
+but in that particular example
+
+21
+00:00:39,520 --> 00:00:42,640
+we actually have a little bonus
+
+22
+00:00:41,360 --> 00:00:45,280
+challenge for you
+
+23
+00:00:42,640 --> 00:00:46,480
+so go ahead and stop and there's some
+
+24
+00:00:45,280 --> 00:00:49,520
+pragmas
+
+25
+00:00:46,480 --> 00:00:51,600
+around the struct pragma pack one let's
+
+26
+00:00:49,520 --> 00:00:53,600
+see what the effect of these pragmas are
+
+27
+00:00:51,600 --> 00:00:55,280
+on the stack diagram so go ahead and
+
+28
+00:00:53,600 --> 00:00:58,160
+uncomment the pragmas
+
+29
+00:00:55,280 --> 00:01:04,719
+and draw the new stack diagram with the
+
+30
+00:00:58,160 --> 00:01:04,719
+change to the stack
+

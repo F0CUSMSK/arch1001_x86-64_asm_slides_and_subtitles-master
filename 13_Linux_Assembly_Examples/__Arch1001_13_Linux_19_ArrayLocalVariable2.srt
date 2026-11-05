@@ -1,0 +1,452 @@
+1
+00:00:00,080 --> 00:00:03,679
+our next example is ArrayLocalVariable
+
+2
+00:00:02,720 --> 00:00:05,920
+2.
+
+3
+00:00:03,679 --> 00:00:08,240
+that was originally there to introduce
+
+4
+00:00:05,920 --> 00:00:10,880
+you to rep stos
+
+5
+00:00:08,240 --> 00:00:12,080
+the repeated store to strings so we have
+
+6
+00:00:10,880 --> 00:00:14,960
+a single local variable
+
+7
+00:00:12,080 --> 00:00:17,119
+a which is an int we have an array of
+
+8
+00:00:14,960 --> 00:00:20,560
+shorts which is 64 long
+
+9
+00:00:17,119 --> 00:00:22,720
+64 is 0x40 times 2
+
+10
+00:00:20,560 --> 00:00:24,720
+is 0x80 so the total size of this
+
+11
+00:00:22,720 --> 00:00:26,480
+array should be 0x80 and the fact that
+
+12
+00:00:24,720 --> 00:00:28,080
+we're zero initializing it
+
+13
+00:00:26,480 --> 00:00:29,679
+is what's going to lead to the rep
+
+14
+00:00:28,080 --> 00:00:30,000
+stos to zero initialize
+
+15
+00:00:29,679 --> 00:00:33,120
+everything
+
+16
+00:00:30,000 --> 00:00:35,520
+inside of there a gets 0x5eaf00d and
+
+17
+00:00:33,120 --> 00:00:36,880
+a is then truncated down to a short size
+
+18
+00:00:35,520 --> 00:00:38,879
+so just 0xf00d
+
+19
+00:00:36,880 --> 00:00:40,000
+goes into b of 1 before b of 1 is
+
+20
+00:00:38,879 --> 00:00:43,040
+returned
+
+21
+00:00:40,000 --> 00:00:46,000
+so let's compile it
+
+22
+00:00:43,040 --> 00:00:46,879
+and debug it so what do we see here we
+
+23
+00:00:46,000 --> 00:00:49,520
+see
+
+24
+00:00:46,879 --> 00:00:51,440
+typical function prolog allocation of 18
+
+25
+00:00:49,520 --> 00:00:55,039
+bytes on the stack
+
+26
+00:00:51,440 --> 00:00:56,960
+lea of rbp minus 90. so that gives us a
+
+27
+00:00:55,039 --> 00:01:00,640
+sense of given that the array is
+
+28
+00:00:56,960 --> 00:01:02,559
+0x80 big 0x90 is probably somewhere down
+
+29
+00:01:00,640 --> 00:01:04,479
+where the array starts out that's being
+
+30
+00:01:02,559 --> 00:01:06,000
+moved into rdx
+
+31
+00:01:04,479 --> 00:01:07,840
+and then we have what looks like
+
+32
+00:01:06,000 --> 00:01:09,680
+initialization of the required
+
+33
+00:01:07,840 --> 00:01:12,400
+parameters for the rep stos
+
+34
+00:01:09,680 --> 00:01:14,000
+eax is the value to write ecx is the
+
+35
+00:01:12,400 --> 00:01:16,799
+number of times to write
+
+36
+00:01:14,000 --> 00:01:19,520
+and rdi is the destination so the fact
+
+37
+00:01:16,799 --> 00:01:22,320
+that we are only writing 10 times
+
+38
+00:01:19,520 --> 00:01:23,119
+tells us that we are probably writing
+
+39
+00:01:22,320 --> 00:01:26,720
+0x8
+
+40
+00:01:23,119 --> 00:01:28,640
+bytes at a time 8 times 10 80
+
+41
+00:01:26,720 --> 00:01:30,159
+into this value and so that's
+
+42
+00:01:28,640 --> 00:01:32,079
+represented in this AT&T
+
+43
+00:01:30,159 --> 00:01:33,840
+syntax here instead of saying a byte
+
+44
+00:01:32,079 --> 00:01:34,799
+pointer instead of saying you know
+
+45
+00:01:33,840 --> 00:01:38,000
+qword pointer
+
+46
+00:01:34,799 --> 00:01:40,079
+it's saying repeat store to string rax
+
+47
+00:01:38,000 --> 00:01:43,280
+that's the 8 byte register
+
+48
+00:01:40,079 --> 00:01:46,560
+to the memory pointed to by rdi let's go
+
+49
+00:01:43,280 --> 00:01:46,560
+ahead and step through this
+
+50
+00:01:47,439 --> 00:01:51,680
+set up the function prolog allocate some
+
+51
+00:01:50,399 --> 00:01:55,119
+space on the stack
+
+52
+00:01:51,680 --> 00:01:57,520
+0x18 and then set up our
+
+53
+00:01:55,119 --> 00:02:00,159
+get the pointer to the very base of this
+
+54
+00:01:57,520 --> 00:02:03,360
+array that we're expecting to initialize
+
+55
+00:02:00,159 --> 00:02:04,079
+and then we continue over this and now
+
+56
+00:02:03,360 --> 00:02:08,080
+we will see
+
+57
+00:02:04,079 --> 00:02:09,759
+rcx which was sex set to 0x10
+
+58
+00:02:08,080 --> 00:02:11,280
+is going to be decremented each time
+
+59
+00:02:09,759 --> 00:02:13,840
+through the loop and so
+
+60
+00:02:11,280 --> 00:02:14,720
+you notice I use the ni the next
+
+61
+00:02:13,840 --> 00:02:16,239
+instruction
+
+62
+00:02:14,720 --> 00:02:18,480
+it's not going to step over this again
+
+63
+00:02:16,239 --> 00:02:20,400
+that only used for stepping over
+
+64
+00:02:18,480 --> 00:02:22,000
+call instructions so it's going to loop
+
+65
+00:02:20,400 --> 00:02:25,520
+loop loop and it's going to do this
+
+66
+00:02:22,000 --> 00:02:28,080
+10 times 0x10 times so 16 times
+
+67
+00:02:25,520 --> 00:02:28,720
+so now that the array is initialized
+
+68
+00:02:28,080 --> 00:02:31,599
+0x5eaf00d
+
+69
+00:02:28,720 --> 00:02:33,599
+goes into rbp minus 4 so that's going to
+
+70
+00:02:31,599 --> 00:02:35,920
+be the a variable
+
+71
+00:02:33,599 --> 00:02:37,040
+and there we go we see 0x5eaf00d right
+
+72
+00:02:35,920 --> 00:02:39,120
+there
+
+73
+00:02:37,040 --> 00:02:40,720
+and then that's going to be pulled out
+
+74
+00:02:39,120 --> 00:02:43,200
+put into eax
+
+75
+00:02:40,720 --> 00:02:45,519
+and then because it was cast down to a
+
+76
+00:02:43,200 --> 00:02:46,560
+short it's going to use only the ax
+
+77
+00:02:45,519 --> 00:02:49,680
+16-bit register
+
+78
+00:02:46,560 --> 00:02:52,160
+and put it into rbp minus 0x8e
+
+79
+00:02:49,680 --> 00:02:52,800
+so this suggests that minus 0x8e is
+
+80
+00:02:52,160 --> 00:02:56,080
+where b
+
+81
+00:02:52,800 --> 00:02:58,239
+of 1 is and minus 0x90 would be
+
+82
+00:02:56,080 --> 00:03:00,319
+where b of 0 was
+
+83
+00:02:58,239 --> 00:03:01,519
+so step over that and then the last
+
+84
+00:03:00,319 --> 00:03:04,080
+thing it does is
+
+85
+00:03:01,519 --> 00:03:04,879
+because b of one is returned although
+
+86
+00:03:04,080 --> 00:03:08,400
+the return
+
+87
+00:03:04,879 --> 00:03:10,640
+type is set to short in main the
+
+88
+00:03:08,400 --> 00:03:12,319
+return register in order to make sure
+
+89
+00:03:10,640 --> 00:03:14,400
+that the return register eax doesn't
+
+90
+00:03:12,319 --> 00:03:16,640
+have you know garbage in the upper bits
+
+91
+00:03:14,400 --> 00:03:19,040
+it's going to mov with zero extension
+
+92
+00:03:16,640 --> 00:03:21,280
+from a word which is 16 bits
+
+93
+00:03:19,040 --> 00:03:23,840
+to a long which is 32 bits to make sure
+
+94
+00:03:21,280 --> 00:03:26,879
+that it clears out the upper bits of eax
+
+95
+00:03:23,840 --> 00:03:30,000
+there you go you get 0xf00d in eax
+
+96
+00:03:26,879 --> 00:03:31,040
+rax and then you just leave and exit out
+
+97
+00:03:30,000 --> 00:03:33,360
+of the function
+
+98
+00:03:31,040 --> 00:03:34,159
+so for to look at what that looks like
+
+99
+00:03:33,360 --> 00:03:36,400
+on the stack
+
+100
+00:03:34,159 --> 00:03:37,760
+it looks like this got the return
+
+101
+00:03:36,400 --> 00:03:40,720
+address out of main
+
+102
+00:03:37,760 --> 00:03:41,519
+saved rbp at the beginning and then
+
+103
+00:03:40,720 --> 00:03:45,040
+0x5eaf00d in
+
+104
+00:03:41,519 --> 00:03:48,480
+a right at rbp minus 4 some padding
+
+105
+00:03:45,040 --> 00:03:51,200
+and then at rbp minus 0x90 we have b
+
+106
+00:03:48,480 --> 00:03:52,799
+of 0 b of 1 got filled in with 0xf00d
+
+107
+00:03:51,200 --> 00:03:54,720
+and the rest of this is all zero
+
+108
+00:03:52,799 --> 00:03:57,120
+initialized what's interesting here kind
+
+109
+00:03:54,720 --> 00:03:59,200
+of is that that whole allocation of 18
+
+110
+00:03:57,120 --> 00:04:00,799
+for rsp means that rsp is
+
+111
+00:03:59,200 --> 00:04:02,560
+kind of pointing at the end of this but
+
+112
+00:04:00,799 --> 00:04:05,040
+the majority of it is down in the red
+
+113
+00:04:02,560 --> 00:04:05,040
+zone
+

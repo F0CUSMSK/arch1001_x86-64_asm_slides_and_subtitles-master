@@ -1,0 +1,2768 @@
+1
+00:00:00,000 --> 00:00:04,240
+now let's see some more examples of
+
+2
+00:00:02,159 --> 00:00:06,080
+local variable usage which will actually
+
+3
+00:00:04,240 --> 00:00:07,520
+cause new assembly instructions to
+
+4
+00:00:06,080 --> 00:00:09,920
+appear so
+
+5
+00:00:07,520 --> 00:00:11,679
+in this thing array local variable we've
+
+6
+00:00:09,920 --> 00:00:15,200
+got three variables we've got
+
+7
+00:00:11,679 --> 00:00:17,199
+short a we've got an integer array b
+
+8
+00:00:15,200 --> 00:00:18,640
+which is six integers long and we've got
+
+9
+00:00:17,199 --> 00:00:20,080
+a long long c
+
+10
+00:00:18,640 --> 00:00:22,000
+and so we initialize some of these
+
+11
+00:00:20,080 --> 00:00:22,560
+variables and you know as i'm talking to
+
+12
+00:00:22,000 --> 00:00:26,080
+my wife
+
+13
+00:00:22,560 --> 00:00:28,480
+in hex as I often do I say hey babe
+
+14
+00:00:26,080 --> 00:00:29,359
+you know balboa bled blood and she's
+
+15
+00:00:28,480 --> 00:00:32,719
+like true
+
+16
+00:00:29,359 --> 00:00:33,200
+true and so we go ahead and allocate
+
+17
+00:00:32,719 --> 00:00:36,559
+these
+
+18
+00:00:33,200 --> 00:00:38,879
+we take a and we stick it into b of one
+
+19
+00:00:36,559 --> 00:00:40,480
+we take b of one and we add it to c put
+
+20
+00:00:38,879 --> 00:00:43,360
+it into b of four and we return
+
+21
+00:00:40,480 --> 00:00:44,559
+b of four as short this is the assembly
+
+22
+00:00:43,360 --> 00:00:46,239
+that gets generated
+
+23
+00:00:44,559 --> 00:00:48,239
+and we've got three new assembly
+
+24
+00:00:46,239 --> 00:00:49,920
+instructions imul
+
+25
+00:00:48,239 --> 00:00:51,520
+which is multiplication sign
+
+26
+00:00:49,920 --> 00:00:55,039
+multiplication movsx
+
+27
+00:00:51,520 --> 00:00:56,640
+which is signed extend which is move
+
+28
+00:00:55,039 --> 00:00:59,280
+with sine extension
+
+29
+00:00:56,640 --> 00:01:00,640
+and movzx which is move with zero
+
+30
+00:00:59,280 --> 00:01:02,879
+extension
+
+31
+00:01:00,640 --> 00:01:04,400
+all right the first one imul or
+
+32
+00:01:02,879 --> 00:01:06,240
+signed multiply
+
+33
+00:01:04,400 --> 00:01:08,320
+the first thing to know is that visual
+
+34
+00:01:06,240 --> 00:01:10,799
+studio seems to really like
+
+35
+00:01:08,320 --> 00:01:11,439
+signed multiply over unsigned multiply
+
+36
+00:01:10,799 --> 00:01:14,400
+which is just
+
+37
+00:01:11,439 --> 00:01:15,520
+mul and so that's kind of just a visual
+
+38
+00:01:14,400 --> 00:01:18,240
+studioism
+
+39
+00:01:15,520 --> 00:01:18,960
+when you try to create a multiply even
+
+40
+00:01:18,240 --> 00:01:21,439
+if you're using
+
+41
+00:01:18,960 --> 00:01:23,040
+all unsigned values it'll still prefer
+
+42
+00:01:21,439 --> 00:01:24,720
+imul all over mul
+
+43
+00:01:23,040 --> 00:01:26,400
+this is actually a way that you can kind
+
+44
+00:01:24,720 --> 00:01:28,320
+of infer that
+
+45
+00:01:26,400 --> 00:01:30,159
+code was generated with this particular
+
+46
+00:01:28,320 --> 00:01:32,640
+compiler for instance
+
+47
+00:01:30,159 --> 00:01:34,720
+now there are three forms of imul the
+
+48
+00:01:32,640 --> 00:01:36,799
+first one takes a single operand
+
+49
+00:01:34,720 --> 00:01:38,079
+the second one takes two operands and
+
+50
+00:01:36,799 --> 00:01:40,320
+the third one takes
+
+51
+00:01:38,079 --> 00:01:41,360
+three operands and it's the first one
+
+52
+00:01:40,320 --> 00:01:43,759
+that's actually a little bit
+
+53
+00:01:41,360 --> 00:01:45,200
+complicated because the fact that it has
+
+54
+00:01:43,759 --> 00:01:47,759
+a single operand it's not just
+
+55
+00:01:45,200 --> 00:01:50,000
+multiplying that register by itself
+
+56
+00:01:47,759 --> 00:01:51,119
+instead there's a variety of forms which
+
+57
+00:01:50,000 --> 00:01:54,320
+implicitly take
+
+58
+00:01:51,119 --> 00:01:57,840
+different sizes of rax and rdx or
+
+59
+00:01:54,320 --> 00:01:59,119
+eax and edx etc so there's like this
+
+60
+00:01:57,840 --> 00:02:00,240
+implicit thing where you just kind of
+
+61
+00:01:59,119 --> 00:02:02,240
+have to memorize
+
+62
+00:02:00,240 --> 00:02:03,439
+which registers are used implicitly
+
+63
+00:02:02,240 --> 00:02:04,719
+based on the size
+
+64
+00:02:03,439 --> 00:02:06,719
+and we'll see a little bit more about
+
+65
+00:02:04,719 --> 00:02:08,959
+that in a second the two and the three
+
+66
+00:02:06,719 --> 00:02:10,319
+operand ones behave a little more as
+
+67
+00:02:08,959 --> 00:02:12,080
+you would expect so
+
+68
+00:02:10,319 --> 00:02:13,360
+for instance this one takes the register
+
+69
+00:02:12,080 --> 00:02:15,680
+multiplies it by this
+
+70
+00:02:13,360 --> 00:02:16,480
+and stores it back into there this one
+
+71
+00:02:15,680 --> 00:02:19,280
+takes this
+
+72
+00:02:16,480 --> 00:02:20,239
+register memory location stores
+
+73
+00:02:19,280 --> 00:02:21,840
+multiplies it by
+
+74
+00:02:20,239 --> 00:02:23,840
+the immediate and stores it back into
+
+75
+00:02:21,840 --> 00:02:26,319
+this so it's the typical sort of
+
+76
+00:02:23,840 --> 00:02:28,080
+you know source and destination and
+
+77
+00:02:26,319 --> 00:02:30,239
+source from this operand
+
+78
+00:02:28,080 --> 00:02:31,760
+but that said the fact that this can
+
+79
+00:02:30,239 --> 00:02:33,840
+actually take three operands
+
+80
+00:02:31,760 --> 00:02:35,760
+is seemingly unique amongst what we
+
+81
+00:02:33,840 --> 00:02:37,280
+might consider the basic assembly
+
+82
+00:02:35,760 --> 00:02:40,560
+instruction set not the
+
+83
+00:02:37,280 --> 00:02:43,040
+sort of add-on set like mmx avx etc
+
+84
+00:02:40,560 --> 00:02:44,239
+but amongst very simple basic assembly
+
+85
+00:02:43,040 --> 00:02:45,760
+instructions
+
+86
+00:02:44,239 --> 00:02:47,360
+this is the only one that i know of that
+
+87
+00:02:45,760 --> 00:02:49,200
+actually takes three operands
+
+88
+00:02:47,360 --> 00:02:50,800
+now in previous versions of the class i
+
+89
+00:02:49,200 --> 00:02:53,440
+kind of left it at that and then i
+
+90
+00:02:50,800 --> 00:02:55,280
+moved on to some examples now in
+
+91
+00:02:53,440 --> 00:02:56,720
+previous versions of the class i would
+
+92
+00:02:55,280 --> 00:02:58,560
+just sort of leave it at that those
+
+93
+00:02:56,720 --> 00:02:59,840
+three example forms that i showed on the
+
+94
+00:02:58,560 --> 00:03:02,239
+previous slide
+
+95
+00:02:59,840 --> 00:03:03,599
+but because i want to sort of test you
+
+96
+00:03:02,239 --> 00:03:06,000
+rigorously later on
+
+97
+00:03:03,599 --> 00:03:07,680
+using our darkmathemagic games i'm
+
+98
+00:03:06,000 --> 00:03:09,360
+going to go ahead and show you all the
+
+99
+00:03:07,680 --> 00:03:11,360
+possible forms just so that you can have
+
+100
+00:03:09,360 --> 00:03:13,120
+them on the slides without having had to
+
+101
+00:03:11,360 --> 00:03:14,560
+go all the way into the manual because
+
+102
+00:03:13,120 --> 00:03:16,239
+we don't learn about
+
+103
+00:03:14,560 --> 00:03:18,159
+looking things up in the manual until
+
+104
+00:03:16,239 --> 00:03:19,760
+quite late in the class so i'll show you
+
+105
+00:03:18,159 --> 00:03:22,239
+all the different forms which you know
+
+106
+00:03:19,760 --> 00:03:24,159
+could be grouped into five groups or
+
+107
+00:03:22,239 --> 00:03:25,680
+three groups it kind of just depends on
+
+108
+00:03:24,159 --> 00:03:27,360
+how you decide to break it up i'm going
+
+109
+00:03:25,680 --> 00:03:27,760
+to put it into five groups just so that
+
+110
+00:03:27,360 --> 00:03:30,560
+i have
+
+111
+00:03:27,760 --> 00:03:31,280
+more space on slots now this first group
+
+112
+00:03:30,560 --> 00:03:33,440
+are the
+
+113
+00:03:31,280 --> 00:03:34,799
+versions that have a single operand and
+
+114
+00:03:33,440 --> 00:03:35,120
+these are the ones where i said they
+
+115
+00:03:34,799 --> 00:03:38,400
+have
+
+116
+00:03:35,120 --> 00:03:41,519
+implicit usage of eax al
+
+117
+00:03:38,400 --> 00:03:44,239
+rax etc so what you'll actually see is
+
+118
+00:03:41,519 --> 00:03:44,720
+imol and then an rm8 so that's going to
+
+119
+00:03:44,239 --> 00:03:47,840
+be an
+
+120
+00:03:44,720 --> 00:03:50,080
+8-bit register or a 8-bit
+
+121
+00:03:47,840 --> 00:03:52,000
+a value calculated from memory that'll
+
+122
+00:03:50,080 --> 00:03:52,959
+only be plugging 8-bits out of that
+
+123
+00:03:52,000 --> 00:03:56,319
+memory location
+
+124
+00:03:52,959 --> 00:03:58,480
+now implicitly if you ever see a 8-bit
+
+125
+00:03:56,319 --> 00:04:00,400
+sized imul or you know 8-bit
+
+126
+00:03:58,480 --> 00:04:02,239
+register being used in the imul
+
+127
+00:04:00,400 --> 00:04:04,959
+what's happening is it will implicitly
+
+128
+00:04:02,239 --> 00:04:08,480
+use al the least significant byte
+
+129
+00:04:04,959 --> 00:04:09,280
+of the rax register and multiply it by
+
+130
+00:04:08,480 --> 00:04:12,239
+that
+
+131
+00:04:09,280 --> 00:04:13,599
+eight bit register or eight bit value
+
+132
+00:04:12,239 --> 00:04:15,760
+that came out of memory
+
+133
+00:04:13,599 --> 00:04:16,799
+and then it'll store it back into the ax
+
+134
+00:04:15,760 --> 00:04:19,359
+register so
+
+135
+00:04:16,799 --> 00:04:21,919
+ax is 16 bits this is eight so eight
+
+136
+00:04:19,359 --> 00:04:25,120
+times eight going into a 16 bit register
+
+137
+00:04:21,919 --> 00:04:26,800
+there's no sort of danger of truncation
+
+138
+00:04:25,120 --> 00:04:28,080
+or anything like that because you've got
+
+139
+00:04:26,800 --> 00:04:29,759
+something that's twice the size
+
+140
+00:04:28,080 --> 00:04:31,840
+of the two things being multiplied and
+
+141
+00:04:29,759 --> 00:04:32,880
+then the same basic structure continues
+
+142
+00:04:31,840 --> 00:04:33,759
+for the rest of the assembly
+
+143
+00:04:32,880 --> 00:04:36,240
+instructions
+
+144
+00:04:33,759 --> 00:04:38,720
+if it's a 16 bit value you take the 16
+
+145
+00:04:36,240 --> 00:04:40,080
+bit least significant 16 bits of the rax
+
+146
+00:04:38,720 --> 00:04:42,479
+register ax
+
+147
+00:04:40,080 --> 00:04:45,040
+times the 16 bit value and you store it
+
+148
+00:04:42,479 --> 00:04:47,840
+into this 32 bit value the concatenation
+
+149
+00:04:45,040 --> 00:04:50,639
+of dx for the most significant 16 bits
+
+150
+00:04:47,840 --> 00:04:51,840
+and ax for the least significant 16 bits
+
+151
+00:04:50,639 --> 00:04:54,720
+32-bit form
+
+152
+00:04:51,840 --> 00:04:56,880
+takes 32-bit register times 32-bit value
+
+153
+00:04:54,720 --> 00:04:59,759
+stores it into a 64-bit
+
+154
+00:04:56,880 --> 00:05:01,280
+output which is the concatenation of edx
+
+155
+00:04:59,759 --> 00:05:04,080
+for the most significant bytes
+
+156
+00:05:01,280 --> 00:05:06,759
+and eax really significant and again
+
+157
+00:05:04,080 --> 00:05:07,919
+same thing 64-bit times 64-bit into
+
+158
+00:05:06,759 --> 00:05:10,000
+128-bit
+
+159
+00:05:07,919 --> 00:05:11,440
+output then there are the two operand
+
+160
+00:05:10,000 --> 00:05:14,960
+values but here
+
+161
+00:05:11,440 --> 00:05:17,759
+the form is 16-bit value times 16-bit
+
+162
+00:05:14,960 --> 00:05:19,840
+value stored back into 16-bit value
+
+163
+00:05:17,759 --> 00:05:22,080
+and so that obviously can potentially
+
+164
+00:05:19,840 --> 00:05:23,840
+lead to truncation because you can just
+
+165
+00:05:22,080 --> 00:05:25,440
+multiply two values and they're going to
+
+166
+00:05:23,840 --> 00:05:27,520
+be you know greater than the maximum
+
+167
+00:05:25,440 --> 00:05:29,280
+space available in 16 bits
+
+168
+00:05:27,520 --> 00:05:31,039
+and then that's going to be stored but
+
+169
+00:05:29,280 --> 00:05:31,919
+in a truncated form back into this
+
+170
+00:05:31,039 --> 00:05:35,759
+output
+
+171
+00:05:31,919 --> 00:05:38,960
+so 16 times 16 into 16 32 times 32
+
+172
+00:05:35,759 --> 00:05:41,680
+into 32 64 x 64
+
+173
+00:05:38,960 --> 00:05:42,479
+into 64. so these can cause truncation
+
+174
+00:05:41,680 --> 00:05:44,960
+so now group
+
+175
+00:05:42,479 --> 00:05:46,240
+three is going to have three operands
+
+176
+00:05:44,960 --> 00:05:48,320
+and there's going to be a version with
+
+177
+00:05:46,240 --> 00:05:50,160
+eight bits a version with 16 bits and a
+
+178
+00:05:48,320 --> 00:05:52,080
+version with 32 bits
+
+179
+00:05:50,160 --> 00:05:53,680
+but we are only going to put the 8-bit
+
+180
+00:05:52,080 --> 00:05:55,840
+form on this first slide
+
+181
+00:05:53,680 --> 00:05:57,280
+so in the 8-bit form you take this
+
+182
+00:05:55,840 --> 00:05:59,520
+16-bit value
+
+183
+00:05:57,280 --> 00:06:01,759
+you have an 8-bit immediate value and
+
+184
+00:05:59,520 --> 00:06:03,759
+that's going to be sine extended up to
+
+185
+00:06:01,759 --> 00:06:05,680
+16 bits so then you're going to
+
+186
+00:06:03,759 --> 00:06:07,280
+basically be multiplying this
+
+187
+00:06:05,680 --> 00:06:08,880
+treat it as if it was assigned value
+
+188
+00:06:07,280 --> 00:06:11,600
+times the 16 bit value
+
+189
+00:06:08,880 --> 00:06:13,199
+and stored into a 16 bit value so that
+
+190
+00:06:11,600 --> 00:06:14,720
+means that you can have truncation just
+
+191
+00:06:13,199 --> 00:06:17,440
+like in the two operand form
+
+192
+00:06:14,720 --> 00:06:18,720
+same thing with 32 and 64 bits you just
+
+193
+00:06:17,440 --> 00:06:21,440
+take an 8 bit value
+
+194
+00:06:18,720 --> 00:06:22,400
+and sign extend it up to a 32-bit value
+
+195
+00:06:21,440 --> 00:06:24,639
+multiply it by that
+
+196
+00:06:22,400 --> 00:06:26,880
+and store it into that sign extended up
+
+197
+00:06:24,639 --> 00:06:29,120
+to a 64-bit value multiply it by that
+
+198
+00:06:26,880 --> 00:06:30,960
+and store it into that so this again can
+
+199
+00:06:29,120 --> 00:06:33,280
+obviously cause truncation right so if
+
+200
+00:06:30,960 --> 00:06:35,280
+this value in 64-bit register was
+
+201
+00:06:33,280 --> 00:06:36,560
+you know 1 minus the maximum value and
+
+202
+00:06:35,280 --> 00:06:38,960
+you multiplied by 2
+
+203
+00:06:36,560 --> 00:06:41,280
+then it's obviously going to you know be
+
+204
+00:06:38,960 --> 00:06:43,600
+larger than the possible 64-bit value
+
+205
+00:06:41,280 --> 00:06:45,120
+now this is again three operands but
+
+206
+00:06:43,600 --> 00:06:47,360
+it's just going to be a 16-bit
+
+207
+00:06:45,120 --> 00:06:49,120
+and there's actually only one variation
+
+208
+00:06:47,360 --> 00:06:51,120
+on this there's only one thing that
+
+209
+00:06:49,120 --> 00:06:52,639
+takes a 16-bit immediate value and
+
+210
+00:06:51,120 --> 00:06:55,599
+that'll be a 16-bit
+
+211
+00:06:52,639 --> 00:06:57,520
+register memory times the 16-bit value
+
+212
+00:06:55,599 --> 00:07:00,240
+stored into a 16-bit register
+
+213
+00:06:57,520 --> 00:07:01,440
+finally the last three-operand form is a
+
+214
+00:07:00,240 --> 00:07:03,759
+32-bit immediate
+
+215
+00:07:01,440 --> 00:07:06,000
+there is nothing that takes a 64-bit
+
+216
+00:07:03,759 --> 00:07:07,840
+immediate so this is again you know
+
+217
+00:07:06,000 --> 00:07:09,759
+later on when you learn to read the fun
+
+218
+00:07:07,840 --> 00:07:11,440
+manual you can go and verify this for
+
+219
+00:07:09,759 --> 00:07:14,000
+yourself by checking it out
+
+220
+00:07:11,440 --> 00:07:16,400
+but the forms are take a 32-bit value
+
+221
+00:07:14,000 --> 00:07:17,599
+multiply by 32-bit store in a 32-bit so
+
+222
+00:07:16,400 --> 00:07:20,720
+that can truncate
+
+223
+00:07:17,599 --> 00:07:23,680
+and take a 32-bit value not a 64-bit
+
+224
+00:07:20,720 --> 00:07:25,520
+sign extend it up to 64-bits multiply by
+
+225
+00:07:23,680 --> 00:07:27,039
+the 64-bit register
+
+226
+00:07:25,520 --> 00:07:28,960
+and then store it into the different
+
+227
+00:07:27,039 --> 00:07:30,240
+64-bit register so this could be a
+
+228
+00:07:28,960 --> 00:07:32,319
+register or memory rather
+
+229
+00:07:30,240 --> 00:07:33,840
+but this can only be a register so those
+
+230
+00:07:32,319 --> 00:07:34,479
+are all the possible forms that you
+
+231
+00:07:33,840 --> 00:07:36,639
+could see
+
+232
+00:07:34,479 --> 00:07:38,639
+for the multiply later on so feel free
+
+233
+00:07:36,639 --> 00:07:40,560
+to come back to this slide when you do
+
+234
+00:07:38,639 --> 00:07:42,560
+the darkmathemagic later on
+
+235
+00:07:40,560 --> 00:07:44,240
+now let's see some quick examples from
+
+236
+00:07:42,560 --> 00:07:46,240
+each of those groups so
+
+237
+00:07:44,240 --> 00:07:47,360
+for instance let's start with the single
+
+238
+00:07:46,240 --> 00:07:50,720
+operand form
+
+239
+00:07:47,360 --> 00:07:52,800
+so again imul with a rm8
+
+240
+00:07:50,720 --> 00:07:54,319
+implicitly it's always going to take the
+
+241
+00:07:52,800 --> 00:07:57,919
+rm8 times
+
+242
+00:07:54,319 --> 00:08:00,080
+al and store it into ax so if these were
+
+243
+00:07:57,919 --> 00:08:01,840
+our registers starting out so rax
+
+244
+00:08:00,080 --> 00:08:05,520
+happens to be fully filled in
+
+245
+00:08:01,840 --> 00:08:08,520
+r12 it's zero zero zero eighty four
+
+246
+00:08:05,520 --> 00:08:10,160
+if you saw the assembly instruction imo
+
+247
+00:08:08,520 --> 00:08:11,759
+r12b
+
+248
+00:08:10,160 --> 00:08:13,280
+that would mean you're using the byte
+
+249
+00:08:11,759 --> 00:08:16,639
+size the least significant
+
+250
+00:08:13,280 --> 00:08:20,080
+byte of r12 and so when you have an iml
+
+251
+00:08:16,639 --> 00:08:20,720
+with a rm8 implicitly you're using this
+
+252
+00:08:20,080 --> 00:08:21,840
+form
+
+253
+00:08:20,720 --> 00:08:24,000
+and that means you're going to need to
+
+254
+00:08:21,840 --> 00:08:28,080
+take al the least significant byte
+
+255
+00:08:24,000 --> 00:08:29,360
+77 times r12b the least significant byte
+
+256
+00:08:28,080 --> 00:08:31,199
+which is 84
+
+257
+00:08:29,360 --> 00:08:32,399
+but this is now again assigned to
+
+258
+00:08:31,199 --> 00:08:34,719
+multiply
+
+259
+00:08:32,399 --> 00:08:35,440
+and if this is signed to multiply then
+
+260
+00:08:34,719 --> 00:08:38,000
+this value
+
+261
+00:08:35,440 --> 00:08:39,519
+84 is a negative number so we've
+
+262
+00:08:38,000 --> 00:08:41,519
+actually got a negative value
+
+263
+00:08:39,519 --> 00:08:43,919
+times a positive value so negative times
+
+264
+00:08:41,519 --> 00:08:47,360
+positive is going to be a negative value
+
+265
+00:08:43,919 --> 00:08:48,560
+and that will be stored into ax so the
+
+266
+00:08:47,360 --> 00:08:50,480
+end result here
+
+267
+00:08:48,560 --> 00:08:52,399
+is that all the rest of this register is
+
+268
+00:08:50,480 --> 00:08:55,360
+actually going to be left alone
+
+269
+00:08:52,399 --> 00:08:56,000
+and just the ax least significant 16
+
+270
+00:08:55,360 --> 00:08:58,160
+bits
+
+271
+00:08:56,000 --> 00:09:00,000
+are going to be updated with this value
+
+272
+00:08:58,160 --> 00:09:01,200
+now let me pop out into the calculator
+
+273
+00:09:00,000 --> 00:09:04,480
+quick to show you how you could
+
+274
+00:09:01,200 --> 00:09:04,480
+calculate this for yourself
+
+275
+00:09:04,640 --> 00:09:09,920
+so we said 77 is a positive value but 84
+
+276
+00:09:08,240 --> 00:09:13,200
+is a negative value
+
+277
+00:09:09,920 --> 00:09:15,519
+so let's go ahead and take 84
+
+278
+00:09:13,200 --> 00:09:17,519
+and let's two's complement that to get
+
+279
+00:09:15,519 --> 00:09:18,959
+the negative value or sorry to flip the
+
+280
+00:09:17,519 --> 00:09:20,480
+sign because it is a negative value so
+
+281
+00:09:18,959 --> 00:09:24,640
+let's get the positive value
+
+282
+00:09:20,480 --> 00:09:27,760
+so 84 as a one byte value is actually 7c
+
+283
+00:09:24,640 --> 00:09:31,839
+as a positive value so negative 7c
+
+284
+00:09:27,760 --> 00:09:35,200
+is 84 in one byte two's complement form
+
+285
+00:09:31,839 --> 00:09:38,240
+so 7c is one of the values and
+
+286
+00:09:35,200 --> 00:09:39,040
+77 is the other so if i did 7c which is
+
+287
+00:09:38,240 --> 00:09:41,279
+now the
+
+288
+00:09:39,040 --> 00:09:42,480
+positive form of this negative value
+
+289
+00:09:41,279 --> 00:09:45,519
+times
+
+290
+00:09:42,480 --> 00:09:47,120
+77 that would be giving me a value
+
+291
+00:09:45,519 --> 00:09:49,040
+that's you know a positive value but i
+
+292
+00:09:47,120 --> 00:09:51,360
+said negative times positive
+
+293
+00:09:49,040 --> 00:09:53,600
+should be a negative value at the end so
+
+294
+00:09:51,360 --> 00:09:56,080
+i need to two's complement this again
+
+295
+00:09:53,600 --> 00:09:57,360
+to flip it back to negative and that's
+
+296
+00:09:56,080 --> 00:09:59,519
+going to be
+
+297
+00:09:57,360 --> 00:10:01,680
+you know ax is just going to be 16 bits
+
+298
+00:09:59,519 --> 00:10:04,880
+and so we just care about the c
+
+299
+00:10:01,680 --> 00:10:06,560
+6 5 c and that's what we get here
+
+300
+00:10:04,880 --> 00:10:08,640
+now later on in the class we're going to
+
+301
+00:10:06,560 --> 00:10:09,120
+learn about how to write inline assembly
+
+302
+00:10:08,640 --> 00:10:11,120
+but
+
+303
+00:10:09,120 --> 00:10:12,720
+just again because i wanted to kind of
+
+304
+00:10:11,120 --> 00:10:13,040
+show this to you because this is one of
+
+305
+00:10:12,720 --> 00:10:14,720
+the
+
+306
+00:10:13,040 --> 00:10:16,480
+elements that people had the most
+
+307
+00:10:14,720 --> 00:10:18,240
+trouble with on some of the games
+
+308
+00:10:16,480 --> 00:10:19,680
+let's go ahead and look at that in
+
+309
+00:10:18,240 --> 00:10:23,040
+inline assembly
+
+310
+00:10:19,680 --> 00:10:27,040
+so inside of your project there is
+
+311
+00:10:23,040 --> 00:10:30,079
+scratchpad asm and there's the my asm
+
+312
+00:10:27,040 --> 00:10:30,640
+project and so i just did a move of this
+
+313
+00:10:30,079 --> 00:10:34,000
+value
+
+314
+00:10:30,640 --> 00:10:37,440
+into rax move of 84
+
+315
+00:10:34,000 --> 00:10:40,480
+into r12 and then an imul by
+
+316
+00:10:37,440 --> 00:10:42,000
+r12b so if i go ahead and run that
+
+317
+00:10:40,480 --> 00:10:45,040
+through the debugger
+
+318
+00:10:42,000 --> 00:10:48,399
+i can go ahead and bring up the
+
+319
+00:10:45,040 --> 00:10:49,040
+registers window to show you on the top
+
+320
+00:10:48,399 --> 00:10:51,360
+here
+
+321
+00:10:49,040 --> 00:10:53,200
+rax has the value that i moved in from
+
+322
+00:10:51,360 --> 00:10:57,440
+right here
+
+323
+00:10:53,200 --> 00:10:58,320
+r12 has the value 0084 that i moved in
+
+324
+00:10:57,440 --> 00:11:02,320
+right here
+
+325
+00:10:58,320 --> 00:11:05,360
+and now i'm going to issue the imul r12b
+
+326
+00:11:02,320 --> 00:11:07,279
+and if i just go ahead and step
+
+327
+00:11:05,360 --> 00:11:10,320
+and i can see that these least
+
+328
+00:11:07,279 --> 00:11:12,560
+significant 16 bits of rax
+
+329
+00:11:10,320 --> 00:11:13,519
+just changed all the rest is all the
+
+330
+00:11:12,560 --> 00:11:17,040
+same
+
+331
+00:11:13,519 --> 00:11:17,600
+right so 60 99 66 all that's all the
+
+332
+00:11:17,040 --> 00:11:19,440
+same
+
+333
+00:11:17,600 --> 00:11:20,880
+but just these bits right here change
+
+334
+00:11:19,440 --> 00:11:22,320
+that's kind of why this is highlighted
+
+335
+00:11:20,880 --> 00:11:23,200
+in red it's telling you this register
+
+336
+00:11:22,320 --> 00:11:25,279
+changed and
+
+337
+00:11:23,200 --> 00:11:26,959
+other stuff didn't except you know rrp
+
+338
+00:11:25,279 --> 00:11:28,240
+because you stepped forward and
+
+339
+00:11:26,959 --> 00:11:30,720
+you know nothing else changed their
+
+340
+00:11:28,240 --> 00:11:32,720
+flags changed so that's just to show you
+
+341
+00:11:30,720 --> 00:11:34,560
+that what i said in the calculator lines
+
+342
+00:11:32,720 --> 00:11:35,839
+up with what actually happens in the
+
+343
+00:11:34,560 --> 00:11:38,240
+assembly
+
+344
+00:11:35,839 --> 00:11:39,120
+so let's go ahead and stop that and i'll
+
+345
+00:11:38,240 --> 00:11:41,600
+move on to
+
+346
+00:11:39,120 --> 00:11:44,720
+what's going to be my next example here
+
+347
+00:11:41,600 --> 00:11:44,720
+and back to the slides
+
+348
+00:11:44,800 --> 00:11:50,240
+okay so that was an example of a single
+
+349
+00:11:47,920 --> 00:11:50,959
+operand form of imul again signed
+
+350
+00:11:50,240 --> 00:11:52,560
+multiply
+
+351
+00:11:50,959 --> 00:11:53,519
+so you have to take into account whether
+
+352
+00:11:52,560 --> 00:11:55,839
+or not the things that are being
+
+353
+00:11:53,519 --> 00:11:58,000
+multiplied are negative values like this
+
+354
+00:11:55,839 --> 00:12:00,720
+or positive values
+
+355
+00:11:58,000 --> 00:12:02,560
+okay next example this is a two operand
+
+356
+00:12:00,720 --> 00:12:05,519
+form and so if we see imul with
+
+357
+00:12:02,560 --> 00:12:07,360
+an r32 and an rm32 then the actual
+
+358
+00:12:05,519 --> 00:12:09,200
+mathematical operation is a signed
+
+359
+00:12:07,360 --> 00:12:12,639
+version of that r32
+
+360
+00:12:09,200 --> 00:12:14,000
+times the rm32 stored back into the r32
+
+361
+00:12:12,639 --> 00:12:16,480
+so again
+
+362
+00:12:14,000 --> 00:12:17,920
+truncation is possible so now in this
+
+363
+00:12:16,480 --> 00:12:21,360
+case if we have imul
+
+364
+00:12:17,920 --> 00:12:23,519
+doing r12d so the dword sized the
+
+365
+00:12:21,360 --> 00:12:25,440
+32-bit sized version of r12
+
+366
+00:12:23,519 --> 00:12:27,120
+well this is no longer interpreted as a
+
+367
+00:12:25,440 --> 00:12:28,880
+negative value because it's not
+
+368
+00:12:27,120 --> 00:12:30,399
+a one byte form it's a four byte form
+
+369
+00:12:28,880 --> 00:12:31,040
+and the four byte form has zero zero
+
+370
+00:12:30,399 --> 00:12:32,639
+zero
+
+371
+00:12:31,040 --> 00:12:34,399
+zero so this is just going to be
+
+372
+00:12:32,639 --> 00:12:37,680
+positive 84.
+
+373
+00:12:34,399 --> 00:12:40,399
+then rax taking the eax
+
+374
+00:12:37,680 --> 00:12:40,800
+size the 32-bit value size this is going
+
+375
+00:12:40,399 --> 00:12:43,760
+to be
+
+376
+00:12:40,800 --> 00:12:45,440
+a9 blah blah blah blah but that is going
+
+377
+00:12:43,760 --> 00:12:47,760
+to be a negative value
+
+378
+00:12:45,440 --> 00:12:49,360
+in 32-bit form something starting with a
+
+379
+00:12:47,760 --> 00:12:51,040
+has the most significant bit set
+
+380
+00:12:49,360 --> 00:12:52,399
+you know it's greater than 7 so it's
+
+381
+00:12:51,040 --> 00:12:54,480
+going to be a negative value
+
+382
+00:12:52,399 --> 00:12:55,600
+so this is going to be a positive times
+
+383
+00:12:54,480 --> 00:12:57,519
+a negative value
+
+384
+00:12:55,600 --> 00:12:59,279
+so again a positive value times a
+
+385
+00:12:57,519 --> 00:13:01,040
+negative value is going to lead to a
+
+386
+00:12:59,279 --> 00:13:03,880
+negative value
+
+387
+00:13:01,040 --> 00:13:05,200
+so what's going to come out of this is
+
+388
+00:13:03,880 --> 00:13:09,360
+0061
+
+389
+00:13:05,200 --> 00:13:11,120
+0 4 1 5 c in r 12 because it's storing
+
+390
+00:13:09,360 --> 00:13:12,079
+it's taking this times that storing it
+
+391
+00:13:11,120 --> 00:13:13,600
+back into that
+
+392
+00:13:12,079 --> 00:13:16,160
+so let's go ahead and look at that in
+
+393
+00:13:13,600 --> 00:13:18,160
+the calculator to confirm this
+
+394
+00:13:16,160 --> 00:13:20,480
+so i'm going to take this value right
+
+395
+00:13:18,160 --> 00:13:21,920
+here this is my negative value
+
+396
+00:13:20,480 --> 00:13:23,519
+i'm going to go ahead and put that in
+
+397
+00:13:21,920 --> 00:13:26,399
+i'm going to two's complement it
+
+398
+00:13:23,519 --> 00:13:27,040
+to get back to the positive value i'm
+
+399
+00:13:26,399 --> 00:13:30,079
+going to
+
+400
+00:13:27,040 --> 00:13:31,920
+multiply that times 84 which is a
+
+401
+00:13:30,079 --> 00:13:33,760
+positive value
+
+402
+00:13:31,920 --> 00:13:35,519
+all right that gives me something but we
+
+403
+00:13:33,760 --> 00:13:37,120
+said positive times negative well i just
+
+404
+00:13:35,519 --> 00:13:38,720
+flipped to the sign of the negative to a
+
+405
+00:13:37,120 --> 00:13:41,199
+positive so i need to flip the result
+
+406
+00:13:38,720 --> 00:13:43,199
+back to get back to the negative
+
+407
+00:13:41,199 --> 00:13:45,760
+and then that leaves me with this value
+
+408
+00:13:43,199 --> 00:13:47,519
+now this value is bigger than the 32-bit
+
+409
+00:13:45,760 --> 00:13:48,560
+register which is going to be stored
+
+410
+00:13:47,519 --> 00:13:50,160
+back into
+
+411
+00:13:48,560 --> 00:13:51,920
+so we need to you know just in our
+
+412
+00:13:50,160 --> 00:13:53,040
+calculator the hardware will obviously
+
+413
+00:13:51,920 --> 00:13:56,320
+do this itself
+
+414
+00:13:53,040 --> 00:13:59,839
+we need to and it with 32 ones
+
+415
+00:13:56,320 --> 00:14:03,880
+one two three four five six seven eight
+
+416
+00:13:59,839 --> 00:14:05,199
+f's equals 32 ones and that gives us 61
+
+417
+00:14:03,880 --> 00:14:09,360
+d041
+
+418
+00:14:05,199 --> 00:14:12,399
+5c 61d0415c
+
+419
+00:14:09,360 --> 00:14:16,240
+and again we can reconfirm that in the
+
+420
+00:14:12,399 --> 00:14:18,160
+debugger as well if we'd like
+
+421
+00:14:16,240 --> 00:14:20,000
+same values in the registers just a
+
+422
+00:14:18,160 --> 00:14:23,360
+different multiply signed multiply
+
+423
+00:14:20,000 --> 00:14:25,199
+r12 dword size times eax
+
+424
+00:14:23,360 --> 00:14:26,639
+all right here's the values go ahead and
+
+425
+00:14:25,199 --> 00:14:29,600
+step over and
+
+426
+00:14:26,639 --> 00:14:30,560
+the result is stored back into r12 and
+
+427
+00:14:29,600 --> 00:14:33,839
+so we have
+
+428
+00:14:30,560 --> 00:14:36,000
+61 d041 5c
+
+429
+00:14:33,839 --> 00:14:38,800
+so let's go ahead and move on to the
+
+430
+00:14:36,000 --> 00:14:38,800
+last example
+
+431
+00:14:40,560 --> 00:14:43,680
+all right now we have a three operand
+
+432
+00:14:43,040 --> 00:14:45,839
+form
+
+433
+00:14:43,680 --> 00:14:48,240
+so we're going to do a 64-bit we're
+
+434
+00:14:45,839 --> 00:14:49,839
+going to take 64-bit times 32-bit which
+
+435
+00:14:48,240 --> 00:14:52,079
+is going to be sign extended
+
+436
+00:14:49,839 --> 00:14:54,320
+up to 64-bits and then it's going to be
+
+437
+00:14:52,079 --> 00:14:56,320
+multiplied by that and stored into this
+
+438
+00:14:54,320 --> 00:14:58,959
+so what would that be in this case well
+
+439
+00:14:56,320 --> 00:15:00,480
+we've got 84 which actually isn't even
+
+440
+00:14:58,959 --> 00:15:02,720
+going to play into anything
+
+441
+00:15:00,480 --> 00:15:03,519
+r12 is just going to be the output
+
+442
+00:15:02,720 --> 00:15:05,279
+register
+
+443
+00:15:03,519 --> 00:15:07,279
+but you can see it's not actually used
+
+444
+00:15:05,279 --> 00:15:08,639
+in the multiply so it's just going to be
+
+445
+00:15:07,279 --> 00:15:12,000
+rax
+
+446
+00:15:08,639 --> 00:15:13,040
+times this immediate value and that's
+
+447
+00:15:12,000 --> 00:15:14,959
+going to yield this
+
+448
+00:15:13,040 --> 00:15:16,560
+and so that is just a straight up
+
+449
+00:15:14,959 --> 00:15:18,959
+multiply this value
+
+450
+00:15:16,560 --> 00:15:20,800
+times that value which you can sign
+
+451
+00:15:18,959 --> 00:15:22,079
+extend it but it's just a positive value
+
+452
+00:15:20,800 --> 00:15:23,120
+so it's still just going to be one two
+
+453
+00:15:22,079 --> 00:15:25,040
+three four
+
+454
+00:15:23,120 --> 00:15:26,160
+and so we put it in and that's the
+
+455
+00:15:25,040 --> 00:15:28,959
+output
+
+456
+00:15:26,160 --> 00:15:29,600
+so let's go ahead and calculate that
+
+457
+00:15:28,959 --> 00:15:31,440
+this
+
+458
+00:15:29,600 --> 00:15:33,120
+times one two three four one two three
+
+459
+00:15:31,440 --> 00:15:36,720
+four and we get
+
+460
+00:15:33,120 --> 00:15:39,680
+e5 blah blah blah blah blah and over
+
+461
+00:15:36,720 --> 00:15:41,360
+in the debugger same thing oops we're
+
+462
+00:15:39,680 --> 00:15:43,680
+not gonna because
+
+463
+00:15:41,360 --> 00:15:45,759
+i changed that to negative so as i was
+
+464
+00:15:43,680 --> 00:15:47,680
+fiddling with masm i was noticing that i
+
+465
+00:15:45,759 --> 00:15:49,199
+really didn't like it when i chose you
+
+466
+00:15:47,680 --> 00:15:51,519
+know negative constants
+
+467
+00:15:49,199 --> 00:15:53,360
+like if i put that in there it'll just
+
+468
+00:15:51,519 --> 00:15:55,120
+straight up not compile
+
+469
+00:15:53,360 --> 00:15:57,279
+so let's go ahead and do that just to
+
+470
+00:15:55,120 --> 00:15:59,680
+show you it really doesn't like
+
+471
+00:15:57,279 --> 00:16:00,639
+negative values for these immediates for
+
+472
+00:15:59,680 --> 00:16:02,920
+some reason
+
+473
+00:16:00,639 --> 00:16:05,120
+and the reason seems to be that like
+
+474
+00:16:02,920 --> 00:16:06,959
+syntactically it wants you to
+
+475
+00:16:05,120 --> 00:16:08,480
+put negative values in front of it
+
+476
+00:16:06,959 --> 00:16:10,959
+instead of just using the
+
+477
+00:16:08,480 --> 00:16:11,600
+you know two's complement form of it but
+
+478
+00:16:10,959 --> 00:16:13,519
+anyways
+
+479
+00:16:11,600 --> 00:16:15,040
+you know so you could put a negative on
+
+480
+00:16:13,519 --> 00:16:16,320
+there and you know it would be
+
+481
+00:16:15,040 --> 00:16:18,480
+negative one two three four and then it
+
+482
+00:16:16,320 --> 00:16:20,880
+would be sign extended up to that but
+
+483
+00:16:18,480 --> 00:16:22,000
+just to complete our example here let's
+
+484
+00:16:20,880 --> 00:16:25,120
+see that we see the same
+
+485
+00:16:22,000 --> 00:16:27,279
+thing all right oops let's go ahead and
+
+486
+00:16:25,120 --> 00:16:30,560
+step over and let's not continue
+
+487
+00:16:27,279 --> 00:16:35,360
+so step over and what is the value in
+
+488
+00:16:30,560 --> 00:16:38,560
+r12 e5 a35 blah blah 2a2c
+
+489
+00:16:35,360 --> 00:16:41,920
+e5 a3 5 blah blah blah
+
+490
+00:16:38,560 --> 00:16:44,240
+2a 2c so for the heck of it let's just
+
+491
+00:16:41,920 --> 00:16:47,759
+go ahead and make that a negative value
+
+492
+00:16:44,240 --> 00:16:49,120
+go ahead and stop negative and so you
+
+493
+00:16:47,759 --> 00:16:49,680
+can see that you know it's just a
+
+494
+00:16:49,120 --> 00:16:52,000
+negative
+
+495
+00:16:49,680 --> 00:16:53,440
+32-bit value right there when we go
+
+496
+00:16:52,000 --> 00:16:55,360
+ahead and run that if we look at the
+
+497
+00:16:53,440 --> 00:16:57,680
+disassembly we should see the
+
+498
+00:16:55,360 --> 00:16:59,120
+actual value this is the negative one
+
+499
+00:16:57,680 --> 00:17:00,399
+two three four negative one two three
+
+500
+00:16:59,120 --> 00:17:02,320
+four you can see that it
+
+501
+00:17:00,399 --> 00:17:04,079
+put that in there for us let's go ahead
+
+502
+00:17:02,320 --> 00:17:06,559
+and look at the bytes just to prove that
+
+503
+00:17:04,079 --> 00:17:09,679
+that's a 32-bit value that's in the
+
+504
+00:17:06,559 --> 00:17:10,559
+code stream not a 64-bit value so if i
+
+505
+00:17:09,679 --> 00:17:13,199
+look at the raw
+
+506
+00:17:10,559 --> 00:17:13,760
+assembly bytes here i can actually see
+
+507
+00:17:13,199 --> 00:17:16,799
+that
+
+508
+00:17:13,760 --> 00:17:17,280
+this value this negative value one two
+
+509
+00:17:16,799 --> 00:17:20,880
+three
+
+510
+00:17:17,280 --> 00:17:24,160
+four five six seven eight
+
+511
+00:17:20,880 --> 00:17:26,240
+these eight bytes right here e d c b e d
+
+512
+00:17:24,160 --> 00:17:27,439
+c c these are actually built into this
+
+513
+00:17:26,240 --> 00:17:30,960
+stream e d
+
+514
+00:17:27,439 --> 00:17:33,039
+c b e d c so the assembly instruction
+
+515
+00:17:30,960 --> 00:17:35,120
+actually only has the capability to bake
+
+516
+00:17:33,039 --> 00:17:37,039
+in a 32-bit value here
+
+517
+00:17:35,120 --> 00:17:39,360
+it doesn't have a form that supports a
+
+518
+00:17:37,039 --> 00:17:40,960
+64-bit value in the assembly stream but
+
+519
+00:17:39,360 --> 00:17:43,120
+again we haven't really covered
+
+520
+00:17:40,960 --> 00:17:44,720
+uh you know how these assembly bytes
+
+521
+00:17:43,120 --> 00:17:46,960
+stuff so i'm going to go ahead and pull
+
+522
+00:17:44,720 --> 00:17:49,200
+the wool over your eyes again
+
+523
+00:17:46,960 --> 00:17:50,080
+so anyways if we did that and we stepped
+
+524
+00:17:49,200 --> 00:17:52,080
+over it
+
+525
+00:17:50,080 --> 00:17:53,600
+we would just get some different value
+
+526
+00:17:52,080 --> 00:17:55,280
+right different multiplication different
+
+527
+00:17:53,600 --> 00:17:56,960
+value but the key thing is that you saw
+
+528
+00:17:55,280 --> 00:17:59,120
+it was you know sign extended up to a
+
+529
+00:17:56,960 --> 00:18:00,240
+64-bit value all right so that's my much
+
+530
+00:17:59,120 --> 00:18:02,640
+longer treatment
+
+531
+00:18:00,240 --> 00:18:04,400
+of the signed multiply assembly
+
+532
+00:18:02,640 --> 00:18:06,080
+instruction hopefully should be a lot
+
+533
+00:18:04,400 --> 00:18:07,840
+more useful to you later on
+
+534
+00:18:06,080 --> 00:18:09,760
+when you're called upon to do the
+
+535
+00:18:07,840 --> 00:18:10,720
+various versions of multiply in the dark
+
+536
+00:18:09,760 --> 00:18:12,400
+mathemagic game
+
+537
+00:18:10,720 --> 00:18:14,559
+now the other two assembly instructions
+
+538
+00:18:12,400 --> 00:18:15,280
+that we saw in this example code were
+
+539
+00:18:14,559 --> 00:18:18,559
+move with
+
+540
+00:18:15,280 --> 00:18:20,880
+zero extend and move with sine extent
+
+541
+00:18:18,559 --> 00:18:21,840
+now these are typically used to move
+
+542
+00:18:20,880 --> 00:18:24,400
+small C
+
+543
+00:18:21,840 --> 00:18:25,679
+types into large C types so if you're
+
+544
+00:18:24,400 --> 00:18:29,039
+you know moving a
+
+545
+00:18:25,679 --> 00:18:30,400
+signed value from a short like we have
+
+546
+00:18:29,039 --> 00:18:33,679
+in the example code
+
+547
+00:18:30,400 --> 00:18:36,000
+into a integer which is 32 bit value so
+
+548
+00:18:33,679 --> 00:18:38,799
+16 bit value to a 32-bit value
+
+549
+00:18:36,000 --> 00:18:40,799
+if the short is signed then the value
+
+550
+00:18:38,799 --> 00:18:42,240
+needs to be reflected as a signed value
+
+551
+00:18:40,799 --> 00:18:43,440
+in the 32-bit value
+
+552
+00:18:42,240 --> 00:18:45,600
+that means you're going to want to move
+
+553
+00:18:43,440 --> 00:18:46,000
+a sign extent on the other hand if it
+
+554
+00:18:45,600 --> 00:18:48,480
+was an
+
+555
+00:18:46,000 --> 00:18:50,160
+unsigned short being moved into a 32-bit
+
+556
+00:18:48,480 --> 00:18:51,840
+value then you would move with zero
+
+557
+00:18:50,160 --> 00:18:53,520
+extend basically saying you know don't
+
+558
+00:18:51,840 --> 00:18:56,000
+try to treat this as a signed thing
+
+559
+00:18:53,520 --> 00:18:56,720
+so these moves support all the same sort
+
+560
+00:18:56,000 --> 00:18:58,480
+of register to
+
+561
+00:18:56,720 --> 00:19:00,240
+register register to memory memory to
+
+562
+00:18:58,480 --> 00:19:01,200
+register immediate to memory immediate
+
+563
+00:19:00,240 --> 00:19:03,600
+to register
+
+564
+00:19:01,200 --> 00:19:04,640
+forms that you see in a normal move but
+
+565
+00:19:03,600 --> 00:19:06,559
+like i just said
+
+566
+00:19:04,640 --> 00:19:08,400
+there's this different notion of zero
+
+567
+00:19:06,559 --> 00:19:10,240
+extension and sign extension
+
+568
+00:19:08,400 --> 00:19:11,440
+and at its most basic form zero
+
+569
+00:19:10,240 --> 00:19:14,000
+extension means that
+
+570
+00:19:11,440 --> 00:19:16,240
+when the cpu when it's taking some small
+
+571
+00:19:14,000 --> 00:19:17,919
+register and moving it to a big register
+
+572
+00:19:16,240 --> 00:19:20,799
+will just fill in the upper bits with
+
+573
+00:19:17,919 --> 00:19:21,600
+all zeros so 16 bit register to a 32-bit
+
+574
+00:19:20,799 --> 00:19:23,520
+register
+
+575
+00:19:21,600 --> 00:19:26,160
+then it's going to automatically fill in
+
+576
+00:19:23,520 --> 00:19:28,640
+all zeroes in the upper 16 bits
+
+577
+00:19:26,160 --> 00:19:29,600
+on the other hand sign extension is a
+
+578
+00:19:28,640 --> 00:19:31,760
+thing where
+
+579
+00:19:29,600 --> 00:19:33,280
+the compiler has to generate to the
+
+580
+00:19:31,760 --> 00:19:35,440
+right assembly instruction
+
+581
+00:19:33,280 --> 00:19:36,960
+so that things are treated as if they're
+
+582
+00:19:35,440 --> 00:19:38,559
+signed you know if the high level
+
+583
+00:19:36,960 --> 00:19:40,799
+language wanted them signed
+
+584
+00:19:38,559 --> 00:19:42,080
+the low-level assembly language needs to
+
+585
+00:19:40,799 --> 00:19:42,960
+treat them as if they're signed and
+
+586
+00:19:42,080 --> 00:19:45,360
+what that means
+
+587
+00:19:42,960 --> 00:19:47,360
+is if you had a 16-bit register and you
+
+588
+00:19:45,360 --> 00:19:49,039
+were moving it to a 32-bit register
+
+589
+00:19:47,360 --> 00:19:50,799
+if the value in that register in the
+
+590
+00:19:49,039 --> 00:19:51,520
+high-level programming language was
+
+591
+00:19:50,799 --> 00:19:53,840
+treated as a
+
+592
+00:19:51,520 --> 00:19:55,360
+signed value it needs to keep its sign
+
+593
+00:19:53,840 --> 00:19:56,320
+which means if it was positive it should
+
+594
+00:19:55,360 --> 00:19:57,760
+stay positive
+
+595
+00:19:56,320 --> 00:19:59,919
+if it was negative it should say
+
+596
+00:19:57,760 --> 00:20:01,679
+negative so you can imagine okay i've
+
+597
+00:19:59,919 --> 00:20:05,200
+got a 16 bit value
+
+598
+00:20:01,679 --> 00:20:05,919
+0xffff right what is that that's negative
+
+599
+00:20:05,200 --> 00:20:08,720
+one
+
+600
+00:20:05,919 --> 00:20:09,600
+so if i take the 16-bit value 0xffff
+
+601
+00:20:08,720 --> 00:20:12,000
+negative one
+
+602
+00:20:09,600 --> 00:20:13,120
+and i move it to a 32-bit register that
+
+603
+00:20:12,000 --> 00:20:16,000
+better not just
+
+604
+00:20:13,120 --> 00:20:17,520
+turn into a positive sixteen thousand
+
+605
+00:20:16,000 --> 00:20:18,159
+all of a sudden it should stay negative
+
+606
+00:20:17,520 --> 00:20:20,559
+one
+
+607
+00:20:18,159 --> 00:20:22,240
+and to stay negative one the compiler
+
+608
+00:20:20,559 --> 00:20:23,919
+the assembly instructions have to say
+
+609
+00:20:22,240 --> 00:20:26,240
+okay what's the most significant value
+
+610
+00:20:23,919 --> 00:20:28,720
+of 0xffff what's the most significant bit
+
+611
+00:20:26,240 --> 00:20:30,799
+it's one and so it's sine extends that
+
+612
+00:20:28,720 --> 00:20:32,159
+one into the upper bits of the larger
+
+613
+00:20:30,799 --> 00:20:35,280
+32-bit value
+
+614
+00:20:32,159 --> 00:20:35,600
+which means you get ffffff you know you
+
+615
+00:20:35,280 --> 00:20:38,880
+get
+
+616
+00:20:35,600 --> 00:20:40,960
+eight f's rather than four f's so that
+
+617
+00:20:38,880 --> 00:20:43,760
+still it's treated as a negative one
+
+618
+00:20:40,960 --> 00:20:45,679
+in subsequent assembly instructions and
+
+619
+00:20:43,760 --> 00:20:47,360
+then one extra little bit that i'm again
+
+620
+00:20:45,679 --> 00:20:49,280
+adding in based on you know
+
+621
+00:20:47,360 --> 00:20:51,039
+student feedback is that there is
+
+622
+00:20:49,280 --> 00:20:54,640
+technically another form
+
+623
+00:20:51,039 --> 00:20:56,240
+of the sign extension movsxd
+
+624
+00:20:54,640 --> 00:20:57,919
+and so this has to do with sign
+
+625
+00:20:56,240 --> 00:21:00,400
+extending dword values
+
+626
+00:20:57,919 --> 00:21:01,760
+up to 64-bit values so 32-bit values up
+
+627
+00:21:00,400 --> 00:21:04,400
+to 64-bit values
+
+628
+00:21:01,760 --> 00:21:05,520
+technically the move sign extension only
+
+629
+00:21:04,400 --> 00:21:08,320
+deals with taking
+
+630
+00:21:05,520 --> 00:21:09,600
+8 and 16-bit values making them longer
+
+631
+00:21:08,320 --> 00:21:11,120
+whereas if you want to start with a
+
+632
+00:21:09,600 --> 00:21:12,559
+32-bit value it is this
+
+633
+00:21:11,120 --> 00:21:14,080
+i'm not actually going to give it its
+
+634
+00:21:12,559 --> 00:21:15,440
+own star both for the fact that i don't
+
+635
+00:21:14,080 --> 00:21:18,000
+want to renumber everything and
+
+636
+00:21:15,440 --> 00:21:19,520
+also just because it's a simple variant
+
+637
+00:21:18,000 --> 00:21:20,640
+on one of the existing assembly
+
+638
+00:21:19,520 --> 00:21:22,480
+instructions we've seen
+
+639
+00:21:20,640 --> 00:21:23,679
+but it matters because you know if
+
+640
+00:21:22,480 --> 00:21:24,559
+you're looking at the assembly and you
+
+641
+00:21:23,679 --> 00:21:27,280
+see hey you never
+
+642
+00:21:24,559 --> 00:21:28,960
+told me about movsxd well let's just
+
+643
+00:21:27,280 --> 00:21:31,520
+move this on extend but you happen to
+
+644
+00:21:28,960 --> 00:21:33,280
+have a 32-bit value rather than 8 or 16.
+
+645
+00:21:31,520 --> 00:21:33,600
+and what's weird here is that there is
+
+646
+00:21:33,280 --> 00:21:36,799
+no
+
+647
+00:21:33,600 --> 00:21:37,520
+move 0 extend dword it's always just
+
+648
+00:21:36,799 --> 00:21:39,600
+move 0
+
+649
+00:21:37,520 --> 00:21:42,480
+extend so there's some asymmetry here
+
+650
+00:21:39,600 --> 00:21:44,480
+that signed has a variant and the
+
+651
+00:21:42,480 --> 00:21:45,679
+zero extension doesn't so let's see a
+
+652
+00:21:44,480 --> 00:21:47,200
+quick example of
+
+653
+00:21:45,679 --> 00:21:48,400
+move with zero extent versus moveless
+
+654
+00:21:47,200 --> 00:21:49,360
+sign extent just to make it a little
+
+655
+00:21:48,400 --> 00:21:51,280
+more concrete
+
+656
+00:21:49,360 --> 00:21:53,360
+let's say i had the value food face and
+
+657
+00:21:51,280 --> 00:21:57,280
+i moved it into 32-bit register
+
+658
+00:21:53,360 --> 00:22:00,320
+eax then if i move with zero extend
+
+659
+00:21:57,280 --> 00:22:03,600
+eax 32-bit value into rbx
+
+660
+00:22:00,320 --> 00:22:06,799
+64-bit value zero extend means just take
+
+661
+00:22:03,600 --> 00:22:09,200
+the upper 32-bits and treat it as zero
+
+662
+00:22:06,799 --> 00:22:10,320
+on the other hand this value eax still
+
+663
+00:22:09,200 --> 00:22:13,679
+has food face
+
+664
+00:22:10,320 --> 00:22:16,080
+if i run move sign extension dword
+
+665
+00:22:13,679 --> 00:22:18,480
+because the eax is 32-bit value food
+
+666
+00:22:16,080 --> 00:22:19,760
+face move with sign extension means look
+
+667
+00:22:18,480 --> 00:22:22,960
+at the most significant bit
+
+668
+00:22:19,760 --> 00:22:24,720
+of this 32-bit value if it's one
+
+669
+00:22:22,960 --> 00:22:26,080
+put all the ones up here so that it's
+
+670
+00:22:24,720 --> 00:22:27,440
+still treated as a negative value
+
+671
+00:22:26,080 --> 00:22:28,799
+because if it's one here it means it
+
+672
+00:22:27,440 --> 00:22:31,039
+must have been a negative value
+
+673
+00:22:28,799 --> 00:22:32,960
+and you want it to stay negative so fill
+
+674
+00:22:31,039 --> 00:22:34,880
+in all ones up here so that the larger
+
+675
+00:22:32,960 --> 00:22:36,799
+value is treated as negative as well if
+
+676
+00:22:34,880 --> 00:22:39,679
+i had something where it was you know
+
+677
+00:22:36,799 --> 00:22:41,760
+move 0x000dface if this was a zero even
+
+678
+00:22:39,679 --> 00:22:43,440
+though i was using a sign extension
+
+679
+00:22:41,760 --> 00:22:44,880
+if this is zero then it would just fill
+
+680
+00:22:43,440 --> 00:22:45,760
+in zeros up here because the most
+
+681
+00:22:44,880 --> 00:22:47,600
+significant bit
+
+682
+00:22:45,760 --> 00:22:51,039
+would be zero and it would just fill it
+
+683
+00:22:47,600 --> 00:22:53,360
+in all right well those are how the
+
+684
+00:22:51,039 --> 00:22:54,880
+imul and move the sign extension and
+
+685
+00:22:53,360 --> 00:22:57,039
+move with zero extension
+
+686
+00:22:54,880 --> 00:22:58,880
+assembly instructions work now what i
+
+687
+00:22:57,039 --> 00:23:01,919
+need you to do is go ahead
+
+688
+00:22:58,880 --> 00:23:04,080
+and step through the assembly as before
+
+689
+00:23:01,919 --> 00:23:06,720
+you know show where the local variables
+
+690
+00:23:04,080 --> 00:23:09,919
+are and you know try to get a sense of
+
+691
+00:23:06,720 --> 00:23:09,919
+what's initialized and what's
+
+692
+00:23:11,559 --> 00:23:14,559
+uninitialized
+

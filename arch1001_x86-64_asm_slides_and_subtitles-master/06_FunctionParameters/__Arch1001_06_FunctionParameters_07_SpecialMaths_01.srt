@@ -1,0 +1,564 @@
+1
+00:00:00,080 --> 00:00:05,359
+so let's take a look at SpecialMath.c
+
+2
+00:00:03,120 --> 00:00:07,600
+it takes command line arguments so it's
+
+3
+00:00:05,359 --> 00:00:10,719
+now starting to use the argument vector
+
+4
+00:00:07,600 --> 00:00:11,519
+and it's using argv with atoi which
+
+5
+00:00:10,719 --> 00:00:13,840
+expects in
+
+6
+00:00:11,519 --> 00:00:15,120
+an integer as a string and converts it
+
+7
+00:00:13,840 --> 00:00:17,440
+to an integer as an
+
+8
+00:00:15,120 --> 00:00:19,199
+integer and in this particular case i've
+
+9
+00:00:17,440 --> 00:00:21,760
+chosen some special math
+
+10
+00:00:19,199 --> 00:00:22,320
+that I know will cause visual studio to
+
+11
+00:00:21,760 --> 00:00:23,600
+generate
+
+12
+00:00:22,320 --> 00:00:25,680
+the assembly instruction that i'm
+
+13
+00:00:23,600 --> 00:00:27,920
+looking for which is lea
+
+14
+00:00:25,680 --> 00:00:29,519
+now this is called special maths because
+
+15
+00:00:27,920 --> 00:00:30,560
+I originally thought I was being funny
+
+16
+00:00:29,519 --> 00:00:33,600
+because there was a
+
+17
+00:00:30,560 --> 00:00:36,160
+politician who shall remain nameless who
+
+18
+00:00:33,600 --> 00:00:37,920
+said maths instead of math which is
+
+19
+00:00:36,160 --> 00:00:38,879
+funny to us americans because we say
+
+20
+00:00:37,920 --> 00:00:41,440
+math we don't say
+
+21
+00:00:38,879 --> 00:00:43,440
+maths now you can imagine my chagrin
+
+22
+00:00:41,440 --> 00:00:46,160
+when I learned that the British and
+
+23
+00:00:43,440 --> 00:00:47,840
+other folks who swear fealty to a queen
+
+24
+00:00:46,160 --> 00:00:50,800
+happen to say maths
+
+25
+00:00:47,840 --> 00:00:52,960
+unironically and so all of the irony is
+
+26
+00:00:50,800 --> 00:00:56,239
+lost here but for the american audience
+
+27
+00:00:52,960 --> 00:00:57,520
+special maths ha ha but enough about
+
+28
+00:00:56,239 --> 00:00:59,760
+maths let's talk about
+
+29
+00:00:57,520 --> 00:01:01,440
+lea so you can see here that it's using
+
+30
+00:00:59,760 --> 00:01:03,920
+an rmx form
+
+31
+00:01:01,440 --> 00:01:04,720
+but back on the rmx addressing slide i
+
+32
+00:01:03,920 --> 00:01:07,520
+said
+
+33
+00:01:04,720 --> 00:01:09,439
+Intel syntax most of the time square
+
+34
+00:01:07,520 --> 00:01:10,880
+brackets means to treat the value within
+
+35
+00:01:09,439 --> 00:01:13,439
+as a memory address
+
+36
+00:01:10,880 --> 00:01:14,479
+and lea is the exception that proves the
+
+37
+00:01:13,439 --> 00:01:17,520
+rule
+
+38
+00:01:14,479 --> 00:01:19,920
+and so specifically with lea load
+
+39
+00:01:17,520 --> 00:01:22,000
+effective address you'll see something
+
+40
+00:01:19,920 --> 00:01:23,759
+that looks like the rmx form
+
+41
+00:01:22,000 --> 00:01:26,159
+but in the manual it's actually just
+
+42
+00:01:23,759 --> 00:01:27,920
+called m and it's the exception to the
+
+43
+00:01:26,159 --> 00:01:30,240
+rule that square brackets means to
+
+44
+00:01:27,920 --> 00:01:32,079
+dereference memory
+
+45
+00:01:30,240 --> 00:01:33,759
+basically when you're using an lea
+
+46
+00:01:32,079 --> 00:01:34,720
+although you'll see this form it's going
+
+47
+00:01:33,759 --> 00:01:36,799
+to add that up
+
+48
+00:01:34,720 --> 00:01:38,079
+it's going to calculate some value and
+
+49
+00:01:36,799 --> 00:01:40,079
+then rather than
+
+50
+00:01:38,079 --> 00:01:41,759
+dereferencing it and going to memory
+
+51
+00:01:40,079 --> 00:01:42,479
+it's just going to take the value and
+
+52
+00:01:41,759 --> 00:01:44,720
+load that
+
+53
+00:01:42,479 --> 00:01:46,159
+effective address into the register
+
+54
+00:01:44,720 --> 00:01:47,680
+that's specified in the assembly
+
+55
+00:01:46,159 --> 00:01:49,840
+instruction
+
+56
+00:01:47,680 --> 00:01:51,040
+so you'll frequently see lea used in
+
+57
+00:01:49,840 --> 00:01:53,119
+pointer arithmetic
+
+58
+00:01:51,040 --> 00:01:54,720
+and that can be of the form for instance
+
+59
+00:01:53,119 --> 00:01:55,759
+if you just have a pointer and you do
+
+60
+00:01:54,720 --> 00:01:58,079
+plus plus
+
+61
+00:01:55,759 --> 00:01:58,799
+then you know that the increase in the
+
+62
+00:01:58,079 --> 00:02:01,360
+address
+
+63
+00:01:58,799 --> 00:02:03,360
+is the increase of the size of the l of
+
+64
+00:02:01,360 --> 00:02:05,040
+pointers on that particular architecture
+
+65
+00:02:03,360 --> 00:02:07,119
+so if it's you know a pointer on a
+
+66
+00:02:05,040 --> 00:02:10,640
+64-bit system it's going to be
+
+67
+00:02:07,119 --> 00:02:11,680
+plus plus adds 8 to the value and so lea
+
+68
+00:02:10,640 --> 00:02:14,239
+could be used for that
+
+69
+00:02:11,680 --> 00:02:16,560
+it can also be used for things like
+
+70
+00:02:14,239 --> 00:02:17,200
+calculating the address of an element of
+
+71
+00:02:16,560 --> 00:02:19,920
+an array
+
+72
+00:02:17,200 --> 00:02:21,599
+because again you can have some base of
+
+73
+00:02:19,920 --> 00:02:23,200
+an array an index of the array it's
+
+74
+00:02:21,599 --> 00:02:24,800
+going to have the size of the array
+
+75
+00:02:23,200 --> 00:02:26,480
+and it'll use that to calculate the
+
+76
+00:02:24,800 --> 00:02:28,480
+address if you know the C code was
+
+77
+00:02:26,480 --> 00:02:30,560
+looking for an address
+
+78
+00:02:28,480 --> 00:02:32,879
+so just as an example if you imagine
+
+79
+00:02:30,560 --> 00:02:36,000
+that you had rbx having two
+
+80
+00:02:32,879 --> 00:02:39,280
+rdx having hex 1000 then
+
+81
+00:02:36,000 --> 00:02:42,480
+this calculation this lea would say 1000
+
+82
+00:02:39,280 --> 00:02:45,680
+plus 2 times 8 which is 0x10
+
+83
+00:02:42,480 --> 00:02:49,200
+plus 5 and so it would calculate up
+
+84
+00:02:45,680 --> 00:02:51,599
+0x1015 and put that into the rax
+
+85
+00:02:49,200 --> 00:02:52,800
+register it wouldn't dereference memory
+
+86
+00:02:51,599 --> 00:02:54,879
+it wouldn't treat that
+
+87
+00:02:52,800 --> 00:02:56,800
+as an address it would just treat it as
+
+88
+00:02:54,879 --> 00:02:59,360
+a value that's going to be loaded
+
+89
+00:02:56,800 --> 00:03:00,400
+into the register specified so
+
+90
+00:02:59,360 --> 00:03:03,840
+specifically with
+
+91
+00:03:00,400 --> 00:03:05,200
+lea load effective address you will see
+
+92
+00:03:03,840 --> 00:03:05,519
+the square brackets form and you will
+
+93
+00:03:05,200 --> 00:03:08,640
+see
+
+94
+00:03:05,519 --> 00:03:09,920
+rmx form but it is not actually going to
+
+95
+00:03:08,640 --> 00:03:12,959
+memory at that address
+
+96
+00:03:09,920 --> 00:03:14,640
+it is just calculating some value and
+
+97
+00:03:12,959 --> 00:03:16,959
+treating it as if oh i was just supposed
+
+98
+00:03:14,640 --> 00:03:19,200
+to calculate a pointer value
+
+99
+00:03:16,959 --> 00:03:20,000
+and then it just loads that value into
+
+100
+00:03:19,200 --> 00:03:22,159
+rax
+
+101
+00:03:20,000 --> 00:03:23,840
+it doesn't dereference the memory it
+
+102
+00:03:22,159 --> 00:03:25,680
+just treats it like it's a pointer
+
+103
+00:03:23,840 --> 00:03:27,920
+address and loads the address
+
+104
+00:03:25,680 --> 00:03:30,239
+loads the effective address as it were
+
+105
+00:03:27,920 --> 00:03:32,159
+into a register for instance
+
+106
+00:03:30,239 --> 00:03:34,080
+so frequently you will see this used
+
+107
+00:03:32,159 --> 00:03:35,760
+with things like pointer arithmetic so
+
+108
+00:03:34,080 --> 00:03:36,720
+if the C code is doing some point
+
+109
+00:03:35,760 --> 00:03:38,799
+arithmetic
+
+110
+00:03:36,720 --> 00:03:40,640
+that may turn into an lea because it can
+
+111
+00:03:38,799 --> 00:03:41,280
+take you know some base register for a
+
+112
+00:03:40,640 --> 00:03:43,280
+pointer
+
+113
+00:03:41,280 --> 00:03:45,200
+plus whatever the point arithmetic was
+
+114
+00:03:43,280 --> 00:03:46,640
+if you were trying to get the address of
+
+115
+00:03:45,200 --> 00:03:48,480
+some element of an array
+
+116
+00:03:46,640 --> 00:03:49,680
+well then it might generate an lea
+
+117
+00:03:48,480 --> 00:03:51,200
+assembly instruction
+
+118
+00:03:49,680 --> 00:03:52,959
+so i'm going to want you to go through
+
+119
+00:03:51,200 --> 00:03:53,439
+this code but you can't go through this
+
+120
+00:03:52,959 --> 00:03:56,159
+code
+
+121
+00:03:53,439 --> 00:03:57,840
+unless you pass a command line parameter
+
+122
+00:03:56,159 --> 00:04:00,000
+so in order to do that you
+
+123
+00:03:57,840 --> 00:04:02,080
+right click on the project go to its
+
+124
+00:04:00,000 --> 00:04:05,760
+properties make sure you're in the debug
+
+125
+00:04:02,080 --> 00:04:08,480
+active 64. under the debugging entry
+
+126
+00:04:05,760 --> 00:04:10,080
+you have command line command arguments
+
+127
+00:04:08,480 --> 00:04:12,799
+and just put in something there like
+
+128
+00:04:10,080 --> 00:04:14,720
+16 for instance all right so once again
+
+129
+00:04:12,799 --> 00:04:16,079
+i must ask you for your support and
+
+130
+00:04:14,720 --> 00:04:18,560
+helping me help you
+
+131
+00:04:16,079 --> 00:04:20,959
+by having you go through the assembly
+
+132
+00:04:18,560 --> 00:04:22,720
+now at this point making a stack diagram
+
+133
+00:04:20,959 --> 00:04:24,160
+is not as important we've covered most
+
+134
+00:04:22,720 --> 00:04:26,560
+of the stuff we're going to cover with
+
+135
+00:04:24,160 --> 00:04:28,160
+respect to the stack and stack diagrams
+
+136
+00:04:26,560 --> 00:04:29,840
+so i want to make sure that you
+
+137
+00:04:28,160 --> 00:04:32,400
+understand the assembly understand how
+
+138
+00:04:29,840 --> 00:04:33,840
+lea is being used so just step through
+
+139
+00:04:32,400 --> 00:04:34,639
+the assembly and make sure you
+
+140
+00:04:33,840 --> 00:04:39,360
+understand why
+
+141
+00:04:34,639 --> 00:04:39,360
+all of those instructions are there
+

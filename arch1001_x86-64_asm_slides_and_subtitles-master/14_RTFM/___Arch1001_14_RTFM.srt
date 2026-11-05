@@ -1,0 +1,4444 @@
+1
+00:00:00,080 --> 00:00:03,280
+so guess what I have repeatedly misled
+
+2
+00:00:02,800 --> 00:00:05,120
+you
+
+3
+00:00:03,280 --> 00:00:07,120
+because simplification is misleading and
+
+4
+00:00:05,120 --> 00:00:08,320
+those who want to be the true masters of
+
+5
+00:00:07,120 --> 00:00:10,960
+their own destiny
+
+6
+00:00:08,320 --> 00:00:12,880
+must know what lies below so it's time
+
+7
+00:00:10,960 --> 00:00:17,199
+to learn the fascinating truth
+
+8
+00:00:12,880 --> 00:00:18,720
+it's time to read the fun manual
+
+9
+00:00:17,199 --> 00:00:20,640
+that's right read the fun manuals
+
+10
+00:00:18,720 --> 00:00:22,480
+Intel's manual is available here
+
+11
+00:00:20,640 --> 00:00:24,480
+volume 1 is a summary of life the
+
+12
+00:00:22,480 --> 00:00:26,960
+universe and everything about x86
+
+13
+00:00:24,480 --> 00:00:28,320
+it's basically just overview type stuff
+
+14
+00:00:26,960 --> 00:00:30,720
+volumes 2a
+
+15
+00:00:28,320 --> 00:00:32,800
+through 2d explain all the various
+
+16
+00:00:30,720 --> 00:00:35,680
+assembly instructions themselves
+
+17
+00:00:32,800 --> 00:00:37,280
+including all the assembly extensions
+
+18
+00:00:35,680 --> 00:00:40,079
+and in volumes 3
+
+19
+00:00:37,280 --> 00:00:41,840
+a through 3d this is where all the gory
+
+20
+00:00:40,079 --> 00:00:44,559
+details about you know
+
+21
+00:00:41,840 --> 00:00:46,079
+everything actually exists so volume 1
+
+22
+00:00:44,559 --> 00:00:47,680
+summary it's good
+
+23
+00:00:46,079 --> 00:00:49,920
+but you really gotta get into volume
+
+24
+00:00:47,680 --> 00:00:50,719
+3 before you really understand how
+
+25
+00:00:49,920 --> 00:00:53,360
+stuff works
+
+26
+00:00:50,719 --> 00:00:55,039
+so as a quick reminder we... all the
+
+27
+00:00:53,360 --> 00:00:55,520
+volume numbers and references and
+
+28
+00:00:55,039 --> 00:00:58,079
+everything
+
+29
+00:00:55,520 --> 00:00:59,600
+are from the november 2019 version which
+
+30
+00:00:58,079 --> 00:01:01,039
+comes with this class
+
+31
+00:00:59,600 --> 00:01:03,680
+and we're primarily going to be looking
+
+32
+00:01:01,039 --> 00:01:05,280
+at volume 2. now the correct way to
+
+33
+00:01:03,680 --> 00:01:06,799
+interpret these pages that I'm going to
+
+34
+00:01:05,280 --> 00:01:10,000
+be showing you is given in
+
+35
+00:01:06,799 --> 00:01:12,320
+Intel manual 2a sections 2.1 and 2.2
+
+36
+00:01:10,000 --> 00:01:14,000
+so I'm actually even going to be giving
+
+37
+00:01:12,320 --> 00:01:16,400
+a further simplification
+
+38
+00:01:14,000 --> 00:01:18,560
+for this next part and I'll leave it for
+
+39
+00:01:16,400 --> 00:01:19,840
+some optional extra material if you
+
+40
+00:01:18,560 --> 00:01:21,360
+really really want to dive
+
+41
+00:01:19,840 --> 00:01:23,119
+even deeper it's material you don't
+
+42
+00:01:21,360 --> 00:01:24,960
+strictly need to know unless you're you
+
+43
+00:01:23,119 --> 00:01:26,400
+know trying to write a disassembler or
+
+44
+00:01:24,960 --> 00:01:28,640
+something like that maybe you're
+
+45
+00:01:26,400 --> 00:01:29,920
+hand tweaking some shell code then maybe
+
+46
+00:01:28,640 --> 00:01:30,560
+you need to know it most people don't
+
+47
+00:01:29,920 --> 00:01:32,640
+need to know
+
+48
+00:01:30,560 --> 00:01:34,640
+so I'll have it available but you know
+
+49
+00:01:32,640 --> 00:01:35,439
+I'm not suggesting that most people need
+
+50
+00:01:34,640 --> 00:01:38,400
+to check it out
+
+51
+00:01:35,439 --> 00:01:40,159
+so really you gotta RTFM to RTFM but
+
+52
+00:01:38,400 --> 00:01:40,799
+I'll give you the basics so here's what
+
+53
+00:01:40,159 --> 00:01:43,040
+I said
+
+54
+00:01:40,799 --> 00:01:44,960
+about the and instruction you know three
+
+55
+00:01:43,040 --> 00:01:45,759
+bullet points and two examples right
+
+56
+00:01:44,960 --> 00:01:48,079
+it's so simple
+
+57
+00:01:45,759 --> 00:01:49,840
+and here's what the Intel manual says
+
+58
+00:01:48,079 --> 00:01:52,799
+about the and instruction
+
+59
+00:01:49,840 --> 00:01:54,079
+it's a bit more complicated so we need
+
+60
+00:01:52,799 --> 00:01:56,240
+to learn to understand
+
+61
+00:01:54,079 --> 00:01:58,399
+how to read that kind of table so let's
+
+62
+00:01:56,240 --> 00:02:01,119
+go through it 1 column at a time
+
+63
+00:01:58,399 --> 00:02:03,119
+opcode column this is going to represent
+
+64
+00:02:01,119 --> 00:02:03,759
+the very literal bytes that you would
+
+65
+00:02:03,119 --> 00:02:06,079
+see
+
+66
+00:02:03,759 --> 00:02:06,960
+emitted by a compiler in order to
+
+67
+00:02:06,079 --> 00:02:09,360
+specify
+
+68
+00:02:06,960 --> 00:02:10,800
+a particular assembly instruction so if
+
+69
+00:02:09,360 --> 00:02:12,560
+you saw 24
+
+70
+00:02:10,800 --> 00:02:14,959
+and then you saw a single byte that
+
+71
+00:02:12,560 --> 00:02:17,280
+would always be the and instruction
+
+72
+00:02:14,959 --> 00:02:18,720
+taking that single byte whatever it is
+
+73
+00:02:17,280 --> 00:02:20,640
+one two three four five six seven eight
+
+74
+00:02:18,720 --> 00:02:24,400
+that single byte as an immediate
+
+75
+00:02:20,640 --> 00:02:25,040
+and anding it into the with the al
+
+76
+00:02:24,400 --> 00:02:27,840
+register
+
+77
+00:02:25,040 --> 00:02:28,640
+on the other hand if you had 0x25 then
+
+78
+00:02:27,840 --> 00:02:30,800
+you would know that
+
+79
+00:02:28,640 --> 00:02:32,080
+instead it's going into the ax register
+
+80
+00:02:30,800 --> 00:02:35,360
+instead of al
+
+81
+00:02:32,080 --> 00:02:37,680
+and it's 16 byte immediate or
+
+82
+00:02:35,360 --> 00:02:39,680
+I guess it could be a 32-bit immediate
+
+83
+00:02:37,680 --> 00:02:40,000
+which should have said 16-bit immediate
+
+84
+00:02:39,680 --> 00:02:41,840
+there
+
+85
+00:02:40,000 --> 00:02:44,160
+but uh so how do you actually know the
+
+86
+00:02:41,840 --> 00:02:47,440
+difference between those two right so
+
+87
+00:02:44,160 --> 00:02:48,480
+a CPU when it's chugging along reading
+
+88
+00:02:47,440 --> 00:02:49,680
+byte after byte
+
+89
+00:02:48,480 --> 00:02:51,599
+trying to figure out you know how to
+
+90
+00:02:49,680 --> 00:02:53,120
+decode these assembly instructions
+
+91
+00:02:51,599 --> 00:02:55,120
+how does it know whether or not 25
+
+92
+00:02:53,120 --> 00:02:55,519
+should have two bytes after it for a 16
+
+93
+00:02:55,120 --> 00:02:58,239
+bit
+
+94
+00:02:55,519 --> 00:02:59,920
+value or four bytes after it for 32-bit
+
+95
+00:02:58,239 --> 00:03:01,680
+value well the answer is that it
+
+96
+00:02:59,920 --> 00:03:02,560
+actually depends on which mode the
+
+97
+00:03:01,680 --> 00:03:05,120
+processor
+
+98
+00:03:02,560 --> 00:03:06,959
+is executing right now so if it were
+
+99
+00:03:05,120 --> 00:03:09,519
+executing in 16-bit mode then
+
+100
+00:03:06,959 --> 00:03:12,000
+it would expect 2 bytes after 25 and
+
+101
+00:03:09,519 --> 00:03:13,120
+if it was in 32 or 64-bit mode it would
+
+102
+00:03:12,000 --> 00:03:15,120
+expect
+
+103
+00:03:13,120 --> 00:03:17,360
+4 bytes after it so each mode
+
+104
+00:03:15,120 --> 00:03:18,159
+actually has a default operand size and
+
+105
+00:03:17,360 --> 00:03:20,000
+that's going to
+
+106
+00:03:18,159 --> 00:03:22,400
+basically tell the processor what it
+
+107
+00:03:20,000 --> 00:03:24,720
+should be expecting now in reality
+
+108
+00:03:22,400 --> 00:03:27,360
+well first of all the 64-bit mode
+
+109
+00:03:24,720 --> 00:03:29,120
+default operand size is actually 32 bits
+
+110
+00:03:27,360 --> 00:03:30,959
+rather than 64 bits
+
+111
+00:03:29,120 --> 00:03:32,239
+so in general when you're reading
+
+112
+00:03:30,959 --> 00:03:34,239
+through the manual
+
+113
+00:03:32,239 --> 00:03:37,040
+you should expect that 64-bit will
+
+114
+00:03:34,239 --> 00:03:40,080
+always be using the 32-bit immediate
+
+115
+00:03:37,040 --> 00:03:42,080
+and 32-bit registers unless it happens
+
+116
+00:03:40,080 --> 00:03:44,400
+to be using some extra
+
+117
+00:03:42,080 --> 00:03:45,519
+instruction prefix to force it to use a
+
+118
+00:03:44,400 --> 00:03:47,440
+64-bit value
+
+119
+00:03:45,519 --> 00:03:48,720
+so I talk about these instruction
+
+120
+00:03:47,440 --> 00:03:50,799
+prefixes later
+
+121
+00:03:48,720 --> 00:03:52,000
+but basically it can use either of these
+
+122
+00:03:50,799 --> 00:03:53,040
+forms I don't want to jump ahead and
+
+123
+00:03:52,000 --> 00:03:55,120
+talk about this column
+
+124
+00:03:53,040 --> 00:03:57,040
+so all right so then the instruction
+
+125
+00:03:55,120 --> 00:03:58,239
+column is a basic human readable
+
+126
+00:03:57,040 --> 00:04:00,480
+mnemonic kind of
+
+127
+00:03:58,239 --> 00:04:02,480
+what the assembly instruction will look
+
+128
+00:04:00,480 --> 00:04:03,280
+like so if these are the bytes that you
+
+129
+00:04:02,480 --> 00:04:05,519
+know a
+
+130
+00:04:03,280 --> 00:04:07,680
+CPU processor is going to see that you
+
+131
+00:04:05,519 --> 00:04:09,439
+know disassembler is chewing through
+
+132
+00:04:07,680 --> 00:04:11,519
+these are the interpretations that a
+
+133
+00:04:09,439 --> 00:04:12,400
+disassembler would try to show a human
+
+134
+00:04:11,519 --> 00:04:14,560
+when it's you know
+
+135
+00:04:12,400 --> 00:04:16,720
+interpreting the the sequence of bytes
+
+136
+00:04:14,560 --> 00:04:17,600
+as a 24 followed by 1 byte or 25
+
+137
+00:04:16,720 --> 00:04:19,359
+followed by
+
+138
+00:04:17,600 --> 00:04:21,040
+4 bytes so that's what the human
+
+139
+00:04:19,359 --> 00:04:23,600
+expects and this
+
+140
+00:04:21,040 --> 00:04:25,680
+imm that's representing an immediate and
+
+141
+00:04:23,600 --> 00:04:28,160
+you can see we've got 8-bit size 16-bit
+
+142
+00:04:25,680 --> 00:04:31,120
+size 32-bit size and so forth well
+
+143
+00:04:28,160 --> 00:04:32,639
+and just 32-bit size this column is
+
+144
+00:04:31,120 --> 00:04:37,680
+frequently where you will see
+
+145
+00:04:32,639 --> 00:04:39,199
+the r/mX specified so r/m8 to r/m16 r/m32
+
+146
+00:04:37,680 --> 00:04:42,000
+we'll see an example of that in a little
+
+147
+00:04:39,199 --> 00:04:45,280
+bit okay the operand encoding column
+
+148
+00:04:42,000 --> 00:04:47,040
+has a little textual representation of
+
+149
+00:04:45,280 --> 00:04:49,040
+how you would encode the various
+
+150
+00:04:47,040 --> 00:04:49,360
+operands so here because it's dealing
+
+151
+00:04:49,040 --> 00:04:52,400
+with
+
+152
+00:04:49,360 --> 00:04:53,919
+immediate it's an I and so the I
+
+153
+00:04:52,400 --> 00:04:56,160
+is basically saying that for these
+
+154
+00:04:53,919 --> 00:04:56,800
+operands it's always going to be al ax
+
+155
+00:04:56,160 --> 00:05:00,400
+eax
+
+156
+00:04:56,800 --> 00:05:04,000
+rax and it's an immediate 8 16
+
+157
+00:05:00,400 --> 00:05:06,240
+32 8 16 or 32 for the second
+
+158
+00:05:04,000 --> 00:05:09,120
+operand personally I don't particularly
+
+159
+00:05:06,240 --> 00:05:10,639
+find this column super useful
+
+160
+00:05:09,120 --> 00:05:12,639
+you know I mean clearly it shows you
+
+161
+00:05:10,639 --> 00:05:15,280
+know it's an rm it's a this this is
+
+162
+00:05:12,639 --> 00:05:17,600
+another way of saying rm32 it's an rm32
+
+163
+00:05:15,280 --> 00:05:19,280
+that the operand 1 is read from
+
+164
+00:05:17,600 --> 00:05:21,360
+operand 2 is read from and then it's
+
+165
+00:05:19,280 --> 00:05:23,520
+written back to operand 1
+
+166
+00:05:21,360 --> 00:05:25,199
+uh this particular column was actually
+
+167
+00:05:23,520 --> 00:05:27,759
+added to the manuals
+
+168
+00:05:25,199 --> 00:05:29,120
+sometime after I first started teaching
+
+169
+00:05:27,759 --> 00:05:31,440
+x86
+
+170
+00:05:29,120 --> 00:05:33,039
+so I don't particularly have any use for
+
+171
+00:05:31,440 --> 00:05:35,840
+it but maybe you will
+
+172
+00:05:33,039 --> 00:05:38,080
+alright the 64-bit mode column specifies
+
+173
+00:05:35,840 --> 00:05:39,680
+whether a given assembly instruction is
+
+174
+00:05:38,080 --> 00:05:42,320
+valid in 64-bit mode
+
+175
+00:05:39,680 --> 00:05:43,199
+this has to do with sometimes older
+
+176
+00:05:42,320 --> 00:05:44,800
+versions
+
+177
+00:05:43,199 --> 00:05:46,479
+of assembly instructions get
+
+178
+00:05:44,800 --> 00:05:49,120
+cannibalized for
+
+179
+00:05:46,479 --> 00:05:49,759
+alternate versions 64-bit versions of
+
+180
+00:05:49,120 --> 00:05:51,280
+things
+
+181
+00:05:49,759 --> 00:05:52,720
+but basically you can just go down this
+
+182
+00:05:51,280 --> 00:05:54,720
+column to find out whether or not it's
+
+183
+00:05:52,720 --> 00:05:56,800
+even possible to encode this
+
+184
+00:05:54,720 --> 00:05:58,080
+uh when you're running in 64-bit mode
+
+185
+00:05:56,800 --> 00:05:59,919
+sometimes for instance
+
+186
+00:05:58,080 --> 00:06:02,319
+you know 16-bit values will not be
+
+187
+00:05:59,919 --> 00:06:04,319
+possible in 64-bit mode
+
+188
+00:06:02,319 --> 00:06:06,240
+so this should actually say so this is
+
+189
+00:06:04,319 --> 00:06:08,160
+from the the manual right here
+
+190
+00:06:06,240 --> 00:06:10,240
+and the V and the I should actually be
+
+191
+00:06:08,160 --> 00:06:12,639
+valid and invalid
+
+192
+00:06:10,240 --> 00:06:14,240
+and you might see things like N.E. saying
+
+193
+00:06:12,639 --> 00:06:16,720
+that it's not encodable
+
+194
+00:06:14,240 --> 00:06:18,400
+N.S. not supported so this is the
+
+195
+00:06:16,720 --> 00:06:20,080
+interpretation of this column
+
+196
+00:06:18,400 --> 00:06:22,000
+basically the same interpretation
+
+197
+00:06:20,080 --> 00:06:24,560
+slightly less options because
+
+198
+00:06:22,000 --> 00:06:25,440
+it's talking about the old form so valid
+
+199
+00:06:24,560 --> 00:06:27,919
+invalid and
+
+200
+00:06:25,440 --> 00:06:29,680
+not encodable usually the not encodable
+
+201
+00:06:27,919 --> 00:06:30,800
+in this column and valid in this column
+
+202
+00:06:29,680 --> 00:06:32,639
+means this is news
+
+203
+00:06:30,800 --> 00:06:35,440
+some new form of the instruction that
+
+204
+00:06:32,639 --> 00:06:36,960
+was added specifically for 64-bit mode
+
+205
+00:06:35,440 --> 00:06:38,400
+so obviously you can imagine that when
+
+206
+00:06:36,960 --> 00:06:41,520
+you're running 32-bit mode it would have
+
+207
+00:06:38,400 --> 00:06:42,880
+had a immediate 32 and a 32-bit register
+
+208
+00:06:41,520 --> 00:06:44,960
+but when you're you know running in
+
+209
+00:06:42,880 --> 00:06:47,199
+32-bit mode it can't access
+
+210
+00:06:44,960 --> 00:06:48,720
+a 64-bit register because you're
+
+211
+00:06:47,199 --> 00:06:50,160
+basically falling back to some old
+
+212
+00:06:48,720 --> 00:06:52,240
+compatibility mode and
+
+213
+00:06:50,160 --> 00:06:54,479
+back before the 64-bit extensions they
+
+214
+00:06:52,240 --> 00:06:57,440
+had no notion of the rax register
+
+215
+00:06:54,479 --> 00:06:58,080
+then the description column is a usually
+
+216
+00:06:57,440 --> 00:07:01,039
+longer
+
+217
+00:06:58,080 --> 00:07:02,400
+form of the assembly instruction it's
+
+218
+00:07:01,039 --> 00:07:03,919
+not going to be formatted
+
+219
+00:07:02,400 --> 00:07:05,599
+sort of the way the assembly instruction
+
+220
+00:07:03,919 --> 00:07:07,120
+will look it's just telling you what the
+
+221
+00:07:05,599 --> 00:07:09,199
+operation is that's performed
+
+222
+00:07:07,120 --> 00:07:10,880
+it'll be you know longer than inferring
+
+223
+00:07:09,199 --> 00:07:11,280
+based on this but it'll be much shorter
+
+224
+00:07:10,880 --> 00:07:14,880
+than
+
+225
+00:07:11,280 --> 00:07:16,800
+a long form human readable paragraphs of
+
+226
+00:07:14,880 --> 00:07:18,000
+description that is given below these
+
+227
+00:07:16,800 --> 00:07:20,479
+sort of tables
+
+228
+00:07:18,000 --> 00:07:22,639
+now if we go and look down at some of
+
+229
+00:07:20,479 --> 00:07:23,360
+the rest of these forms of the and
+
+230
+00:07:22,639 --> 00:07:26,560
+instruction
+
+231
+00:07:23,360 --> 00:07:28,720
+we can see now these r/mX's appear
+
+232
+00:07:26,560 --> 00:07:31,120
+the things I call an r/mX which I said
+
+233
+00:07:28,720 --> 00:07:33,440
+the X is for could be an r/m8 it could be
+
+234
+00:07:31,120 --> 00:07:35,840
+an r/m16 could be an r/m32
+
+235
+00:07:33,440 --> 00:07:38,000
+it could be an r/m64 now just taking a
+
+236
+00:07:35,840 --> 00:07:39,520
+quick look back at the up code thing
+
+237
+00:07:38,000 --> 00:07:41,840
+in the previous one we had you know
+
+238
+00:07:39,520 --> 00:07:44,479
+numbers like 20 and then an immediate
+
+239
+00:07:41,840 --> 00:07:46,720
+now we've added in a /r that
+
+240
+00:07:44,479 --> 00:07:47,919
+/r is going to specify somehow a register
+
+241
+00:07:46,720 --> 00:07:50,879
+and that's going to be
+
+242
+00:07:47,919 --> 00:07:53,039
+a byte that specifies register so 22 and
+
+243
+00:07:50,879 --> 00:07:55,280
+a byte to specify a register
+
+244
+00:07:53,039 --> 00:07:56,160
+will give you the and instruction with
+
+245
+00:07:55,280 --> 00:07:58,479
+an r/m8
+
+246
+00:07:56,160 --> 00:07:59,520
+and an r but then there's also this form
+
+247
+00:07:58,479 --> 00:08:02,800
+that has a rex
+
+248
+00:07:59,520 --> 00:08:03,360
+and a rex.w these are the things that
+
+249
+00:08:02,800 --> 00:08:05,440
+force
+
+250
+00:08:03,360 --> 00:08:06,720
+stuff to be 64-bit mode and I'm not
+
+251
+00:08:05,440 --> 00:08:08,400
+going to talk about them too much now
+
+252
+00:08:06,720 --> 00:08:09,599
+again that goes into the optional
+
+253
+00:08:08,400 --> 00:08:12,319
+material when we
+
+254
+00:08:09,599 --> 00:08:13,120
+really dig into this section so as I was
+
+255
+00:08:12,319 --> 00:08:15,039
+looking through the
+
+256
+00:08:13,120 --> 00:08:16,560
+and instruction to you know just talk
+
+257
+00:08:15,039 --> 00:08:19,199
+about it with you I
+
+258
+00:08:16,560 --> 00:08:20,479
+was noticing that okay well I probably
+
+259
+00:08:19,199 --> 00:08:21,680
+want to talk about the difference
+
+260
+00:08:20,479 --> 00:08:24,240
+between you know there's a
+
+261
+00:08:21,680 --> 00:08:25,440
+there's a r/m8 immediate and an r/m8
+
+262
+00:08:24,240 --> 00:08:26,800
+immediate and you're probably going to
+
+263
+00:08:25,440 --> 00:08:28,639
+see that and say okay what's the
+
+264
+00:08:26,800 --> 00:08:30,000
+difference what's the point what's going
+
+265
+00:08:28,639 --> 00:08:31,280
+on here
+
+266
+00:08:30,000 --> 00:08:33,120
+and the difference between those two
+
+267
+00:08:31,280 --> 00:08:35,039
+things was just this rex byte which I
+
+268
+00:08:33,120 --> 00:08:37,039
+said I didn't really want to talk about
+
+269
+00:08:35,039 --> 00:08:38,880
+but I need to give you some sort of
+
+270
+00:08:37,039 --> 00:08:40,320
+flavor to say like what's the difference
+
+271
+00:08:38,880 --> 00:08:42,000
+here when am I going to see this when am
+
+272
+00:08:40,320 --> 00:08:42,719
+I going to see that and when I'm looking
+
+273
+00:08:42,000 --> 00:08:45,600
+through these
+
+274
+00:08:42,719 --> 00:08:46,000
+I see all of a sudden okay well this
+
+275
+00:08:45,600 --> 00:08:48,560
+says
+
+276
+00:08:46,000 --> 00:08:49,360
+and r/m8 and immediate 8 and that's an
+
+277
+00:08:48,560 --> 00:08:51,720
+r/m8 and
+
+278
+00:08:49,360 --> 00:08:54,720
+immediate okay that makes sense got and
+
+279
+00:08:51,720 --> 00:08:56,000
+r/m8 r8 so that's an 8-bit register with
+
+280
+00:08:54,720 --> 00:08:58,000
+an 8-bit register
+
+281
+00:08:56,000 --> 00:08:59,200
+memory value back into register memory
+
+282
+00:08:58,000 --> 00:09:02,399
+value and then
+
+283
+00:08:59,200 --> 00:09:04,720
+this form same thing r/m8 r8 but
+
+284
+00:09:02,399 --> 00:09:05,440
+all of a sudden it says r/m64 and it
+
+285
+00:09:04,720 --> 00:09:08,640
+says
+
+286
+00:09:05,440 --> 00:09:10,640
+r8 sign extended to 64 bits so
+
+287
+00:09:08,640 --> 00:09:11,920
+that's kind of weird and I see another
+
+288
+00:09:10,640 --> 00:09:14,080
+version of that for
+
+289
+00:09:11,920 --> 00:09:15,839
+here where instead of going register to
+
+290
+00:09:14,080 --> 00:09:16,480
+memory we're going potentially memory to
+
+291
+00:09:15,839 --> 00:09:18,959
+register
+
+292
+00:09:16,480 --> 00:09:21,120
+so what's the deal with this and then I
+
+293
+00:09:18,959 --> 00:09:22,640
+said okay well maybe it's a typo maybe
+
+294
+00:09:21,120 --> 00:09:23,200
+it's something I don't understand about
+
+295
+00:09:22,640 --> 00:09:25,360
+the
+
+296
+00:09:23,200 --> 00:09:27,920
+assembly instructions so let's go look
+
+297
+00:09:25,360 --> 00:09:29,920
+at add instead add has a lot of the same
+
+298
+00:09:27,920 --> 00:09:31,440
+forms as and it's got this immediate
+
+299
+00:09:29,920 --> 00:09:33,920
+8 and an r/m8
+
+300
+00:09:31,440 --> 00:09:34,480
+okay those two basically match up it's
+
+301
+00:09:33,920 --> 00:09:37,839
+got an
+
+302
+00:09:34,480 --> 00:09:39,920
+r/m8 and an immediate 8 and add sign
+
+303
+00:09:37,839 --> 00:09:41,920
+extended immediate 8 to r/m8 what
+
+304
+00:09:39,920 --> 00:09:43,440
+does it mean to sign extend an 8-bit
+
+305
+00:09:41,920 --> 00:09:44,560
+value when you're interacting with
+
+306
+00:09:43,440 --> 00:09:45,839
+another 8-bit value
+
+307
+00:09:44,560 --> 00:09:48,640
+all right well that doesn't make any
+
+308
+00:09:45,839 --> 00:09:50,000
+sense either but then these make sense
+
+309
+00:09:48,640 --> 00:09:53,920
+so these are just plain
+
+310
+00:09:50,000 --> 00:09:56,640
+add r/m8 r8 to r/m8 add r/m8 to
+
+311
+00:09:53,920 --> 00:09:58,320
+r8 so basically in order to try to
+
+312
+00:09:56,640 --> 00:09:58,880
+interpret this kind of thing I was like
+
+313
+00:09:58,320 --> 00:10:01,360
+all right
+
+314
+00:09:58,880 --> 00:10:03,200
+well let's just go see what a you know
+
+315
+00:10:01,360 --> 00:10:05,120
+disassembler says about all this
+
+316
+00:10:03,200 --> 00:10:06,640
+so in order to do a basic test of this I
+
+317
+00:10:05,120 --> 00:10:07,680
+said okay well I want to understand the
+
+318
+00:10:06,640 --> 00:10:10,480
+difference between you know
+
+319
+00:10:07,680 --> 00:10:11,440
+20 with register and rex 20 with a
+
+320
+00:10:10,480 --> 00:10:14,560
+register
+
+321
+00:10:11,440 --> 00:10:16,600
+let's go disassemble that in oda
+
+322
+00:10:14,560 --> 00:10:17,760
+the online disassembler
+
+323
+00:10:16,600 --> 00:10:21,360
+onlinedisassembler.com
+
+324
+00:10:17,760 --> 00:10:25,040
+we said 20 and some byte equals
+
+325
+00:10:21,360 --> 00:10:28,320
+an and al and in this case
+
+326
+00:10:25,040 --> 00:10:30,640
+I did al so 20 in some byte is going to
+
+327
+00:10:28,320 --> 00:10:33,839
+specify some sort of register 8 and an
+
+328
+00:10:30,640 --> 00:10:35,200
+r/m8 so the sum byte I went and looked it
+
+329
+00:10:33,839 --> 00:10:36,560
+up in a table that you know I'm going to
+
+330
+00:10:35,200 --> 00:10:37,200
+talk about later on in the optional
+
+331
+00:10:36,560 --> 00:10:40,560
+material
+
+332
+00:10:37,200 --> 00:10:44,480
+came up with 20 and c0 is an
+
+333
+00:10:40,560 --> 00:10:48,800
+and al, al you can change that to 20 and 1.
+
+334
+00:10:44,480 --> 00:10:52,079
+now it's an and of cl sorry al into cl
+
+335
+00:10:48,800 --> 00:10:55,839
+c2 goes into dl c3
+
+336
+00:10:52,079 --> 00:10:58,640
+goes into bl and c4 goes into
+
+337
+00:10:55,839 --> 00:10:59,600
+ah so that's that particular
+
+338
+00:10:58,640 --> 00:11:02,640
+interpretation
+
+339
+00:10:59,600 --> 00:11:04,399
+let's throw in a rex byte which again
+
+340
+00:11:02,640 --> 00:11:06,079
+you know I'll get into later but
+
+341
+00:11:04,399 --> 00:11:07,760
+I'm just you know trying to figure out
+
+342
+00:11:06,079 --> 00:11:10,959
+what's going on here
+
+343
+00:11:07,760 --> 00:11:13,600
+so 0x40 is a rex byte but
+
+344
+00:11:10,959 --> 00:11:15,040
+the disassembler says this is actually
+
+345
+00:11:13,600 --> 00:11:18,160
+an inc instruction
+
+346
+00:11:15,040 --> 00:11:21,200
+and this is an and instruction so that's
+
+347
+00:11:18,160 --> 00:11:25,040
+because I have it set to i386 the
+
+348
+00:11:21,200 --> 00:11:25,360
+32-bit form of x86 so I need to set that
+
+349
+00:11:25,040 --> 00:11:28,160
+to
+
+350
+00:11:25,360 --> 00:11:28,640
+64-bit form and then all of a sudden it
+
+351
+00:11:28,160 --> 00:11:32,000
+will
+
+352
+00:11:28,640 --> 00:11:35,120
+turn into and al, al okay
+
+353
+00:11:32,000 --> 00:11:39,519
+so 40 20 c0
+
+354
+00:11:35,120 --> 00:11:42,240
+is and al, al and 20 c0 is and al, al
+
+355
+00:11:39,519 --> 00:11:43,760
+so what exactly is going on here well
+
+356
+00:11:42,240 --> 00:11:46,880
+what's really going on here
+
+357
+00:11:43,760 --> 00:11:48,480
+is that if you have the rex byte and
+
+358
+00:11:46,880 --> 00:11:49,920
+you get into a certain range
+
+359
+00:11:48,480 --> 00:11:53,440
+specifically the range
+
+360
+00:11:49,920 --> 00:11:56,639
+kind of mentioned here ah, bh,
+
+361
+00:11:53,440 --> 00:11:58,560
+ch, and dh these little stars that were
+
+362
+00:11:56,639 --> 00:11:59,680
+on here were saying in 64-bit mode the
+
+363
+00:11:58,560 --> 00:12:01,519
+r/m8 cannot
+
+364
+00:11:59,680 --> 00:12:04,360
+be encoded to access the following byte
+
+365
+00:12:01,519 --> 00:12:05,760
+registers if the rex prefix is used
+
+366
+00:12:04,360 --> 00:12:08,160
+ah, bh, ch, dh
+
+367
+00:12:05,760 --> 00:12:10,079
+so what's going on here is if I use a
+
+368
+00:12:08,160 --> 00:12:13,200
+rex prefix and I have 20
+
+369
+00:12:10,079 --> 00:12:14,440
+c4 which without the rex prefix turns
+
+370
+00:12:13,200 --> 00:12:18,320
+into and
+
+371
+00:12:14,440 --> 00:12:21,519
+al ah but with the rex prefix
+
+372
+00:12:18,320 --> 00:12:22,000
+as the manual kind of warned us we can't
+
+373
+00:12:21,519 --> 00:12:24,639
+access
+
+374
+00:12:22,000 --> 00:12:26,240
+ah because they've decided to reuse it
+
+375
+00:12:24,639 --> 00:12:28,320
+for spl
+
+376
+00:12:26,240 --> 00:12:30,560
+stack pointer low that is the least
+
+377
+00:12:28,320 --> 00:12:33,600
+significant byte of the stack pointer
+
+378
+00:12:30,560 --> 00:12:37,200
+so they basically hijacked four version
+
+379
+00:12:33,600 --> 00:12:38,000
+four of these things for ah, bh, ch, dh they
+
+380
+00:12:37,200 --> 00:12:41,040
+hijacked it
+
+381
+00:12:38,000 --> 00:12:44,639
+for spl bpl
+
+382
+00:12:41,040 --> 00:12:47,040
+sil and dil if I go past this
+
+383
+00:12:44,639 --> 00:12:48,000
+now all of a sudden I'm down to cl into
+
+384
+00:12:47,040 --> 00:12:50,880
+al again
+
+385
+00:12:48,000 --> 00:12:52,720
+so let's go ahead and back that up to
+
+386
+00:12:50,880 --> 00:12:55,680
+let's go with c0
+
+387
+00:12:52,720 --> 00:12:57,680
+and 41. and now this particular thing
+
+388
+00:12:55,680 --> 00:13:01,200
+still again with a rex byte
+
+389
+00:12:57,680 --> 00:13:03,680
+so and t 20 c0 was and al, al
+
+390
+00:13:01,200 --> 00:13:04,639
+if I throw a rex byte on there then
+
+391
+00:13:03,680 --> 00:13:08,160
+all of a sudden
+
+392
+00:13:04,639 --> 00:13:10,720
+it's accessing r8b so the
+
+393
+00:13:08,160 --> 00:13:12,720
+the least significant byte of r8 so you
+
+394
+00:13:10,720 --> 00:13:13,680
+can see kind of how this rex byte is
+
+395
+00:13:12,720 --> 00:13:16,639
+forcing
+
+396
+00:13:13,680 --> 00:13:17,680
+us to have access to 64-bit registers
+
+397
+00:13:16,639 --> 00:13:20,880
+for instance
+
+398
+00:13:17,680 --> 00:13:23,760
+so r8b plus 1 r9b
+
+399
+00:13:20,880 --> 00:13:25,279
+plus 2 r10b etc and you would expect it
+
+400
+00:13:23,760 --> 00:13:27,920
+would continue on through
+
+401
+00:13:25,279 --> 00:13:29,760
+our 15b so given that the disam
+
+402
+00:13:27,920 --> 00:13:30,160
+disassembler is telling me that you know
+
+403
+00:13:29,760 --> 00:13:32,720
+this
+
+404
+00:13:30,160 --> 00:13:33,920
+20 with you know some rex byte and you
+
+405
+00:13:32,720 --> 00:13:36,320
+know whatever byte for
+
+406
+00:13:33,920 --> 00:13:37,360
+whatever registers is still accessing
+
+407
+00:13:36,320 --> 00:13:39,760
+the byte form
+
+408
+00:13:37,360 --> 00:13:40,399
+I am left to conclude that these are
+
+409
+00:13:39,760 --> 00:13:42,800
+bugs
+
+410
+00:13:40,399 --> 00:13:45,199
+right it it's just the manual is wrong
+
+411
+00:13:42,800 --> 00:13:47,040
+it's has nothing to do with an r/m64
+
+412
+00:13:45,199 --> 00:13:48,560
+I had a rex byte I had 20 I had some
+
+413
+00:13:47,040 --> 00:13:49,760
+register and it was you know
+
+414
+00:13:48,560 --> 00:13:52,160
+disassembling as
+
+415
+00:13:49,760 --> 00:13:53,839
+uh you know 8-byte and 8-byte
+
+416
+00:13:52,160 --> 00:13:55,519
+sorry 8-bit and 8-bit value
+
+417
+00:13:53,839 --> 00:13:57,680
+right so you know of course the
+
+418
+00:13:55,519 --> 00:13:59,360
+disassembler could be wrong too but
+
+419
+00:13:57,680 --> 00:14:00,720
+you know I'm inclined to go with the
+
+420
+00:13:59,360 --> 00:14:02,880
+same interpretation
+
+421
+00:14:00,720 --> 00:14:04,160
+of the manual is wrong and the
+
+422
+00:14:02,880 --> 00:14:06,240
+disassembler is right
+
+423
+00:14:04,160 --> 00:14:07,279
+so you should definitely not expect it
+
+424
+00:14:06,240 --> 00:14:09,199
+to be the case that
+
+425
+00:14:07,279 --> 00:14:11,519
+the manual is completely free of bugs
+
+426
+00:14:09,199 --> 00:14:13,440
+even you know load these many years
+
+427
+00:14:11,519 --> 00:14:14,560
+that uh Intel has been out there's
+
+428
+00:14:13,440 --> 00:14:16,320
+actually a few
+
+429
+00:14:14,560 --> 00:14:18,800
+other bugs that were in previous
+
+430
+00:14:16,320 --> 00:14:21,040
+versions of this class for 32-bit and so
+
+431
+00:14:18,800 --> 00:14:24,000
+forth that I had to point out as I go
+
+432
+00:14:21,040 --> 00:14:25,760
+so when in doubt test it out so later on
+
+433
+00:14:24,000 --> 00:14:27,760
+if you choose to
+
+434
+00:14:25,760 --> 00:14:29,360
+read some of the optional material about
+
+435
+00:14:27,760 --> 00:14:32,560
+how to for instance
+
+436
+00:14:29,360 --> 00:14:34,639
+emit raw bytes in your code and have
+
+437
+00:14:32,560 --> 00:14:36,000
+them get turned into assembly
+
+438
+00:14:34,639 --> 00:14:37,440
+then you know you can use that for
+
+439
+00:14:36,000 --> 00:14:38,959
+testing or you can use an online
+
+440
+00:14:37,440 --> 00:14:40,320
+disassembler like I just did
+
+441
+00:14:38,959 --> 00:14:42,240
+so at the end of the day when I was
+
+442
+00:14:40,320 --> 00:14:44,480
+talking about you know okay 22 and
+
+443
+00:14:42,240 --> 00:14:46,480
+register versus rex 22 and register they
+
+444
+00:14:44,480 --> 00:14:48,160
+say they do the exact same operation
+
+445
+00:14:46,480 --> 00:14:50,480
+what's the difference what's the point
+
+446
+00:14:48,160 --> 00:14:52,320
+the point is that this rex byte is
+
+447
+00:14:50,480 --> 00:14:53,600
+essentially just there so that you can
+
+448
+00:14:52,320 --> 00:14:56,839
+get access to
+
+449
+00:14:53,600 --> 00:14:58,000
+these extended 64-bit registers spl,
+
+450
+00:14:56,839 --> 00:15:01,040
+bpl, sil
+
+451
+00:14:58,000 --> 00:15:05,519
+so forth because as a reminder these spl,
+
+452
+00:15:01,040 --> 00:15:07,680
+bpl, sil, dil these didn't actually exist
+
+453
+00:15:05,519 --> 00:15:09,440
+in 16 or 32-bit mode they were
+
+454
+00:15:07,680 --> 00:15:11,519
+extensions that were added when they did
+
+455
+00:15:09,440 --> 00:15:13,680
+the 64-bit extensions they said hey for
+
+456
+00:15:11,519 --> 00:15:16,240
+all these new registers r8 through r15
+
+457
+00:15:13,680 --> 00:15:16,800
+we want to get access to them at 64 32
+
+458
+00:15:16,240 --> 00:15:19,199
+16
+
+459
+00:15:16,800 --> 00:15:21,040
+and 8 bits at a time so let's go ahead
+
+460
+00:15:19,199 --> 00:15:21,600
+and extend it so that these things can
+
+461
+00:15:21,040 --> 00:15:23,440
+also be
+
+462
+00:15:21,600 --> 00:15:25,519
+accessed 8 bits at a time and so we
+
+463
+00:15:23,440 --> 00:15:28,959
+can you know call this the r4 register
+
+464
+00:15:25,519 --> 00:15:31,440
+and do r4 or r4d or r4w or r4b
+
+465
+00:15:28,959 --> 00:15:33,040
+or this particular disassembler oda
+
+466
+00:15:31,440 --> 00:15:36,000
+decided to call it spl,
+
+467
+00:15:33,040 --> 00:15:37,120
+bpl, sil, dil so that's another one of
+
+468
+00:15:36,000 --> 00:15:39,040
+those places where
+
+469
+00:15:37,120 --> 00:15:41,040
+you can have two different names for the
+
+470
+00:15:39,040 --> 00:15:42,160
+same register and
+
+471
+00:15:41,040 --> 00:15:44,480
+just like we can have two different
+
+472
+00:15:42,160 --> 00:15:46,399
+names for assembly instructions and it's
+
+473
+00:15:44,480 --> 00:15:47,440
+up to the disassembler to decide how it
+
+474
+00:15:46,399 --> 00:15:49,279
+wants to represent it
+
+475
+00:15:47,440 --> 00:15:50,800
+and just a little bit more about stuff
+
+476
+00:15:49,279 --> 00:15:52,000
+you're going to see in the manual
+
+477
+00:15:50,800 --> 00:15:53,519
+there's going to be a description
+
+478
+00:15:52,000 --> 00:15:54,000
+section which like I said is going to be
+
+479
+00:15:53,519 --> 00:15:56,399
+a long
+
+480
+00:15:54,000 --> 00:15:57,759
+form paragraphs of human readable text
+
+481
+00:15:56,399 --> 00:15:59,440
+there's going to be an operations
+
+482
+00:15:57,759 --> 00:16:00,560
+section which talks about the operation
+
+483
+00:15:59,440 --> 00:16:02,320
+and this is one of the
+
+484
+00:16:00,560 --> 00:16:04,079
+simplest possible forms you can have you
+
+485
+00:16:02,320 --> 00:16:06,160
+know destination and source
+
+486
+00:16:04,079 --> 00:16:07,759
+goes is assigned into the destination
+
+487
+00:16:06,160 --> 00:16:10,320
+and flags affect affected
+
+488
+00:16:07,759 --> 00:16:11,360
+so here it says the overflow flag and cf
+
+489
+00:16:10,320 --> 00:16:13,680
+flags are cleared
+
+490
+00:16:11,360 --> 00:16:16,079
+so always cleared by the and instruction
+
+491
+00:16:13,680 --> 00:16:17,360
+the sign flag zero flag and parity flag
+
+492
+00:16:16,079 --> 00:16:18,959
+are set according to the result
+
+493
+00:16:17,360 --> 00:16:20,800
+so you would expect that the sign flag
+
+494
+00:16:18,959 --> 00:16:21,120
+gets set if the most significant bit is
+
+495
+00:16:20,800 --> 00:16:24,079
+1
+
+496
+00:16:21,120 --> 00:16:25,360
+zero flag is set if the result is 0
+
+497
+00:16:24,079 --> 00:16:26,959
+parity flag
+
+498
+00:16:25,360 --> 00:16:28,000
+I haven't made the optional material yet
+
+499
+00:16:26,959 --> 00:16:28,880
+so I don't know whether I've told you
+
+500
+00:16:28,000 --> 00:16:31,360
+about it or not
+
+501
+00:16:28,880 --> 00:16:33,440
+so ignore that for now uh and the state
+
+502
+00:16:31,360 --> 00:16:35,279
+of the af flag is undefined
+
+503
+00:16:33,440 --> 00:16:37,199
+so just reading this description quick
+
+504
+00:16:35,279 --> 00:16:39,040
+it says it performs a bitwise and
+
+505
+00:16:37,199 --> 00:16:41,440
+operation on the destination
+
+506
+00:16:39,040 --> 00:16:43,519
+first and source second operation
+
+507
+00:16:41,440 --> 00:16:44,959
+operands rather and stores the results
+
+508
+00:16:43,519 --> 00:16:47,199
+into the destination
+
+509
+00:16:44,959 --> 00:16:48,000
+operand location source operand can be
+
+510
+00:16:47,199 --> 00:16:50,800
+immediates
+
+511
+00:16:48,000 --> 00:16:53,040
+registers or memory location destination
+
+512
+00:16:50,800 --> 00:16:55,360
+can be register or memory location
+
+513
+00:16:53,040 --> 00:16:56,800
+however two memory operands cannot be
+
+514
+00:16:55,360 --> 00:16:57,519
+used in one instruction so that's the
+
+515
+00:16:56,800 --> 00:16:59,680
+thing that I
+
+516
+00:16:57,519 --> 00:17:01,759
+told you repeatedly throughout the class
+
+517
+00:16:59,680 --> 00:17:03,839
+no memory to memory movs no memory to
+
+518
+00:17:01,759 --> 00:17:05,839
+memory ands, adds
+
+519
+00:17:03,839 --> 00:17:06,959
+xors anything like that and then it's
+
+520
+00:17:05,839 --> 00:17:08,559
+just telling you what the and
+
+521
+00:17:06,959 --> 00:17:10,079
+instruction does each bit of the result
+
+522
+00:17:08,559 --> 00:17:12,079
+is set to 1 if the corresponding bit
+
+523
+00:17:10,079 --> 00:17:14,000
+of the first and second operand are 1
+
+524
+00:17:12,079 --> 00:17:15,600
+otherwise it is set to 0 it says this
+
+525
+00:17:14,000 --> 00:17:17,280
+instruction can be used with the lock
+
+526
+00:17:15,600 --> 00:17:18,640
+prefix to allow it to be executed
+
+527
+00:17:17,280 --> 00:17:20,160
+atomically well we don't know what the
+
+528
+00:17:18,640 --> 00:17:22,240
+lock prefix is but
+
+529
+00:17:20,160 --> 00:17:23,760
+you know I'll tell you it it's a prefix
+
+530
+00:17:22,240 --> 00:17:24,559
+that can allow things to be executed
+
+531
+00:17:23,760 --> 00:17:26,160
+atomically
+
+532
+00:17:24,559 --> 00:17:28,559
+but we'll come back to instruction
+
+533
+00:17:26,160 --> 00:17:31,280
+prefixes later lock is basically
+
+534
+00:17:28,559 --> 00:17:32,240
+similar to rep from the rep movs I
+
+535
+00:17:31,280 --> 00:17:34,880
+said movs
+
+536
+00:17:32,240 --> 00:17:36,000
+is a actual instruction unto itself and
+
+537
+00:17:34,880 --> 00:17:38,080
+rep is a prefix
+
+538
+00:17:36,000 --> 00:17:39,679
+lock is another prefix you don't see it
+
+539
+00:17:38,080 --> 00:17:41,120
+that often but
+
+540
+00:17:39,679 --> 00:17:42,880
+we'll come back to it and cover it when
+
+541
+00:17:41,120 --> 00:17:44,799
+we cover instruction prefixes
+
+542
+00:17:42,880 --> 00:17:47,280
+and then in 64-bit mode the instructions
+
+543
+00:17:44,799 --> 00:17:49,120
+default operation size is 32 bits that's
+
+544
+00:17:47,280 --> 00:17:49,679
+what I said a little bit ago and using
+
+545
+00:17:49,120 --> 00:17:51,520
+the rex
+
+546
+00:17:49,679 --> 00:17:53,520
+prefix in the form of rex.r we don't
+
+547
+00:17:51,520 --> 00:17:54,720
+know what that is yet permits access to
+
+548
+00:17:53,520 --> 00:17:57,120
+additional registers
+
+549
+00:17:54,720 --> 00:17:58,960
+so gets you access to you know the
+
+550
+00:17:57,120 --> 00:18:00,960
+64-bit extensions
+
+551
+00:17:58,960 --> 00:18:03,280
+using rex prefix in the form of rex.w
+
+552
+00:18:00,960 --> 00:18:05,360
+promotes operations to 64 bits
+
+553
+00:18:03,280 --> 00:18:07,120
+so I said it defaults to 32 bits but
+
+554
+00:18:05,360 --> 00:18:08,880
+there's a way to override it and force
+
+555
+00:18:07,120 --> 00:18:10,480
+it to be 64-bit so
+
+556
+00:18:08,880 --> 00:18:12,640
+it would be up to the compiler to
+
+557
+00:18:10,480 --> 00:18:14,799
+specifically know how to format these
+
+558
+00:18:12,640 --> 00:18:16,880
+rex prefixes and to spit out the right
+
+559
+00:18:14,799 --> 00:18:17,520
+prefix to yield an assembly instruction
+
+560
+00:18:16,880 --> 00:18:20,400
+where the
+
+561
+00:18:17,520 --> 00:18:22,080
+where the processor will treat the
+
+562
+00:18:20,400 --> 00:18:23,760
+operation as 64-bit
+
+563
+00:18:22,080 --> 00:18:25,760
+so there you go I went through you know
+
+564
+00:18:23,760 --> 00:18:28,240
+one example the and example
+
+565
+00:18:25,760 --> 00:18:30,000
+in the instruction manual so you're all
+
+566
+00:18:28,240 --> 00:18:31,760
+good to go now right I can just uh let
+
+567
+00:18:30,000 --> 00:18:32,559
+you loose and say read all the assembly
+
+568
+00:18:31,760 --> 00:18:36,160
+instructions
+
+569
+00:18:32,559 --> 00:18:38,720
+no no you want more you got it
+
+570
+00:18:36,160 --> 00:18:39,679
+all right something close enough similar
+
+571
+00:18:38,720 --> 00:18:43,679
+enough to
+
+572
+00:18:39,679 --> 00:18:44,480
+and is add so what do we got here like
+
+573
+00:18:43,679 --> 00:18:46,320
+if we were to just
+
+574
+00:18:44,480 --> 00:18:47,840
+bump into this in the manual what would
+
+575
+00:18:46,320 --> 00:18:48,400
+we see we would first kind of try to
+
+576
+00:18:47,840 --> 00:18:51,440
+look for
+
+577
+00:18:48,400 --> 00:18:53,760
+groupings of assembly instructions
+
+578
+00:18:51,440 --> 00:18:55,600
+so we've got some forms here that have
+
+579
+00:18:53,760 --> 00:18:58,880
+immediate 8 into al
+
+580
+00:18:55,600 --> 00:19:02,160
+adding that 16 into ax 32-bit
+
+581
+00:18:58,880 --> 00:19:04,320
+into a 32-bit register and a 32-bit into
+
+582
+00:19:02,160 --> 00:19:06,480
+a 64-bit register
+
+583
+00:19:04,320 --> 00:19:08,080
+so we could assume that this might be
+
+584
+00:19:06,480 --> 00:19:08,480
+you know some bug maybe they meant to
+
+585
+00:19:08,080 --> 00:19:10,720
+have
+
+586
+00:19:08,480 --> 00:19:12,480
+immediate 64. but I'll just tell you
+
+587
+00:19:10,720 --> 00:19:15,440
+that it's not a bug
+
+588
+00:19:12,480 --> 00:19:16,320
+they can only support a 32-bit immediate
+
+589
+00:19:15,440 --> 00:19:19,760
+being added
+
+590
+00:19:16,320 --> 00:19:21,039
+to a 64-bit register when it's encoded
+
+591
+00:19:19,760 --> 00:19:23,280
+in this form
+
+592
+00:19:21,039 --> 00:19:24,799
+now there are other forms down here that
+
+593
+00:19:23,280 --> 00:19:26,240
+for instance would you know take a
+
+594
+00:19:24,799 --> 00:19:28,799
+64-bit register
+
+595
+00:19:26,240 --> 00:19:30,480
+and add it to a you know 64-bit register
+
+596
+00:19:28,799 --> 00:19:32,559
+memory location whatever
+
+597
+00:19:30,480 --> 00:19:35,039
+so practically speaking what this means
+
+598
+00:19:32,559 --> 00:19:38,080
+is you're never going to do an add that
+
+599
+00:19:35,039 --> 00:19:40,799
+is encoded with a 64-bit constant
+
+600
+00:19:38,080 --> 00:19:42,960
+in the add instruction but you could go
+
+601
+00:19:40,799 --> 00:19:45,520
+off and use a mov instruction to move a
+
+602
+00:19:42,960 --> 00:19:47,120
+64-bit constant into a 64-bit register
+
+603
+00:19:45,520 --> 00:19:48,559
+and then you could use something like
+
+604
+00:19:47,120 --> 00:19:51,120
+this or this
+
+605
+00:19:48,559 --> 00:19:52,799
+in order to add that register that has
+
+606
+00:19:51,120 --> 00:19:54,640
+the 64-bit constant in it
+
+607
+00:19:52,799 --> 00:19:56,320
+to use some other register okay so
+
+608
+00:19:54,640 --> 00:20:00,320
+grouping wise what do we had we had
+
+609
+00:19:56,320 --> 00:20:01,679
+this al, ax, eax, rax and we had the
+
+610
+00:20:00,320 --> 00:20:03,760
+immediate sizes
+
+611
+00:20:01,679 --> 00:20:04,799
+and so this literally hard coded like it
+
+612
+00:20:03,760 --> 00:20:07,679
+must be al
+
+613
+00:20:04,799 --> 00:20:08,559
+it must be ax so that's not very nice
+
+614
+00:20:07,679 --> 00:20:10,400
+and generic
+
+615
+00:20:08,559 --> 00:20:12,080
+but you can see that it's got a kind of
+
+616
+00:20:10,400 --> 00:20:13,600
+low opcode number so
+
+617
+00:20:12,080 --> 00:20:15,520
+that's probably one of the original
+
+618
+00:20:13,600 --> 00:20:18,640
+assembly instructions from
+
+619
+00:20:15,520 --> 00:20:19,679
+the 8086 then we've got a more generic
+
+620
+00:20:18,640 --> 00:20:22,080
+form of things
+
+621
+00:20:19,679 --> 00:20:24,240
+immediate 8 into an arbitrarily
+
+622
+00:20:22,080 --> 00:20:26,000
+selected r/m8 so it could be
+
+623
+00:20:24,240 --> 00:20:28,320
+any of the 8-bit registers could be
+
+624
+00:20:26,000 --> 00:20:30,000
+a memory location specifying 8 bits
+
+625
+00:20:28,320 --> 00:20:31,600
+then we've got another one of those it's
+
+626
+00:20:30,000 --> 00:20:33,120
+the exact same assembly instruction but
+
+627
+00:20:31,600 --> 00:20:35,600
+there's a little star there with
+
+628
+00:20:33,120 --> 00:20:37,200
+rex prefix and so I'm telling you that
+
+629
+00:20:35,600 --> 00:20:40,480
+is just in case you want to
+
+630
+00:20:37,200 --> 00:20:41,360
+access the r/m8 of the new 64-bit
+
+631
+00:20:40,480 --> 00:20:43,200
+versions
+
+632
+00:20:41,360 --> 00:20:44,480
+and it's talking about sign extended
+
+633
+00:20:43,200 --> 00:20:45,760
+here again with you know
+
+634
+00:20:44,480 --> 00:20:47,360
+immediate this is the this is the
+
+635
+00:20:45,760 --> 00:20:48,799
+version that I actually copied and like
+
+636
+00:20:47,360 --> 00:20:50,799
+I sliced up this thing
+
+637
+00:20:48,799 --> 00:20:52,080
+is the one that like this sign extended
+
+638
+00:20:50,799 --> 00:20:54,960
+should not be there
+
+639
+00:20:52,080 --> 00:20:55,679
+okay so if the first grouping was 8, 16,
+
+640
+00:20:54,960 --> 00:20:57,760
+32
+
+641
+00:20:55,679 --> 00:20:58,799
+into hard coded registers the second
+
+642
+00:20:57,760 --> 00:21:02,880
+grouping looks like
+
+643
+00:20:58,799 --> 00:21:04,960
+8, 16, 32 into specified registers
+
+644
+00:21:02,880 --> 00:21:06,159
+and we've got a grouping of what looks
+
+645
+00:21:04,960 --> 00:21:09,360
+like always
+
+646
+00:21:06,159 --> 00:21:13,280
+8 bits immediate 8 bits into
+
+647
+00:21:09,360 --> 00:21:15,360
+16, 32, 64. so that's going to add
+
+648
+00:21:13,280 --> 00:21:17,120
+and those are legitimately sign extended
+
+649
+00:21:15,360 --> 00:21:19,120
+because it makes sense to say your sign
+
+650
+00:21:17,120 --> 00:21:21,840
+extending an 8-bit value
+
+651
+00:21:19,120 --> 00:21:22,799
+and adding it to a 16-bit value so that
+
+652
+00:21:21,840 --> 00:21:25,679
+makes sense
+
+653
+00:21:22,799 --> 00:21:26,159
+8 plus 32 makes sense 8 plus 64 makes
+
+654
+00:21:25,679 --> 00:21:27,600
+sense
+
+655
+00:21:26,159 --> 00:21:29,440
+so that would take whatever your 8-bit
+
+656
+00:21:27,600 --> 00:21:30,960
+value is take the most significant bit
+
+657
+00:21:29,440 --> 00:21:34,159
+and extend it until
+
+658
+00:21:30,960 --> 00:21:36,000
+it's 16-bit wide 32-bit wide 64-bit wide
+
+659
+00:21:34,159 --> 00:21:38,159
+and do the add on that next sort of
+
+660
+00:21:36,000 --> 00:21:40,960
+grouping we have is
+
+661
+00:21:38,159 --> 00:21:42,880
+a r8 so these were all immediate thus
+
+662
+00:21:40,960 --> 00:21:44,720
+far so these are all literal hard-coded
+
+663
+00:21:42,880 --> 00:21:46,000
+constants where those hard-coded
+
+664
+00:21:44,720 --> 00:21:48,000
+constants are going to be
+
+665
+00:21:46,000 --> 00:21:49,520
+hard-coded into the actual instruction
+
+666
+00:21:48,000 --> 00:21:52,400
+stream now we've got
+
+667
+00:21:49,520 --> 00:21:54,159
+registers register add a register 8 to
+
+668
+00:21:52,400 --> 00:21:55,760
+an r/m8 so it could be register to
+
+669
+00:21:54,159 --> 00:21:58,480
+register it could be register
+
+670
+00:21:55,760 --> 00:22:00,320
+plus memory back into memory same thing
+
+671
+00:21:58,480 --> 00:22:01,440
+again with the stars where if you want
+
+672
+00:22:00,320 --> 00:22:05,120
+to access the
+
+673
+00:22:01,440 --> 00:22:09,200
+extended versions of the 8-bit registers
+
+674
+00:22:05,120 --> 00:22:10,960
+so we've got 8, 16, 32s into 8, 16, 32s
+
+675
+00:22:09,200 --> 00:22:12,640
+and because it's a register now we can
+
+676
+00:22:10,960 --> 00:22:16,559
+do a register 64
+
+677
+00:22:12,640 --> 00:22:17,440
+added to a r/m64 and the final grouping
+
+678
+00:22:16,559 --> 00:22:20,240
+we have here
+
+679
+00:22:17,440 --> 00:22:22,320
+is just the flip side so if these things
+
+680
+00:22:20,240 --> 00:22:24,320
+ultimately can store into memory
+
+681
+00:22:22,320 --> 00:22:26,960
+these things can also ultimately read
+
+682
+00:22:24,320 --> 00:22:30,159
+from memory and store into a register
+
+683
+00:22:26,960 --> 00:22:35,440
+only so r/m8 8,
+
+684
+00:22:30,159 --> 00:22:37,039
+16, 32, 64 into 8, 16, and 32s, and 64s
+
+685
+00:22:35,440 --> 00:22:39,280
+so while these sort of instruction
+
+686
+00:22:37,039 --> 00:22:40,559
+tables can look daunting in reality it's
+
+687
+00:22:39,280 --> 00:22:43,600
+just you know a group of
+
+688
+00:22:40,559 --> 00:22:46,400
+I don't know one two three
+
+689
+00:22:43,600 --> 00:22:47,919
+four five different groupings of
+
+690
+00:22:46,400 --> 00:22:50,159
+assembly instructions five little
+
+691
+00:22:47,919 --> 00:22:51,840
+variations on the same add instruction
+
+692
+00:22:50,159 --> 00:22:52,480
+and just multiplied out by the number of
+
+693
+00:22:51,840 --> 00:22:54,320
+sizes
+
+694
+00:22:52,480 --> 00:22:55,919
+that are available now if we read the
+
+695
+00:22:54,320 --> 00:22:58,559
+description from the manual
+
+696
+00:22:55,919 --> 00:23:00,080
+it's basically like the and in that it
+
+697
+00:22:58,559 --> 00:23:02,480
+just says you know it's going to
+
+698
+00:23:00,080 --> 00:23:04,080
+add this destination and the source and
+
+699
+00:23:02,480 --> 00:23:07,039
+store it in the destination
+
+700
+00:23:04,080 --> 00:23:08,080
+register memory or immediate register
+
+701
+00:23:07,039 --> 00:23:10,080
+memory
+
+702
+00:23:08,080 --> 00:23:12,320
+can't be two memory so no memory to
+
+703
+00:23:10,080 --> 00:23:13,360
+memory but then this bit right here that
+
+704
+00:23:12,320 --> 00:23:14,880
+I highlighted
+
+705
+00:23:13,360 --> 00:23:16,240
+is something that I just told you kind
+
+706
+00:23:14,880 --> 00:23:17,360
+of off-handedly when we got to the
+
+707
+00:23:16,240 --> 00:23:19,440
+control flow section
+
+708
+00:23:17,360 --> 00:23:20,559
+it says the add instruction performs
+
+709
+00:23:19,440 --> 00:23:24,080
+integer addition
+
+710
+00:23:20,559 --> 00:23:27,039
+okay it evaluates the result for both
+
+711
+00:23:24,080 --> 00:23:29,679
+signed and unsigned integer operands
+
+712
+00:23:27,039 --> 00:23:31,039
+and sets the cf and overflow flags to
+
+713
+00:23:29,679 --> 00:23:33,760
+indicate a carry
+
+714
+00:23:31,039 --> 00:23:35,360
+overflow in the signed or unsigned
+
+715
+00:23:33,760 --> 00:23:37,039
+results respectively
+
+716
+00:23:35,360 --> 00:23:38,720
+so basically it's saying if the carry
+
+717
+00:23:37,039 --> 00:23:39,919
+flag is set after this
+
+718
+00:23:38,720 --> 00:23:41,600
+that would mean that you know when you
+
+719
+00:23:39,919 --> 00:23:43,039
+added two things together it was too big
+
+720
+00:23:41,600 --> 00:23:44,720
+to fit in the register
+
+721
+00:23:43,039 --> 00:23:46,320
+if you were operating on signed values
+
+722
+00:23:44,720 --> 00:23:48,240
+and the overflow flag
+
+723
+00:23:46,320 --> 00:23:50,400
+was too big to fit on the register if
+
+724
+00:23:48,240 --> 00:23:53,440
+you were operating on unsigned values
+
+725
+00:23:50,400 --> 00:23:54,080
+so it sets them both right based on you
+
+726
+00:23:53,440 --> 00:23:56,000
+know it says
+
+727
+00:23:54,080 --> 00:23:57,440
+it evaluates the results for both signed
+
+728
+00:23:56,000 --> 00:24:00,080
+and unsigned operations
+
+729
+00:23:57,440 --> 00:24:01,200
+operands uh and the sf flag indicates
+
+730
+00:24:00,080 --> 00:24:04,080
+the sign of the
+
+731
+00:24:01,200 --> 00:24:04,799
+signed result right so interpreted as if
+
+732
+00:24:04,080 --> 00:24:06,240
+the
+
+733
+00:24:04,799 --> 00:24:08,080
+if the end result has the most
+
+734
+00:24:06,240 --> 00:24:10,000
+significant bit set then it'll set the
+
+735
+00:24:08,080 --> 00:24:14,159
+sign flag in the eflags register
+
+736
+00:24:10,000 --> 00:24:16,080
+more you want more you've got it
+
+737
+00:24:14,159 --> 00:24:17,600
+let's talk about control flow
+
+738
+00:24:16,080 --> 00:24:20,159
+specifically jcc
+
+739
+00:24:17,600 --> 00:24:22,159
+the jump if condition code is met all
+
+740
+00:24:20,159 --> 00:24:24,640
+right well here's a giant list
+
+741
+00:24:22,159 --> 00:24:25,679
+of assembly instructions and it only
+
+742
+00:24:24,640 --> 00:24:27,679
+gets longer
+
+743
+00:24:25,679 --> 00:24:30,240
+and this is just from the very first
+
+744
+00:24:27,679 --> 00:24:32,880
+page of the jcc
+
+745
+00:24:30,240 --> 00:24:34,880
+in the manual but if you look closely at
+
+746
+00:24:32,880 --> 00:24:37,520
+the opcode column you will notice that
+
+747
+00:24:34,880 --> 00:24:39,600
+some things are repeated so 74 for je
+
+748
+00:24:37,520 --> 00:24:41,520
+and 74 for jz
+
+749
+00:24:39,600 --> 00:24:43,919
+they both just check if the zero flag is
+
+750
+00:24:41,520 --> 00:24:47,039
+set 77 for ja
+
+751
+00:24:43,919 --> 00:24:48,960
+77 for jnbe
+
+752
+00:24:47,039 --> 00:24:50,159
+they both check if carry flag equals
+
+753
+00:24:48,960 --> 00:24:53,200
+0 and
+
+754
+00:24:50,159 --> 00:24:54,799
+zero flag equals 0 so this is sort of
+
+755
+00:24:53,200 --> 00:24:55,279
+the proof of what I said before that
+
+756
+00:24:54,799 --> 00:24:57,520
+there's
+
+757
+00:24:55,279 --> 00:24:59,840
+different mnemonics for the same
+
+758
+00:24:57,520 --> 00:25:00,799
+essential instruction and it's up to the
+
+759
+00:24:59,840 --> 00:25:02,720
+disassembler
+
+760
+00:25:00,799 --> 00:25:03,840
+to decide which way it's going to show
+
+761
+00:25:02,720 --> 00:25:05,760
+it also
+
+762
+00:25:03,840 --> 00:25:07,679
+if you look at the manual you will see
+
+763
+00:25:05,760 --> 00:25:10,720
+that there are descriptions that say
+
+764
+00:25:07,679 --> 00:25:12,480
+jump short versus jump near and then
+
+765
+00:25:10,720 --> 00:25:13,600
+even for jump near there seem to be two
+
+766
+00:25:12,480 --> 00:25:15,760
+forms there's a
+
+767
+00:25:13,600 --> 00:25:17,760
+relative 16-bit displacement and a
+
+768
+00:25:15,760 --> 00:25:19,039
+relative 32-bit displacement
+
+769
+00:25:17,760 --> 00:25:20,960
+but they've got this extra little
+
+770
+00:25:19,039 --> 00:25:23,200
+comment here that says this 16-bit
+
+771
+00:25:20,960 --> 00:25:23,919
+displacement is not supported in 64-bit
+
+772
+00:25:23,200 --> 00:25:25,840
+mode
+
+773
+00:25:23,919 --> 00:25:27,520
+and it also says not supported in the
+
+774
+00:25:25,840 --> 00:25:29,679
+64-bit column
+
+775
+00:25:27,520 --> 00:25:31,120
+so the manual is actually you know
+
+776
+00:25:29,679 --> 00:25:32,720
+multiplied out by you know
+
+777
+00:25:31,120 --> 00:25:34,400
+so you've got two different forms of
+
+778
+00:25:32,720 --> 00:25:36,640
+each operand you've got
+
+779
+00:25:34,400 --> 00:25:38,320
+then further short versus near and
+
+780
+00:25:36,640 --> 00:25:39,760
+you've got two forms of the near so it's
+
+781
+00:25:38,320 --> 00:25:41,600
+just kind of multiplying out the number
+
+782
+00:25:39,760 --> 00:25:42,000
+of combinations of conditional control
+
+783
+00:25:41,600 --> 00:25:44,320
+flow
+
+784
+00:25:42,000 --> 00:25:46,480
+so for 64-bit it's always going to be a
+
+785
+00:25:44,320 --> 00:25:47,840
+relative 32-bit displacement so what
+
+786
+00:25:46,480 --> 00:25:50,799
+does it mean it's a
+
+787
+00:25:47,840 --> 00:25:51,279
+signed 32-bit number so it means it can
+
+788
+00:25:50,799 --> 00:25:53,679
+jump
+
+789
+00:25:51,279 --> 00:25:55,039
+2 billion forward or 2 billion backwards
+
+790
+00:25:53,679 --> 00:25:59,200
+or if it happens to be
+
+791
+00:25:55,039 --> 00:26:02,559
+a 8-bit value you know 127 forwards or
+
+792
+00:25:59,200 --> 00:26:04,559
+128 backwards further down in the manual
+
+793
+00:26:02,559 --> 00:26:05,919
+if you look at the operation section
+
+794
+00:26:04,559 --> 00:26:07,840
+now you can see it's a lot more
+
+795
+00:26:05,919 --> 00:26:08,640
+complicated than it was for the and or
+
+796
+00:26:07,840 --> 00:26:09,679
+the add
+
+797
+00:26:08,640 --> 00:26:11,840
+now all of a sudden we've got
+
+798
+00:26:09,679 --> 00:26:13,360
+conditional you know pseudocode trying
+
+799
+00:26:11,840 --> 00:26:17,039
+to explain what's going on
+
+800
+00:26:13,360 --> 00:26:20,559
+you know if the condition is met
+
+801
+00:26:17,039 --> 00:26:23,360
+then you know temp eip equals eip
+
+802
+00:26:20,559 --> 00:26:26,080
+plus sign extend of destination but if
+
+803
+00:26:23,360 --> 00:26:28,240
+the operand size is 16 then you know
+
+804
+00:26:26,080 --> 00:26:29,600
+bit mask it down so that it's just a 16
+
+805
+00:26:28,240 --> 00:26:32,559
+bit value
+
+806
+00:26:29,600 --> 00:26:34,159
+now clearly eip is not actually what's
+
+807
+00:26:32,559 --> 00:26:35,600
+going to be used if you're in 64-bit
+
+808
+00:26:34,159 --> 00:26:37,360
+mode so this is again you know the
+
+809
+00:26:35,600 --> 00:26:38,960
+manual is slightly out of date slightly
+
+810
+00:26:37,360 --> 00:26:42,000
+inaccurate there should probably be
+
+811
+00:26:38,960 --> 00:26:44,720
+an if 64-bit mode thing like the jump
+
+812
+00:26:42,000 --> 00:26:45,919
+manual page has but perhaps they figure
+
+813
+00:26:44,720 --> 00:26:49,200
+you get the gist of it
+
+814
+00:26:45,919 --> 00:26:50,000
+right so eip versus rip basic point is
+
+815
+00:26:49,200 --> 00:26:52,559
+either way
+
+816
+00:26:50,000 --> 00:26:53,760
+you take the destination you take the
+
+817
+00:26:52,559 --> 00:26:56,400
+relative displacement
+
+818
+00:26:53,760 --> 00:26:57,279
+and you add it to the instruction
+
+819
+00:26:56,400 --> 00:26:58,640
+pointer
+
+820
+00:26:57,279 --> 00:27:00,480
+in this little bit right here where it's
+
+821
+00:26:58,640 --> 00:27:01,760
+talking about code segment limits
+
+822
+00:27:00,480 --> 00:27:03,200
+we don't know about we're not going to
+
+823
+00:27:01,760 --> 00:27:04,799
+learn about until the next class but
+
+824
+00:27:03,200 --> 00:27:07,120
+we're going to see that keep coming up
+
+825
+00:27:04,799 --> 00:27:10,480
+in the context of control flow
+
+826
+00:27:07,120 --> 00:27:12,720
+more really okay call
+
+827
+00:27:10,480 --> 00:27:14,799
+assembly instruction all right this is
+
+828
+00:27:12,720 --> 00:27:18,240
+all the possible forms but let's
+
+829
+00:27:14,799 --> 00:27:20,000
+take it one half at a time we've got a
+
+830
+00:27:18,240 --> 00:27:26,000
+call relative 16
+
+831
+00:27:20,000 --> 00:27:28,080
+a call relative 32 call r/m16 r/m32 r/m64
+
+832
+00:27:26,000 --> 00:27:29,760
+okay so this is a call near we just
+
+833
+00:27:28,080 --> 00:27:30,559
+talked about short versus near a little
+
+834
+00:27:29,760 --> 00:27:33,120
+bit ago
+
+835
+00:27:30,559 --> 00:27:35,520
+short was the 8-bit form near was the 16
+
+836
+00:27:33,120 --> 00:27:38,640
+or 32 so these are 16 or 32
+
+837
+00:27:35,520 --> 00:27:42,240
+call near it's a relative displacement
+
+838
+00:27:38,640 --> 00:27:43,520
+so it's going to be plus or minus half
+
+839
+00:27:42,240 --> 00:27:45,360
+the bit width
+
+840
+00:27:43,520 --> 00:27:46,559
+they don't have little this is not valid
+
+841
+00:27:45,360 --> 00:27:48,480
+in 64-bit
+
+842
+00:27:46,559 --> 00:27:50,480
+text right here because they say it
+
+843
+00:27:48,480 --> 00:27:51,840
+right here this is not supported 16-bit
+
+844
+00:27:50,480 --> 00:27:54,159
+displacement not supported in
+
+845
+00:27:51,840 --> 00:27:55,679
+64-bit mode great good to know so this
+
+846
+00:27:54,159 --> 00:27:56,720
+is the only row that you actually have
+
+847
+00:27:55,679 --> 00:27:58,000
+to care about
+
+848
+00:27:56,720 --> 00:27:59,840
+and then if we read the short
+
+849
+00:27:58,000 --> 00:28:02,080
+description it says call near
+
+850
+00:27:59,840 --> 00:28:03,919
+relative displacement relative to the
+
+851
+00:28:02,080 --> 00:28:05,840
+next instruction
+
+852
+00:28:03,919 --> 00:28:06,960
+so basically for the math you're not
+
+853
+00:28:05,840 --> 00:28:08,720
+going to take the
+
+854
+00:28:06,960 --> 00:28:10,159
+address where the call instruction is
+
+855
+00:28:08,720 --> 00:28:12,000
+you're going to take the address
+
+856
+00:28:10,159 --> 00:28:13,520
+after the call instruction and then
+
+857
+00:28:12,000 --> 00:28:16,000
+you're going to add the
+
+858
+00:28:13,520 --> 00:28:17,840
+32-bit displacement which is sign
+
+859
+00:28:16,000 --> 00:28:19,200
+extended to 64 bits
+
+860
+00:28:17,840 --> 00:28:21,440
+and you're going to treat it as a signed
+
+861
+00:28:19,200 --> 00:28:22,559
+value so you're either going next
+
+862
+00:28:21,440 --> 00:28:26,159
+assembly instruction
+
+863
+00:28:22,559 --> 00:28:26,399
+plus some signed 32-bit extended value
+
+864
+00:28:26,159 --> 00:28:29,679
+or
+
+865
+00:28:26,399 --> 00:28:31,760
+minus some sign 32-bit extended value
+
+866
+00:28:29,679 --> 00:28:33,200
+all of those jcc assembly instructions
+
+867
+00:28:31,760 --> 00:28:34,480
+that we saw were always relative
+
+868
+00:28:33,200 --> 00:28:36,320
+displacements
+
+869
+00:28:34,480 --> 00:28:39,760
+but now call has another form of
+
+870
+00:28:36,320 --> 00:28:42,159
+displacement it can take an r/m16, 32, 64
+
+871
+00:28:39,760 --> 00:28:43,520
+okay well neither of those are valid so
+
+872
+00:28:42,159 --> 00:28:46,399
+64-bit so
+
+873
+00:28:43,520 --> 00:28:46,720
+for 64. it's always going to be an r/m64
+
+874
+00:28:46,399 --> 00:28:50,559
+call
+
+875
+00:28:46,720 --> 00:28:51,039
+near and absolute indirect address given
+
+876
+00:28:50,559 --> 00:28:54,159
+by
+
+877
+00:28:51,039 --> 00:28:56,640
+r/m64. so absolute indirect
+
+878
+00:28:54,159 --> 00:28:58,240
+absolute means it's very literally
+
+879
+00:28:56,640 --> 00:28:59,679
+whatever number you come up with
+
+880
+00:28:58,240 --> 00:29:02,320
+that's the address that you're going to
+
+881
+00:28:59,679 --> 00:29:05,760
+jump to it's called indirect because
+
+882
+00:29:02,320 --> 00:29:08,320
+as an r/m64 it will be specified
+
+883
+00:29:05,760 --> 00:29:09,520
+in a register and so there's actually
+
+884
+00:29:08,320 --> 00:29:11,600
+some other things that have
+
+885
+00:29:09,520 --> 00:29:13,120
+absolute addresses where it's literally
+
+886
+00:29:11,600 --> 00:29:14,240
+like hard-coded into the assembly
+
+887
+00:29:13,120 --> 00:29:16,799
+instruction you know
+
+888
+00:29:14,240 --> 00:29:18,159
+jump to this absolute address but here
+
+889
+00:29:16,799 --> 00:29:20,240
+it's absolutely indirect because we're
+
+890
+00:29:18,159 --> 00:29:22,240
+indirecting through a register or
+
+891
+00:29:20,240 --> 00:29:24,159
+you know the r/m64 meaning it could be
+
+892
+00:29:22,240 --> 00:29:26,399
+some memory value
+
+893
+00:29:24,159 --> 00:29:29,120
+so of course that can be done in the
+
+894
+00:29:26,399 --> 00:29:31,200
+typical r/m64 form of base plus index
+
+895
+00:29:29,120 --> 00:29:34,320
+time scale plus displacement calculate
+
+896
+00:29:31,200 --> 00:29:36,080
+up some address and then call to
+
+897
+00:29:34,320 --> 00:29:38,399
+call meaning you know just jump to that
+
+898
+00:29:36,080 --> 00:29:40,880
+address and push the next assembly
+
+899
+00:29:38,399 --> 00:29:42,240
+instructions address onto the stack now
+
+900
+00:29:40,880 --> 00:29:44,159
+the other half of the
+
+901
+00:29:42,240 --> 00:29:45,760
+call instructions which I sort of lopped
+
+902
+00:29:44,159 --> 00:29:47,760
+off there a second ago
+
+903
+00:29:45,760 --> 00:29:50,480
+is that there's something called call
+
+904
+00:29:47,760 --> 00:29:52,960
+far so we had short we had near
+
+905
+00:29:50,480 --> 00:29:54,320
+we had near relative we had near
+
+906
+00:29:52,960 --> 00:29:56,320
+absolute indirect
+
+907
+00:29:54,320 --> 00:29:58,080
+there's a call far and that has like
+
+908
+00:29:56,320 --> 00:29:59,120
+absolute where it's just a hard-coded
+
+909
+00:29:58,080 --> 00:30:01,600
+address
+
+910
+00:29:59,120 --> 00:30:03,279
+call far absolute indirect so some sort
+
+911
+00:30:01,600 --> 00:30:04,720
+of indirection through something else
+
+912
+00:30:03,279 --> 00:30:07,679
+but basically I want to tell you that
+
+913
+00:30:04,720 --> 00:30:09,279
+for now you need to ignore the call far
+
+914
+00:30:07,679 --> 00:30:11,760
+these depend on things called
+
+915
+00:30:09,279 --> 00:30:13,279
+segmentation or segment selectors
+
+916
+00:30:11,760 --> 00:30:15,440
+and we don't know anything about those
+
+917
+00:30:13,279 --> 00:30:15,679
+yet but you can learn about those later
+
+918
+00:30:15,440 --> 00:30:18,000
+on
+
+919
+00:30:15,679 --> 00:30:19,600
+in architecture 2001. so whenever you're
+
+920
+00:30:18,000 --> 00:30:22,320
+digging around in the manuals
+
+921
+00:30:19,600 --> 00:30:24,559
+after this video you see any references
+
+922
+00:30:22,320 --> 00:30:26,720
+to far or segment selectors or
+
+923
+00:30:24,559 --> 00:30:28,080
+gates or call gates and things like that
+
+924
+00:30:26,720 --> 00:30:30,480
+we don't know about it yet just
+
+925
+00:30:28,080 --> 00:30:32,240
+ignore it for now quite frankly it's
+
+926
+00:30:30,480 --> 00:30:34,080
+mostly you know operating systems type
+
+927
+00:30:32,240 --> 00:30:35,760
+people who need to deal with that
+
+928
+00:30:34,080 --> 00:30:37,760
+in user space you're typically not going
+
+929
+00:30:35,760 --> 00:30:39,679
+to see that very much it won't be 0
+
+930
+00:30:37,760 --> 00:30:41,600
+there could be some operating system
+
+931
+00:30:39,679 --> 00:30:43,600
+specific corner cases where it could
+
+932
+00:30:41,600 --> 00:30:45,039
+appear but for the most part you really
+
+933
+00:30:43,600 --> 00:30:46,640
+your learning assembly you really don't
+
+934
+00:30:45,039 --> 00:30:48,159
+need to care about these for now all
+
+935
+00:30:46,640 --> 00:30:50,080
+right so in the description then there's
+
+936
+00:30:48,159 --> 00:30:50,799
+you know a whole giant section of
+
+937
+00:30:50,080 --> 00:30:52,960
+description
+
+938
+00:30:50,799 --> 00:30:54,640
+but out of all of these it's the near
+
+939
+00:30:52,960 --> 00:30:57,360
+call that we care about and all the rest
+
+940
+00:30:54,640 --> 00:30:59,120
+of this is architecture 2001 stuff so
+
+941
+00:30:57,360 --> 00:31:01,039
+you can try to read the description but
+
+942
+00:30:59,120 --> 00:31:03,039
+it's got all of these various
+
+943
+00:31:01,039 --> 00:31:04,640
+permutations of stuff that we don't know
+
+944
+00:31:03,039 --> 00:31:05,840
+about yet but which you can learn about
+
+945
+00:31:04,640 --> 00:31:08,640
+in 2001
+
+946
+00:31:05,840 --> 00:31:09,760
+furthermore the operations section is
+
+947
+00:31:08,640 --> 00:31:12,799
+crazy long
+
+948
+00:31:09,760 --> 00:31:13,760
+pseudocode it's almost 10 pages long of
+
+949
+00:31:12,799 --> 00:31:16,640
+pseudocode
+
+950
+00:31:13,760 --> 00:31:18,080
+talking about if this or that or that or
+
+951
+00:31:16,640 --> 00:31:20,000
+that or that
+
+952
+00:31:18,080 --> 00:31:21,679
+and so it has to deal with things like
+
+953
+00:31:20,000 --> 00:31:23,039
+you know the different distances of
+
+954
+00:31:21,679 --> 00:31:25,919
+whether you know you're
+
+955
+00:31:23,039 --> 00:31:27,360
+you're going 16-bit relative versus
+
+956
+00:31:25,919 --> 00:31:28,880
+32-bit relative
+
+957
+00:31:27,360 --> 00:31:30,799
+it has to do with different privilege
+
+958
+00:31:28,880 --> 00:31:33,600
+level translations whether or not you're
+
+959
+00:31:30,799 --> 00:31:35,519
+going from user space to kernel space
+
+960
+00:31:33,600 --> 00:31:37,360
+has to deal with the new control flow
+
+961
+00:31:35,519 --> 00:31:39,519
+enforcement technology
+
+962
+00:31:37,360 --> 00:31:42,399
+it has to deal with the different forms
+
+963
+00:31:39,519 --> 00:31:43,440
+of if you're in 64-bit mode 32-bit mode
+
+964
+00:31:42,399 --> 00:31:46,720
+16-bit mode
+
+965
+00:31:43,440 --> 00:31:48,000
+so it's a lot of stuff to chew on more
+
+966
+00:31:46,720 --> 00:31:50,960
+are you kidding me
+
+967
+00:31:48,000 --> 00:31:52,720
+I'm not gonna do it I think we're done
+
+968
+00:31:50,960 --> 00:31:54,799
+no okay we've got some more
+
+969
+00:31:52,720 --> 00:31:56,799
+okay return assembly instruction not too
+
+970
+00:31:54,799 --> 00:31:59,200
+many forms of that we've got a
+
+971
+00:31:56,799 --> 00:32:00,320
+near return to the calling procedure far
+
+972
+00:31:59,200 --> 00:32:01,679
+return oh
+
+973
+00:32:00,320 --> 00:32:03,919
+far we don't care about that we don't
+
+974
+00:32:01,679 --> 00:32:04,720
+know about that so basically just a near
+
+975
+00:32:03,919 --> 00:32:07,679
+return
+
+976
+00:32:04,720 --> 00:32:09,919
+we've got a near return with a pop
+
+977
+00:32:07,679 --> 00:32:10,720
+additional immediate 16 bytes from the
+
+978
+00:32:09,919 --> 00:32:12,480
+stack
+
+979
+00:32:10,720 --> 00:32:14,320
+so I had told you before that you know
+
+980
+00:32:12,480 --> 00:32:15,279
+mostly return just takes whatever's on
+
+981
+00:32:14,320 --> 00:32:17,679
+the top of the stack
+
+982
+00:32:15,279 --> 00:32:19,360
+and goes back to that address sets rip
+
+983
+00:32:17,679 --> 00:32:21,440
+to that address
+
+984
+00:32:19,360 --> 00:32:22,399
+but I also said that there's a lesser
+
+985
+00:32:21,440 --> 00:32:24,480
+scene form
+
+986
+00:32:22,399 --> 00:32:26,559
+where you can specify a constant and
+
+987
+00:32:24,480 --> 00:32:29,519
+that many bytes will also be
+
+988
+00:32:26,559 --> 00:32:30,080
+you know added to rsp you know it says
+
+989
+00:32:29,519 --> 00:32:31,840
+pop
+
+990
+00:32:30,080 --> 00:32:33,760
+imm16 bytes but they're not popping into
+
+991
+00:32:31,840 --> 00:32:36,159
+any registers or anything like that
+
+992
+00:32:33,760 --> 00:32:37,840
+they're basically just discarded you're
+
+993
+00:32:36,159 --> 00:32:40,720
+adding to the stack pointer
+
+994
+00:32:37,840 --> 00:32:42,320
+and here again control flow is hard so
+
+995
+00:32:40,720 --> 00:32:43,679
+if you were to look at the operations
+
+996
+00:32:42,320 --> 00:32:46,000
+section of the manual
+
+997
+00:32:43,679 --> 00:32:48,000
+you'd see about 10 pages here dealing
+
+998
+00:32:46,000 --> 00:32:49,360
+with all sorts of different conditional
+
+999
+00:32:48,000 --> 00:32:51,600
+cases of return
+
+1000
+00:32:49,360 --> 00:32:53,039
+just like call wow this guy is
+
+1001
+00:32:51,600 --> 00:32:55,600
+demanding
+
+1002
+00:32:53,039 --> 00:32:56,240
+okay what else do we have more control
+
+1003
+00:32:55,600 --> 00:32:59,039
+flow
+
+1004
+00:32:56,240 --> 00:33:00,640
+jmp assembly instruction jump short
+
+1005
+00:32:59,039 --> 00:33:03,519
+jump near jump near
+
+1006
+00:33:00,640 --> 00:33:05,519
+relative jump near absolute indirect
+
+1007
+00:33:03,519 --> 00:33:06,799
+jump near absolute indirect jump near
+
+1008
+00:33:05,519 --> 00:33:08,640
+absolute indirect
+
+1009
+00:33:06,799 --> 00:33:10,720
+okay so we got different size
+
+1010
+00:33:08,640 --> 00:33:11,360
+displacements for how far it's going to
+
+1011
+00:33:10,720 --> 00:33:14,799
+jump
+
+1012
+00:33:11,360 --> 00:33:17,120
+relative 8 relative 16 relative 32 oh 16
+
+1013
+00:33:14,799 --> 00:33:18,960
+not valid in 64 bit mode
+
+1014
+00:33:17,120 --> 00:33:20,399
+and we've got the indirect forms where
+
+1015
+00:33:18,960 --> 00:33:23,840
+you specify some r/m
+
+1016
+00:33:20,399 --> 00:33:25,360
+16, 32, 64 but neither the 16 or the 32
+
+1017
+00:33:23,840 --> 00:33:27,200
+are valid in 64-bit mode
+
+1018
+00:33:25,360 --> 00:33:29,200
+so for all intents and purposes there
+
+1019
+00:33:27,200 --> 00:33:31,200
+are exactly three jmp instructions when
+
+1020
+00:33:29,200 --> 00:33:32,960
+you're in 16-bit mode so we've got jump
+
+1021
+00:33:31,200 --> 00:33:35,519
+short so rip
+
+1022
+00:33:32,960 --> 00:33:38,080
+plus an 8-bit displacement which is sign
+
+1023
+00:33:35,519 --> 00:33:41,600
+extended 64-bit so it's you know plus
+
+1024
+00:33:38,080 --> 00:33:42,480
+127 minus 128 same thing for a 32-bit
+
+1025
+00:33:41,600 --> 00:33:44,000
+value
+
+1026
+00:33:42,480 --> 00:33:45,279
+and both of those are relative
+
+1027
+00:33:44,000 --> 00:33:47,440
+displacements which means it's
+
+1028
+00:33:45,279 --> 00:33:48,320
+hard-coded into the assembly instruction
+
+1029
+00:33:47,440 --> 00:33:50,720
+stream
+
+1030
+00:33:48,320 --> 00:33:52,159
+and then there's the version which has a
+
+1031
+00:33:50,720 --> 00:33:53,120
+register that's specified by the
+
+1032
+00:33:52,159 --> 00:33:55,679
+compiler so
+
+1033
+00:33:53,120 --> 00:33:57,200
+ff and some particular encoding of a
+
+1034
+00:33:55,679 --> 00:34:00,480
+register will get you an
+
+1035
+00:33:57,200 --> 00:34:02,880
+absolute indirect jump so r/m64 it
+
+1036
+00:34:00,480 --> 00:34:04,080
+and that will calculate an address an
+
+1037
+00:34:02,880 --> 00:34:06,320
+absolute address
+
+1038
+00:34:04,080 --> 00:34:09,280
+where you want rip to set to to be set
+
+1039
+00:34:06,320 --> 00:34:11,359
+to only 5 pages of pseudocode to talk
+
+1040
+00:34:09,280 --> 00:34:12,639
+about how exactly a jmp works so it's
+
+1041
+00:34:11,359 --> 00:34:15,040
+easier than call and ret
+
+1042
+00:34:12,639 --> 00:34:17,440
+but control flow is still hard there's
+
+1043
+00:34:15,040 --> 00:34:18,800
+also this far displacement but again we
+
+1044
+00:34:17,440 --> 00:34:21,839
+don't know about that so
+
+1045
+00:34:18,800 --> 00:34:24,699
+we're gonna skip it more all right
+
+1046
+00:34:21,839 --> 00:34:26,119
+but this is the last one cbw,
+
+1047
+00:34:24,699 --> 00:34:27,919
+cwde,
+
+1048
+00:34:26,119 --> 00:34:29,760
+cdqe these are the
+
+1049
+00:34:27,919 --> 00:34:31,599
+things that I basically said I don't see
+
+1050
+00:34:29,760 --> 00:34:33,599
+too much I don't care too much
+
+1051
+00:34:31,599 --> 00:34:34,800
+and I said you don't really need to know
+
+1052
+00:34:33,599 --> 00:34:36,000
+them but you know hey
+
+1053
+00:34:34,800 --> 00:34:38,159
+we're coming back we're reading the
+
+1054
+00:34:36,000 --> 00:34:40,079
+manual so if I were to say
+
+1055
+00:34:38,159 --> 00:34:42,159
+hey go check this out and see how they
+
+1056
+00:34:40,079 --> 00:34:43,119
+work well you can go and see how they
+
+1057
+00:34:42,159 --> 00:34:45,679
+work and they're actually
+
+1058
+00:34:43,119 --> 00:34:46,960
+pretty simple it's basically you know
+
+1059
+00:34:45,679 --> 00:34:49,040
+take a single byte
+
+1060
+00:34:46,960 --> 00:34:50,240
+these are the byte versions convert byte
+
+1061
+00:34:49,040 --> 00:34:52,000
+to word
+
+1062
+00:34:50,240 --> 00:34:54,240
+so these are you know ultimately pretty
+
+1063
+00:34:52,000 --> 00:34:58,160
+simple uh they're just things like
+
+1064
+00:34:54,240 --> 00:34:59,200
+convert a byte to a word so 8 bits to 16
+
+1065
+00:34:58,160 --> 00:35:02,000
+bits it's just a sign
+
+1066
+00:34:59,200 --> 00:35:02,800
+extension 16 bits to 32 bits it's just a
+
+1067
+00:35:02,000 --> 00:35:05,599
+sign extension
+
+1068
+00:35:02,800 --> 00:35:07,040
+32 to 64. it's just a sign extension and
+
+1069
+00:35:05,599 --> 00:35:08,880
+then there's these slightly different
+
+1070
+00:35:07,040 --> 00:35:12,400
+versions that look sort of more
+
+1071
+00:35:08,880 --> 00:35:14,079
+legacy-ish in that you know 16 to 32
+
+1072
+00:35:12,400 --> 00:35:16,000
+but you're using you know the dx
+
+1073
+00:35:14,079 --> 00:35:19,599
+concatenated with ax
+
+1074
+00:35:16,000 --> 00:35:21,119
+32 to 64 but you're doing ea edx
+
+1075
+00:35:19,599 --> 00:35:24,880
+concatenated with eax and
+
+1076
+00:35:21,119 --> 00:35:26,880
+64 to 128 but it's the concatenated form
+
+1077
+00:35:24,880 --> 00:35:28,640
+now you might imagine that these forms
+
+1078
+00:35:26,880 --> 00:35:30,079
+are more likely to be used if you're
+
+1079
+00:35:28,640 --> 00:35:31,760
+dealing with those things like
+
+1080
+00:35:30,079 --> 00:35:33,280
+divide instructions right because the
+
+1081
+00:35:31,760 --> 00:35:35,280
+div instruction was
+
+1082
+00:35:33,280 --> 00:35:37,520
+had some forms where it was implicitly
+
+1083
+00:35:35,280 --> 00:35:38,240
+always operating on these concatenated
+
+1084
+00:35:37,520 --> 00:35:40,160
+forms
+
+1085
+00:35:38,240 --> 00:35:41,760
+but there's really nothing to how these
+
+1086
+00:35:40,160 --> 00:35:43,680
+things actually operate it's just
+
+1087
+00:35:41,760 --> 00:35:45,520
+sine extend from a short value to a long
+
+1088
+00:35:43,680 --> 00:35:47,119
+value but now you can see
+
+1089
+00:35:45,520 --> 00:35:48,560
+how you could go into the manual you
+
+1090
+00:35:47,119 --> 00:35:50,000
+could read it you could see you know
+
+1091
+00:35:48,560 --> 00:35:50,800
+stuff you understand stuff you don't
+
+1092
+00:35:50,000 --> 00:35:53,599
+understand yet
+
+1093
+00:35:50,800 --> 00:35:55,200
+like rex but but you could at least have
+
+1094
+00:35:53,599 --> 00:35:56,640
+a hope of understanding it
+
+1095
+00:35:55,200 --> 00:35:58,960
+because that's what this section is all
+
+1096
+00:35:56,640 --> 00:36:01,839
+about giving you the tools that you need
+
+1097
+00:35:58,960 --> 00:36:03,359
+in order to go forth and read new things
+
+1098
+00:36:01,839 --> 00:36:05,599
+that you've never seen before
+
+1099
+00:36:03,359 --> 00:36:07,520
+and understand them alright so it looks
+
+1100
+00:36:05,599 --> 00:36:10,960
+like Kylo satisfied at this point
+
+1101
+00:36:07,520 --> 00:36:12,720
+as am I so a little mini exercise that I
+
+1102
+00:36:10,960 --> 00:36:16,160
+have for you after this section
+
+1103
+00:36:12,720 --> 00:36:18,560
+is go to the MulDivExample.c and
+
+1104
+00:36:16,160 --> 00:36:20,079
+change it to a signed long long instead
+
+1105
+00:36:18,560 --> 00:36:22,079
+of the unsigned long long
+
+1106
+00:36:20,079 --> 00:36:23,839
+and you know who does appear what
+
+1107
+00:36:22,079 --> 00:36:25,839
+assembly instruction pops up
+
+1108
+00:36:23,839 --> 00:36:27,200
+and why you should go read the code and
+
+1109
+00:36:25,839 --> 00:36:28,800
+understand and
+
+1110
+00:36:27,200 --> 00:36:32,079
+you'll look up the assembly instruction
+
+1111
+00:36:28,800 --> 00:36:32,079
+if you haven't seen it before
+

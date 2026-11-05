@@ -1,0 +1,120 @@
+1
+00:00:00,080 --> 00:00:04,880
+all right here's just a quick visual walkthrough 
+for those of you who want to know how to create a  
+
+2
+00:00:04,880 --> 00:00:11,520
+new visual studio project that works with masm 
+to do that you're going to go into your solution  
+
+3
+00:00:12,240 --> 00:00:19,840
+go up to the top and you're going to add a new 
+project I'm going to make sure that this is  
+
+4
+00:00:19,840 --> 00:00:26,080
+just a empty project this particular system has 
+already had the architecture 2001 prerequisites  
+
+5
+00:00:26,080 --> 00:00:30,320
+installed on it that's why we see some other 
+stuff but you're looking for empty project
+
+6
+00:00:33,280 --> 00:00:37,840
+then you're going to just call it 
+you know masm test or whatever create
+
+7
+00:00:42,560 --> 00:00:52,880
+go down and add a new item and we'll just call 
+that source.c and then this is the actual trick  
+
+8
+00:00:52,880 --> 00:00:58,160
+here the the key trick is that you have to 
+before you add the masm file you're going  
+
+9
+00:00:58,160 --> 00:01:04,000
+to right click on your project you're going to 
+go to build dependencies build customizations  
+
+10
+00:01:05,360 --> 00:01:09,680
+and then you're going to click the little masm 
+check box here and so this will tell it you know  
+
+11
+00:01:09,680 --> 00:01:15,920
+work with massim compile things compile assembly 
+as masm and then it'll all work out well so you  
+
+12
+00:01:15,920 --> 00:01:22,400
+can now again right click on the project go to 
+add and create a new item we're going to call  
+
+13
+00:01:22,400 --> 00:01:32,560
+this my.asm now we've got an asm file which will 
+be compiled with masm syntax assembly and a source  
+
+14
+00:01:32,560 --> 00:01:38,400
+file so I'm going to just you know cheat and put 
+in the same stuff that I have in the scratchpad  
+
+15
+00:01:38,400 --> 00:01:44,080
+so you can see here's some C code that has a 
+external function that is going to call out to  
+
+16
+00:01:44,080 --> 00:01:49,680
+the assembly I'm going to put that in there and 
+then in the assembly I just have something very  
+
+17
+00:01:49,680 --> 00:01:57,360
+placeholder and it's basically just this exported 
+function the asm scratchpad and then mov  
+
+18
+00:01:57,360 --> 00:02:04,880
+1 into rax and return because rax is our 
+return value by convention in x86 assembly  
+
+19
+00:02:05,440 --> 00:02:09,280
+so with that now I can go ahead 
+and set this as the startup project  
+
+20
+00:02:10,480 --> 00:02:18,320
+and I can set a breakpoint in here for 
+instance and start the debugger it'll compile
+
+21
+00:02:18,320 --> 00:02:26,800
+successfully it'll start up in the debugger it'll break 
+and we can you know just go to the disassembly  
+
+22
+00:02:26,800 --> 00:02:33,280
+view we can see it's exactly what we expect it's 
+move 1 to rax followed by return so that's the  
+
+23
+00:02:33,280 --> 00:02:38,480
+very simple way that you can create a project 
+that supports inline assembly that can be called  
+
+24
+00:02:39,120 --> 00:02:44,080
+well sorry not inline assembly a standalone 
+assembly that can be called from within a C file
+

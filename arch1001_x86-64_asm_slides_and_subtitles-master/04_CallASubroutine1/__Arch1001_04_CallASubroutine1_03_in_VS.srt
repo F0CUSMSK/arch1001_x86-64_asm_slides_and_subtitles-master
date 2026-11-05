@@ -1,0 +1,544 @@
+1
+00:00:00,160 --> 00:00:04,319
+now while showing you a single stepping
+
+2
+00:00:02,720 --> 00:00:06,480
+through the assembly in
+
+3
+00:00:04,319 --> 00:00:07,440
+slides is great that's really just
+
+4
+00:00:06,480 --> 00:00:09,599
+giving you a fish
+
+5
+00:00:07,440 --> 00:00:11,599
+and now i want to teach you to fish and
+
+6
+00:00:09,599 --> 00:00:13,679
+to do that you're going to have to
+
+7
+00:00:11,599 --> 00:00:14,880
+know how to write your own code in an
+
+8
+00:00:13,679 --> 00:00:18,000
+ide
+
+9
+00:00:14,880 --> 00:00:19,920
+and compile it and then disassemble it
+
+10
+00:00:18,000 --> 00:00:22,640
+so for this we're going to be using
+
+11
+00:00:19,920 --> 00:00:24,160
+visual studio 2019 community edition
+
+12
+00:00:22,640 --> 00:00:25,840
+which i'll just refer to as visual
+
+13
+00:00:24,160 --> 00:00:28,240
+studio from now on
+
+14
+00:00:25,840 --> 00:00:30,000
+and this is the typical sort of windows
+
+15
+00:00:28,240 --> 00:00:32,320
+development environment or visual studio
+
+16
+00:00:30,000 --> 00:00:33,680
+is at least usually the pro version and
+
+17
+00:00:32,320 --> 00:00:35,440
+so the community version
+
+18
+00:00:33,680 --> 00:00:37,280
+is the free version that's missing
+
+19
+00:00:35,440 --> 00:00:38,239
+missing some features that developers
+
+20
+00:00:37,280 --> 00:00:40,079
+would want
+
+21
+00:00:38,239 --> 00:00:42,239
+and also you should be aware that if you
+
+22
+00:00:40,079 --> 00:00:43,040
+compile executables using the community
+
+23
+00:00:42,239 --> 00:00:45,120
+edition
+
+24
+00:00:43,040 --> 00:00:46,559
+you have to use a different installer in
+
+25
+00:00:45,120 --> 00:00:50,079
+order to install
+
+26
+00:00:46,559 --> 00:00:52,559
+the redistributable libraries
+
+27
+00:00:50,079 --> 00:00:53,440
+so over in your windows trial vm that
+
+28
+00:00:52,559 --> 00:00:56,480
+you should have gotten
+
+29
+00:00:53,440 --> 00:00:57,520
+set up as part of the overall lab setup
+
+30
+00:00:56,480 --> 00:01:01,600
+instructions
+
+31
+00:00:57,520 --> 00:01:05,280
+go ahead and paste in the architecture
+
+32
+00:01:01,600 --> 00:01:08,720
+101 class code zip file from the class
+
+33
+00:01:05,280 --> 00:01:08,720
+and extract that
+
+34
+00:01:11,600 --> 00:01:17,360
+navigate into the code for class
+
+35
+00:01:15,200 --> 00:01:20,080
+and then open specifically the visual
+
+36
+00:01:17,360 --> 00:01:22,240
+studio solution file
+
+37
+00:01:20,080 --> 00:01:23,600
+now from here i want you to do like you
+
+38
+00:01:22,240 --> 00:01:27,040
+did when you're creating the
+
+39
+00:01:23,600 --> 00:01:30,720
+fiber example and create a new project
+
+40
+00:01:27,040 --> 00:01:33,439
+in the context of this by going to add
+
+41
+00:01:30,720 --> 00:01:33,439
+new project
+
+42
+00:01:33,759 --> 00:01:37,759
+select empty project and then next and
+
+43
+00:01:36,720 --> 00:01:42,560
+then let's call this
+
+44
+00:01:37,759 --> 00:01:45,119
+call a subroutine one
+
+45
+00:01:42,560 --> 00:01:45,119
+create it
+
+46
+00:01:46,880 --> 00:01:54,479
+right click on source files add
+
+47
+00:01:50,640 --> 00:01:57,759
+new item and
+
+48
+00:01:54,479 --> 00:02:02,000
+call a subroutine
+
+49
+00:01:57,759 --> 00:02:02,000
+one dot c add
+
+50
+00:02:02,399 --> 00:02:05,840
+now of course you have to insert the
+
+51
+00:02:04,719 --> 00:02:09,840
+assembly code
+
+52
+00:02:05,840 --> 00:02:09,840
+like so
+
+53
+00:02:10,800 --> 00:02:16,160
+save the assembly right click on call a
+
+54
+00:02:14,160 --> 00:02:18,959
+subroutine 1
+
+55
+00:02:16,160 --> 00:02:20,720
+and set as startup project this is very
+
+56
+00:02:18,959 --> 00:02:23,280
+important because this is going to be
+
+57
+00:02:20,720 --> 00:02:24,560
+what gets invoked when you hit the start
+
+58
+00:02:23,280 --> 00:02:26,160
+a debugger
+
+59
+00:02:24,560 --> 00:02:28,800
+and then right click on call a
+
+60
+00:02:26,160 --> 00:02:30,959
+subroutine and set the same sort of
+
+61
+00:02:28,800 --> 00:02:32,640
+compiler options that you used in order
+
+62
+00:02:30,959 --> 00:02:36,560
+to simplify the assembly
+
+63
+00:02:32,640 --> 00:02:38,400
+in fiber so general i'm going to set
+
+64
+00:02:36,560 --> 00:02:42,800
+program database
+
+65
+00:02:38,400 --> 00:02:45,599
+no support for just my code debugging
+
+66
+00:02:42,800 --> 00:02:47,120
+then under advanced notes alright code
+
+67
+00:02:45,599 --> 00:02:50,319
+generation
+
+68
+00:02:47,120 --> 00:02:50,959
+set basic runtime checks to default and
+
+69
+00:02:50,319 --> 00:02:54,160
+set the
+
+70
+00:02:50,959 --> 00:02:58,000
+security check to disabled
+
+71
+00:02:54,160 --> 00:03:01,519
+then under linker your general
+
+72
+00:02:58,000 --> 00:03:02,560
+disable incremental linking and under
+
+73
+00:03:01,519 --> 00:03:04,239
+advanced
+
+74
+00:03:02,560 --> 00:03:05,760
+disable address based layout
+
+75
+00:03:04,239 --> 00:03:07,280
+randomization because
+
+76
+00:03:05,760 --> 00:03:08,640
+otherwise we're all going to be seeing
+
+77
+00:03:07,280 --> 00:03:10,400
+different addresses and you won't be
+
+78
+00:03:08,640 --> 00:03:12,400
+able to follow along
+
+79
+00:03:10,400 --> 00:03:15,120
+when you're done with that hit apply and
+
+80
+00:03:12,400 --> 00:03:15,120
+then ok
+
+81
+00:03:15,280 --> 00:03:18,400
+now go ahead and set a breakpoint on
+
+82
+00:03:17,120 --> 00:03:21,280
+main and
+
+83
+00:03:18,400 --> 00:03:21,280
+start the debugger
+
+84
+00:03:26,319 --> 00:03:30,480
+once you've done this you should have
+
+85
+00:03:27,760 --> 00:03:32,080
+you know already set up your
+
+86
+00:03:30,480 --> 00:03:33,920
+environment however you want whatever
+
+87
+00:03:32,080 --> 00:03:35,680
+windows you want i have the registers at
+
+88
+00:03:33,920 --> 00:03:36,319
+top and you know the notional stack at
+
+89
+00:03:35,680 --> 00:03:38,720
+the bottom
+
+90
+00:03:36,319 --> 00:03:40,879
+i'm gonna change my stack layout to
+
+91
+00:03:38,720 --> 00:03:43,920
+eight bytes at a time
+
+92
+00:03:40,879 --> 00:03:46,879
+and then if you right click here
+
+93
+00:03:43,920 --> 00:03:48,560
+you should see go to disassembly and you
+
+94
+00:03:46,879 --> 00:03:50,159
+may already have a disassembly window
+
+95
+00:03:48,560 --> 00:03:52,480
+open off to the side
+
+96
+00:03:50,159 --> 00:03:54,319
+there we go now you have the same
+
+97
+00:03:52,480 --> 00:03:55,920
+assembly instructions that i was showing
+
+98
+00:03:54,319 --> 00:03:58,319
+you in the slides
+
+99
+00:03:55,920 --> 00:03:59,439
+and you can proceed to step through the
+
+100
+00:03:58,319 --> 00:04:02,159
+code so
+
+101
+00:03:59,439 --> 00:04:03,599
+see rsp minus 28 is what's coming up
+
+102
+00:04:02,159 --> 00:04:07,439
+next we can see that
+
+103
+00:04:03,599 --> 00:04:08,879
+rsp is currently set for 14 fe 08 we can
+
+104
+00:04:07,439 --> 00:04:10,319
+confirm the same thing up in the
+
+105
+00:04:08,879 --> 00:04:14,239
+register window
+
+106
+00:04:10,319 --> 00:04:16,959
+14 fe 0 8 and so if we go ahead
+
+107
+00:04:14,239 --> 00:04:18,400
+and step into this assembly instruction
+
+108
+00:04:16,959 --> 00:04:22,880
+it'll execute it
+
+109
+00:04:18,400 --> 00:04:26,240
+and now rsp is set to 14 fde0
+
+110
+00:04:22,880 --> 00:04:28,639
+and so from here the point is basically
+
+111
+00:04:26,240 --> 00:04:30,400
+you know you can create whatever code
+
+112
+00:04:28,639 --> 00:04:30,880
+you want disassemble whatever code you
+
+113
+00:04:30,400 --> 00:04:32,960
+want
+
+114
+00:04:30,880 --> 00:04:34,479
+step through the code see the changes to
+
+115
+00:04:32,960 --> 00:04:36,479
+the registers the registers will get
+
+116
+00:04:34,479 --> 00:04:39,040
+highlighted in red like so
+
+117
+00:04:36,479 --> 00:04:40,960
+if they're actually changing and this
+
+118
+00:04:39,040 --> 00:04:42,240
+basically just gives you the opportunity
+
+119
+00:04:40,960 --> 00:04:45,199
+to play around
+
+120
+00:04:42,240 --> 00:04:46,479
+so in the overall solution i've included
+
+121
+00:04:45,199 --> 00:04:48,960
+a scratch pad
+
+122
+00:04:46,479 --> 00:04:50,720
+entry and so you can just go ahead and
+
+123
+00:04:48,960 --> 00:04:52,479
+you know play around inside of there put
+
+124
+00:04:50,720 --> 00:04:54,160
+whatever code you want disassemble it
+
+125
+00:04:52,479 --> 00:04:56,000
+and see what gets generated so what are
+
+126
+00:04:54,160 --> 00:04:58,720
+our takeaways from call subroutine
+
+127
+00:04:56,000 --> 00:05:00,160
+one well we learned about the sub
+
+128
+00:04:58,720 --> 00:05:01,759
+instruction the call instruction the
+
+129
+00:05:00,160 --> 00:05:02,960
+return instruction the ad instruction
+
+130
+00:05:01,759 --> 00:05:04,639
+the move instruction
+
+131
+00:05:02,960 --> 00:05:06,560
+and we also saw that there was some
+
+132
+00:05:04,639 --> 00:05:08,639
+weirdness going on with an allocation
+
+133
+00:05:06,560 --> 00:05:10,960
+and then removal of 0x28 on stack
+
+134
+00:05:08,639 --> 00:05:12,639
+which we don't really know why yet but i
+
+135
+00:05:10,960 --> 00:05:15,919
+added it to the mystery list
+
+136
+00:05:12,639 --> 00:05:15,919
+and we'll dig into it later
+

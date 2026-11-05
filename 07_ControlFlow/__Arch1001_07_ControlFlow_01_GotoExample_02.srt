@@ -1,0 +1,60 @@
+1
+00:00:00,160 --> 00:00:03,120
+so the takeaways from the goto example
+
+2
+00:00:02,080 --> 00:00:05,440
+are very trivial
+
+3
+00:00:03,120 --> 00:00:06,160
+the basic point is that the goto C
+
+4
+00:00:05,440 --> 00:00:08,160
+statement
+
+5
+00:00:06,160 --> 00:00:10,320
+directly translates into a jump
+
+6
+00:00:08,160 --> 00:00:11,920
+statement goto always unconditionally
+
+7
+00:00:10,320 --> 00:00:12,960
+goes to whatever the label is that
+
+8
+00:00:11,920 --> 00:00:15,120
+specified
+
+9
+00:00:12,960 --> 00:00:16,880
+and a jump assembly instruction always
+
+10
+00:00:15,120 --> 00:00:19,600
+unconditionally goes to the address
+
+11
+00:00:16,880 --> 00:00:19,600
+that's specified
+
+12
+00:00:20,080 --> 00:00:23,119
+so we picked up another assembly
+
+13
+00:00:21,600 --> 00:00:26,400
+instruction jump
+
+14
+00:00:23,119 --> 00:00:31,840
+and where is it on our chart here it is
+
+15
+00:00:26,400 --> 00:00:31,840
+3% of the slice of the pie here
+

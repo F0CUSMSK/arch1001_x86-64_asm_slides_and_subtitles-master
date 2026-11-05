@@ -1,0 +1,504 @@
+1
+00:00:00,160 --> 00:00:04,240
+unlike with the microsoft compiler gcc
+
+2
+00:00:02,639 --> 00:00:07,359
+still allows you to create inline
+
+3
+00:00:04,240 --> 00:00:09,200
+assembly even for 64-bit code microsoft
+
+4
+00:00:07,359 --> 00:00:11,200
+used to allow that for 32-bit but then
+
+5
+00:00:09,200 --> 00:00:13,519
+they deprecated it and disallowed it in
+
+6
+00:00:11,200 --> 00:00:15,839
+64-bit code so when you're writing
+
+7
+00:00:13,519 --> 00:00:19,039
+in-line assembly for gcc you're going to
+
+8
+00:00:15,839 --> 00:00:20,640
+use the canoe assembler or gas syntax
+
+9
+00:00:19,039 --> 00:00:23,760
+and it's going to expect things to be
+
+10
+00:00:20,640 --> 00:00:26,240
+written in at t syntax the general form
+
+11
+00:00:23,760 --> 00:00:28,640
+is that you will have the keyword asm
+
+12
+00:00:26,240 --> 00:00:31,599
+parentheses quotes and then some number
+
+13
+00:00:28,640 --> 00:00:33,440
+of instructions separated by a explicit
+
+14
+00:00:31,599 --> 00:00:35,440
+slash n new line
+
+15
+00:00:33,440 --> 00:00:38,160
+close print uh close quotes close
+
+16
+00:00:35,440 --> 00:00:41,040
+parentheses semicolon so you could have
+
+17
+00:00:38,160 --> 00:00:44,239
+a single instruction like this asm no op
+
+18
+00:00:41,040 --> 00:00:46,879
+and then semicolon it's done sm move one
+
+19
+00:00:44,239 --> 00:00:48,239
+two three four to eax and then it's done
+
+20
+00:00:46,879 --> 00:00:50,719
+but if you don't want to keep writing
+
+21
+00:00:48,239 --> 00:00:53,440
+the asm over and over again instead you
+
+22
+00:00:50,719 --> 00:00:54,800
+would write asm once you'd have quotes
+
+23
+00:00:53,440 --> 00:00:56,640
+and then you would have however many
+
+24
+00:00:54,800 --> 00:00:59,199
+assembly instructions you want with an
+
+25
+00:00:56,640 --> 00:01:00,960
+explicit slash n between the assembly
+
+26
+00:00:59,199 --> 00:01:03,120
+instructions so here we can see
+
+27
+00:01:00,960 --> 00:01:05,040
+something that's six instructions long
+
+28
+00:01:03,120 --> 00:01:07,680
+now i highly recommend that you take a
+
+29
+00:01:05,040 --> 00:01:09,600
+look at this gas syntax tutorial because
+
+30
+00:01:07,680 --> 00:01:11,200
+it's extremely helpful for letting you
+
+31
+00:01:09,600 --> 00:01:13,600
+get much more deep than i'm going to go
+
+32
+00:01:11,200 --> 00:01:16,080
+into one of the important things that is
+
+33
+00:01:13,600 --> 00:01:18,240
+talked about in that how-to guide is
+
+34
+00:01:16,080 --> 00:01:20,240
+extended asm syntax
+
+35
+00:01:18,240 --> 00:01:22,799
+in this form you can have the assembly
+
+36
+00:01:20,240 --> 00:01:24,880
+template separated by a colon from
+
+37
+00:01:22,799 --> 00:01:26,560
+output operands input operands and a
+
+38
+00:01:24,880 --> 00:01:28,320
+list of clobbered registers meaning
+
+39
+00:01:26,560 --> 00:01:30,560
+things that this assembly is guaranteed
+
+40
+00:01:28,320 --> 00:01:32,320
+to be overwriting it's basically a hint
+
+41
+00:01:30,560 --> 00:01:34,560
+to the compiler saying hey just so you
+
+42
+00:01:32,320 --> 00:01:36,640
+know this assembly sequence is going to
+
+43
+00:01:34,560 --> 00:01:38,079
+destroy the value in this register so
+
+44
+00:01:36,640 --> 00:01:40,159
+you should you know perhaps save it
+
+45
+00:01:38,079 --> 00:01:42,320
+before you get in here or restore it
+
+46
+00:01:40,159 --> 00:01:44,399
+afterwards now each of these things
+
+47
+00:01:42,320 --> 00:01:46,320
+output operands input operands and cloud
+
+48
+00:01:44,399 --> 00:01:48,240
+registers is optional so it's not
+
+49
+00:01:46,320 --> 00:01:50,159
+actually required but when you're using
+
+50
+00:01:48,240 --> 00:01:52,159
+extended asm you would still need to
+
+51
+00:01:50,159 --> 00:01:54,320
+have these colons and you just put
+
+52
+00:01:52,159 --> 00:01:56,000
+nothing in between them so down here
+
+53
+00:01:54,320 --> 00:01:58,399
+let's look at an example we have a
+
+54
+00:01:56,000 --> 00:02:00,960
+single local variable myvar which is an
+
+55
+00:01:58,399 --> 00:02:03,520
+int set to abcd
+
+56
+00:02:00,960 --> 00:02:06,079
+and if the assembly wanted to make use
+
+57
+00:02:03,520 --> 00:02:08,879
+of that myvar value then they could for
+
+58
+00:02:06,079 --> 00:02:11,760
+instance have a move long and this
+
+59
+00:02:08,879 --> 00:02:13,520
+percent 0 is basically going to be
+
+60
+00:02:11,760 --> 00:02:15,280
+something that's interpolated or filled
+
+61
+00:02:13,520 --> 00:02:17,120
+in with some other value and the value
+
+62
+00:02:15,280 --> 00:02:18,480
+that it's going to be filled in with is
+
+63
+00:02:17,120 --> 00:02:22,080
+the myvar
+
+64
+00:02:18,480 --> 00:02:24,080
+so move percent 0 comma and then now it
+
+65
+00:02:22,080 --> 00:02:25,280
+starts using double percents percent
+
+66
+00:02:24,080 --> 00:02:27,280
+percent so that it's kind of
+
+67
+00:02:25,280 --> 00:02:29,520
+differentiating a single percent is used
+
+68
+00:02:27,280 --> 00:02:32,000
+for interpolation of some input or
+
+69
+00:02:29,520 --> 00:02:33,760
+output operand and double percent signs
+
+70
+00:02:32,000 --> 00:02:35,360
+are then used for
+
+71
+00:02:33,760 --> 00:02:36,400
+just saying you know specifically some
+
+72
+00:02:35,360 --> 00:02:38,400
+register
+
+73
+00:02:36,400 --> 00:02:40,879
+so it's moving percent 0 which is going
+
+74
+00:02:38,400 --> 00:02:43,440
+to be my var that is going to be an
+
+75
+00:02:40,879 --> 00:02:45,760
+input operand so we can see that we've
+
+76
+00:02:43,440 --> 00:02:47,360
+got the assembly template here then
+
+77
+00:02:45,760 --> 00:02:48,879
+there's a colon and there's nothing
+
+78
+00:02:47,360 --> 00:02:50,959
+written here so that would be the output
+
+79
+00:02:48,879 --> 00:02:53,599
+operands there's no output operands and
+
+80
+00:02:50,959 --> 00:02:56,239
+then a colon and the input operands so
+
+81
+00:02:53,599 --> 00:02:58,239
+input operands is this quote r for
+
+82
+00:02:56,239 --> 00:03:01,120
+register and then parenthesis my var to
+
+83
+00:02:58,239 --> 00:03:03,599
+say it's basically pulling my var into
+
+84
+00:03:01,120 --> 00:03:06,239
+you know this location right here so
+
+85
+00:03:03,599 --> 00:03:08,640
+this would be reading in my var
+
+86
+00:03:06,239 --> 00:03:10,239
+into the ax register then you could have
+
+87
+00:03:08,640 --> 00:03:12,800
+some other assembly that just covers the
+
+88
+00:03:10,239 --> 00:03:15,519
+value with one two three four into eax
+
+89
+00:03:12,800 --> 00:03:17,200
+and then if you wrote that as output you
+
+90
+00:03:15,519 --> 00:03:19,920
+would have move al
+
+91
+00:03:17,200 --> 00:03:21,760
+eax which was now one two three four and
+
+92
+00:03:19,920 --> 00:03:23,760
+that would be written into percent zero
+
+93
+00:03:21,760 --> 00:03:26,159
+which will be the zero with output
+
+94
+00:03:23,760 --> 00:03:28,640
+operand so you can see here we have the
+
+95
+00:03:26,159 --> 00:03:31,360
+colon and then output operands this is
+
+96
+00:03:28,640 --> 00:03:33,760
+equals r and it's saying it's going into
+
+97
+00:03:31,360 --> 00:03:36,239
+the myvar and then we don't see a colon
+
+98
+00:03:33,760 --> 00:03:37,360
+and empty input operands because those
+
+99
+00:03:36,239 --> 00:03:39,360
+are optional the only reason it was
+
+100
+00:03:37,360 --> 00:03:41,280
+necessary here was to make it explicitly
+
+101
+00:03:39,360 --> 00:03:43,760
+clear that this was being used as an
+
+102
+00:03:41,280 --> 00:03:45,599
+input operand not an output operand
+
+103
+00:03:43,760 --> 00:03:47,760
+so basically this assembly just takes my
+
+104
+00:03:45,599 --> 00:03:50,000
+var sticks in the ax doesn't care about
+
+105
+00:03:47,760 --> 00:03:51,760
+that re-writes it with one two three
+
+106
+00:03:50,000 --> 00:03:53,840
+four and then takes that value and
+
+107
+00:03:51,760 --> 00:03:55,760
+writes it back out to my bar so you
+
+108
+00:03:53,840 --> 00:03:58,480
+would expect this code to print out my
+
+109
+00:03:55,760 --> 00:04:00,480
+var equals one two three four another
+
+110
+00:03:58,480 --> 00:04:03,360
+thing you can do with inline assembly
+
+111
+00:04:00,480 --> 00:04:06,319
+syntax is you can specify raw bytes
+
+112
+00:04:03,360 --> 00:04:09,280
+using the dot byte keyword and then you
+
+113
+00:04:06,319 --> 00:04:10,400
+can say i want to emit exactly this byte
+
+114
+00:04:09,280 --> 00:04:12,159
+into
+
+115
+00:04:10,400 --> 00:04:13,599
+the code and that byte should then
+
+116
+00:04:12,159 --> 00:04:15,760
+subsequently be interpreted by the
+
+117
+00:04:13,599 --> 00:04:20,239
+processor as instructions
+
+118
+00:04:15,760 --> 00:04:21,359
+so asm dot byte x90 well that's a noaa
+
+119
+00:04:20,239 --> 00:04:22,720
+and then if you were to look through the
+
+120
+00:04:21,359 --> 00:04:26,960
+manual to find other things you could
+
+121
+00:04:22,720 --> 00:04:28,400
+see dot byte 55 is push rbp top byte 48
+
+122
+00:04:26,960 --> 00:04:32,160
+and then we would separate it with a
+
+123
+00:04:28,400 --> 00:04:35,600
+colon dot light 89 colon sorry semicolon
+
+124
+00:04:32,160 --> 00:04:38,960
+semicolon dot byte 89 semicolon dot byte
+
+125
+00:04:35,600 --> 00:04:43,040
+e5 that would be a move the in atm t
+
+126
+00:04:38,960 --> 00:04:43,040
+syntax rsp to rbp
+

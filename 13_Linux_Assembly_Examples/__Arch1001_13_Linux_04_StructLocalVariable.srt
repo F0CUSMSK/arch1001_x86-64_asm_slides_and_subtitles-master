@@ -1,0 +1,656 @@
+1
+00:00:00,080 --> 00:00:03,840
+our next example is going to be
+
+2
+00:00:02,480 --> 00:00:06,560
+StructLocalVariable
+
+3
+00:00:03,840 --> 00:00:08,320
+so let's go into that and this was the
+
+4
+00:00:06,560 --> 00:00:10,320
+same thing as the ArrayLocalVariable
+
+5
+00:00:08,320 --> 00:00:11,200
+except we basically put what were local
+
+6
+00:00:10,320 --> 00:00:13,599
+variables
+
+7
+00:00:11,200 --> 00:00:15,440
+into a struct and then we just
+
+8
+00:00:13,599 --> 00:00:16,080
+instantiate one instance of that struct
+
+9
+00:00:15,440 --> 00:00:17,920
+on the stack
+
+10
+00:00:16,080 --> 00:00:19,680
+sorry i said instantiation like this is
+
+11
+00:00:17,920 --> 00:00:20,320
+you know C++ we create one
+
+12
+00:00:19,680 --> 00:00:22,640
+instance
+
+13
+00:00:20,320 --> 00:00:23,760
+on the stack foo and then we do the same
+
+14
+00:00:22,640 --> 00:00:26,000
+thing 0xbabe
+
+15
+00:00:23,760 --> 00:00:26,800
+into foo of a 0xba1b0ab1edb100d
+
+16
+00:00:26,000 --> 00:00:29,679
+into c
+
+17
+00:00:26,800 --> 00:00:30,240
+b of 1 gets a b of 4 gets b of 1 plus b
+
+18
+00:00:29,679 --> 00:00:33,840
+of c
+
+19
+00:00:30,240 --> 00:00:33,840
+all right let's compile it
+
+20
+00:00:34,640 --> 00:00:39,440
+and let's debug it
+
+21
+00:00:37,920 --> 00:00:42,879
+so I'm going to step past the function
+
+22
+00:00:39,440 --> 00:00:45,840
+prologue and once again we have these
+
+23
+00:00:42,879 --> 00:00:47,760
+accesses below rbp so I need to get a
+
+24
+00:00:45,840 --> 00:00:51,360
+sense of like how much space
+
+25
+00:00:47,760 --> 00:00:51,360
+is being used so I can do
+
+26
+00:00:51,960 --> 00:00:56,719
+disassemble main and I can eyeball the
+
+27
+00:00:54,879 --> 00:01:00,160
+function and I see minus 0x30
+
+28
+00:00:56,719 --> 00:01:02,399
+minus 0x30 minus 0x28 0x10 0x1c 0x1c
+
+29
+00:01:00,160 --> 00:01:04,400
+so minus 0x30 looks like the maximum so
+
+30
+00:01:02,399 --> 00:01:08,000
+for that we're going to need display
+
+31
+00:01:04,400 --> 00:01:11,040
+and 12 because it's 4 per 0x10
+
+32
+00:01:08,000 --> 00:01:14,640
+so 3, 4 times 3 12 what
+
+33
+00:01:11,040 --> 00:01:15,840
+gdb calls words which are actually 4
+
+34
+00:01:14,640 --> 00:01:19,600
+byte values
+
+35
+00:01:15,840 --> 00:01:22,799
+in hex 12 at rbp
+
+36
+00:01:19,600 --> 00:01:24,000
+minus 0x30 now we're at this line so it's
+
+37
+00:01:22,799 --> 00:01:27,840
+going to be moving
+
+38
+00:01:24,000 --> 00:01:30,799
+the word hex six sorry the 16 bits
+
+39
+00:01:27,840 --> 00:01:33,040
+into rbp minus 0x30 so the value right
+
+40
+00:01:30,799 --> 00:01:35,759
+here so let's step over that
+
+41
+00:01:33,040 --> 00:01:37,280
+and indeed 0xbabe went right here and
+
+42
+00:01:35,759 --> 00:01:38,799
+the rest of this is just sort of
+
+43
+00:01:37,280 --> 00:01:42,640
+uninitialized garbage
+
+44
+00:01:38,799 --> 00:01:45,200
+and then 0xba1b0ab1edb100d into rax
+
+45
+00:01:42,640 --> 00:01:46,960
+again movabs there's not really any
+
+46
+00:01:45,200 --> 00:01:48,560
+assembly instruction into itself it's
+
+47
+00:01:46,960 --> 00:01:50,720
+just a
+
+48
+00:01:48,560 --> 00:01:52,000
+new assembler version of mov a
+
+49
+00:01:50,720 --> 00:01:54,320
+immediate value
+
+50
+00:01:52,000 --> 00:01:56,799
+rax gets 0xba1b0ab1edb100d then mov
+
+51
+00:01:54,320 --> 00:01:59,439
+that into rbp minus 0x10
+
+52
+00:01:56,799 --> 00:01:59,840
+all right so 0xba1b0ab1edb100d
+
+53
+00:01:59,439 --> 00:02:03,200
+then
+
+54
+00:01:59,840 --> 00:02:06,640
+move with zero extension this word
+
+55
+00:02:03,200 --> 00:02:10,080
+too long so 16-bit value to
+
+56
+00:02:06,640 --> 00:02:14,160
+a 32-bit value
+
+57
+00:02:10,080 --> 00:02:16,160
+so that's 0xbabe then we see cwtl
+
+58
+00:02:14,160 --> 00:02:18,080
+and again if we search the Intel manual
+
+59
+00:02:16,160 --> 00:02:20,400
+for that we wouldn't find it
+
+60
+00:02:18,080 --> 00:02:21,120
+because this is another example of new
+
+61
+00:02:20,400 --> 00:02:23,440
+assembler
+
+62
+00:02:21,120 --> 00:02:25,599
+making up a new mnemonic for something
+
+63
+00:02:23,440 --> 00:02:26,000
+and that is a mnemonic for the stuff
+
+64
+00:02:25,599 --> 00:02:27,440
+that
+
+65
+00:02:26,000 --> 00:02:29,200
+you know we said we don't really care
+
+66
+00:02:27,440 --> 00:02:31,760
+about these things like cdq they're
+
+67
+00:02:29,200 --> 00:02:34,319
+basically sign extension things convert
+
+68
+00:02:31,760 --> 00:02:35,200
+double to qword we saw that previously
+
+69
+00:02:34,319 --> 00:02:38,160
+in the
+
+70
+00:02:35,200 --> 00:02:39,680
+signed shifting example but basically
+
+71
+00:02:38,160 --> 00:02:40,400
+for these things like convert byte to
+
+72
+00:02:39,680 --> 00:02:43,040
+word
+
+73
+00:02:40,400 --> 00:02:44,720
+convert word to dword etc they just
+
+74
+00:02:43,040 --> 00:02:45,599
+have new mnemonics which are basically
+
+75
+00:02:44,720 --> 00:02:48,800
+convert
+
+76
+00:02:45,599 --> 00:02:50,480
+byte to word
+
+77
+00:02:48,800 --> 00:02:51,840
+and so the one we're looking at right
+
+78
+00:02:50,480 --> 00:02:55,120
+now is convert word
+
+79
+00:02:51,840 --> 00:02:58,239
+to long so it's converting a
+
+80
+00:02:55,120 --> 00:03:00,720
+16-bit value into a 32-bit value
+
+81
+00:02:58,239 --> 00:03:01,519
+and converting just meaning sign extend
+
+82
+00:03:00,720 --> 00:03:03,920
+so convert
+
+83
+00:03:01,519 --> 00:03:05,840
+word to long is just going to be taking
+
+84
+00:03:03,920 --> 00:03:10,000
+word which is 16-bit ax
+
+85
+00:03:05,840 --> 00:03:13,280
+and putting it into eax so if we do that
+
+86
+00:03:10,000 --> 00:03:13,599
+well it's already you know 0xbabe there we
+
+87
+00:03:13,280 --> 00:03:15,280
+go
+
+88
+00:03:13,599 --> 00:03:17,280
+the sign extension just like we saw
+
+89
+00:03:15,280 --> 00:03:18,640
+previously so you can see this is just a
+
+90
+00:03:17,280 --> 00:03:19,599
+different way of achieving the same
+
+91
+00:03:18,640 --> 00:03:22,480
+thing that we
+
+92
+00:03:19,599 --> 00:03:25,040
+did in the array local variable example
+
+93
+00:03:22,480 --> 00:03:27,920
+now it's going to take eax into rbp
+
+94
+00:03:25,040 --> 00:03:29,680
+minus 0x28. there we go so that must be
+
+95
+00:03:27,920 --> 00:03:33,599
+the b of 1 because
+
+96
+00:03:29,680 --> 00:03:35,440
+babe which was a was sign extended and
+
+97
+00:03:33,599 --> 00:03:36,959
+put into b of 1 then it's going to
+
+98
+00:03:35,440 --> 00:03:38,720
+pluck it back out it's going to do the
+
+99
+00:03:36,959 --> 00:03:41,840
+math with 0xba1b0ab1edb100d
+
+100
+00:03:38,720 --> 00:03:44,879
+so pluck it back out and then mov it to
+
+101
+00:03:41,840 --> 00:03:48,480
+dx and then mov 0xba1b0ab1edb100d
+
+102
+00:03:44,879 --> 00:03:49,280
+into rax and add them just like we did
+
+103
+00:03:48,480 --> 00:03:51,920
+before
+
+104
+00:03:49,280 --> 00:03:53,040
+and that yields the exact same result as
+
+105
+00:03:51,920 --> 00:03:54,879
+before of course
+
+106
+00:03:53,040 --> 00:03:57,040
+and now we're going to save this into
+
+107
+00:03:54,879 --> 00:03:59,200
+rbp minus 0x1c
+
+108
+00:03:57,040 --> 00:04:01,280
+and that's going to be b of 4 and then
+
+109
+00:03:59,200 --> 00:04:04,640
+pull the value right back out of b of 4
+
+110
+00:04:01,280 --> 00:04:06,799
+and return it so step
+
+111
+00:04:04,640 --> 00:04:08,560
+step and that's our return value the one
+
+112
+00:04:06,799 --> 00:04:09,040
+thing I would note here is just like we
+
+113
+00:04:08,560 --> 00:04:12,560
+saw
+
+114
+00:04:09,040 --> 00:04:14,799
+in visual studio when you have a struct
+
+115
+00:04:12,560 --> 00:04:16,000
+the values need to be in the correct
+
+116
+00:04:14,799 --> 00:04:18,880
+order for that struct
+
+117
+00:04:16,000 --> 00:04:19,359
+so in this case you have babe which is
+
+118
+00:04:18,880 --> 00:04:22,160
+the
+
+119
+00:04:19,359 --> 00:04:22,960
+struct a field and then this part right
+
+120
+00:04:22,160 --> 00:04:24,960
+here was just
+
+121
+00:04:22,960 --> 00:04:26,960
+uninitialized but we don't necessarily
+
+122
+00:04:24,960 --> 00:04:29,360
+know immediately whether or not
+
+123
+00:04:26,960 --> 00:04:30,479
+this is like all packed together like
+
+124
+00:04:29,360 --> 00:04:33,280
+when we enable the
+
+125
+00:04:30,479 --> 00:04:34,639
+pragma pack or whether this is just
+
+126
+00:04:33,280 --> 00:04:37,520
+uninitialized
+
+127
+00:04:34,639 --> 00:04:39,440
+untouched garbage the way we could infer
+
+128
+00:04:37,520 --> 00:04:40,960
+what's maybe going on here we could of
+
+129
+00:04:39,440 --> 00:04:42,320
+course change the code and do a bunch of
+
+130
+00:04:40,960 --> 00:04:45,120
+tests and things like that
+
+131
+00:04:42,320 --> 00:04:45,440
+but given the fact that we saw this was
+
+132
+00:04:45,120 --> 00:04:47,919
+b
+
+133
+00:04:45,440 --> 00:04:48,880
+of 1 that kind of implies that this is
+
+134
+00:04:47,919 --> 00:04:51,680
+b of 0
+
+135
+00:04:48,880 --> 00:04:53,199
+and if that's b of 0 then it's not
+
+136
+00:04:51,680 --> 00:04:53,520
+really all packed together and that
+
+137
+00:04:53,199 --> 00:04:55,520
+means
+
+138
+00:04:53,520 --> 00:04:57,120
+it's probably just uninitialized struct
+
+139
+00:04:55,520 --> 00:05:00,000
+padding area followed by
+
+140
+00:04:57,120 --> 00:05:00,479
+b of 1 sorry b of 0 b of 1 b of
+
+141
+00:05:00,000 --> 00:05:03,759
+2
+
+142
+00:05:00,479 --> 00:05:06,320
+b of 3 b of 4 b of 5
+
+143
+00:05:03,759 --> 00:05:07,840
+and then furthermore we can see okay
+
+144
+00:05:06,320 --> 00:05:10,880
+well but that's not
+
+145
+00:05:07,840 --> 00:05:13,520
+c so that's not 0xba1b0ab1edb100d
+
+146
+00:05:10,880 --> 00:05:15,039
+so we see 0xba1b0ab1edb100d next so
+
+147
+00:05:13,520 --> 00:05:17,039
+this is also probably
+
+148
+00:05:15,039 --> 00:05:18,400
+garbage padding we see 0xba1b0ab1edb100d
+
+149
+00:05:17,039 --> 00:05:20,160
+and then we see
+
+150
+00:05:18,400 --> 00:05:22,479
+another 8 bytes and we don't know
+
+151
+00:05:20,160 --> 00:05:23,680
+whether this is struct padding or
+
+152
+00:05:22,479 --> 00:05:26,160
+whether this is stack
+
+153
+00:05:23,680 --> 00:05:27,600
+alignment padding or what so here i'm
+
+154
+00:05:26,160 --> 00:05:30,000
+going to just leave this as a
+
+155
+00:05:27,600 --> 00:05:32,080
+exercise for the reader you know go off
+
+156
+00:05:30,000 --> 00:05:33,039
+change the code and try to make some
+
+157
+00:05:32,080 --> 00:05:35,280
+changes that
+
+158
+00:05:33,039 --> 00:05:36,800
+allow you to infer whether or not this
+
+159
+00:05:35,280 --> 00:05:39,440
+is struct padding
+
+160
+00:05:36,800 --> 00:05:41,600
+or whether this is stack padding caused
+
+161
+00:05:39,440 --> 00:05:43,360
+by gcc so that's pretty much it for this
+
+162
+00:05:41,600 --> 00:05:44,960
+example we're just at function epilog
+
+163
+00:05:43,360 --> 00:05:48,240
+and we would exit out
+
+164
+00:05:44,960 --> 00:05:48,240
+and exit out of main
+

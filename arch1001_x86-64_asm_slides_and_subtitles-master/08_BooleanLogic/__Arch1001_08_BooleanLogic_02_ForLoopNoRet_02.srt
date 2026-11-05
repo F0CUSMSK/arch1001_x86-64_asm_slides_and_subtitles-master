@@ -1,0 +1,156 @@
+1
+00:00:00,080 --> 00:00:03,280
+so the takeaways from ForLoopNoRet is
+
+2
+00:00:02,320 --> 00:00:05,040
+of course then no
+
+3
+00:00:03,280 --> 00:00:06,879
+ret is in reference to the fact that if
+
+4
+00:00:05,040 --> 00:00:08,960
+there is no return value the compiler
+
+5
+00:00:06,879 --> 00:00:09,599
+will just stick in a default of zero for
+
+6
+00:00:08,960 --> 00:00:11,840
+you
+
+7
+00:00:09,599 --> 00:00:13,519
+and then a for loop having this sort of
+
+8
+00:00:11,840 --> 00:00:15,759
+conditional check inside of it
+
+9
+00:00:13,519 --> 00:00:17,760
+is probably going to turn into some sort
+
+10
+00:00:15,759 --> 00:00:20,000
+of conditional check in the assembly
+
+11
+00:00:17,760 --> 00:00:21,760
+and as usual that conditional check will
+
+12
+00:00:20,000 --> 00:00:24,560
+be greater than above
+
+13
+00:00:21,760 --> 00:00:26,160
+and so forth based on the sign of the
+
+14
+00:00:24,560 --> 00:00:29,439
+variables under operation
+
+15
+00:00:26,160 --> 00:00:30,880
+this is i is a signed int and therefore
+
+16
+00:00:29,439 --> 00:00:33,440
+it's using a signed
+
+17
+00:00:30,880 --> 00:00:35,200
+greater than check from our previous
+
+18
+00:00:33,440 --> 00:00:37,680
+heuristic about how to interpret
+
+19
+00:00:35,200 --> 00:00:38,800
+compares and conditional jumps we could
+
+20
+00:00:37,680 --> 00:00:40,480
+see it's comparing
+
+21
+00:00:38,800 --> 00:00:42,800
+some memory location well that's
+
+22
+00:00:40,480 --> 00:00:46,239
+probably i to the value 10
+
+23
+00:00:42,800 --> 00:00:47,039
+which is 0xA so is i greater than or
+
+24
+00:00:46,239 --> 00:00:50,399
+equal to
+
+25
+00:00:47,039 --> 00:00:52,239
+10 if so take the jump down to 31
+
+26
+00:00:50,399 --> 00:00:54,320
+so that's basically the exit condition
+
+27
+00:00:52,239 --> 00:00:56,480
+if it's greater than or equal to
+
+28
+00:00:54,320 --> 00:00:57,680
+then it exits the for loop. Two new
+
+29
+00:00:56,480 --> 00:01:00,320
+assembly instructions
+
+30
+00:00:57,680 --> 00:01:02,320
+inc and dec and even though the Intel
+
+31
+00:01:00,320 --> 00:01:03,440
+compiler optimization guidance says not
+
+32
+00:01:02,320 --> 00:01:05,920
+to use them
+
+33
+00:01:03,440 --> 00:01:07,520
+for the assembly that was used for this
+
+34
+00:01:05,920 --> 00:01:09,119
+statistical comparison
+
+35
+00:01:07,520 --> 00:01:11,360
+in that thing that I cited way at the
+
+36
+00:01:09,119 --> 00:01:12,560
+beginning turns out that inc and dec do
+
+37
+00:01:11,360 --> 00:01:15,119
+still show up here
+
+38
+00:01:12,560 --> 00:01:18,560
+inc coming in at one percent and dec
+
+39
+00:01:15,119 --> 00:01:18,560
+coming in at one percent
+

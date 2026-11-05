@@ -1,0 +1,44 @@
+1
+00:00:00,080 --> 00:00:03,120
+so what's the takeaway from shift
+
+2
+00:00:01,360 --> 00:00:04,000
+example one it's another one of these
+
+3
+00:00:03,120 --> 00:00:07,359
+trivial ones
+
+4
+00:00:04,000 --> 00:00:09,360
+shifts in C are shifts in assembly
+
+5
+00:00:07,359 --> 00:00:10,960
+so that's two more assembly instructions
+
+6
+00:00:09,360 --> 00:00:12,160
+to our bountiful collection
+
+7
+00:00:10,960 --> 00:00:15,120
+and i know you thought you were done
+
+8
+00:00:12,160 --> 00:00:18,160
+when you had consumed the full pie here
+
+9
+00:00:15,120 --> 00:00:21,840
+but wait there's more
+
+10
+00:00:18,160 --> 00:00:25,359
+so we have now as others shift left
+
+11
+00:00:21,840 --> 00:00:25,359
+and shift right
+

@@ -1,0 +1,900 @@
+1
+00:00:00,080 --> 00:00:04,480
+so before we see this example just a
+
+2
+00:00:02,080 --> 00:00:06,799
+reminder that ShiftExample2 was the
+
+3
+00:00:04,480 --> 00:00:08,559
+unsigned version and ShiftExample3
+
+4
+00:00:06,799 --> 00:00:10,480
+is the signed version everything is
+
+5
+00:00:08,559 --> 00:00:12,639
+exactly the same except the variables
+
+6
+00:00:10,480 --> 00:00:15,440
+are signed instead of unsigned when we
+
+7
+00:00:12,639 --> 00:00:17,920
+did this in visual studio it introduced
+
+8
+00:00:15,440 --> 00:00:19,359
+a new instruction cdq which I said we
+
+9
+00:00:17,920 --> 00:00:21,039
+didn't really care about but you can
+
+10
+00:00:19,359 --> 00:00:23,359
+read about later on and so
+
+11
+00:00:21,039 --> 00:00:24,880
+it basically went from being a very
+
+12
+00:00:23,359 --> 00:00:27,760
+trivial shift
+
+13
+00:00:24,880 --> 00:00:29,840
+shift logical right shift logical left
+
+14
+00:00:27,760 --> 00:00:30,160
+sorry shift logical left shift logical
+
+15
+00:00:29,840 --> 00:00:32,239
+right
+
+16
+00:00:30,160 --> 00:00:34,000
+very trivial 2 instructions to being
+
+17
+00:00:32,239 --> 00:00:35,920
+a shift logical left
+
+18
+00:00:34,000 --> 00:00:37,840
+because shift arithmetic left is the
+
+19
+00:00:35,920 --> 00:00:40,640
+same thing no real difference there
+
+20
+00:00:37,840 --> 00:00:42,719
+and then 4 instructions instead
+
+21
+00:00:40,640 --> 00:00:44,160
+leading to a shift arithmetic right and
+
+22
+00:00:42,719 --> 00:00:45,680
+I just kind of hand waved and said I
+
+23
+00:00:44,160 --> 00:00:47,360
+don't care about this instruction and
+
+24
+00:00:45,680 --> 00:00:49,039
+you know this is just needed to make the
+
+25
+00:00:47,360 --> 00:00:49,360
+math work out and I kind of left it at
+
+26
+00:00:49,039 --> 00:00:51,920
+that
+
+27
+00:00:49,360 --> 00:00:53,520
+gonna do similar thing this time except
+
+28
+00:00:51,920 --> 00:00:53,920
+this time I'm gonna you know ask you to
+
+29
+00:00:53,520 --> 00:00:55,760
+go
+
+30
+00:00:53,920 --> 00:00:58,320
+prove to yourself that the math works
+
+31
+00:00:55,760 --> 00:01:00,559
+out and investigate the corner case that
+
+32
+00:00:58,320 --> 00:01:02,640
+leads to the necessity of this math but
+
+33
+00:01:00,559 --> 00:01:04,400
+this time it's there's no cdq because i
+
+34
+00:01:02,640 --> 00:01:05,199
+said that's kind of visual studio likes
+
+35
+00:01:04,400 --> 00:01:08,080
+that
+
+36
+00:01:05,199 --> 00:01:08,880
+but we do have a new instruction
+
+37
+00:01:08,080 --> 00:01:11,040
+cmovns
+
+38
+00:01:08,880 --> 00:01:12,000
+so what is this well this is a
+
+39
+00:01:11,040 --> 00:01:14,479
+conditional move
+
+40
+00:01:12,000 --> 00:01:16,320
+instruction so it's actually a cmovcc
+
+41
+00:01:14,479 --> 00:01:18,400
+using my previous statement like
+
+42
+00:01:16,320 --> 00:01:20,080
+jcc where you have a jump and a
+
+43
+00:01:18,400 --> 00:01:21,360
+conditional code and the conditional
+
+44
+00:01:20,080 --> 00:01:23,280
+code can be those things like
+
+45
+00:01:21,360 --> 00:01:24,560
+equals not equals greater less than or
+
+46
+00:01:23,280 --> 00:01:28,000
+equal blah blah blah
+
+47
+00:01:24,560 --> 00:01:31,200
+not signed so a cmovns
+
+48
+00:01:28,000 --> 00:01:33,439
+is a conditional mov if the sign flag
+
+49
+00:01:31,200 --> 00:01:35,439
+is not set so what does it mean to be a
+
+50
+00:01:33,439 --> 00:01:37,520
+conditional move well it just means that
+
+51
+00:01:35,439 --> 00:01:38,320
+if the condition holds the move happens
+
+52
+00:01:37,520 --> 00:01:40,960
+and if not
+
+53
+00:01:38,320 --> 00:01:42,880
+then it doesn't happen so yay we picked
+
+54
+00:01:40,960 --> 00:01:46,320
+up another instruction and yeah we
+
+55
+00:01:42,880 --> 00:01:49,600
+get another star on our big star chart
+
+56
+00:01:46,320 --> 00:01:53,439
+so let's see this example in practice
+
+57
+00:01:49,600 --> 00:01:55,600
+so go cd to ShiftExample3
+
+58
+00:01:53,439 --> 00:01:59,600
+nothing up my sleeve it is what we
+
+59
+00:01:55,600 --> 00:01:59,600
+expected just a signed version of this
+
+60
+00:01:59,759 --> 00:02:05,360
+compile it and debug it
+
+61
+00:02:03,759 --> 00:02:06,799
+now because of the optimization we again
+
+62
+00:02:05,360 --> 00:02:09,200
+have the string to unsign
+
+63
+00:02:06,799 --> 00:02:11,920
+strtol which is just going to
+
+64
+00:02:09,200 --> 00:02:13,360
+give us back our 31337 so let's go ahead
+
+65
+00:02:11,920 --> 00:02:16,400
+and step all the way over that
+
+66
+00:02:13,360 --> 00:02:18,720
+now we have 31337 in rax
+
+67
+00:02:16,400 --> 00:02:20,959
+and here you can see that it looks like
+
+68
+00:02:18,720 --> 00:02:24,319
+they didn't actually choose to use
+
+69
+00:02:20,959 --> 00:02:26,560
+a shift left they chose to use an lea
+
+70
+00:02:24,319 --> 00:02:27,520
+which multiplies by 8 so there's the
+
+71
+00:02:26,560 --> 00:02:30,080
+implicit you know
+
+72
+00:02:27,520 --> 00:02:32,160
+index time scale and they're just having
+
+73
+00:02:30,080 --> 00:02:34,400
+the index in rax so this is just going
+
+74
+00:02:32,160 --> 00:02:36,080
+to be rax times 8 so it's just
+
+75
+00:02:34,400 --> 00:02:37,680
+instead of using the multiply
+
+76
+00:02:36,080 --> 00:02:38,319
+instruction instead of using the shift
+
+77
+00:02:37,680 --> 00:02:41,360
+instruction
+
+78
+00:02:38,319 --> 00:02:44,239
+this compiler chose to use a lea which
+
+79
+00:02:41,360 --> 00:02:45,680
+is perfectly valid so it does that and
+
+80
+00:02:44,239 --> 00:02:48,640
+the net result goes into
+
+81
+00:02:45,680 --> 00:02:49,519
+rdx and so that's 8 times
+
+82
+00:02:48,640 --> 00:02:52,480
+31337
+
+83
+00:02:49,519 --> 00:02:54,319
+and now this is this sort of sequence of
+
+84
+00:02:52,480 --> 00:02:54,720
+instructions where i'm going to ask you
+
+85
+00:02:54,319 --> 00:02:57,200
+to
+
+86
+00:02:54,720 --> 00:02:58,640
+to go investigate the edge cases to
+
+87
+00:02:57,200 --> 00:03:00,000
+confirm that you know the math makes
+
+88
+00:02:58,640 --> 00:03:01,599
+sense to you but let's
+
+89
+00:03:00,000 --> 00:03:03,599
+just walk through what exactly it's
+
+90
+00:03:01,599 --> 00:03:05,120
+doing first so rdx
+
+91
+00:03:03,599 --> 00:03:07,200
+holds the value which was just
+
+92
+00:03:05,120 --> 00:03:09,920
+multiplied by 8 it's going to
+
+93
+00:03:07,200 --> 00:03:11,280
+add 0xf to that and this is an lea not a
+
+94
+00:03:09,920 --> 00:03:13,920
+movv so it's just going to add
+
+95
+00:03:11,280 --> 00:03:15,200
+0xf to that and store it into eax so let's
+
+96
+00:03:13,920 --> 00:03:18,400
+step over that
+
+97
+00:03:15,200 --> 00:03:21,440
+we have this value plus 0xf
+
+98
+00:03:18,400 --> 00:03:22,640
+in rax now it's going to do a test
+
+99
+00:03:21,440 --> 00:03:25,360
+instruction and we said
+
+100
+00:03:22,640 --> 00:03:26,159
+test is like an and instruction so it's
+
+101
+00:03:25,360 --> 00:03:30,080
+going to
+
+102
+00:03:26,159 --> 00:03:33,200
+and edx with itself so edx the
+
+103
+00:03:30,080 --> 00:03:36,319
+lower 32 bits of this with itself
+
+104
+00:03:33,200 --> 00:03:39,519
+and then it's going to do a conditional
+
+105
+00:03:36,319 --> 00:03:42,000
+mov non-sign flag set
+
+106
+00:03:39,519 --> 00:03:43,840
+so this anded with itself is always
+
+107
+00:03:42,000 --> 00:03:45,599
+going to be basically itself
+
+108
+00:03:43,840 --> 00:03:46,959
+and so the check later on for the
+
+109
+00:03:45,599 --> 00:03:49,519
+conditional if not
+
+110
+00:03:46,959 --> 00:03:50,000
+sign flag set means essentially it's
+
+111
+00:03:49,519 --> 00:03:52,080
+checking
+
+112
+00:03:50,000 --> 00:03:53,439
+is the sign flag currently set in the
+
+113
+00:03:52,080 --> 00:03:56,080
+value in
+
+114
+00:03:53,439 --> 00:03:57,840
+edx and we can see it's not set because
+
+115
+00:03:56,080 --> 00:03:58,159
+this value is too small it would need to
+
+116
+00:03:57,840 --> 00:03:59,439
+be
+
+117
+00:03:58,159 --> 00:04:01,519
+you know something with 1 of the most
+
+118
+00:03:59,439 --> 00:04:02,000
+significant bit but if we really want to
+
+119
+00:04:01,519 --> 00:04:04,720
+you know
+
+120
+00:04:02,000 --> 00:04:05,920
+double check that we can do for instance
+
+121
+00:04:04,720 --> 00:04:09,120
+info
+
+122
+00:04:05,920 --> 00:04:12,080
+registers eflags and see what the
+
+123
+00:04:09,120 --> 00:04:13,439
+eflags is set to the sign flag is not
+
+124
+00:04:12,080 --> 00:04:16,400
+currently set
+
+125
+00:04:13,439 --> 00:04:17,040
+in eflags let's go ahead and do this
+
+126
+00:04:16,400 --> 00:04:19,519
+test
+
+127
+00:04:17,040 --> 00:04:21,519
+and look at the register again and the
+
+128
+00:04:19,519 --> 00:04:23,199
+parity flag just got set but the sign
+
+129
+00:04:21,519 --> 00:04:25,520
+flag is still not set
+
+130
+00:04:23,199 --> 00:04:26,960
+which means conditional mov if the sign
+
+131
+00:04:25,520 --> 00:04:29,680
+flag is not set
+
+132
+00:04:26,960 --> 00:04:32,560
+will actually happen so this mov will
+
+133
+00:04:29,680 --> 00:04:34,479
+happen it's going to mov edx value
+
+134
+00:04:32,560 --> 00:04:36,479
+which is the value before that addition
+
+135
+00:04:34,479 --> 00:04:38,960
+of 0xf to it
+
+136
+00:04:36,479 --> 00:04:40,320
+back over the top of eax clevering out
+
+137
+00:04:38,960 --> 00:04:42,479
+and you know ignoring what happened
+
+138
+00:04:40,320 --> 00:04:46,400
+there with the adding of 0xf
+
+139
+00:04:42,479 --> 00:04:50,400
+so let's do that and there we go 0x3d348
+
+140
+00:04:46,400 --> 00:04:52,320
+moved into rax into eax 0x3d348
+
+141
+00:04:50,400 --> 00:04:54,080
+and now it's doing a shift arithmetic
+
+142
+00:04:52,320 --> 00:04:55,919
+write by 4 bits
+
+143
+00:04:54,080 --> 00:04:57,520
+because the most significant bit was not
+
+144
+00:04:55,919 --> 00:04:58,880
+set it's not really going to make any
+
+145
+00:04:57,520 --> 00:05:01,199
+difference it's just going to
+
+146
+00:04:58,880 --> 00:05:03,280
+truncate it down 0x3d34. and then
+
+147
+00:05:01,199 --> 00:05:04,960
+finally it's done with this function
+
+148
+00:05:03,280 --> 00:05:05,919
+this add of 8 is just like in the
+
+149
+00:05:04,960 --> 00:05:08,160
+previous example
+
+150
+00:05:05,919 --> 00:05:09,600
+there's no standard function prolog
+
+151
+00:05:08,160 --> 00:05:12,000
+epilogue here for
+
+152
+00:05:09,600 --> 00:05:12,880
+stack frame usage with the base pointer
+
+153
+00:05:12,000 --> 00:05:14,479
+and so it's just
+
+154
+00:05:12,880 --> 00:05:15,919
+compensating back for the eight that it
+
+155
+00:05:14,479 --> 00:05:17,840
+subtracted at the beginning
+
+156
+00:05:15,919 --> 00:05:20,080
+so this is where I said I want you to
+
+157
+00:05:17,840 --> 00:05:22,320
+investigate let's you know restart this
+
+158
+00:05:20,080 --> 00:05:24,000
+thing let's restart it with some
+
+159
+00:05:22,320 --> 00:05:26,560
+negative value instead
+
+160
+00:05:24,000 --> 00:05:29,039
+for the input argument so let's go with
+
+161
+00:05:26,560 --> 00:05:31,919
+negative 32.
+
+162
+00:05:29,039 --> 00:05:34,000
+I'm going to restart we're going to step
+
+163
+00:05:31,919 --> 00:05:35,759
+over the strtol
+
+164
+00:05:34,000 --> 00:05:37,280
+we're going to confirm it gives us
+
+165
+00:05:35,759 --> 00:05:39,680
+something that looks like a
+
+166
+00:05:37,280 --> 00:05:41,199
+negative 32 it looks about like a
+
+167
+00:05:39,680 --> 00:05:41,919
+negative 32 to me it's certainly
+
+168
+00:05:41,199 --> 00:05:43,840
+negative
+
+169
+00:05:41,919 --> 00:05:45,440
+now it's going to multiply that value by
+
+170
+00:05:43,840 --> 00:05:48,720
+8 and
+
+171
+00:05:45,440 --> 00:05:49,039
+that looks like about a negative 256 to
+
+172
+00:05:48,720 --> 00:05:52,479
+me
+
+173
+00:05:49,039 --> 00:05:54,000
+because 0x100 is 256 and added to that
+
+174
+00:05:52,479 --> 00:05:56,960
+would make it overflow
+
+175
+00:05:54,000 --> 00:05:58,479
+so or make it be 0 rather well it's
+
+176
+00:05:56,960 --> 00:06:01,280
+the same thing
+
+177
+00:05:58,479 --> 00:06:03,280
+it's overflowing to 0 and so then now
+
+178
+00:06:01,280 --> 00:06:06,800
+we have this math that like
+
+179
+00:06:03,280 --> 00:06:09,919
+adds 0xf to this and puts it into eax
+
+180
+00:06:06,800 --> 00:06:12,880
+so step so now we got fs and
+
+181
+00:06:09,919 --> 00:06:13,840
+0f then we got the test for the sign
+
+182
+00:06:12,880 --> 00:06:17,360
+flag
+
+183
+00:06:13,840 --> 00:06:19,199
+and so again info registers
+
+184
+00:06:17,360 --> 00:06:20,720
+oops i might say info register eflag
+
+185
+00:06:19,199 --> 00:06:23,360
+but whatever
+
+186
+00:06:20,720 --> 00:06:26,000
+so sign flag is not set before the test
+
+187
+00:06:23,360 --> 00:06:28,160
+let's do this assembly instruction
+
+188
+00:06:26,000 --> 00:06:29,120
+and let's look at the eflags again and
+
+189
+00:06:28,160 --> 00:06:31,360
+the sign flag
+
+190
+00:06:29,120 --> 00:06:32,400
+is now set after that test instruction
+
+191
+00:06:31,360 --> 00:06:35,280
+because
+
+192
+00:06:32,400 --> 00:06:36,639
+indeed the most significant bit of rdx
+
+193
+00:06:35,280 --> 00:06:39,680
+of edx
+
+194
+00:06:36,639 --> 00:06:40,960
+is set to 1 so the sign flag is set in
+
+195
+00:06:39,680 --> 00:06:43,680
+the result of that
+
+196
+00:06:40,960 --> 00:06:44,720
+so this conditional mov if not signed
+
+197
+00:06:43,680 --> 00:06:46,639
+flag
+
+198
+00:06:44,720 --> 00:06:48,560
+is not going to happen because it only
+
+199
+00:06:46,639 --> 00:06:50,479
+does it if the sign flag is not set
+
+200
+00:06:48,560 --> 00:06:52,479
+and the sign flag is currently set so
+
+201
+00:06:50,479 --> 00:06:53,840
+this is basically going to be skipped
+
+202
+00:06:52,479 --> 00:06:56,240
+nothing's going to happen we're not
+
+203
+00:06:53,840 --> 00:06:58,400
+going to you know clobber the value in
+
+204
+00:06:56,240 --> 00:06:59,680
+rax with the previous value that we had
+
+205
+00:06:58,400 --> 00:07:03,440
+down here
+
+206
+00:06:59,680 --> 00:07:05,440
+so step yep no change same thing
+
+207
+00:07:03,440 --> 00:07:06,560
+as before and now it's doing a shift
+
+208
+00:07:05,440 --> 00:07:10,080
+arithmetic right
+
+209
+00:07:06,560 --> 00:07:11,680
+by 4 on this and so all that does is
+
+210
+00:07:10,080 --> 00:07:12,160
+get rid of that 0xf that it just added to
+
+211
+00:07:11,680 --> 00:07:14,479
+it
+
+212
+00:07:12,160 --> 00:07:16,080
+so like I said I want you to you know
+
+213
+00:07:14,479 --> 00:07:18,240
+play around with this example
+
+214
+00:07:16,080 --> 00:07:20,160
+and convince yourself that there is some
+
+215
+00:07:18,240 --> 00:07:22,560
+corner case that this adding of
+
+216
+00:07:20,160 --> 00:07:24,000
+0xf is specifically trying to handle in
+
+217
+00:07:22,560 --> 00:07:25,680
+order to make sure that it
+
+218
+00:07:24,000 --> 00:07:28,080
+generates the correct assembly
+
+219
+00:07:25,680 --> 00:07:28,560
+instructions with the sequence and that
+
+220
+00:07:28,080 --> 00:07:30,479
+it would
+
+221
+00:07:28,560 --> 00:07:33,199
+not generate the correct assembly
+
+222
+00:07:30,479 --> 00:07:35,759
+instructions without the sequence
+
+223
+00:07:33,199 --> 00:07:37,520
+basically the adding of 0xf and then the
+
+224
+00:07:35,759 --> 00:07:41,199
+conditional moving
+
+225
+00:07:37,520 --> 00:07:41,199
+based on whether the sign flag is set
+

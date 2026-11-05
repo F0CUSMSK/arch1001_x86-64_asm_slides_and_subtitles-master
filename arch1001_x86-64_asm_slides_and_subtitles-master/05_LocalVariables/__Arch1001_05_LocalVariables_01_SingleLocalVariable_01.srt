@@ -1,0 +1,160 @@
+1
+00:00:00,000 --> 00:00:03,840
+so now we're going to expand on our
+
+2
+00:00:01,760 --> 00:00:05,680
+example from before with having a
+
+3
+00:00:03,840 --> 00:00:07,839
+function called another function
+
+4
+00:00:05,680 --> 00:00:09,840
+and then let's add a single local
+
+5
+00:00:07,839 --> 00:00:13,120
+variable to that other function
+
+6
+00:00:09,840 --> 00:00:15,839
+so we're going to assign hex scalable to
+
+7
+00:00:13,120 --> 00:00:17,279
+an integer i here's going to be the
+
+8
+00:00:15,839 --> 00:00:19,600
+assembly for that
+
+9
+00:00:17,279 --> 00:00:22,240
+but now in the class i'm going to start
+
+10
+00:00:19,600 --> 00:00:24,320
+having you go through this assembly
+
+11
+00:00:22,240 --> 00:00:26,320
+and see what's actually changing on the
+
+12
+00:00:24,320 --> 00:00:28,240
+stack so that you can understand
+
+13
+00:00:26,320 --> 00:00:30,560
+now for instance how variables are
+
+14
+00:00:28,240 --> 00:00:32,640
+stored on the stack
+
+15
+00:00:30,560 --> 00:00:34,320
+to do this you should go into your
+
+16
+00:00:32,640 --> 00:00:36,800
+visual studio solution
+
+17
+00:00:34,320 --> 00:00:37,600
+right click on single local variable and
+
+18
+00:00:36,800 --> 00:00:40,239
+select
+
+19
+00:00:37,600 --> 00:00:41,760
+set as startup project then when you go
+
+20
+00:00:40,239 --> 00:00:44,079
+ahead and just start the debugger it
+
+21
+00:00:41,760 --> 00:00:45,840
+will start that project
+
+22
+00:00:44,079 --> 00:00:48,000
+so what i want you to do for this
+
+23
+00:00:45,840 --> 00:00:50,320
+example this exercise
+
+24
+00:00:48,000 --> 00:00:51,680
+is i want you to step through this line
+
+25
+00:00:50,320 --> 00:00:54,399
+right here which is where
+
+26
+00:00:51,680 --> 00:00:56,399
+scalable gets assigned to i and i want
+
+27
+00:00:54,399 --> 00:00:57,920
+you to draw a stack diagram
+
+28
+00:00:56,399 --> 00:00:59,440
+for what all changes throughout the
+
+29
+00:00:57,920 --> 00:01:00,160
+program execution from the very
+
+30
+00:00:59,440 --> 00:01:02,160
+beginning
+
+31
+00:01:00,160 --> 00:01:04,559
+until you step through this particular
+
+32
+00:01:02,160 --> 00:01:05,360
+line so create a stack diagram like this
+
+33
+00:01:04,559 --> 00:01:07,920
+fill it in
+
+34
+00:01:05,360 --> 00:01:09,760
+figure out what is there where i is that
+
+35
+00:01:07,920 --> 00:01:12,720
+kind of thing
+
+36
+00:01:09,760 --> 00:01:13,760
+so go ahead and stop and step through
+
+37
+00:01:12,720 --> 00:01:15,439
+the assembly and
+
+38
+00:01:13,760 --> 00:01:19,520
+draw a stack diagram we're going to be
+
+39
+00:01:15,439 --> 00:01:19,520
+doing this a lot for all of the upcoming
+
+40
+00:01:20,280 --> 00:01:23,280
+examples
+

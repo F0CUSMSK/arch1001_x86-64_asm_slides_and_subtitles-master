@@ -1,0 +1,1300 @@
+1
+00:00:00,080 --> 00:00:03,439
+so we've seen all of the unconditional
+
+2
+00:00:02,080 --> 00:00:05,040
+control flow that we're going to cover
+
+3
+00:00:03,439 --> 00:00:06,960
+in this class now let's look at some
+
+4
+00:00:05,040 --> 00:00:09,920
+conditional control flow
+
+5
+00:00:06,960 --> 00:00:10,400
+in this example we have if statements
+
+6
+00:00:09,920 --> 00:00:12,880
+and
+
+7
+00:00:10,400 --> 00:00:14,960
+that is going to translate into a bunch
+
+8
+00:00:12,880 --> 00:00:17,039
+of new assembly instructions
+
+9
+00:00:14,960 --> 00:00:19,119
+so we've got a compare instruction and
+
+10
+00:00:17,039 --> 00:00:21,119
+we've got some jump not equal jump less
+
+11
+00:00:19,119 --> 00:00:23,279
+than or equal jump greater than or equal
+
+12
+00:00:21,119 --> 00:00:24,880
+so we can tell just based on those names
+
+13
+00:00:23,279 --> 00:00:27,039
+that they have to do with this
+
+14
+00:00:24,880 --> 00:00:28,720
+equality check the greater than check
+
+15
+00:00:27,039 --> 00:00:30,400
+and the less than check
+
+16
+00:00:28,720 --> 00:00:31,679
+so i'm going to call these jcc
+
+17
+00:00:30,400 --> 00:00:33,200
+instructions for a family of
+
+18
+00:00:31,679 --> 00:00:34,160
+instructions jump based on some
+
+19
+00:00:33,200 --> 00:00:35,920
+conditional code
+
+20
+00:00:34,160 --> 00:00:37,680
+not equal less than or equal greater
+
+21
+00:00:35,920 --> 00:00:39,280
+than or equal now it doesn't exactly
+
+22
+00:00:37,680 --> 00:00:41,040
+help you out right now but i just want
+
+23
+00:00:39,280 --> 00:00:43,040
+to let you know that if you're taking
+
+24
+00:00:41,040 --> 00:00:45,440
+this class on your way towards something
+
+25
+00:00:43,040 --> 00:00:47,920
+like the reverse engineering classes
+
+26
+00:00:45,440 --> 00:00:49,039
+later on most reverse engineering tools
+
+27
+00:00:47,920 --> 00:00:52,000
+or multi-tools
+
+28
+00:00:49,039 --> 00:00:52,559
+they will have a nicer control flow
+
+29
+00:00:52,000 --> 00:00:55,440
+graph
+
+30
+00:00:52,559 --> 00:00:55,760
+form of showing conditional control flow
+
+31
+00:00:55,440 --> 00:00:57,920
+so
+
+32
+00:00:55,760 --> 00:00:58,960
+for instance this jump not equal jump
+
+33
+00:00:57,920 --> 00:01:01,440
+not zero
+
+34
+00:00:58,960 --> 00:01:03,280
+it'll say okay if this jump is taken it
+
+35
+00:01:01,440 --> 00:01:03,680
+goes this way and if not it goes that
+
+36
+00:01:03,280 --> 00:01:05,439
+way
+
+37
+00:01:03,680 --> 00:01:06,720
+if this jump is taken it goes this way
+
+38
+00:01:05,439 --> 00:01:08,560
+and if not it goes that way
+
+39
+00:01:06,720 --> 00:01:10,240
+so this is sort of the common control
+
+40
+00:01:08,560 --> 00:01:10,960
+flow graph and it makes it a lot easier
+
+41
+00:01:10,240 --> 00:01:12,479
+to read
+
+42
+00:01:10,960 --> 00:01:15,360
+rather than just looking at straight
+
+43
+00:01:12,479 --> 00:01:17,600
+line assembly so we're going to lump all
+
+44
+00:01:15,360 --> 00:01:18,320
+of these jcc instructions the jump if
+
+45
+00:01:17,600 --> 00:01:20,320
+condition
+
+46
+00:01:18,320 --> 00:01:22,720
+code is met we'll just call this
+
+47
+00:01:20,320 --> 00:01:24,720
+assembly instruction 14 for our purposes
+
+48
+00:01:22,720 --> 00:01:26,240
+of counting assembly that you know
+
+49
+00:01:24,720 --> 00:01:27,920
+there's actually going to be many many
+
+50
+00:01:26,240 --> 00:01:28,880
+different instructions here but I don't
+
+51
+00:01:27,920 --> 00:01:31,520
+want to inflate
+
+52
+00:01:28,880 --> 00:01:32,640
+the amount of counting in the class so
+
+53
+00:01:31,520 --> 00:01:35,600
+unlike the normal
+
+54
+00:01:32,640 --> 00:01:36,159
+jump instruction here if and only if a
+
+55
+00:01:35,600 --> 00:01:38,159
+condition
+
+56
+00:01:36,159 --> 00:01:39,680
+is true the jump is taken and if the
+
+57
+00:01:38,159 --> 00:01:41,600
+condition is false
+
+58
+00:01:39,680 --> 00:01:43,520
+then it'll proceed through to the next
+
+59
+00:01:41,600 --> 00:01:45,439
+instruction when you look at the Intel
+
+60
+00:01:43,520 --> 00:01:48,320
+assembly manual you'll actually see
+
+61
+00:01:45,439 --> 00:01:49,040
+four full pages of conditional jump
+
+62
+00:01:48,320 --> 00:01:50,640
+types
+
+63
+00:01:49,040 --> 00:01:52,880
+a bunch of them are just different names
+
+64
+00:01:50,640 --> 00:01:55,280
+for the same thing for instance
+
+65
+00:01:52,880 --> 00:01:56,320
+jump not equal is the same thing as jump
+
+66
+00:01:55,280 --> 00:01:58,640
+not zero
+
+67
+00:01:56,320 --> 00:01:59,439
+because they're both checking the zero
+
+68
+00:01:58,640 --> 00:02:02,240
+flag
+
+69
+00:01:59,439 --> 00:02:04,079
+and whether or not it's equal to zero
+
+70
+00:02:02,240 --> 00:02:05,200
+but this means we're going to have to do
+
+71
+00:02:04,079 --> 00:02:08,000
+a little bit of a side quest to
+
+72
+00:02:05,200 --> 00:02:09,920
+understand what the zero flag is
+
+73
+00:02:08,000 --> 00:02:12,239
+so thus far we've only talked about
+
+74
+00:02:09,920 --> 00:02:13,920
+Intel general purpose registers
+
+75
+00:02:12,239 --> 00:02:15,440
+now we're going to introduce a new
+
+76
+00:02:13,920 --> 00:02:18,319
+special purpose register
+
+77
+00:02:15,440 --> 00:02:18,959
+the rflags register and so it says in
+
+78
+00:02:18,319 --> 00:02:22,239
+the manual
+
+79
+00:02:18,959 --> 00:02:24,160
+in 64-bit mode eflags is extended to 64
+
+80
+00:02:22,239 --> 00:02:25,840
+bits and called rflags. The upper 32
+
+81
+00:02:24,160 --> 00:02:28,239
+bits of rflags register is reserved.
+
+82
+00:02:25,840 --> 00:02:30,239
+The lower 32 bits of rflags is eflags.
+
+83
+00:02:28,239 --> 00:02:32,879
+all this is basically saying is dear
+
+84
+00:02:30,239 --> 00:02:34,800
+people who are learning x86-64
+
+85
+00:02:32,879 --> 00:02:36,000
+we've extended the register but we're
+
+86
+00:02:34,800 --> 00:02:37,680
+not actually using it for
+
+87
+00:02:36,000 --> 00:02:39,040
+anything so you can mostly just think
+
+88
+00:02:37,680 --> 00:02:40,879
+about it as the
+
+89
+00:02:39,040 --> 00:02:42,959
+eflags register that you already knew
+
+90
+00:02:40,879 --> 00:02:46,000
+and love from 32-bit assembly
+
+91
+00:02:42,959 --> 00:02:47,760
+and just to show this this did extend
+
+92
+00:02:46,000 --> 00:02:50,080
+based on the flags register that
+
+93
+00:02:47,760 --> 00:02:50,879
+originally existed back in the 8086 it
+
+94
+00:02:50,080 --> 00:02:53,040
+was extended
+
+95
+00:02:50,879 --> 00:02:55,360
+for 32-bit it was extended again for
+
+96
+00:02:53,040 --> 00:02:57,920
+64-bit but as it says here it's all
+
+97
+00:02:55,360 --> 00:02:59,360
+zeros so there's no actual purpose to
+
+98
+00:02:57,920 --> 00:03:01,280
+the extra bits
+
+99
+00:02:59,360 --> 00:03:02,480
+so the rflags register holds many
+
+100
+00:03:01,280 --> 00:03:05,120
+different single-bit
+
+101
+00:03:02,480 --> 00:03:07,760
+flags and for right now I'm only going
+
+102
+00:03:05,120 --> 00:03:09,360
+to want you to focus on two of them
+
+103
+00:03:07,760 --> 00:03:11,040
+there's going to be a flag called the
+
+104
+00:03:09,360 --> 00:03:13,519
+zero flag and
+
+105
+00:03:11,040 --> 00:03:15,519
+if the result of some operation is zero
+
+106
+00:03:13,519 --> 00:03:18,560
+the zero flag will be set to one
+
+107
+00:03:15,519 --> 00:03:19,840
+not to zero so zero flag is one if the
+
+108
+00:03:18,560 --> 00:03:22,159
+result is zero
+
+109
+00:03:19,840 --> 00:03:23,920
+and then there's the sign flag. The sign
+
+110
+00:03:22,159 --> 00:03:25,040
+flag is set to one if the most
+
+111
+00:03:23,920 --> 00:03:27,920
+significant bit
+
+112
+00:03:25,040 --> 00:03:28,400
+of the result of some operation is one
+
+113
+00:03:27,920 --> 00:03:31,200
+so
+
+114
+00:03:28,400 --> 00:03:32,640
+the sign bit we say that in signed
+
+115
+00:03:31,200 --> 00:03:33,760
+values the sign bit is the most
+
+116
+00:03:32,640 --> 00:03:36,560
+significant bit
+
+117
+00:03:33,760 --> 00:03:37,519
+because in the division of the two
+
+118
+00:03:36,560 --> 00:03:40,000
+halves of
+
+119
+00:03:37,519 --> 00:03:41,680
+you know the 8-bit range the 32-bit
+
+120
+00:03:40,000 --> 00:03:43,200
+range the 64-bit range
+
+121
+00:03:41,680 --> 00:03:45,280
+when you divide the two halves the most
+
+122
+00:03:43,200 --> 00:03:46,239
+significant bit is always one if it's a
+
+123
+00:03:45,280 --> 00:03:48,879
+negative value
+
+124
+00:03:46,239 --> 00:03:49,280
+that you're dealing with. So, I'm going to
+
+125
+00:03:48,879 --> 00:03:51,280
+cover
+
+126
+00:03:49,280 --> 00:03:52,799
+all the other flags in some optional
+
+127
+00:03:51,280 --> 00:03:54,640
+material but these are the really big
+
+128
+00:03:52,799 --> 00:03:55,680
+ones these are the important things that
+
+129
+00:03:54,640 --> 00:03:58,799
+you know you should know
+
+130
+00:03:55,680 --> 00:04:00,959
+by heart so here's our eflags, rflags,
+
+131
+00:03:58,799 --> 00:04:04,480
+flags register and here is what the
+
+132
+00:04:00,959 --> 00:04:04,480
+Intel manual says about it
+
+133
+00:04:05,760 --> 00:04:08,959
+so in this class we're mostly going to
+
+134
+00:04:07,200 --> 00:04:11,599
+be focusing on these
+
+135
+00:04:08,959 --> 00:04:13,599
+status flags so S over here in this
+
+136
+00:04:11,599 --> 00:04:16,479
+column for status flags
+
+137
+00:04:13,599 --> 00:04:18,000
+and like I just said it is the sign flag
+
+138
+00:04:16,479 --> 00:04:20,880
+and the zero flag
+
+139
+00:04:18,000 --> 00:04:23,360
+which are bits 7 and 6 which are
+
+140
+00:04:20,880 --> 00:04:25,040
+the things I want you to know by heart
+
+141
+00:04:23,360 --> 00:04:27,840
+here's the rest of the flags: overflow
+
+142
+00:04:25,040 --> 00:04:29,120
+flag, auxiliary carry flag, parity flag,
+
+143
+00:04:27,840 --> 00:04:31,040
+carry flag
+
+144
+00:04:29,120 --> 00:04:32,639
+these matter for getting a true deep
+
+145
+00:04:31,040 --> 00:04:34,880
+understanding of what exactly
+
+146
+00:04:32,639 --> 00:04:37,120
+is going on on the hardware but in
+
+147
+00:04:34,880 --> 00:04:38,080
+practice I personally have never had to
+
+148
+00:04:37,120 --> 00:04:39,759
+memorize
+
+149
+00:04:38,080 --> 00:04:42,479
+how they're used for different jump
+
+150
+00:04:39,759 --> 00:04:44,720
+conditional code assembly instructions
+
+151
+00:04:42,479 --> 00:04:46,720
+and just as an FYI we will be returning
+
+152
+00:04:44,720 --> 00:04:49,199
+to the rflags register in a future
+
+153
+00:04:46,720 --> 00:04:52,240
+class to cover some additional flags
+
+154
+00:04:49,199 --> 00:04:54,800
+that are instead system flags. So I went
+
+155
+00:04:52,240 --> 00:04:56,880
+ahead and added this one extra 64-bit
+
+156
+00:04:54,800 --> 00:04:58,160
+register to our set of registers we've
+
+157
+00:04:56,880 --> 00:05:00,240
+been looking at so far
+
+158
+00:04:58,160 --> 00:05:02,400
+so here's some examples from the manual
+
+159
+00:05:00,240 --> 00:05:03,039
+of how exactly the conditional code
+
+160
+00:05:02,400 --> 00:05:05,919
+checking
+
+161
+00:05:03,039 --> 00:05:06,960
+is done for particular things so I said
+
+162
+00:05:05,919 --> 00:05:10,000
+jump 0 or
+
+163
+00:05:06,960 --> 00:05:13,199
+jump equal is jumping if and only
+
+164
+00:05:10,000 --> 00:05:15,759
+if the zero flag is one. Jump not zero
+
+165
+00:05:13,199 --> 00:05:16,560
+is if the zero flag is zero. Jump less
+
+166
+00:05:15,759 --> 00:05:19,120
+than or equal
+
+167
+00:05:16,560 --> 00:05:21,919
+is if the zero flag is 1 or the sign
+
+168
+00:05:19,120 --> 00:05:23,520
+flag is not equal to the overflow flag.
+
+169
+00:05:21,919 --> 00:05:25,520
+All right so then you can see these
+
+170
+00:05:23,520 --> 00:05:27,680
+other things use the sign flag, overflow
+
+171
+00:05:25,520 --> 00:05:29,120
+flag, carry flag and so forth...
+
+172
+00:05:27,680 --> 00:05:31,440
+So I said I don't really want you to
+
+173
+00:05:29,120 --> 00:05:33,039
+care about that because in practice
+
+174
+00:05:31,440 --> 00:05:34,639
+especially right now when you're just
+
+175
+00:05:33,039 --> 00:05:35,280
+you know learning assembly you can
+
+176
+00:05:34,639 --> 00:05:36,880
+pretty much
+
+177
+00:05:35,280 --> 00:05:38,960
+just you know look at the assembly
+
+178
+00:05:36,880 --> 00:05:40,479
+instruction see the values that were
+
+179
+00:05:38,960 --> 00:05:43,199
+computed beforehand
+
+180
+00:05:40,479 --> 00:05:44,320
+and if you don't have a sense of what's
+
+181
+00:05:43,199 --> 00:05:45,759
+going to happen whether it's going to
+
+182
+00:05:44,320 --> 00:05:47,039
+take the jump or not take the jump you
+
+183
+00:05:45,759 --> 00:05:48,880
+can always just you know
+
+184
+00:05:47,039 --> 00:05:50,800
+step in the debugger and see which way
+
+185
+00:05:48,880 --> 00:05:52,400
+it goes. And later on I'll be giving you
+
+186
+00:05:50,800 --> 00:05:54,479
+the way that I look at the assembly code
+
+187
+00:05:52,400 --> 00:05:56,400
+that allows me to basically just ignore
+
+188
+00:05:54,479 --> 00:05:58,319
+what specific flags are checked for what
+
+189
+00:05:56,400 --> 00:06:00,880
+specific conditional codes.
+
+190
+00:05:58,319 --> 00:06:02,800
+Now within those conditional codes here
+
+191
+00:06:00,880 --> 00:06:06,080
+is sort of the translation of
+
+192
+00:06:02,800 --> 00:06:09,120
+the mnemonics: if it's like a ja
+
+193
+00:06:06,080 --> 00:06:12,000
+a jump above then above is an
+
+194
+00:06:09,120 --> 00:06:13,319
+unsigned notion for values so it means
+
+195
+00:06:12,000 --> 00:06:16,160
+basically if you have
+
+196
+00:06:13,319 --> 00:06:17,039
+0xfffffff and you're comparing it to zero
+
+197
+00:06:16,160 --> 00:06:20,560
+0xffff
+
+198
+00:06:17,039 --> 00:06:23,199
+is above zero because it's unsigned
+
+199
+00:06:20,560 --> 00:06:24,639
+whereas if it was signed and you were
+
+200
+00:06:23,199 --> 00:06:27,440
+dealing with 0xfff
+
+201
+00:06:24,639 --> 00:06:28,800
+that would be a negative value and so
+
+202
+00:06:27,440 --> 00:06:30,160
+that would not be
+
+203
+00:06:28,800 --> 00:06:32,319
+greater than because it would actually
+
+204
+00:06:30,160 --> 00:06:33,120
+be negative. Negative is not greater than
+
+205
+00:06:32,319 --> 00:06:36,000
+0.
+
+206
+00:06:33,120 --> 00:06:37,199
+so above and below are the unsigned
+
+207
+00:06:36,000 --> 00:06:39,680
+notions
+
+208
+00:06:37,199 --> 00:06:41,440
+and greater than or less than are the
+
+209
+00:06:39,680 --> 00:06:44,560
+signed notions.
+
+210
+00:06:41,440 --> 00:06:45,280
+e is equal, sometimes some disassemblers
+
+211
+00:06:44,560 --> 00:06:48,000
+will use
+
+212
+00:06:45,280 --> 00:06:48,720
+z instead of e so you should know that
+
+213
+00:06:48,000 --> 00:06:52,080
+those two
+
+214
+00:06:48,720 --> 00:06:52,560
+translate between each other. And n is
+
+215
+00:06:52,080 --> 00:06:54,400
+not
+
+216
+00:06:52,560 --> 00:06:56,560
+so you could have jump above or you
+
+217
+00:06:54,400 --> 00:06:58,639
+could have jump not above and jump
+
+218
+00:06:56,560 --> 00:07:00,560
+not above would be the same thing as
+
+219
+00:06:58,639 --> 00:07:03,919
+jump below or equal
+
+220
+00:07:00,560 --> 00:07:04,479
+and if we rearrange those... Boom! Crystal
+
+221
+00:07:03,919 --> 00:07:07,599
+Bangle
+
+222
+00:07:04,479 --> 00:07:10,400
+unlocked! The Bangle below and above not
+
+223
+00:07:07,599 --> 00:07:12,639
+greater than less than or equal. I did
+
+224
+00:07:10,400 --> 00:07:14,080
+the rflags side quest and all I got was
+
+225
+00:07:12,639 --> 00:07:16,400
+this Crystal Bangle.
+
+226
+00:07:14,080 --> 00:07:17,199
+Now before assembly instructions like
+
+227
+00:07:16,400 --> 00:07:19,759
+jcc
+
+228
+00:07:17,199 --> 00:07:21,039
+can actually jump or not jump, something
+
+229
+00:07:19,759 --> 00:07:23,680
+needs to set those
+
+230
+00:07:21,039 --> 00:07:25,199
+status flags in the rflags register.
+
+231
+00:07:23,680 --> 00:07:27,120
+This is typically done with something
+
+232
+00:07:25,199 --> 00:07:29,360
+like a cmp assembly instruction,
+
+233
+00:07:27,120 --> 00:07:30,400
+test which we'll we will learn about
+
+234
+00:07:29,360 --> 00:07:32,160
+later or
+
+235
+00:07:30,400 --> 00:07:34,080
+whatever instructions are already in
+
+236
+00:07:32,160 --> 00:07:36,240
+line, because things like add and
+
+237
+00:07:34,080 --> 00:07:37,120
+subtract actually do have flag setting
+
+238
+00:07:36,240 --> 00:07:39,759
+side effects
+
+239
+00:07:37,120 --> 00:07:41,120
+I just left that out of the descriptions
+
+240
+00:07:39,759 --> 00:07:43,120
+of add and subtract
+
+241
+00:07:41,120 --> 00:07:44,800
+earlier and we'll come back to it when
+
+242
+00:07:43,120 --> 00:07:46,400
+we cover the
+
+243
+00:07:44,800 --> 00:07:47,919
+optional material about all the
+
+244
+00:07:46,400 --> 00:07:49,599
+different flags that get set on
+
+245
+00:07:47,919 --> 00:07:52,400
+different conditions. So we'll see
+
+246
+00:07:49,599 --> 00:07:54,319
+cmp now and we'll see test later.
+
+247
+00:07:52,400 --> 00:07:56,080
+cmp the comparison is performed by
+
+248
+00:07:54,319 --> 00:07:57,440
+subtracting the second operand from the
+
+249
+00:07:56,080 --> 00:07:59,360
+first operand and then setting the
+
+250
+00:07:57,440 --> 00:08:02,479
+status flags in the same manner as the
+
+251
+00:07:59,360 --> 00:08:05,759
+sub instruction. So cmp is
+
+252
+00:08:02,479 --> 00:08:07,440
+actually a subtract instruction but the
+
+253
+00:08:05,759 --> 00:08:09,680
+difference from the subtract instruction
+
+254
+00:08:07,440 --> 00:08:12,639
+is that you might have two operands
+
+255
+00:08:09,680 --> 00:08:14,479
+and the result goes back
+
+256
+00:08:12,639 --> 00:08:15,440
+into the register that's on the left
+
+257
+00:08:14,479 --> 00:08:17,520
+hand side.
+
+258
+00:08:15,440 --> 00:08:19,199
+In the case of cmp, you do not store
+
+259
+00:08:17,520 --> 00:08:21,360
+the result of the subtraction
+
+260
+00:08:19,199 --> 00:08:22,560
+you just set the flags and then you
+
+261
+00:08:21,360 --> 00:08:25,199
+throw the result away
+
+262
+00:08:22,560 --> 00:08:26,240
+so you will very frequently see cmp
+
+263
+00:08:25,199 --> 00:08:28,400
+instructions
+
+264
+00:08:26,240 --> 00:08:30,080
+immediately preceding things like jump
+
+265
+00:08:28,400 --> 00:08:32,560
+conditional code instructions.
+
+266
+00:08:30,080 --> 00:08:34,640
+So here's my little animated guide for
+
+267
+00:08:32,560 --> 00:08:36,399
+why I can get away with not needing to
+
+268
+00:08:34,640 --> 00:08:38,320
+care about what all the different status
+
+269
+00:08:36,399 --> 00:08:41,200
+flags are checked in all the different
+
+270
+00:08:38,320 --> 00:08:42,880
+four pages of assembly mnemonics. If you
+
+271
+00:08:41,200 --> 00:08:45,120
+see something like cmp
+
+272
+00:08:42,880 --> 00:08:47,360
+dword pointer, so it's pulling a value
+
+273
+00:08:45,120 --> 00:08:49,600
+out of memory at rsp+4,
+
+274
+00:08:47,360 --> 00:08:50,880
+it's comparing this to eax, and it's
+
+275
+00:08:49,600 --> 00:08:52,800
+doing a jump not equal
+
+276
+00:08:50,880 --> 00:08:54,800
+afterwards, or a jump less than or equal
+
+277
+00:08:52,800 --> 00:08:56,160
+or jump above equal.
+
+278
+00:08:54,800 --> 00:08:57,839
+Then the way that I typically think
+
+279
+00:08:56,160 --> 00:08:58,480
+about these is first of all that jump
+
+280
+00:08:57,839 --> 00:09:00,959
+not equal
+
+281
+00:08:58,480 --> 00:09:02,320
+is a not equal check less than or equal
+
+282
+00:09:00,959 --> 00:09:04,640
+is a signed
+
+283
+00:09:02,320 --> 00:09:06,320
+less than or equal check and above or
+
+284
+00:09:04,640 --> 00:09:08,160
+equal is a signed
+
+285
+00:09:06,320 --> 00:09:10,000
+greater than or equal check. Sorry,
+
+286
+00:09:08,160 --> 00:09:11,040
+unsigned greater than or equal check.
+
+287
+00:09:10,000 --> 00:09:12,640
+Right it would see
+
+288
+00:09:11,040 --> 00:09:14,160
+greater than or equal if it was being
+
+289
+00:09:12,640 --> 00:09:15,920
+signed but
+
+290
+00:09:14,160 --> 00:09:17,760
+you know in terms of how we talk about
+
+291
+00:09:15,920 --> 00:09:18,560
+these symbols that's the greater than or
+
+292
+00:09:17,760 --> 00:09:21,120
+equal check.
+
+293
+00:09:18,560 --> 00:09:22,000
+So you start by translating the jump
+
+294
+00:09:21,120 --> 00:09:24,720
+conditional code
+
+295
+00:09:22,000 --> 00:09:25,120
+into some particular math operation and
+
+296
+00:09:24,720 --> 00:09:27,519
+then
+
+297
+00:09:25,120 --> 00:09:28,240
+you just stick it in between these two
+
+298
+00:09:27,519 --> 00:09:31,120
+things.
+
+299
+00:09:28,240 --> 00:09:31,519
+So, is the memory pointed to by
+
+300
+00:09:31,120 --> 00:09:34,880
+rsp+4
+
+301
+00:09:31,519 --> 00:09:38,160
+not equal to eax? If so, take the jump.
+
+302
+00:09:34,880 --> 00:09:40,320
+Is the memory pointed to by rsp+4
+
+303
+00:09:38,160 --> 00:09:41,600
+less than or equal in a signed
+
+304
+00:09:40,320 --> 00:09:44,959
+interpretation
+
+305
+00:09:41,600 --> 00:09:47,200
+eax? If so, jump. Is it
+
+306
+00:09:44,959 --> 00:09:48,560
+greater than or equal in an unsigned
+
+307
+00:09:47,200 --> 00:09:51,120
+notion? If so, jump.
+
+308
+00:09:48,560 --> 00:09:52,560
+So this is basically how I get away
+
+309
+00:09:51,120 --> 00:09:56,000
+with not caring about the
+
+310
+00:09:52,560 --> 00:09:59,040
+particular of individual instructions.
+
+311
+00:09:56,000 --> 00:10:00,959
+So cmp, jne, say oh not
+
+312
+00:09:59,040 --> 00:10:03,600
+equal. Is this not equal to that?
+
+313
+00:10:00,959 --> 00:10:04,720
+Then jump. You always have to keep in
+
+314
+00:10:03,600 --> 00:10:07,279
+mind the signedness
+
+315
+00:10:04,720 --> 00:10:08,160
+and also a warning for later on when we
+
+316
+00:10:07,279 --> 00:10:10,240
+learn AT&T
+
+317
+00:10:08,160 --> 00:10:11,920
+syntax, the operands are actually
+
+318
+00:10:10,240 --> 00:10:14,720
+backwards in AT&T syntax.
+
+319
+00:10:11,920 --> 00:10:15,519
+So you can't just directly jam in the
+
+320
+00:10:14,720 --> 00:10:17,519
+operation,
+
+321
+00:10:15,519 --> 00:10:19,760
+without flipping it, so that's kind of
+
+322
+00:10:17,519 --> 00:10:21,920
+annoying. So, now it's time for you to go
+
+323
+00:10:19,760 --> 00:10:23,839
+ahead and step through the code and make
+
+324
+00:10:21,920 --> 00:10:32,880
+sure you understand the interpretation
+
+325
+00:10:23,839 --> 00:10:32,880
+of those conditional jump instructions
+

@@ -1,0 +1,284 @@
+0
+00:00:00,084 --> 00:00:01,019
+Okay,
+
+1
+00:00:01,019 --> 00:00:03,032
+so we seem to be pushing a little bit too
+
+2
+00:00:03,032 --> 00:00:05,046
+much stuff onto our mystery list
+
+3
+00:00:05,047 --> 00:00:07,098
+So let's go ahead and try to solve one of
+
+4
+00:00:07,098 --> 00:00:08,062
+these mysteries,
+
+5
+00:00:08,062 --> 00:00:12,023
+specifically the one about why Visual Studio is over allocating space
+
+6
+00:00:12,023 --> 00:00:13,026
+for local variables
+
+7
+00:00:14,004 --> 00:00:17,008
+So this is what we saw before function with a
+
+8
+00:00:17,008 --> 00:00:20,062
+single local variable allocated 0x18 worth of space
+
+9
+00:00:20,066 --> 00:00:23,039
+So in order to investigate this mystery,
+
+10
+00:00:23,039 --> 00:00:25,046
+let's go ahead and expand it out
+
+11
+00:00:26,014 --> 00:00:26,085
+So if we,
+
+12
+00:00:26,085 --> 00:00:27,046
+for instance,
+
+13
+00:00:27,046 --> 00:00:31,096
+have a bit of code that has main calling func
+
+14
+00:00:31,097 --> 00:00:32,074
+and func,
+
+15
+00:00:32,074 --> 00:00:36,009
+doing nothing other than calling func2, func2 having
+
+16
+00:00:36,009 --> 00:00:39,067
+a single local variable and calling func3 and func3
+
+17
+00:00:39,067 --> 00:00:43,012
+having only a single local variable so func3
+
+18
+00:00:43,012 --> 00:00:44,095
+in Main are like we saw before
+
+19
+00:00:44,096 --> 00:00:48,046
+But func allows us to now see what is the
+
+20
+00:00:48,046 --> 00:00:50,032
+effects of just calling a function
+
+21
+00:00:50,033 --> 00:00:52,005
+And this allows us func to allows us to see
+
+22
+00:00:52,005 --> 00:00:55,014
+the effects of both calling a function and allocating a
+
+23
+00:00:55,014 --> 00:00:55,086
+local variable
+
+24
+00:00:56,024 --> 00:00:59,022
+So between between these different things,
+
+25
+00:00:59,022 --> 00:01:01,025
+we should be able to see certain behavior for this
+
+26
+00:01:01,025 --> 00:01:03,019
+and this we'd expect them to be the same,
+
+27
+00:01:03,019 --> 00:01:04,007
+but maybe they will be
+
+28
+00:01:04,007 --> 00:01:05,006
+Maybe they won't be
+
+29
+00:01:05,011 --> 00:01:10,015
+We'd expect this to be included within this,
+
+30
+00:01:10,016 --> 00:01:12,013
+and so this should be sort of the combination of
+
+31
+00:01:12,013 --> 00:01:13,034
+whatever is going on here
+
+32
+00:01:13,035 --> 00:01:14,065
+Whatever is going on here
+
+33
+00:01:15,014 --> 00:01:16,096
+So let's see what this assembly looks like
+
+34
+00:01:19,024 --> 00:01:21,014
+So here's the Assembly,
+
+35
+00:01:21,002 --> 00:01:22,019
+and you know,
+
+36
+00:01:22,019 --> 00:01:24,096
+there's definitely clues within this assembly
+
+37
+00:01:25,054 --> 00:01:29,049
+So we saw this mysterious 0x28 worth of stack
+
+38
+00:01:29,049 --> 00:01:30,044
+allocation space
+
+39
+00:01:30,044 --> 00:01:32,018
+That's not really what we're looking into right now
+
+40
+00:01:32,018 --> 00:01:34,038
+We're trying to figure out what's up with this 18
+
+41
+00:01:34,039 --> 00:01:36,044
+but we can see the 0x28 happens here,
+
+42
+00:01:36,044 --> 00:01:38,005
+and it happens equivalently and func
+
+43
+00:01:38,051 --> 00:01:40,082
+So whatever this 0x28 is,
+
+44
+00:01:40,082 --> 00:01:43,016
+it must not have anything to do with being main
+
+45
+00:01:43,016 --> 00:01:45,054
+specific or anything like that seems to be
+
+46
+00:01:45,054 --> 00:01:45,089
+Just,
+
+47
+00:01:45,089 --> 00:01:46,008
+you know,
+
+48
+00:01:46,008 --> 00:01:47,015
+if you call a single function,
+
+49
+00:01:47,015 --> 00:01:48,076
+you get 0x28 worth of space
+
+50
+00:01:49,044 --> 00:01:52,097
+And now func3 is 0x18 as before,
+
+51
+00:01:52,097 --> 00:01:55,056
+so that makes sense and that it's consistent
+
+52
+00:01:55,094 --> 00:01:59,002
+But what's interesting here is that func2 which should
+
+53
+00:01:59,002 --> 00:02:01,022
+be the combination of this 0x28 and this
+
+54
+00:02:01,022 --> 00:02:04,099
+0x18 is 0x38 instead of 0x40
+
+55
+00:02:04,099 --> 00:02:08,083
+So if it was just pure combination 0x28 +
+
+56
+00:02:08,083 --> 00:02:11,009
+0x18 would be 0x40
+
+57
+00:02:11,009 --> 00:02:12,026
+but it's not 0x40
+
+58
+00:02:12,064 --> 00:02:14,065
+So you know what's going on here?
+
+59
+00:02:15,004 --> 00:02:15,055
+Well,
+
+60
+00:02:15,056 --> 00:02:19,054
+if you go ahead and start stepping through this code
+
+61
+00:02:19,055 --> 00:02:21,009
+then you should be able to see how the stack
+
+62
+00:02:21,009 --> 00:02:23,011
+is being used.
+
+63
+00:02:23,012 --> 00:02:26,005
+And you can start creating your own theories about what
+
+64
+00:02:26,005 --> 00:02:28,089
+exactly is going on in the stack with this particular
+
+65
+00:02:28,089 --> 00:02:29,026
+thing.
+
+66
+00:02:29,064 --> 00:02:33,015
+So go ahead and stop and go through the code.
+
+67
+00:02:33,015 --> 00:02:35,052
+Build up a stack diagram showing what's allocated,
+
+68
+00:02:35,052 --> 00:02:36,034
+what's not allocated,
+
+69
+00:02:36,034 --> 00:02:37,046
+what variables are where,
+
+70
+00:02:37,094 --> 00:02:39,095
+and then we will go over it next.
+

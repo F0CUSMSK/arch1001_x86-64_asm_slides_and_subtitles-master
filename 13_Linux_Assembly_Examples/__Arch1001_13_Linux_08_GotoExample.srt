@@ -1,0 +1,224 @@
+1
+00:00:00,240 --> 00:00:04,560
+okay now we're into the control flow
+
+2
+00:00:02,159 --> 00:00:05,839
+examples and the first of those was the
+
+3
+00:00:04,560 --> 00:00:08,559
+GoToExample
+
+4
+00:00:05,839 --> 00:00:10,400
+so the original point of this was to see
+
+5
+00:00:08,559 --> 00:00:12,480
+whether or not we could see a jump
+
+6
+00:00:10,400 --> 00:00:12,880
+instruction as the simple unconditional
+
+7
+00:00:12,480 --> 00:00:15,040
+thing
+
+8
+00:00:12,880 --> 00:00:16,800
+because we had this goto mylabel and
+
+9
+00:00:15,040 --> 00:00:18,320
+then it would print goto ftw! so
+
+10
+00:00:16,800 --> 00:00:20,720
+let's see what that looks like
+
+11
+00:00:18,320 --> 00:00:22,240
+when compiled well we can actually see
+
+12
+00:00:20,720 --> 00:00:25,279
+the entire function right here
+
+13
+00:00:22,240 --> 00:00:28,480
+see typical prologue but then we see
+
+14
+00:00:25,279 --> 00:00:29,119
+a nop and endbr64 which is effectively
+
+15
+00:00:28,480 --> 00:00:32,239
+a nop
+
+16
+00:00:29,119 --> 00:00:34,640
+an lea of some sort of address
+
+17
+00:00:32,239 --> 00:00:36,399
+right before a put us put us being
+
+18
+00:00:34,640 --> 00:00:38,559
+equivalent to printf in this case so
+
+19
+00:00:36,399 --> 00:00:39,280
+that's probably just the printf of goto
+
+20
+00:00:38,559 --> 00:00:42,000
+for the win
+
+21
+00:00:39,280 --> 00:00:44,000
+and then a move of boldfaced bit
+
+22
+00:00:42,000 --> 00:00:46,480
+0xb01dface before returning so we don't
+
+23
+00:00:44,000 --> 00:00:47,760
+actually see an unconditional jump here
+
+24
+00:00:46,480 --> 00:00:49,440
+but let's go ahead and just
+
+25
+00:00:47,760 --> 00:00:51,199
+step through this and you know confirm
+
+26
+00:00:49,440 --> 00:00:52,000
+for instance that this is the goto
+
+27
+00:00:51,199 --> 00:00:55,440
+ftw! string
+
+28
+00:00:52,000 --> 00:00:57,920
+so step step creating some
+
+29
+00:00:55,440 --> 00:01:00,239
+function stack frame stepping over the
+
+30
+00:00:57,920 --> 00:01:02,399
+nop nothing in here changes
+
+31
+00:01:00,239 --> 00:01:03,280
+stepping over the endbr of course nothing
+
+32
+00:01:02,399 --> 00:01:05,920
+here changes
+
+33
+00:01:03,280 --> 00:01:07,600
+and then calculating a relative
+
+34
+00:01:05,920 --> 00:01:11,200
+displacement from rip
+
+35
+00:01:07,600 --> 00:01:14,159
+rip plus ea7 goes into
+
+36
+00:01:11,200 --> 00:01:16,799
+rdi so that is actually a new thing for
+
+37
+00:01:14,159 --> 00:01:19,200
+the x86-64 extensions
+
+38
+00:01:16,799 --> 00:01:21,280
+in 32-bit you couldn't calculate a
+
+39
+00:01:19,200 --> 00:01:22,960
+displacement relative to rip
+
+40
+00:01:21,280 --> 00:01:24,880
+is what's known as rip relative
+
+41
+00:01:22,960 --> 00:01:26,799
+addressing and so we'll have an
+
+42
+00:01:24,880 --> 00:01:28,479
+optional section later on where we'll
+
+43
+00:01:26,799 --> 00:01:31,119
+dive into that a little bit more but
+
+44
+00:01:28,479 --> 00:01:33,439
+you're just seeing it implicitly here so
+
+45
+00:01:31,119 --> 00:01:35,280
+or not even implicitly explicitly so
+
+46
+00:01:33,439 --> 00:01:37,280
+let's go ahead and check that rdi
+
+47
+00:01:35,280 --> 00:01:40,159
+and see whether or not that is what we
+
+48
+00:01:37,280 --> 00:01:40,479
+think it is so examine it as a string it
+
+49
+00:01:40,159 --> 00:01:42,880
+is
+
+50
+00:01:40,479 --> 00:01:43,600
+goto ftw! at that address so
+
+51
+00:01:42,880 --> 00:01:47,200
+let's step
+
+52
+00:01:43,600 --> 00:01:49,600
+over the puts and this is the output
+
+53
+00:01:47,200 --> 00:01:50,399
+basically putting it out to the standard
+
+54
+00:01:49,600 --> 00:01:53,200
+out and then
+
+55
+00:01:50,399 --> 00:01:55,680
+not much else going on return 0xb01d
+
+56
+00:01:53,200 --> 00:01:55,680
+face
+

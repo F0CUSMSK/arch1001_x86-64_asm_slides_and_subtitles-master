@@ -1,0 +1,108 @@
+1
+00:00:00,000 --> 00:00:03,679
+so now a quick example of another one of
+
+2
+00:00:01,680 --> 00:00:05,680
+the major forms of conditional control
+
+3
+00:00:03,679 --> 00:00:07,680
+flow the switch statement
+
+4
+00:00:05,680 --> 00:00:09,280
+and there's no new assembly instructions
+
+5
+00:00:07,680 --> 00:00:11,920
+here so you should know everything
+
+6
+00:00:09,280 --> 00:00:12,880
+you've seen imul, sub, call
+
+7
+00:00:11,920 --> 00:00:14,639
+mov
+
+8
+00:00:12,880 --> 00:00:17,119
+conditional things looks like we've only
+
+9
+00:00:14,639 --> 00:00:20,160
+got some je here otherwise the rest
+
+10
+00:00:17,119 --> 00:00:20,720
+is jumps. je because it's checking
+
+11
+00:00:20,160 --> 00:00:23,359
+does it
+
+12
+00:00:20,720 --> 00:00:24,000
+equal exactly zero? Does it equal exactly
+
+13
+00:00:23,359 --> 00:00:25,920
+one?
+
+14
+00:00:24,000 --> 00:00:27,920
+and somehow someway it's going to make
+
+15
+00:00:25,920 --> 00:00:30,080
+its way to the default case
+
+16
+00:00:27,920 --> 00:00:31,599
+so all I really want is for you to get
+
+17
+00:00:30,080 --> 00:00:32,559
+more experience stepping through
+
+18
+00:00:31,599 --> 00:00:34,320
+assembly code
+
+19
+00:00:32,559 --> 00:00:36,399
+understanding the various components
+
+20
+00:00:34,320 --> 00:00:38,960
+like what is this stuff before the sub rsp
+
+21
+00:00:36,399 --> 00:00:39,840
+well we should know from previous
+
+22
+00:00:38,960 --> 00:00:42,640
+examples
+
+23
+00:00:39,840 --> 00:00:44,239
+so go ahead and do the example here so
+
+24
+00:00:42,640 --> 00:00:45,120
+aren't you glad that I'm going to give
+
+25
+00:00:44,239 --> 00:00:47,039
+you another
+
+26
+00:00:45,120 --> 00:00:53,039
+opportunity to step through the assembly
+
+27
+00:00:47,039 --> 00:00:53,039
+code to deepen your experience
+

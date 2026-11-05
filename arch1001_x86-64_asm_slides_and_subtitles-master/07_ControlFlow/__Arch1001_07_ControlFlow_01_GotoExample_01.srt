@@ -1,0 +1,468 @@
+0
+00:00:00,004 --> 00:00:01,096
+Now it's time to talk about control flow,
+
+1
+00:00:01,096 --> 00:00:03,046
+of which there are two forms
+
+2
+00:00:03,084 --> 00:00:06,087
+Conditional control flow where you go somewhere if the condition
+
+3
+00:00:06,087 --> 00:00:07,036
+is met
+
+4
+00:00:07,037 --> 00:00:07,081
+Which is,
+
+5
+00:00:07,081 --> 00:00:08,045
+for instance,
+
+6
+00:00:08,046 --> 00:00:12,005
+if statements or if else's also switches and loops where
+
+7
+00:00:12,005 --> 00:00:14,054
+it decides whether it's going to continue in the loop
+
+8
+00:00:14,054 --> 00:00:16,046
+or exit the loop based on some condition
+
+9
+00:00:17,024 --> 00:00:20,076
+There's also unconditional control flow where it always goes somewhere
+
+10
+00:00:20,076 --> 00:00:21,035
+no matter what
+
+11
+00:00:22,004 --> 00:00:22,006
+This is,
+
+12
+00:00:22,006 --> 00:00:23,013
+for instance,
+
+13
+00:00:23,013 --> 00:00:26,007
+function calls like we saw before and the goto
+
+14
+00:00:26,007 --> 00:00:28,077
+statement in C or exceptions and interrupts,
+
+15
+00:00:28,077 --> 00:00:30,063
+which are not going to be things that we're going
+
+16
+00:00:30,063 --> 00:00:31,063
+to cover in this class
+
+17
+00:00:31,063 --> 00:00:33,046
+But we will cover in a future class
+
+18
+00:00:33,094 --> 00:00:35,087
+So we've already seen that function
+
+19
+00:00:35,087 --> 00:00:40,095
+Calls for unconditional control flow turn into call/ret instructions
+
+20
+00:00:40,096 --> 00:00:43,096
+So let's go ahead and see how goto manifests
+
+21
+00:00:44,074 --> 00:00:46,026
+Here's our goto example
+
+22
+00:00:46,064 --> 00:00:48,000
+You can see it's very simple
+
+23
+00:00:48,001 --> 00:00:48,057
+Basically,
+
+24
+00:00:48,057 --> 00:00:51,026
+you get into main() and it immediately goes to mylabel
+
+25
+00:00:51,093 --> 00:00:52,083
+and it prints out,
+
+26
+00:00:52,083 --> 00:00:53,086
+goto for the win
+
+27
+00:00:54,044 --> 00:00:57,000
+So clearly the skipped portion is never,
+
+28
+00:00:57,000 --> 00:00:58,007
+ever going to be executed
+
+29
+00:00:59,006 --> 00:01:01,001
+And what does that look like in the assembly?
+
+30
+00:01:01,016 --> 00:01:01,051
+Well,
+
+31
+00:01:01,051 --> 00:01:04,049
+that introduces a new assembly instruction jump,
+
+32
+00:01:04,005 --> 00:01:07,003
+which will learn about next jump,
+
+33
+00:01:07,031 --> 00:01:10,016
+will unconditionally change the rip
+
+34
+00:01:10,017 --> 00:01:12,095
+The instruction pointer to a given address
+
+35
+00:01:13,034 --> 00:01:15,038
+And how do you specify the given address?
+
+36
+00:01:15,038 --> 00:01:15,053
+Well,
+
+37
+00:01:15,053 --> 00:01:16,066
+there's multiple ways
+
+38
+00:01:17,004 --> 00:01:21,022
+There is a short relative addressing form where rip is
+
+39
+00:01:21,022 --> 00:01:23,079
+going to be rip of the next instruction
+
+40
+00:01:23,008 --> 00:01:27,034
+So it's not math based on the current instruction are
+
+41
+00:01:27,034 --> 00:01:27,065
+happy,
+
+42
+00:01:27,065 --> 00:01:30,004
+but instead the next instruction or the location
+
+43
+00:01:30,004 --> 00:01:31,015
+After this instruction,
+
+44
+00:01:31,084 --> 00:01:33,084
+rip equals the next instruction,
+
+45
+00:01:33,084 --> 00:01:38,021
+plus one bite sign extended 64 bit displacement
+
+46
+00:01:38,021 --> 00:01:40,029
+So this basically just means one bite,
+
+47
+00:01:40,003 --> 00:01:42,034
+which can be positive or negative,
+
+48
+00:01:42,035 --> 00:01:43,077
+and it's going to be signed extended
+
+49
+00:01:43,077 --> 00:01:46,002
+When you're doing the actual math on the 64 bit
+
+50
+00:01:46,003 --> 00:01:46,056
+register
+
+51
+00:01:46,071 --> 00:01:49,011
+The most common place where you'll see a short relative
+
+52
+00:01:49,011 --> 00:01:50,000
+jump would be,
+
+53
+00:01:50,000 --> 00:01:50,074
+for instance,
+
+54
+00:01:50,075 --> 00:01:53,016
+small loops where it's just going to be jumping a
+
+55
+00:01:53,016 --> 00:01:55,075
+small amount of assembly instructions backwards
+
+56
+00:01:56,034 --> 00:01:58,024
+We're not going to see it in visual studio,
+
+57
+00:01:58,024 --> 00:02:01,044
+but some disassemblers will indicate in the mnemonic
+
+58
+00:02:01,044 --> 00:02:02,066
+Instead of just saying jump,
+
+59
+00:02:02,066 --> 00:02:03,007
+they'll say,
+
+60
+00:02:03,007 --> 00:02:03,086
+jump short,
+
+61
+00:02:03,087 --> 00:02:04,056
+jump far,
+
+62
+00:02:04,056 --> 00:02:09,052
+jump near Whatever the different form of it is also
+
+63
+00:02:09,071 --> 00:02:13,083
+FYI since this jump short can be generated with a very
+
+64
+00:02:13,083 --> 00:02:14,093
+small number of bytes
+
+65
+00:02:14,095 --> 00:02:16,007
+If you actually say jump negative,
+
+66
+00:02:16,007 --> 00:02:17,016
+2,
+
+67
+00:02:17,017 --> 00:02:20,057
+because the jump negative two instruction is two bytes long
+
+68
+00:02:20,058 --> 00:02:24,049
+because the displacement is relative to the next instruction jump
+
+69
+00:02:24,049 --> 00:02:27,094
+Negative two will just infinite loop continuously jumping back to
+
+70
+00:02:27,094 --> 00:02:28,045
+itself
+
+71
+00:02:29,004 --> 00:02:31,066
+We'll talk about this more later when we actually show
+
+72
+00:02:31,066 --> 00:02:34,007
+the bytes that encode assembly instructions
+
+73
+00:02:34,001 --> 00:02:36,092
+But even though you'll see in Visual Studio Jump and
+
+74
+00:02:36,092 --> 00:02:39,067
+then some really long 64 bit address,
+
+75
+00:02:39,086 --> 00:02:40,094
+the reality is this
+
+76
+00:02:40,094 --> 00:02:44,051
+Assembly instruction is not encoded with that 64 bit address
+
+77
+00:02:44,051 --> 00:02:45,036
+baked into it
+
+78
+00:02:45,074 --> 00:02:46,018
+Instead,
+
+79
+00:02:46,018 --> 00:02:48,044
+it's actually saying two bytes,
+
+80
+00:02:48,045 --> 00:02:50,037
+one byte to say I'm a jump and one byte
+
+81
+00:02:50,037 --> 00:02:53,023
+to say and I want to jump 0xC bytes forward
+
+82
+00:02:53,052 --> 00:02:55,046
+from the next instruction address
+
+83
+00:02:55,084 --> 00:02:56,051
+Another way
+
+84
+00:02:56,051 --> 00:02:59,015
+That given address for a jump can be specified is
+
+85
+00:02:59,015 --> 00:03:01,043
+the far absolute indirect form
+
+86
+00:03:01,046 --> 00:03:03,011
+But we're going to completely skip this
+
+87
+00:03:03,011 --> 00:03:05,008
+That's much better covered in a future class because it
+
+88
+00:03:05,008 --> 00:03:07,095
+depends on things like segment registers,
+
+89
+00:03:07,095 --> 00:03:10,061
+which we don't know about instead behind the scenes,
+
+90
+00:03:10,061 --> 00:03:12,007
+these are going to be the common forms that are
+
+91
+00:03:12,007 --> 00:03:15,051
+used for jump: jump near relative
+
+92
+00:03:15,051 --> 00:03:16,073
+So instead of short relative,
+
+93
+00:03:16,073 --> 00:03:17,072
+it's near relative,
+
+94
+00:03:17,072 --> 00:03:20,047
+and the difference is It's a four byte displacement instead
+
+95
+00:03:20,047 --> 00:03:21,006
+of one byte,
+
+96
+00:03:21,007 --> 00:03:22,096
+so you can obviously jump much further
+
+97
+00:03:23,084 --> 00:03:25,067
+It's again a signed a displacement,
+
+98
+00:03:25,068 --> 00:03:27,089
+and it's signed extended because you're doing math on a
+
+99
+00:03:27,089 --> 00:03:29,006
+64 bit register
+
+100
+00:03:29,044 --> 00:03:32,024
+So basically you can jump two billion bytes forward two
+
+101
+00:03:32,024 --> 00:03:33,051
+billion bytes backwards
+
+102
+00:03:33,071 --> 00:03:36,036
+And then there's the near absolute indirect form
+
+103
+00:03:36,054 --> 00:03:37,037
+In this case,
+
+104
+00:03:37,037 --> 00:03:39,015
+it will have a r/m64
+
+105
+00:03:39,015 --> 00:03:41,005
+64 r/mX form,
+
+106
+00:03:41,054 --> 00:03:44,069
+which is going to basically say it could jump to
+
+107
+00:03:44,007 --> 00:03:46,005
+a specific address in register
+
+108
+00:03:46,005 --> 00:03:47,044
+It could go pluck,
+
+109
+00:03:47,045 --> 00:03:50,054
+address out of memory based on an r/mX form
+
+110
+00:03:50,055 --> 00:03:51,045
+And either way,
+
+111
+00:03:51,045 --> 00:03:53,026
+that's how you're going to get the address of where
+
+112
+00:03:53,026 --> 00:03:54,065
+it should be jumping to next
+
+113
+00:03:55,034 --> 00:03:58,044
+So now you can go ahead and stop and walk
+
+114
+00:03:58,044 --> 00:04:00,083
+through the assembly and make sure that you get that
+
+115
+00:04:00,083 --> 00:04:02,089
+the jump is just jumping to where it's told to
+
+116
+00:04:02,089 --> 00:04:03,016
+jump
+

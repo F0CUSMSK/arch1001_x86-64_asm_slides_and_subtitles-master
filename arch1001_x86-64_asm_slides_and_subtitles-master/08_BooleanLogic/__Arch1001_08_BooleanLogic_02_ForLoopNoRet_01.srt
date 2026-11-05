@@ -1,0 +1,264 @@
+1
+00:00:00,240 --> 00:00:03,679
+in this example we're going to see a
+
+2
+00:00:02,080 --> 00:00:06,480
+basic for loop
+
+3
+00:00:03,679 --> 00:00:08,000
+so it's just doing for i 0 to 10 and
+
+4
+00:00:06,480 --> 00:00:10,080
+printing out the values
+
+5
+00:00:08,000 --> 00:00:11,920
+and there happens to be an i--
+
+6
+00:00:10,080 --> 00:00:14,960
+at the end for no good reason
+
+7
+00:00:11,920 --> 00:00:17,600
+there's also no return value for this
+
+8
+00:00:14,960 --> 00:00:19,359
+so we get some new assembly instructions
+
+9
+00:00:17,600 --> 00:00:20,960
+inc for increment well that's probably
+
+10
+00:00:19,359 --> 00:00:22,720
+the i++ and
+
+11
+00:00:20,960 --> 00:00:24,640
+dec for decrement that's probably the
+
+12
+00:00:22,720 --> 00:00:27,599
+random i-- I threw in
+
+13
+00:00:24,640 --> 00:00:28,800
+but why is this in the boolean section
+
+14
+00:00:27,599 --> 00:00:30,480
+it's because
+
+15
+00:00:28,800 --> 00:00:32,719
+I would like to direct your attention to
+
+16
+00:00:30,480 --> 00:00:35,040
+the fact that it is zeroing out
+
+17
+00:00:32,719 --> 00:00:36,800
+the return value before this function
+
+18
+00:00:35,040 --> 00:00:39,120
+returns. Why is it doing that?
+
+19
+00:00:36,800 --> 00:00:40,960
+Because the programmer forgot to include
+
+20
+00:00:39,120 --> 00:00:43,040
+a return value in main.
+
+21
+00:00:40,960 --> 00:00:44,239
+So the compiler helpfully says: "well, you
+
+22
+00:00:43,040 --> 00:00:45,920
+know, I got your back,
+
+23
+00:00:44,239 --> 00:00:47,760
+you forget a return value I'll just go
+
+24
+00:00:45,920 --> 00:00:49,680
+ahead and have you return zero".
+
+25
+00:00:47,760 --> 00:00:51,199
+So the inc and dec instruction are
+
+26
+00:00:49,680 --> 00:00:52,000
+pretty trivial it's just gonna be
+
+27
+00:00:51,199 --> 00:00:54,239
+increment so +1
+
+28
+00:00:52,000 --> 00:00:56,320
+and decrement -1 these
+
+29
+00:00:54,239 --> 00:00:58,800
+instructions both take a single
+
+30
+00:00:56,320 --> 00:01:00,800
+source/destination operand which
+
+31
+00:00:58,800 --> 00:01:03,359
+can be specified in r/mX form
+
+32
+00:01:00,800 --> 00:01:03,920
+and they increment or decrement by 1
+
+33
+00:01:03,359 --> 00:01:07,360
+now
+
+34
+00:01:03,920 --> 00:01:08,880
+when assembly is optimized
+
+35
+00:01:07,360 --> 00:01:11,119
+frequently compilers will
+
+36
+00:01:08,880 --> 00:01:12,000
+tend to not include the inc and dec
+
+37
+00:01:11,119 --> 00:01:14,799
+because in the
+
+38
+00:01:12,000 --> 00:01:16,960
+Intel optimization guide it says not to.
+
+39
+00:01:14,799 --> 00:01:19,439
+So if you see an inc and dec, it may
+
+40
+00:01:16,960 --> 00:01:21,439
+indicate that it's unoptimized code or
+
+41
+00:01:19,439 --> 00:01:22,880
+the compiler is just you know not doing
+
+42
+00:01:21,439 --> 00:01:24,960
+Intel's best practices
+
+43
+00:01:22,880 --> 00:01:26,960
+or it might be even some handwritten
+
+44
+00:01:24,960 --> 00:01:29,119
+assembly. Like other arithmetic
+
+45
+00:01:26,960 --> 00:01:31,840
+operations these are ultimately going to
+
+46
+00:01:29,119 --> 00:01:33,680
+change the various status flags. So if we
+
+47
+00:01:31,840 --> 00:01:36,079
+had rax equal to 0xbe5077ed
+
+48
+00:01:33,680 --> 00:01:37,520
+and you xor it with itself you'd,
+
+49
+00:01:36,079 --> 00:01:39,920
+get down to zero and if you
+
+50
+00:01:37,520 --> 00:01:40,640
+inc that zero it would increment up to
+
+51
+00:01:39,920 --> 00:01:43,439
+1.
+
+52
+00:01:40,640 --> 00:01:43,840
+If you had rax equal to 0x70ad57001 and
+
+53
+00:01:43,439 --> 00:01:46,640
+you
+
+54
+00:01:43,840 --> 00:01:48,159
+moved 0 over rax, getting you to 0, and
+
+55
+00:01:46,640 --> 00:01:51,200
+you decremented 0,
+
+56
+00:01:48,159 --> 00:01:54,399
+it would flip around to the 0xFFFF...
+
+57
+00:01:51,200 --> 00:01:56,320
+value performing an integer underflow. So
+
+58
+00:01:54,399 --> 00:01:58,240
+time to step through the assembly and
+
+59
+00:01:56,320 --> 00:01:59,119
+this is a for loop which you haven't
+
+60
+00:01:58,240 --> 00:02:01,280
+seen before.
+
+61
+00:01:59,119 --> 00:02:03,280
+So this should give you a good example
+
+62
+00:02:01,280 --> 00:02:05,040
+of how the assembly jumps around
+
+63
+00:02:03,280 --> 00:02:06,479
+backwards and forwards when it's
+
+64
+00:02:05,040 --> 00:02:08,160
+executing a for loop and how it
+
+65
+00:02:06,479 --> 00:02:12,319
+ultimately jumps around when it's done
+
+66
+00:02:08,160 --> 00:02:12,319
+with the for loop.
+

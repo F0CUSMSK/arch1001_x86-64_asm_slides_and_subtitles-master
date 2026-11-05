@@ -1,0 +1,1788 @@
+1
+00:00:00,080 --> 00:00:04,160
+então eu disse que normalmente ensinava isto
+
+2
+00:00:02,800 --> 00:00:05,520
+e eu passava pelos escorregas
+
+3
+00:00:04,160 --> 00:00:07,040
+explicando cada uma delas para que
+
+4
+00:00:05,520 --> 00:00:09,599
+alguém poderá lê-lo mais tarde
+
+5
+00:00:07,040 --> 00:00:10,240
+mas graças ao formato de vídeo desta
+
+6
+00:00:09,599 --> 00:00:12,880
+aula
+
+7
+00:00:10,240 --> 00:00:14,639
+agora posso me poupar de todo esse trabalho
+
+8
+00:00:12,880 --> 00:00:18,000
+de escrever todos esses slides
+
+9
+00:00:14,639 --> 00:00:21,039
+e faremos isso ao vivo, então
+
+10
+00:00:18,000 --> 00:00:23,600
+aqui estamos no JourneyToThe
+
+11
+00:00:21,039 --> 00:00:25,279
+CenterOfMemcpy.c
+
+12
+00:00:23,600 --> 00:00:27,519
+portanto, para que o show continue, precisamos
+
+13
+00:00:25,279 --> 00:00:28,080
+para ter um ponto de interrupção no ponto de entrada
+
+14
+00:00:27,519 --> 00:00:30,240
+do principal
+
+15
+00:00:28,080 --> 00:00:34,160
+e queremos entrar no memcpy, portanto
+
+16
+00:00:30,240 --> 00:00:34,160
+vamos prosseguir e iniciar o depurador
+
+17
+00:00:35,280 --> 00:00:40,480
+para a visualização de desmontagem e vamos
+
+18
+00:00:37,920 --> 00:00:44,000
+passo a passo para
+
+19
+00:00:40,480 --> 00:00:46,320
+até entrarmos no memcpy
+
+20
+00:00:44,000 --> 00:00:47,440
+agora você deve esperar apenas com base no que
+
+21
+00:00:46,320 --> 00:00:49,600
+o código-fonte é
+
+22
+00:00:47,440 --> 00:00:51,280
+que rcx, que é o primeiro argumento, é
+
+23
+00:00:49,600 --> 00:00:53,120
+será o endereço de b
+
+24
+00:00:51,280 --> 00:00:55,520
+e você pode ver nesse modo onde
+
+25
+00:00:53,120 --> 00:00:57,360
+têm os nomes dos símbolos em
+
+26
+00:00:55,520 --> 00:00:58,559
+que esse é o endereço de b e este é
+
+27
+00:00:57,360 --> 00:01:00,239
+o endereço de a
+
+28
+00:00:58,559 --> 00:01:02,480
+então tudo bem, você pode ir em frente e ver
+
+29
+00:01:00,239 --> 00:01:04,719
+o símbolo nomeia uma ajuda extra nunca
+
+30
+00:01:02,480 --> 00:01:04,719
+ferida
+
+31
+00:01:05,040 --> 00:01:08,720
+e r8 o terceiro argumento será
+
+32
+00:01:07,600 --> 00:01:12,080
+8 que é o atual
+
+33
+00:01:08,720 --> 00:01:15,840
+tamanho de nossa estrutura, portanto, vamos dar um passo
+
+34
+00:01:12,080 --> 00:01:18,320
+e há um salto para memcpy
+
+35
+00:01:15,840 --> 00:01:20,400
+certeza de que tudo está bem e agora estamos
+
+36
+00:01:18,320 --> 00:01:22,240
+no assembly memcpy, então
+
+37
+00:01:20,400 --> 00:01:23,439
+vou começar a escrever um pouco
+
+38
+00:01:22,240 --> 00:01:25,040
+um pouco de anotações e
+
+39
+00:01:23,439 --> 00:01:27,840
+pseudocódigo para me ajudar a lembrar
+
+40
+00:01:25,040 --> 00:01:30,960
+o que está acontecendo aqui
+
+41
+00:01:27,840 --> 00:01:35,119
+então, antes de tudo, rcx em r11
+
+42
+00:01:30,960 --> 00:01:38,159
+r11 é igual a rcx e o que é rcx
+
+43
+00:01:35,119 --> 00:01:40,880
+é o primeiro argumento para memcpy
+
+44
+00:01:38,159 --> 00:01:43,840
+portanto, esse será o endereço de b
+
+45
+00:01:40,880 --> 00:01:43,840
+nosso destino
+
+46
+00:01:44,320 --> 00:01:51,040
+então temos rdx em r10, portanto r10
+
+47
+00:01:47,920 --> 00:01:55,119
+é igual a rdx é igual ao endereço de
+
+48
+00:01:51,040 --> 00:01:58,640
+a nossa fonte
+
+49
+00:01:55,119 --> 00:02:03,119
+e então você vê uma comparação
+
+50
+00:01:58,640 --> 00:02:04,159
+de r8 a r10 bem, talvez um pequeno prefácio
+
+51
+00:02:03,119 --> 00:02:07,360
+aqui que era
+
+52
+00:02:04,159 --> 00:02:11,120
+r8 que obteve o comprimento
+
+53
+00:02:07,360 --> 00:02:14,239
+na chamada memcpy, de modo que um
+
+54
+00:02:11,120 --> 00:02:17,760
+verificação de é r8 abaixo
+
+55
+00:02:14,239 --> 00:02:19,760
+ou igual a 10 0x10. então, o que seria isso
+
+56
+00:02:17,760 --> 00:02:22,879
+em pseudocódigo
+
+57
+00:02:19,760 --> 00:02:26,319
+que seria algo como se
+
+58
+00:02:22,879 --> 00:02:29,200
+r8 que é len é
+
+59
+00:02:26,319 --> 00:02:30,560
+menor ou igual a menor ou igual a
+
+60
+00:02:29,200 --> 00:02:33,920
+o que está abaixo
+
+61
+00:02:30,560 --> 00:02:37,200
+abaixo está a noção não assinada
+
+62
+00:02:33,920 --> 00:02:40,720
+portanto, está abaixo de 0x10 e
+
+63
+00:02:37,200 --> 00:02:43,920
+se for o caso, vá para
+
+64
+00:02:40,720 --> 00:02:43,920
+este endereço específico
+
+65
+00:02:46,080 --> 00:02:50,080
+tudo bem, então vamos ver se isso vai acontecer
+
+66
+00:02:47,440 --> 00:02:50,080
+a serem tomadas
+
+67
+00:02:51,680 --> 00:02:56,800
+e sabemos que o r8 é
+
+68
+00:02:54,800 --> 00:02:58,720
+8 porque o tamanho de nossa estrutura é
+
+69
+00:02:56,800 --> 00:03:00,720
+8, portanto 8 é menor que 0x10
+
+70
+00:02:58,720 --> 00:03:02,080
+portanto, sabemos que isso será feito
+
+71
+00:03:00,720 --> 00:03:03,440
+entrar em
+
+72
+00:03:02,080 --> 00:03:06,400
+e lá vamos nós, agora estamos nesse
+
+73
+00:03:03,440 --> 00:03:09,680
+endereço, então vamos prosseguir e escrever
+
+74
+00:03:06,400 --> 00:03:09,680
+o que há nesse endereço
+
+75
+00:03:11,040 --> 00:03:15,920
+portanto, temos que mover rcx para
+
+76
+00:03:16,840 --> 00:03:19,840
+rax
+
+77
+00:03:20,080 --> 00:03:25,040
+e vamos chamá-lo assim
+
+78
+00:03:23,040 --> 00:03:28,400
+é
+
+79
+00:03:25,040 --> 00:03:31,680
+o endereço seria nosso destino
+
+80
+00:03:28,400 --> 00:03:32,319
+em seguida, temos o lea de alguma memória aleatória
+
+81
+00:03:31,680 --> 00:03:34,400
+endereçamento
+
+82
+00:03:32,319 --> 00:03:35,519
+para o r9, de modo que, literalmente, só vai
+
+83
+00:03:34,400 --> 00:03:39,040
+para tomar esse exato
+
+84
+00:03:35,519 --> 00:03:39,040
+e colocá-lo em r9
+
+85
+00:03:39,120 --> 00:03:44,879
+e podemos confirmar isso passando por cima de
+
+86
+00:03:42,000 --> 00:03:44,879
+disso no assembly
+
+87
+00:03:45,599 --> 00:03:49,280
+passo a passo e r9 é de fato um sete f
+
+88
+00:03:48,959 --> 00:03:51,760
+f
+
+89
+00:03:49,280 --> 00:03:52,400
+b sete sessenta e quatro nove zero zero zero
+
+90
+00:03:51,760 --> 00:03:56,159
+sete f
+
+91
+00:03:52,400 --> 00:03:58,159
+f b sete sessenta e nove zero zero zero
+
+92
+00:03:56,159 --> 00:03:59,599
+muito bem, em seguida temos r9, que é
+
+93
+00:03:58,159 --> 00:04:02,879
+esse número
+
+94
+00:03:59,599 --> 00:04:06,319
+mais o nosso 8, que é o nosso tamanho
+
+95
+00:04:02,879 --> 00:04:08,080
+4 vezes mais 0x27000
+
+96
+00:04:06,319 --> 00:04:09,840
+não sei o que está acontecendo com isso, mas
+
+97
+00:04:08,080 --> 00:04:12,840
+seja como for, vamos ver o que acontece
+
+98
+00:04:09,840 --> 00:04:15,280
+retirado da memória e colocado em
+
+99
+00:04:12,840 --> 00:04:20,079
+ecx
+
+100
+00:04:15,280 --> 00:04:21,759
+a etapa ecx rcx obtém esse valor
+
+101
+00:04:20,079 --> 00:04:24,079
+portanto, vamos observar que
+
+102
+00:04:21,759 --> 00:04:24,079
+para baixo
+
+103
+00:04:25,600 --> 00:04:32,240
+e, em seguida, ele adiciona r9
+
+104
+00:04:28,800 --> 00:04:36,000
+r9 tem este valor
+
+105
+00:04:32,240 --> 00:04:40,960
+que escrevemos ali mesmo, basicamente
+
+106
+00:04:36,000 --> 00:04:43,840
+o rcx está recebendo um plus de igualdade
+
+107
+00:04:40,960 --> 00:04:43,840
+desse valor
+
+108
+00:04:51,680 --> 00:04:55,040
+e depois o que ele faz com isso
+
+109
+00:04:53,600 --> 00:04:58,080
+na verdade o utiliza como
+
+110
+00:04:55,040 --> 00:05:01,039
+um endereço para o qual pular, portanto, esse é o
+
+111
+00:04:58,080 --> 00:05:01,840
+salto indireto, de modo que ele está apenas calculando
+
+112
+00:05:01,039 --> 00:05:04,080
+um endereço
+
+113
+00:05:01,840 --> 00:05:06,320
+e, em seguida, saltará para esse local
+
+114
+00:05:04,080 --> 00:05:07,600
+portanto, esse é um novo endereço
+
+115
+00:05:06,320 --> 00:05:10,479
+vamos descobrir o que há lá
+
+116
+00:05:07,600 --> 00:05:15,039
+então, basicamente, ele está apenas fazendo
+
+117
+00:05:10,479 --> 00:05:18,080
+ir para rcx que é isso
+
+118
+00:05:15,039 --> 00:05:20,639
+vamos deixar isso de lado e dizer qual é a
+
+119
+00:05:18,080 --> 00:05:24,160
+código lá
+
+120
+00:05:20,639 --> 00:05:27,600
+e o que temos: temos um
+
+121
+00:05:24,160 --> 00:05:30,160
+mova um quad word de rdx, bem, o que é rdx
+
+122
+00:05:27,600 --> 00:05:30,160
+neste momento
+
+123
+00:05:30,800 --> 00:05:34,639
+rdx ainda é o endereço de a, portanto, é
+
+124
+00:05:33,759 --> 00:05:37,280
+depenagem
+
+125
+00:05:34,639 --> 00:05:38,479
+ponteiro qword de 8 bytes removendo
+
+126
+00:05:37,280 --> 00:05:41,039
+8 bytes
+
+127
+00:05:38,479 --> 00:05:42,160
+da fonte e colocando-o em
+
+128
+00:05:41,039 --> 00:05:44,240
+rcx
+
+129
+00:05:42,160 --> 00:05:46,240
+o que ele faz em seguida?
+
+130
+00:05:44,240 --> 00:05:51,520
+bytes e o coloca em
+
+131
+00:05:46,240 --> 00:05:54,560
+a memória especificada por rax o que é rax
+
+132
+00:05:51,520 --> 00:05:56,720
+rax é rcx é o endereço de b, portanto, é
+
+133
+00:05:54,560 --> 00:05:58,240
+extraindo 8 bytes da fonte
+
+134
+00:05:56,720 --> 00:06:00,000
+e escrevendo 8 bytes no
+
+135
+00:05:58,240 --> 00:06:02,400
+destino usando dois
+
+136
+00:06:00,000 --> 00:06:04,880
+mover instruções e ele pode fazer isso
+
+137
+00:06:02,400 --> 00:06:08,319
+porque r8, que é o nosso comprimento
+
+138
+00:06:04,880 --> 00:06:11,919
+era de 8 bytes, de modo que
+
+139
+00:06:08,319 --> 00:06:13,840
+está fazendo a cópia da memória e estamos prontos
+
+140
+00:06:11,919 --> 00:06:16,160
+terminamos com o memcpy
+
+141
+00:06:13,840 --> 00:06:18,080
+só que não encontramos o representante indescritível
+
+142
+00:06:16,160 --> 00:06:21,360
+movimentos que estamos procurando
+
+143
+00:06:18,080 --> 00:06:23,199
+então isso não é bom, precisamos tentar
+
+144
+00:06:21,360 --> 00:06:25,280
+de novo
+
+145
+00:06:23,199 --> 00:06:26,319
+portanto, com base nesse pseudocódigo, temos
+
+146
+00:06:25,280 --> 00:06:28,240
+agora mesmo
+
+147
+00:06:26,319 --> 00:06:29,919
+a parte mais interessante, o único tipo
+
+148
+00:06:28,240 --> 00:06:30,960
+de bit de fluxo de controle condicional que nós
+
+149
+00:06:29,919 --> 00:06:33,199
+encontrou
+
+150
+00:06:30,960 --> 00:06:34,639
+essa verificação de se o comprimento é menor
+
+151
+00:06:33,199 --> 00:06:37,759
+maior ou igual a 0x10, ele vai
+
+152
+00:06:34,639 --> 00:06:40,160
+aqui, então não queremos ir para lá
+
+153
+00:06:37,759 --> 00:06:41,520
+portanto, precisamos nos certificar de que o comprimento
+
+154
+00:06:40,160 --> 00:06:44,960
+é maior que
+
+155
+00:06:41,520 --> 00:06:48,560
+0x10, portanto, podemos fazer isso facilmente com
+
+156
+00:06:44,960 --> 00:06:51,599
+colocando 0x10 nessa variável
+
+157
+00:06:48,560 --> 00:06:51,919
+2 e agora 0x10 mais 4 para o int será
+
+158
+00:06:51,599 --> 00:06:54,720
+será
+
+159
+00:06:51,919 --> 00:06:57,680
+definitivamente maior que 0x10. então vamos
+
+160
+00:06:54,720 --> 00:06:57,680
+começar tudo de novo
+
+161
+00:06:58,639 --> 00:07:06,479
+diagnósticos de boo
+
+162
+00:07:02,880 --> 00:07:07,840
+desmontagem all right passo a passo passo
+
+163
+00:07:06,479 --> 00:07:12,080
+passo passo passo
+
+164
+00:07:07,840 --> 00:07:15,199
+para a violação, passo a passo
+
+165
+00:07:12,080 --> 00:07:18,240
+tudo bem, desta vez o r8 é
+
+166
+00:07:15,199 --> 00:07:20,800
+0x20 sorry decimal 20
+
+167
+00:07:18,240 --> 00:07:22,400
+que é maior que 0x10, portanto não é
+
+168
+00:07:20,800 --> 00:07:24,960
+vai dar o salto
+
+169
+00:07:22,400 --> 00:07:25,919
+mas, em seguida, temos um
+
+170
+00:07:24,960 --> 00:07:29,280
+comparação de
+
+171
+00:07:25,919 --> 00:07:32,960
+r8 contra 0x20, portanto 22
+
+172
+00:07:29,280 --> 00:07:36,880
+hex sorry hex sorry decimal 20
+
+173
+00:07:32,960 --> 00:07:38,960
+para decimal 32 e saltar se for menor ou igual a
+
+174
+00:07:36,880 --> 00:07:41,199
+bem, isso é definitivamente abaixo ou igual
+
+175
+00:07:38,960 --> 00:07:42,560
+portanto, vamos atualizar nosso pseudocódigo se você
+
+176
+00:07:41,199 --> 00:07:46,160
+não dê o salto
+
+177
+00:07:42,560 --> 00:07:46,639
+depois r8, que é seu comprimento, e agora nosso
+
+178
+00:07:46,160 --> 00:07:50,160
+comprimento
+
+179
+00:07:46,639 --> 00:07:52,720
+é 0x14.
+
+180
+00:07:50,160 --> 00:07:55,039
+se o comprimento for menor ou igual a
+
+181
+00:07:52,720 --> 00:07:57,120
+0x20
+
+182
+00:07:55,039 --> 00:08:00,240
+então para onde ele vai, ele está indo
+
+183
+00:07:57,120 --> 00:08:00,240
+para ir direto para lá
+
+184
+00:08:07,840 --> 00:08:11,360
+portanto, como esse é o valor no momento, ele
+
+185
+00:08:10,080 --> 00:08:13,440
+vai dar esse salto
+
+186
+00:08:11,360 --> 00:08:14,720
+e onde ele coloca um monte de movups
+
+187
+00:08:13,440 --> 00:08:18,160
+com
+
+188
+00:08:14,720 --> 00:08:19,919
+registros xmmo e ponteiros xmmword
+
+189
+00:08:18,160 --> 00:08:22,319
+e isso é assustador, então vamos apenas
+
+190
+00:08:19,919 --> 00:08:22,319
+sair
+
+191
+00:08:22,400 --> 00:08:27,039
+pronto, já dei um passo à frente e
+
+192
+00:08:24,639 --> 00:08:28,960
+acabou saindo do memcpy
+
+193
+00:08:27,039 --> 00:08:30,319
+bem, o ponto principal é que fizemos
+
+194
+00:08:28,960 --> 00:08:32,959
+não ver movimentos de representantes
+
+195
+00:08:30,319 --> 00:08:35,279
+nesse caminho e, portanto, temos que tentar, tentar
+
+196
+00:08:32,959 --> 00:08:35,279
+novamente
+
+197
+00:08:35,599 --> 00:08:40,240
+portanto, atualizarei um pouco meu pseudocódigo
+
+198
+00:08:37,440 --> 00:08:43,680
+mas antes de fazer isso, só para dizer que
+
+199
+00:08:40,240 --> 00:08:43,680
+neste endereço específico
+
+200
+00:08:45,519 --> 00:08:53,040
+que foi esse primeiro caminho foi
+
+201
+00:08:49,600 --> 00:08:56,240
+2 instruções mov
+
+202
+00:08:53,040 --> 00:08:59,600
+copiando 8 bytes
+
+203
+00:08:56,240 --> 00:09:03,480
+e, em seguida, retornar e esse caminho é algum
+
+204
+00:08:59,600 --> 00:09:08,160
+movs movups
+
+205
+00:09:03,480 --> 00:09:08,160
+instruções que são assustadoras
+
+206
+00:09:10,080 --> 00:09:14,880
+portanto, mais uma vez temos uma situação em que
+
+207
+00:09:13,040 --> 00:09:17,600
+o único fluxo de controle condicional
+
+208
+00:09:14,880 --> 00:09:18,880
+foi a verificação 0x10, que foi contornada por
+
+209
+00:09:17,600 --> 00:09:21,920
+aumentar o tamanho
+
+210
+00:09:18,880 --> 00:09:23,839
+agora há uma verificação 0x20 e devemos
+
+211
+00:09:21,920 --> 00:09:25,200
+provavelmente contornar isso aumentando o
+
+212
+00:09:23,839 --> 00:09:29,680
+tamanho
+
+213
+00:09:25,200 --> 00:09:34,839
+então 0x20 vamos lá
+
+214
+00:09:29,680 --> 00:09:37,839
+disassembly etapa etapa etapa etapa etapa
+
+215
+00:09:34,839 --> 00:09:37,839
+etapa
+
+216
+00:09:38,160 --> 00:09:40,880
+agora nosso
+
+217
+00:09:42,000 --> 00:09:45,920
+r8 é 0x24
+
+218
+00:09:46,240 --> 00:09:50,720
+então vamos passo a passo passo a passo
+
+219
+00:09:48,800 --> 00:09:53,920
+até chegarmos a essa comparação com
+
+220
+00:09:50,720 --> 00:09:55,920
+0x20 somos maiores que 0x20 agora
+
+221
+00:09:53,920 --> 00:09:57,839
+aguarde um segundo, vamos colocar isso no hexágono
+
+222
+00:09:55,920 --> 00:10:01,760
+visualizar
+
+223
+00:09:57,839 --> 00:10:01,760
+exibição hexadecimal muito melhor
+
+224
+00:10:02,959 --> 00:10:07,120
+tudo bem, agora não será necessário
+
+225
+00:10:05,279 --> 00:10:08,399
+esse salto abaixo ou igual, então ele vai
+
+226
+00:10:07,120 --> 00:10:10,480
+para cair
+
+227
+00:10:08,399 --> 00:10:12,240
+portanto, vamos em frente e vamos passar e
+
+228
+00:10:10,480 --> 00:10:15,839
+vamos ter uma noção de
+
+229
+00:10:12,240 --> 00:10:16,560
+o que está por vir, portanto, não aproveitei o
+
+230
+00:10:15,839 --> 00:10:19,040
+pular para baixo
+
+231
+00:10:16,560 --> 00:10:22,720
+agora que estamos no caminho certo, vamos usar o pseudocódigo
+
+232
+00:10:19,040 --> 00:10:22,720
+o que acontece se cairmos
+
+233
+00:10:24,959 --> 00:10:31,360
+portanto, será necessário
+
+234
+00:10:28,160 --> 00:10:34,079
+rdx e subtrair rcx dele e colar
+
+235
+00:10:31,360 --> 00:10:35,200
+o valor de volta para a rdx bem o que é rdx
+
+236
+00:10:34,079 --> 00:10:38,720
+neste momento
+
+237
+00:10:35,200 --> 00:10:41,760
+rdx é a fonte
+
+238
+00:10:38,720 --> 00:10:44,839
+portanto, é basicamente rd
+
+239
+00:10:41,760 --> 00:10:49,760
+rdx é igual a rdx menos
+
+240
+00:10:44,839 --> 00:10:53,360
+rcx, que basicamente significa
+
+241
+00:10:49,760 --> 00:10:56,399
+o que basicamente significa pegar o
+
+242
+00:10:53,360 --> 00:11:01,839
+endereço de origem e subtraia o
+
+243
+00:10:56,399 --> 00:11:01,839
+endereço de destino
+
+244
+00:11:01,920 --> 00:11:05,600
+ok, ele faz essa subtração, mas depois
+
+245
+00:11:03,680 --> 00:11:08,320
+há um salto imediato
+
+246
+00:11:05,600 --> 00:11:09,920
+acima ou igual, então é mais ou menos como
+
+247
+00:11:08,320 --> 00:11:11,920
+que está sendo usado como uma comparação
+
+248
+00:11:09,920 --> 00:11:13,680
+exceto pelo fato de que, na verdade, eles ainda são
+
+249
+00:11:11,920 --> 00:11:16,720
+armazenando o resultado dessa comparação
+
+250
+00:11:13,680 --> 00:11:16,720
+de volta ao rdx
+
+251
+00:11:17,200 --> 00:11:20,800
+portanto, pular para cima ou para baixo é o que vai acontecer
+
+252
+00:11:19,839 --> 00:11:23,279
+serem tomadas
+
+253
+00:11:20,800 --> 00:11:24,000
+bem, a maneira como interpretamos isso é
+
+254
+00:11:23,279 --> 00:11:27,120
+é este
+
+255
+00:11:24,000 --> 00:11:28,880
+maior ou igual a rcx, então vamos
+
+256
+00:11:27,120 --> 00:11:32,480
+observe os registros rapidamente
+
+257
+00:11:28,880 --> 00:11:36,959
+rdx 0x14fdb0
+
+258
+00:11:32,480 --> 00:11:40,240
+e rcx 0x14fdd8
+
+259
+00:11:36,959 --> 00:11:40,880
+então, a resposta é “isso é maior do que isso”?
+
+260
+00:11:40,240 --> 00:11:44,480
+é
+
+261
+00:11:40,880 --> 00:11:47,920
+não, este termina em b0
+
+262
+00:11:44,480 --> 00:11:48,800
+esse termina em d0, portanto cx é maior
+
+263
+00:11:47,920 --> 00:11:51,040
+do que dx
+
+264
+00:11:48,800 --> 00:11:52,320
+portanto, não esperamos que esse salto seja de fato
+
+265
+00:11:51,040 --> 00:11:55,760
+serem tomadas
+
+266
+00:11:52,320 --> 00:11:57,519
+então, vamos colocar em nosso
+
+267
+00:11:55,760 --> 00:11:59,600
+fluxo de controle condicional que vamos
+
+268
+00:11:57,519 --> 00:12:03,200
+dizer que eles vão usar isso para
+
+269
+00:11:59,600 --> 00:12:06,320
+se rdx
+
+270
+00:12:03,200 --> 00:12:11,200
+vamos colocar yeah if rdx
+
+271
+00:12:06,320 --> 00:12:15,519
+que é a fonte é maior ou igual a
+
+272
+00:12:11,200 --> 00:12:15,519
+rcx que é o destino
+
+273
+00:12:16,000 --> 00:12:22,480
+então ele irá para
+
+274
+00:12:20,000 --> 00:12:24,480
+aqui, mas não vai de fato
+
+275
+00:12:22,480 --> 00:12:29,600
+pegue isso
+
+276
+00:12:24,480 --> 00:12:32,560
+saltar desta vez porque não é
+
+277
+00:12:29,600 --> 00:12:33,040
+portanto, vamos continuar pisando, não pegamos o
+
+278
+00:12:32,560 --> 00:12:35,920
+salto
+
+279
+00:12:33,040 --> 00:12:39,839
+agora temos um lea, então o que está acontecendo?
+
+280
+00:12:35,920 --> 00:12:39,839
+com o lea
+
+281
+00:12:43,200 --> 00:12:49,440
+ele está fazendo r8 mais r10 e está colocando
+
+282
+00:12:46,720 --> 00:12:50,320
+ele em rax bem o que é r8 r8 é nosso
+
+283
+00:12:49,440 --> 00:12:53,360
+comprimento
+
+284
+00:12:50,320 --> 00:12:55,600
+r10 é nossa fonte
+
+285
+00:12:53,360 --> 00:12:58,160
+portanto, basicamente vai dizer rax
+
+286
+00:12:55,600 --> 00:12:58,160
+iguais
+
+287
+00:12:58,959 --> 00:13:02,480
+r10 plus
+
+288
+00:13:02,560 --> 00:13:09,760
+source plus r8 que é
+
+289
+00:13:06,079 --> 00:13:12,240
+mas é basicamente o endereço
+
+290
+00:13:09,760 --> 00:13:12,240
+disso
+
+291
+00:13:13,440 --> 00:13:17,680
+certo, esse é basicamente um endereço
+
+292
+00:13:15,839 --> 00:13:19,519
+é basicamente um tamanho e, portanto, vai
+
+293
+00:13:17,680 --> 00:13:22,800
+obter um novo endereço, que é basicamente o
+
+294
+00:13:19,519 --> 00:13:25,519
+fim do buffer de origem, portanto, fim do
+
+295
+00:13:22,800 --> 00:13:25,519
+buffer de origem
+
+296
+00:13:32,399 --> 00:13:36,320
+tudo bem, e o que vem a seguir será
+
+297
+00:13:34,240 --> 00:13:40,800
+comparar rcx
+
+298
+00:13:36,320 --> 00:13:43,839
+para a rax, então compare
+
+299
+00:13:40,800 --> 00:13:47,279
+é se rcx
+
+300
+00:13:43,839 --> 00:13:50,399
+está abaixo, portanto
+
+301
+00:13:47,279 --> 00:13:53,760
+se rcx estiver estritamente abaixo de
+
+302
+00:13:50,399 --> 00:14:03,839
+rax então
+
+303
+00:13:53,760 --> 00:14:03,839
+vai dar esse salto
+
+304
+00:14:04,399 --> 00:14:08,639
+então vamos fazer um pouco de
+
+305
+00:14:06,279 --> 00:14:09,920
+interpretação desse material que estamos
+
+306
+00:14:08,639 --> 00:14:15,360
+vendo até o momento
+
+307
+00:14:09,920 --> 00:14:17,760
+vamos adicionar algumas chaves
+
+308
+00:14:15,360 --> 00:14:19,360
+então, vamos dar uma olhada nesse tipo de if aninhado
+
+309
+00:14:17,760 --> 00:14:22,160
+condição de que temos
+
+310
+00:14:19,360 --> 00:14:23,279
+portanto, temos if source is greater than or
+
+311
+00:14:22,160 --> 00:14:28,079
+igual ao dest
+
+312
+00:14:23,279 --> 00:14:28,079
+isso implica que o else é if
+
+313
+00:14:29,519 --> 00:14:36,800
+se a fonte for menor que
+
+314
+00:14:33,120 --> 00:14:39,839
+dest e modo, o que é isso
+
+315
+00:14:36,800 --> 00:14:45,680
+rax foi o fim do buffer de origem
+
+316
+00:14:39,839 --> 00:14:48,880
+e rcx é igual ao destino
+
+317
+00:14:45,680 --> 00:14:52,079
+então, isso é basicamente se
+
+318
+00:14:48,880 --> 00:14:59,839
+dest é menor que
+
+319
+00:14:52,079 --> 00:14:59,839
+fonte mais comprimento
+
+320
+00:15:00,000 --> 00:15:03,279
+e como esse if está aninhado dentro de
+
+321
+00:15:02,880 --> 00:15:05,519
+este
+
+322
+00:15:03,279 --> 00:15:06,560
+se a maneira como você realmente chega a isso
+
+323
+00:15:05,519 --> 00:15:12,880
+goto
+
+324
+00:15:06,560 --> 00:15:18,959
+é se source for menor que dest
+
+325
+00:15:12,880 --> 00:15:18,959
+e dest é menor que source mais length
+
+326
+00:15:20,160 --> 00:15:29,600
+ah, o que ele está fazendo lá vamos nós
+
+327
+00:15:26,000 --> 00:15:32,160
+então você vai aqui se essencialmente
+
+328
+00:15:29,600 --> 00:15:33,040
+seu destino está se sobrepondo a
+
+329
+00:15:32,160 --> 00:15:35,199
+sua fonte
+
+330
+00:15:33,040 --> 00:15:37,360
+portanto, o destino é maior que a origem
+
+331
+00:15:35,199 --> 00:15:38,959
+mas é menor que a fonte mais o comprimento
+
+332
+00:15:37,360 --> 00:15:40,399
+e isso significa que o lugar em que você está
+
+333
+00:15:38,959 --> 00:15:42,639
+copiando para
+
+334
+00:15:40,399 --> 00:15:44,320
+será um lugar que estará dentro de
+
+335
+00:15:42,639 --> 00:15:46,639
+o buffer de origem
+
+336
+00:15:44,320 --> 00:15:48,480
+portanto, isso pode ser um problema
+
+337
+00:15:46,639 --> 00:15:50,720
+mas vamos ver se isso realmente acontece
+
+338
+00:15:48,480 --> 00:15:54,639
+esse salto aqui
+
+339
+00:15:50,720 --> 00:15:57,279
+então compare e pule abaixo
+
+340
+00:15:54,639 --> 00:15:59,199
+e ele não deu esse salto, portanto, apenas
+
+341
+00:15:57,279 --> 00:16:02,560
+passou para o próximo passo
+
+342
+00:15:59,199 --> 00:16:05,600
+comparar r8 com 0x80. assim
+
+343
+00:16:02,560 --> 00:16:07,040
+ótimo, não fizemos nada disso, então vamos
+
+344
+00:16:05,600 --> 00:16:11,279
+apenas saia aqui
+
+345
+00:16:07,040 --> 00:16:13,680
+e diz que se r8
+
+346
+00:16:11,279 --> 00:16:14,880
+menor que 0x80. Agora, por que estou colocando
+
+347
+00:16:13,680 --> 00:16:17,360
+aqui
+
+348
+00:16:14,880 --> 00:16:20,240
+bem, porque acontece que se você
+
+349
+00:16:17,360 --> 00:16:23,279
+dê uma olhada nos endereços reais aqui
+
+350
+00:16:20,240 --> 00:16:24,639
+esse salto acima, bem aqui, na verdade
+
+351
+00:16:23,279 --> 00:16:28,240
+transferências para cá
+
+352
+00:16:24,639 --> 00:16:31,360
+portanto, essa é uma pequena condição aninhada
+
+353
+00:16:28,240 --> 00:16:32,880
+dentro daqui e se essa condição
+
+354
+00:16:31,360 --> 00:16:35,680
+não se sustenta, então você simplesmente pula
+
+355
+00:16:32,880 --> 00:16:39,120
+sobre essa verificação extra
+
+356
+00:16:35,680 --> 00:16:40,720
+então você sabe que provavelmente o melhor lugar para
+
+357
+00:16:39,120 --> 00:16:43,440
+colocar isso seria
+
+358
+00:16:40,720 --> 00:16:43,440
+aqui mesmo
+
+359
+00:16:47,040 --> 00:16:50,320
+portanto, acho que vou colocá-lo aqui para
+
+360
+00:16:48,839 --> 00:16:52,639
+agora
+
+361
+00:16:50,320 --> 00:16:54,800
+tudo bem, compare com 0x80, bem, nós
+
+362
+00:16:52,639 --> 00:16:58,959
+sabemos que não somos maiores que 0x80.
+
+363
+00:16:54,800 --> 00:16:58,959
+então ele vai levar isso abaixo de você
+
+364
+00:17:02,839 --> 00:17:08,959
+apostar
+
+365
+00:17:05,760 --> 00:17:12,000
+tudo bem, dê o salto e
+
+366
+00:17:08,959 --> 00:17:13,360
+ah, mais alguns movups, vamos sair da
+
+367
+00:17:12,000 --> 00:17:16,319
+aqui
+
+368
+00:17:13,360 --> 00:17:19,839
+passo passo passo vamos passo até o retorno
+
+369
+00:17:16,319 --> 00:17:19,839
+dirigir-se à saída
+
+370
+00:17:24,720 --> 00:17:31,360
+lá vamos nós, estamos fora, estamos seguros
+
+371
+00:17:28,240 --> 00:17:33,039
+bem, isso sugere novamente que precisamos
+
+372
+00:17:31,360 --> 00:17:34,960
+fazer algo cujo comprimento seja maior que
+
+373
+00:17:33,039 --> 00:17:37,120
+0x80.
+
+374
+00:17:34,960 --> 00:17:38,640
+então, vamos colocar isso aqui
+
+375
+00:17:37,120 --> 00:17:44,160
+em algum lugar
+
+376
+00:17:38,640 --> 00:17:44,160
+49 15 30 49 13 30 sim
+
+377
+00:17:45,440 --> 00:17:52,640
+então vamos dar um loop
+
+378
+00:17:49,200 --> 00:17:56,480
+que está nesse caminho, vamos
+
+379
+00:17:52,640 --> 00:17:56,480
+aumentar o tamanho para 0x80
+
+380
+00:17:56,880 --> 00:18:01,840
+e mais uma vez
+
+381
+00:18:08,320 --> 00:18:12,080
+e agora sabemos que somos maiores do que
+
+382
+00:18:10,240 --> 00:18:15,520
+0x80, portanto, abaixo ou igual a
+
+383
+00:18:12,080 --> 00:18:16,320
+não vai ser tomada, portanto, será apenas
+
+384
+00:18:15,520 --> 00:18:19,360
+cair
+
+385
+00:18:16,320 --> 00:18:23,760
+para o próximo material, então teste
+
+386
+00:18:19,360 --> 00:18:29,840
+tudo bem, então se isso
+
+387
+00:18:23,760 --> 00:18:29,840
+ir para outro lugar
+
+388
+00:18:35,120 --> 00:18:42,240
+então, ele está fazendo algum tipo de
+
+389
+00:18:38,799 --> 00:18:45,039
+teste de um ponteiro de byte em relação a
+
+390
+00:18:42,240 --> 00:18:45,600
+2 bem, vamos verificar o que há nesse byte
+
+391
+00:18:45,039 --> 00:18:47,840
+ponteiro
+
+392
+00:18:45,600 --> 00:18:50,400
+cole-o e ele se parecerá com o
+
+393
+00:18:47,840 --> 00:18:52,160
+a memória nesse endereço é, na verdade, 2
+
+394
+00:18:50,400 --> 00:18:54,400
+e é um ponteiro de byte, portanto, podemos
+
+395
+00:18:52,160 --> 00:18:55,760
+bem, exibi-lo um byte de cada vez
+
+396
+00:18:54,400 --> 00:18:58,240
+portanto, ele vai extrair a memória de
+
+397
+00:18:55,760 --> 00:18:59,200
+esse valor e ele vai testá-lo
+
+398
+00:18:58,240 --> 00:19:02,000
+contra 2 agora
+
+399
+00:18:59,200 --> 00:19:03,919
+o teste que dissemos é uma instrução que
+
+400
+00:19:02,000 --> 00:19:07,520
+joga fora os resultados
+
+401
+00:19:03,919 --> 00:19:09,280
+portanto, a maneira como podemos interpretar isso
+
+402
+00:19:07,520 --> 00:19:10,799
+e há um salto igual imediatamente
+
+403
+00:19:09,280 --> 00:19:15,600
+depois disso
+
+404
+00:19:10,799 --> 00:19:15,600
+é um e com um salto igual, portanto, se
+
+405
+00:19:17,520 --> 00:19:20,320
+algum valor
+
+406
+00:19:22,720 --> 00:19:25,840
+igual a zero
+
+407
+00:19:26,000 --> 00:19:30,960
+então ele vai dar o salto
+
+408
+00:19:34,960 --> 00:19:38,480
+e qual é esse valor, bem, esse valor
+
+409
+00:19:37,520 --> 00:19:42,480
+é este
+
+410
+00:19:38,480 --> 00:19:45,200
+ponteiro de byte com 2
+
+411
+00:19:42,480 --> 00:19:46,799
+portanto, posso dizer que esse é o
+
+412
+00:19:45,200 --> 00:19:50,320
+dereferenciamento
+
+413
+00:19:46,799 --> 00:19:54,640
+de um ponteiro para byte, caractere estrela
+
+414
+00:19:50,320 --> 00:19:57,679
+não é um caractere, é um ponteiro para caracteres
+
+415
+00:19:54,640 --> 00:19:57,679
+deste valor
+
+416
+00:19:57,760 --> 00:20:03,679
+dereferenciado, portanto, vai para a memória
+
+417
+00:20:01,280 --> 00:20:04,640
+pegar esse valor, ele está pegando um byte
+
+418
+00:20:03,679 --> 00:20:08,240
+porque é um char
+
+419
+00:20:04,640 --> 00:20:12,240
+estrela e depois bit a bit e
+
+420
+00:20:08,240 --> 00:20:12,960
+com 2, portanto, se o resultado disso for
+
+421
+00:20:12,240 --> 00:20:15,440
+bit a bit e
+
+422
+00:20:12,960 --> 00:20:17,520
+é igual a zero, então será necessário
+
+423
+00:20:15,440 --> 00:20:19,840
+o salto e, se não, vai
+
+424
+00:20:17,520 --> 00:20:21,120
+vá para outro lugar, você verá que há um
+
+425
+00:20:19,840 --> 00:20:24,400
+salto codificado
+
+426
+00:20:21,120 --> 00:20:24,400
+se não for preciso
+
+427
+00:20:25,360 --> 00:20:28,080
+portanto, se
+
+428
+00:20:28,480 --> 00:20:30,960
+mais
+
+429
+00:20:32,320 --> 00:20:35,440
+e demos uma olhada na memória para sabermos que
+
+430
+00:20:34,880 --> 00:20:39,039
+ele
+
+431
+00:20:35,440 --> 00:20:41,200
+o valor ali é 2, portanto, o resultado
+
+432
+00:20:39,039 --> 00:20:42,240
+não será 0 o resultado de
+
+433
+00:20:41,200 --> 00:20:44,240
+este
+
+434
+00:20:42,240 --> 00:20:45,600
+a operação não será 0, portanto
+
+435
+00:20:44,240 --> 00:20:49,840
+não será preciso isso
+
+436
+00:20:45,600 --> 00:20:49,840
+vai ser preciso isso
+
+437
+00:20:58,480 --> 00:21:04,080
+minha esposa não gosta quando eu não coloco
+
+438
+00:21:00,640 --> 00:21:04,080
+espaços após meus comentários
+
+439
+00:21:06,720 --> 00:21:10,159
+tudo bem, pulei o salto igual
+
+440
+00:21:09,200 --> 00:21:13,919
+tomar o
+
+441
+00:21:10,159 --> 00:21:13,919
+salto e onde aterrissamos
+
+442
+00:21:14,080 --> 00:21:20,559
+movimentos de representantes aqui está, pessoal, aqui está
+
+443
+00:21:17,039 --> 00:21:20,559
+o que estamos procurando
+
+444
+00:21:24,720 --> 00:21:33,200
+portanto, vou copiar isso
+
+445
+00:21:30,240 --> 00:21:36,840
+e daremos uma olhada no que está acontecendo
+
+446
+00:21:33,200 --> 00:21:39,840
+com isso, depois de sabermos mais sobre isso
+
+447
+00:21:36,840 --> 00:21:39,840
+instrução
+

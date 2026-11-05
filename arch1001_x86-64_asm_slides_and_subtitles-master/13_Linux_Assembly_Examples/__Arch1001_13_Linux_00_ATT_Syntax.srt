@@ -1,0 +1,921 @@
+1
+00:00:00,24 --> 00:00:00,51
+all right,
+
+2
+00:00:00,51 --> 00:00:02,79
+So let's talk a little more deeply about the difference
+
+3
+00:00:02,79 --> 00:00:06,67
+between the Intel syntax of x86 disassembly,
+
+4
+00:00:06,67 --> 00:00:08,41
+which is what I've been showing you thus far,
+
+5
+00:00:08,42 --> 00:00:10,26
+and the AT&T syntax,
+
+6
+00:00:10,26 --> 00:00:12,86
+which is much more common than UNIX based systems
+
+7
+00:00:13,54 --> 00:00:14,27
+So my classes,
+
+8
+00:00:14,27 --> 00:00:14,62
+of course,
+
+9
+00:00:14,62 --> 00:00:16,15
+prefer Intel syntax
+
+
+13
+00:00:16,300 --> 00:00:19,130
+But originally I learned AT&T Syntax as part
+
+14
+00:00:19,130 --> 00:00:23,320
+of the computer architecture class that utilized this binary bomb
+
+15
+00:00:23,320 --> 00:00:25,550
+example that we're going to be using later on in
+
+16
+00:00:25,550 --> 00:00:26,130
+the class
+
+17
+00:00:26,140 --> 00:00:28,870
+So I personally believe that it's important to know if
+
+18
+00:00:28,870 --> 00:00:33,070
+both sin taxes it's not particularly difficult to translate between
+
+19
+00:00:33,070 --> 00:00:33,310
+them
+
+20
+00:00:33,700 --> 00:00:35,920
+It's just another thing that you have to remember
+
+21
+00:00:36,500 --> 00:00:40,040
+I believe this is important because depending on the security
+
+22
+00:00:40,040 --> 00:00:42,290
+researchers that you're watching a talk for,
+
+23
+00:00:42,300 --> 00:00:44,750
+you may be seeing it in Intel syntax or AT
+
+24
+00:00:44,750 --> 00:00:45,710
+and T syntax
+
+25
+00:00:46,100 --> 00:00:47,950
+And if you can't read one of them,
+
+26
+00:00:47,950 --> 00:00:49,400
+then you're not going to be able to understand what
+
+27
+00:00:49,400 --> 00:00:49,910
+they're saying
+
+28
+00:00:50,600 --> 00:00:52,660
+And part of the whole goal of this class is
+
+29
+00:00:52,660 --> 00:00:55,100
+to help you understand how things work
+
+30
+00:00:55,250 --> 00:00:58,060
+So the brief history of AT&T syntax is
+
+31
+00:00:58,060 --> 00:01:00,970
+that Bell Labs created multi IX,
+
+32
+00:01:00,970 --> 00:01:02,420
+which ran on mainframes
+
+33
+00:01:02,420 --> 00:01:05,080
+Malt IX became the inspiration for UNIX,
+
+34
+00:01:05,080 --> 00:01:06,350
+which ran on PDP
+
+35
+00:01:06,350 --> 00:01:10,380
+Elevens was primarily written in assembly until the same folks
+
+36
+00:01:10,380 --> 00:01:14,770
+who invented UNIX invented C which point they rewrote some
+
+37
+00:01:14,770 --> 00:01:17,850
+of the unique stuff in C and then that made
+
+38
+00:01:17,850 --> 00:01:18,800
+it much more portable
+
+39
+00:01:18,800 --> 00:01:22,190
+Two different architectures and so unique thing eventually got ported
+
+40
+00:01:22,190 --> 00:01:26,240
+to 80 86 with C and a bit of assembly
+
+41
+00:01:26,250 --> 00:01:30,820
+But that assembly syntax was adapted from the syntax used
+
+42
+00:01:30,820 --> 00:01:32,020
+for the PDP 11
+
+43
+00:01:32,700 --> 00:01:33,670
+And then finally,
+
+44
+00:01:33,680 --> 00:01:34,720
+there is good news,
+
+45
+00:01:34,720 --> 00:01:35,430
+not UNIX,
+
+46
+00:01:35,430 --> 00:01:38,850
+with Richard Stallman flipping a table because we're going to
+
+47
+00:01:38,850 --> 00:01:41,720
+be citing a lot of documentation from the canoe assembler
+
+48
+00:01:42,400 --> 00:01:44,970
+So Intel syntax is what's preferred on windows,
+
+49
+00:01:44,970 --> 00:01:47,050
+and you can think of it sort of like algebra
+
+50
+00:01:47,050 --> 00:01:50,010
+where you have the things on the right to get
+
+51
+00:01:50,010 --> 00:01:51,520
+moved into the thing on the left,
+
+52
+00:01:52,000 --> 00:01:55,600
+sources and destinations get moved to a destination on the
+
+53
+00:01:55,600 --> 00:01:55,920
+left
+
+54
+00:01:56,600 --> 00:01:59,940
+So here you have no idea which way this goes
+
+55
+00:01:59,940 --> 00:02:03,120
+but because we can tell it's Intel syntax because it
+
+56
+00:02:03,120 --> 00:02:04,610
+doesn't have these decorators,
+
+57
+00:02:04,610 --> 00:02:05,720
+these percent signs
+
+58
+00:02:06,200 --> 00:02:07,990
+Then we have to assume that it's going to be
+
+59
+00:02:07,990 --> 00:02:09,620
+going from right to left
+
+60
+00:02:10,400 --> 00:02:11,160
+Same thing
+
+61
+00:02:11,160 --> 00:02:12,360
+Add it is,
+
+62
+00:02:12,540 --> 00:02:15,720
+this is both a source and destination plus 14 back
+
+63
+00:02:15,720 --> 00:02:16,610
+into the destination
+
+64
+00:02:17,100 --> 00:02:17,310
+Okay,
+
+65
+00:02:18,000 --> 00:02:19,440
+AT&T Syntex,
+
+66
+00:02:19,440 --> 00:02:21,700
+which is preferred on most UNIX systems
+
+67
+00:02:21,730 --> 00:02:23,130
+It's more like elementary school
+
+68
+00:02:23,130 --> 00:02:24,320
+One plus two equals three
+
+69
+00:02:24,320 --> 00:02:27,760
+The operations on the left to go to the right
+
+70
+00:02:27,770 --> 00:02:30,520
+Sources and destinations move from left to right
+
+71
+00:02:30,530 --> 00:02:31,860
+So here it is,
+
+72
+00:02:31,860 --> 00:02:37,960
+RSP being moved into our VP and RSP plus 14
+
+73
+00:02:37,960 --> 00:02:39,020
+back into RSP
+
+74
+00:02:39,500 --> 00:02:39,660
+Now,
+
+75
+00:02:39,660 --> 00:02:40,280
+from this,
+
+76
+00:02:40,280 --> 00:02:42,840
+you can see that there is this decoration in terms
+
+77
+00:02:42,840 --> 00:02:47,170
+of registers getting percent signs and immediate values getting dollar
+
+78
+00:02:47,170 --> 00:02:47,720
+signs
+
+79
+00:02:48,500 --> 00:02:51,980
+Another big difference from Intel syntax is that whereas Intel
+
+80
+00:02:51,980 --> 00:02:56,730
+syntax indicates the size of memory accesses with things like
+
+81
+00:02:56,740 --> 00:02:57,230
+keyword,
+
+82
+00:02:57,230 --> 00:02:57,790
+pointer,
+
+83
+00:02:57,980 --> 00:02:58,880
+AT&T,
+
+84
+00:02:58,880 --> 00:03:03,510
+syntax indicates the size with a change to the pneumonic
+
+85
+00:03:03,510 --> 00:03:04,390
+of the instruction
+
+86
+00:03:04,450 --> 00:03:06,490
+So instead of just move its move,
+
+87
+00:03:06,500 --> 00:03:08,400
+be to indicate that it's moving a bite
+
+88
+00:03:08,400 --> 00:03:11,520
+Move W to indicate it's moving a word Move l
+
+89
+00:03:11,520 --> 00:03:13,120
+to indicate it's moving along,
+
+90
+00:03:13,120 --> 00:03:17,170
+which an Intel parlance is the D word move Q
+
+91
+00:03:17,170 --> 00:03:18,280
+for a Quad Word,
+
+92
+00:03:18,280 --> 00:03:21,410
+which is secured the same as before of the key
+
+93
+00:03:21,410 --> 00:03:24,860
+little bit here is that it says only when this
+
+94
+00:03:24,860 --> 00:03:26,320
+is from this documentation
+
+95
+00:03:26,330 --> 00:03:29,430
+It says only when no other way to dis ambiguity
+
+96
+00:03:29,440 --> 00:03:30,840
+the instruction exists,
+
+97
+00:03:30,860 --> 00:03:34,100
+so sometimes things could just be moved instead of move
+
+98
+00:03:34,100 --> 00:03:36,010
+W move instead of move l
+
+99
+00:03:36,400 --> 00:03:39,450
+And it sort of becomes incumbent upon the reader to
+
+100
+00:03:39,450 --> 00:03:41,780
+understand what the size is at that point
+
+101
+00:03:41,790 --> 00:03:42,390
+Furthermore,
+
+102
+00:03:42,390 --> 00:03:45,500
+some mnemonics have been more or less renamed just to
+
+103
+00:03:45,500 --> 00:03:49,120
+use this sort of VW lq naming convention
+
+104
+00:03:49,500 --> 00:03:52,910
+But these are not necessarily just strict suffixes
+
+105
+00:03:53,010 --> 00:03:55,740
+These are things like the CWD,
+
+106
+00:03:55,740 --> 00:03:57,200
+which is one of those instructions I said
+
+107
+00:03:57,200 --> 00:03:58,640
+We don't really care about that much,
+
+108
+00:03:58,640 --> 00:04:01,290
+but it was convert word to D word through sign
+
+109
+00:04:01,290 --> 00:04:07,280
+extension that turns into convert word too long or something
+
+110
+00:04:07,280 --> 00:04:10,120
+like move S X for sign extension
+
+111
+00:04:10,500 --> 00:04:13,700
+The X gets dropped and it turns into move sign
+
+112
+00:04:13,700 --> 00:04:15,440
+extension bite
+
+113
+00:04:15,520 --> 00:04:19,360
+Two words size And I personally really don't like this
+
+114
+00:04:19,360 --> 00:04:21,340
+because it means that if you're trying,
+
+115
+00:04:21,340 --> 00:04:23,520
+you're looking at AT&T syntax and you're trying
+
+116
+00:04:23,520 --> 00:04:24,060
+to go fine
+
+117
+00:04:24,060 --> 00:04:24,380
+Okay
+
+118
+00:04:24,380 --> 00:04:27,100
+I've never seen this move s and VW instruction before
+
+119
+00:04:27,100 --> 00:04:27,710
+What is it?
+
+120
+00:04:28,100 --> 00:04:28,630
+You go
+
+121
+00:04:28,630 --> 00:04:30,480
+You look at the manual and there is no move
+
+122
+00:04:30,480 --> 00:04:34,510
+Sp w so makes it a lot harder to look
+
+123
+00:04:34,510 --> 00:04:35,540
+things up in the manual
+
+124
+00:04:35,570 --> 00:04:36,160
+Same thing,
+
+125
+00:04:36,160 --> 00:04:37,310
+especially with this
+
+126
+00:04:37,800 --> 00:04:40,070
+So just a quick example of this from some real
+
+127
+00:04:40,070 --> 00:04:43,430
+code will Look at later can see that over here
+
+128
+00:04:43,430 --> 00:04:45,950
+it's move s l two Q
+
+129
+00:04:45,950 --> 00:04:47,600
+So long to cured
+
+130
+00:04:47,600 --> 00:04:49,650
+You can see we've got a long here,
+
+131
+00:04:49,650 --> 00:04:53,290
+a 32 bit value and a Q word 16,
+
+132
+00:04:53,300 --> 00:04:54,720
+64 bit value here,
+
+133
+00:04:55,100 --> 00:04:58,290
+and same thing over here is move S x D
+
+134
+00:04:58,300 --> 00:05:01,350
+Because there is actually a move SX and move s
+
+135
+00:05:01,350 --> 00:05:04,760
+xD when it's operating on D word sizes extended to
+
+136
+00:05:04,770 --> 00:05:05,620
+keyword sizes
+
+137
+00:05:06,300 --> 00:05:08,510
+And then one of the things that I think is
+
+138
+00:05:08,510 --> 00:05:09,150
+quite frankly,
+
+139
+00:05:09,150 --> 00:05:12,120
+the worst about AT&T syntax is that this
+
+140
+00:05:12,120 --> 00:05:16,690
+base plus index time scale plus displacement representation gets turned
+
+141
+00:05:16,690 --> 00:05:17,610
+into base,
+
+142
+00:05:17,610 --> 00:05:19,600
+plus index time,
+
+143
+00:05:19,600 --> 00:05:21,560
+scale plus displacement
+
+144
+00:05:21,570 --> 00:05:24,190
+But you have no idea what the operations are actually
+
+145
+00:05:24,190 --> 00:05:24,880
+between here
+
+146
+00:05:24,880 --> 00:05:26,500
+So if you were just seeing this for the first
+
+147
+00:05:26,500 --> 00:05:26,750
+time,
+
+148
+00:05:26,750 --> 00:05:29,950
+you had no idea that there's some specific type of
+
+149
+00:05:29,950 --> 00:05:30,910
+math going on
+
+150
+00:05:31,500 --> 00:05:33,830
+So this becomes just another thing that you have to
+
+151
+00:05:33,830 --> 00:05:35,100
+memorize and recognize
+
+152
+00:05:35,100 --> 00:05:35,420
+Okay,
+
+153
+00:05:35,420 --> 00:05:36,420
+If I see you know,
+
+154
+00:05:36,800 --> 00:05:38,690
+to operate a ends well,
+
+155
+00:05:38,910 --> 00:05:42,070
+is it based plus index time scale plus one?
+
+156
+00:05:42,070 --> 00:05:43,910
+Or is it index time scale?
+
+157
+00:05:44,400 --> 00:05:46,610
+So it gets a little more difficult,
+
+158
+00:05:46,620 --> 00:05:49,920
+but usually it's relatively clear
+
+159
+00:05:50,500 --> 00:05:51,190
+But later on,
+
+160
+00:05:51,190 --> 00:05:53,080
+once we learn how to read the manual,
+
+161
+00:05:53,080 --> 00:05:55,940
+it will become a little more clear how to disambiguate
+
+162
+00:05:55,940 --> 00:05:57,520
+it if there's ambiguity
+
+163
+00:05:58,000 --> 00:06:00,880
+So some examples of this is that you might have
+
+164
+00:06:00,890 --> 00:06:02,260
+in Intel syntax,
+
+165
+00:06:02,270 --> 00:06:03,680
+call Cured pointer
+
+166
+00:06:03,680 --> 00:06:06,970
+And then it's calculating up this R BX plus RS
+
+167
+00:06:06,970 --> 00:06:09,260
+items for minus E eight,
+
+168
+00:06:09,270 --> 00:06:12,210
+whereas in AT&T Syntax E eight,
+
+169
+00:06:12,220 --> 00:06:16,180
+the displacement gets moved outside of the parentheses and it
+
+170
+00:06:16,180 --> 00:06:18,540
+just becomes our BX RC four,
+
+171
+00:06:18,540 --> 00:06:20,760
+and you need to just know that that is multiplied
+
+172
+00:06:20,760 --> 00:06:21,520
+And that is added,
+
+173
+00:06:22,100 --> 00:06:22,690
+same thing,
+
+174
+00:06:22,690 --> 00:06:24,010
+going the opposite direction
+
+175
+00:06:24,010 --> 00:06:25,980
+So if we had a keyword pointer instead,
+
+176
+00:06:25,980 --> 00:06:27,400
+that's going to turn into a move
+
+177
+00:06:27,400 --> 00:06:27,820
+Q
+
+178
+00:06:28,200 --> 00:06:31,050
+And RVP plus eight is the destination,
+
+179
+00:06:31,050 --> 00:06:36,140
+so our x percent sign for register into rvp percent
+
+180
+00:06:36,140 --> 00:06:37,710
+sign for Register plus eight
+
+181
+00:06:38,800 --> 00:06:41,170
+Same thing here with Elia again,
+
+182
+00:06:41,180 --> 00:06:43,580
+basically just taking the square brackets,
+
+183
+00:06:43,580 --> 00:06:45,190
+turning into parentheses,
+
+184
+00:06:45,190 --> 00:06:46,420
+three parameters on the inside,
+
+185
+00:06:46,420 --> 00:06:49,510
+one displacement on the outside and flipping the order
+
+186
+00:06:50,000 --> 00:06:51,720
+So if we go back and look at that simple
+
+187
+00:06:51,720 --> 00:06:54,360
+assembly that we're going to see later on,
+
+188
+00:06:54,370 --> 00:06:56,390
+we have a situation where there's a little bit of
+
+189
+00:06:56,390 --> 00:06:59,180
+ambiguity here in terms of okay,
+
+190
+00:06:59,180 --> 00:06:59,510
+move
+
+191
+00:06:59,510 --> 00:07:00,460
+L Well,
+
+192
+00:07:00,460 --> 00:07:04,330
+that's telling you specifically that this f f should be
+
+193
+00:07:04,380 --> 00:07:05,610
+long sized
+
+194
+00:07:05,620 --> 00:07:08,250
+So that's a D word being moved into
+
+195
+00:07:08,260 --> 00:07:08,720
+Sorry
+
+196
+00:07:08,730 --> 00:07:09,210
+Yeah,
+
+197
+00:07:09,220 --> 00:07:09,820
+that's right
+
+198
+00:07:10,100 --> 00:07:10,420
+Okay,
+
+199
+00:07:10,700 --> 00:07:12,940
+double checking my syntax as I'm going back and forth
+
+200
+00:07:12,950 --> 00:07:13,240
+Yes,
+
+201
+00:07:13,250 --> 00:07:14,780
+18 Syntex on this side
+
+202
+00:07:14,810 --> 00:07:19,440
+Probably label that to the so this is moving a
+
+203
+00:07:19,440 --> 00:07:24,460
+long so at 0000 f f f sorry ff into
+
+204
+00:07:24,490 --> 00:07:26,360
+this memory location
+
+205
+00:07:26,370 --> 00:07:29,910
+But right here we have moved from some memory location
+
+206
+00:07:29,920 --> 00:07:31,020
+into a register
+
+207
+00:07:31,500 --> 00:07:33,190
+But how do we know that this,
+
+208
+00:07:33,200 --> 00:07:33,980
+you know,
+
+209
+00:07:33,990 --> 00:07:36,960
+is actually moving a quad word like How do we
+
+210
+00:07:36,960 --> 00:07:39,130
+know it's right over here?
+
+211
+00:07:39,130 --> 00:07:40,060
+We see it's a quad word,
+
+212
+00:07:40,060 --> 00:07:41,720
+but it's just moving from memory
+
+213
+00:07:41,720 --> 00:07:42,740
+How do we know the size?
+
+214
+00:07:42,740 --> 00:07:43,770
+We don't know whether it's a bite
+
+215
+00:07:43,770 --> 00:07:44,580
+Whether it's two bites,
+
+216
+00:07:44,580 --> 00:07:45,340
+whether it's four bites,
+
+217
+00:07:45,340 --> 00:07:49,040
+whether it's eight bytes So this is one of those
+
+218
+00:07:49,040 --> 00:07:50,060
+things where again,
+
+219
+00:07:50,060 --> 00:07:51,360
+I wish they would be consistent
+
+220
+00:07:51,360 --> 00:07:53,430
+Just use it all the time instead of saying,
+
+221
+00:07:53,430 --> 00:07:53,760
+Oh yeah,
+
+222
+00:07:53,770 --> 00:07:54,620
+it's not ambiguous
+
+223
+00:07:55,000 --> 00:07:55,500
+Well,
+
+224
+00:07:55,510 --> 00:07:58,660
+it's ambiguous to you because you don't yet know how
+
+225
+00:07:58,660 --> 00:07:59,530
+to read the manual,
+
+226
+00:07:59,530 --> 00:08:02,260
+and therefore you can't look behind the scenes to see
+
+227
+00:08:02,260 --> 00:08:04,330
+exactly how this instruction was encoded
+
+228
+00:08:04,340 --> 00:08:05,360
+So unfortunately,
+
+229
+00:08:05,360 --> 00:08:06,010
+for now,
+
+230
+00:08:06,020 --> 00:08:09,180
+when we're going through these AT&T syntax examples
+
+231
+00:08:09,180 --> 00:08:10,740
+there might be a little bit of ambiguity
+
+232
+00:08:10,740 --> 00:08:13,190
+But hopefully we'll clear that up later on when you
+
+233
+00:08:13,190 --> 00:08:14,820
+learn to read the fund manual
+

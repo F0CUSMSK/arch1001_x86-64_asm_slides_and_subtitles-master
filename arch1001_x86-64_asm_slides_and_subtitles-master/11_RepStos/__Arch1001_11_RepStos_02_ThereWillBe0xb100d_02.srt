@@ -1,0 +1,44 @@
+1
+00:00:00,160 --> 00:00:04,319
+so even when you step through the
+
+2
+00:00:01,920 --> 00:00:06,240
+assembly and draw a stack diagram you
+
+3
+00:00:04,319 --> 00:00:06,879
+may still not know exactly what's going
+
+4
+00:00:06,240 --> 00:00:09,760
+on
+
+5
+00:00:06,879 --> 00:00:10,480
+so if I might make a modest proposal I
+
+6
+00:00:09,760 --> 00:00:13,759
+suggest
+
+7
+00:00:10,480 --> 00:00:15,040
+that you increment the buffer index to
+
+8
+00:00:13,759 --> 00:00:17,440
+the point where it goes past
+
+9
+00:00:15,040 --> 00:00:19,039
+the end of the buffer and just go ahead
+
+10
+00:00:17,440 --> 00:00:25,760
+and run that code
+
+11
+00:00:19,039 --> 00:00:25,760
+and see what happens
+

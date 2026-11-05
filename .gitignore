@@ -1,0 +1,8 @@
+*.DS_Store
+*.mov
+*.mp4
+*.m4v
+*.m4a
+*.png
+*.gif
+.vs/ 

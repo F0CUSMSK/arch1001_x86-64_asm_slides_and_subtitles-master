@@ -1,0 +1,1320 @@
+1
+00:00:00,080 --> 00:00:03,919
+so let's learn some simple assembly
+
+2
+00:00:01,839 --> 00:00:05,759
+instructions which operate on the stack
+
+3
+00:00:03,919 --> 00:00:08,240
+and so if we go back and look at our
+
+4
+00:00:05,759 --> 00:00:09,120
+hello world example when compiled and
+
+5
+00:00:08,240 --> 00:00:11,759
+disassembled
+
+6
+00:00:09,120 --> 00:00:13,040
+on mac os we start with the very first
+
+7
+00:00:11,759 --> 00:00:15,839
+assembly instruction
+
+8
+00:00:13,040 --> 00:00:17,440
+push and later on we see a pop
+
+9
+00:00:15,839 --> 00:00:20,000
+instruction so i said that
+
+10
+00:00:17,440 --> 00:00:20,960
+data gets pushed and popped onto and off
+
+11
+00:00:20,000 --> 00:00:22,480
+of the stack
+
+12
+00:00:20,960 --> 00:00:24,320
+and so those sound like they probably
+
+13
+00:00:22,480 --> 00:00:25,199
+have to do with that also seeing the
+
+14
+00:00:24,320 --> 00:00:27,119
+same assembly
+
+15
+00:00:25,199 --> 00:00:28,480
+on a linux compiled and disassembled
+
+16
+00:00:27,119 --> 00:00:30,800
+thing we also see
+
+17
+00:00:28,480 --> 00:00:32,480
+push and pop and so while we may not yet
+
+18
+00:00:30,800 --> 00:00:34,160
+know exactly what they do
+
+19
+00:00:32,480 --> 00:00:36,160
+we know that they're perfectly balanced
+
+20
+00:00:34,160 --> 00:00:39,040
+as all things should be
+
+21
+00:00:36,160 --> 00:00:41,680
+but we did not actually see push and pop
+
+22
+00:00:39,040 --> 00:00:45,039
+in the visual studio generated assembly
+
+23
+00:00:41,680 --> 00:00:47,440
+so what's up with that well i'm going to
+
+24
+00:00:45,039 --> 00:00:49,280
+start a mystery list of different things
+
+25
+00:00:47,440 --> 00:00:51,520
+that we're going to have to come back to
+
+26
+00:00:49,280 --> 00:00:53,360
+later so for now we're going to say you
+
+27
+00:00:51,520 --> 00:00:56,160
+know we don't know exactly why
+
+28
+00:00:53,360 --> 00:00:56,480
+gcc or clangs hello worlds have push and
+
+29
+00:00:56,160 --> 00:00:58,879
+pop
+
+30
+00:00:56,480 --> 00:00:59,520
+instructions but visual studio doesn't
+
+31
+00:00:58,879 --> 00:01:01,359
+but
+
+32
+00:00:59,520 --> 00:01:03,120
+by putting this on the list i promise
+
+33
+00:01:01,359 --> 00:01:04,239
+we'll get back to it later and explain
+
+34
+00:01:03,120 --> 00:01:05,840
+it
+
+35
+00:01:04,239 --> 00:01:07,680
+but for now let's just understand how
+
+36
+00:01:05,840 --> 00:01:10,640
+the assembly instructions work
+
+37
+00:01:07,680 --> 00:01:11,680
+so the first one push pushes a quad word
+
+38
+00:01:10,640 --> 00:01:15,360
+or eight bytes
+
+39
+00:01:11,680 --> 00:01:17,520
+onto the stack so when a push occurs
+
+40
+00:01:15,360 --> 00:01:18,720
+it automatically decrements the stack
+
+41
+00:01:17,520 --> 00:01:20,560
+pointer rsp
+
+42
+00:01:18,720 --> 00:01:22,479
+by eight because you've just pushed
+
+43
+00:01:20,560 --> 00:01:24,240
+eight bytes of data onto the stack
+
+44
+00:01:22,479 --> 00:01:26,479
+and so the stack goes towards low
+
+45
+00:01:24,240 --> 00:01:29,520
+addresses the enemy's plate is down
+
+46
+00:01:26,479 --> 00:01:32,640
+and so rsp needs to go down by eight
+
+47
+00:01:29,520 --> 00:01:35,040
+now in 64-bit execution mode there
+
+48
+00:01:32,640 --> 00:01:35,840
+are a couple different versions of push
+
+49
+00:01:35,040 --> 00:01:38,079
+the first one
+
+50
+00:01:35,840 --> 00:01:40,720
+is that you can just push the value from
+
+51
+00:01:38,079 --> 00:01:43,520
+a 64-bit register and the second one
+
+52
+00:01:40,720 --> 00:01:44,399
+is you can push a 64-bit value from
+
+53
+00:01:43,520 --> 00:01:47,040
+memory
+
+54
+00:01:44,399 --> 00:01:48,799
+where the memory is given in a special
+
+55
+00:01:47,040 --> 00:01:51,360
+form called rmx
+
+56
+00:01:48,799 --> 00:01:53,200
+that i'll talk about next there's also
+
+57
+00:01:51,360 --> 00:01:54,159
+actually a version which can push a
+
+58
+00:01:53,200 --> 00:01:56,799
+32-bit
+
+59
+00:01:54,159 --> 00:01:57,439
+immediate or just constant value onto
+
+60
+00:01:56,799 --> 00:01:59,200
+the stack
+
+61
+00:01:57,439 --> 00:02:00,799
+but that gets into complicated
+
+62
+00:01:59,200 --> 00:02:01,840
+exceptions so i'm intentionally
+
+63
+00:02:00,799 --> 00:02:03,360
+simplifying and
+
+64
+00:02:01,840 --> 00:02:05,040
+we're going to just pretty much ignore
+
+65
+00:02:03,360 --> 00:02:06,479
+that version of push and pretend these
+
+66
+00:02:05,040 --> 00:02:07,920
+are the only two versions
+
+67
+00:02:06,479 --> 00:02:10,239
+but later on when you learn to read the
+
+68
+00:02:07,920 --> 00:02:13,040
+manual you can go back and see all the
+
+69
+00:02:10,239 --> 00:02:13,680
+you know caveats that have to go along
+
+70
+00:02:13,040 --> 00:02:16,800
+with that
+
+71
+00:02:13,680 --> 00:02:20,000
+which is why i skipped it so
+
+72
+00:02:16,800 --> 00:02:23,040
+the rmx form of addressing
+
+73
+00:02:20,000 --> 00:02:25,280
+so i completely made up this term rmx to
+
+74
+00:02:23,040 --> 00:02:28,959
+refer to places in the intel manual
+
+75
+00:02:25,280 --> 00:02:30,319
+where you see it saying rm8 rm16 rm32 or
+
+76
+00:02:28,959 --> 00:02:32,879
+rm64
+
+77
+00:02:30,319 --> 00:02:34,000
+so for instance in the push the manual
+
+78
+00:02:32,879 --> 00:02:35,920
+is ultimately the
+
+79
+00:02:34,000 --> 00:02:37,200
+the true source of like you know what is
+
+80
+00:02:35,920 --> 00:02:38,800
+possible and what is not
+
+81
+00:02:37,200 --> 00:02:41,040
+you know here's those instructions that
+
+82
+00:02:38,800 --> 00:02:42,319
+push immediate constants that i said
+
+83
+00:02:41,040 --> 00:02:44,319
+i want to ignore because they have to
+
+84
+00:02:42,319 --> 00:02:46,239
+deal with a bunch of caveats
+
+85
+00:02:44,319 --> 00:02:47,360
+but the thing i want to focus on is rmx
+
+86
+00:02:46,239 --> 00:02:52,400
+form so
+
+87
+00:02:47,360 --> 00:02:54,800
+push has an rm16 an rm32 and an rm64
+
+88
+00:02:52,400 --> 00:02:56,160
+and certain versions of it like that 32
+
+89
+00:02:54,800 --> 00:02:59,040
+are not actually valid
+
+90
+00:02:56,160 --> 00:02:59,519
+in 64-bit mode but you're going to learn
+
+91
+00:02:59,040 --> 00:03:02,640
+to
+
+92
+00:02:59,519 --> 00:03:04,000
+read this read the manual later on in
+
+93
+00:03:02,640 --> 00:03:05,680
+this class so for now
+
+94
+00:03:04,000 --> 00:03:07,200
+we just say when i talk about the
+
+95
+00:03:05,680 --> 00:03:08,720
+assembly instructions i'll just say you
+
+96
+00:03:07,200 --> 00:03:11,760
+know it takes an rmx form
+
+97
+00:03:08,720 --> 00:03:14,480
+so what is an rmx form well it is a way
+
+98
+00:03:11,760 --> 00:03:17,280
+to specify either a register or a memory
+
+99
+00:03:14,480 --> 00:03:19,040
+value and again either you know 8 16 32
+
+100
+00:03:17,280 --> 00:03:20,800
+or 64 bits long
+
+101
+00:03:19,040 --> 00:03:22,400
+so syntactically i have to tell you that
+
+102
+00:03:20,800 --> 00:03:24,799
+in intel syntax
+
+103
+00:03:22,400 --> 00:03:25,440
+square brackets means to treat the value
+
+104
+00:03:24,799 --> 00:03:28,159
+within
+
+105
+00:03:25,440 --> 00:03:29,760
+as a memory address and fetch the value
+
+106
+00:03:28,159 --> 00:03:31,200
+from that address
+
+107
+00:03:29,760 --> 00:03:32,799
+and pull it out so it's like
+
+108
+00:03:31,200 --> 00:03:34,319
+dereferencing a pointer
+
+109
+00:03:32,799 --> 00:03:36,480
+so later on here i'll show you some
+
+110
+00:03:34,319 --> 00:03:39,120
+square bracket forms so rmx
+
+111
+00:03:36,480 --> 00:03:40,480
+could just turn into a plane register
+
+112
+00:03:39,120 --> 00:03:42,959
+like rbx
+
+113
+00:03:40,480 --> 00:03:44,560
+it could be a square bracket form where
+
+114
+00:03:42,959 --> 00:03:47,519
+it says take the value
+
+115
+00:03:44,560 --> 00:03:49,840
+in rbx treat it as a memory address
+
+116
+00:03:47,519 --> 00:03:52,400
+dereference it the square brackets are
+
+117
+00:03:49,840 --> 00:03:53,760
+dereference it and pull the value out of
+
+118
+00:03:52,400 --> 00:03:55,439
+that and that's the value which is going
+
+119
+00:03:53,760 --> 00:03:57,360
+to be used instead so we won't use the
+
+120
+00:03:55,439 --> 00:04:00,159
+value of rbx we'll use the value
+
+121
+00:03:57,360 --> 00:04:01,760
+pointed to by rbx so that's those are the two
+
+122
+00:04:00,159 --> 00:04:03,920
+simple forms just
+
+123
+00:04:01,760 --> 00:04:06,159
+you know use the literal value in a
+
+124
+00:04:03,920 --> 00:04:07,760
+register or use the value if you take
+
+125
+00:04:06,159 --> 00:04:08,159
+that register treat it as address and
+
+126
+00:04:07,760 --> 00:04:11,360
+grab
+
+127
+00:04:08,159 --> 00:04:13,760
+from that address but rmx is complicated
+
+128
+00:04:11,360 --> 00:04:14,640
+and it has more complicated forms such
+
+129
+00:04:13,760 --> 00:04:17,199
+as
+
+130
+00:04:14,640 --> 00:04:18,239
+register take the register and then add
+
+131
+00:04:17,199 --> 00:04:21,440
+some other register
+
+132
+00:04:18,239 --> 00:04:24,479
+multiplied by some x the x
+
+133
+00:04:21,440 --> 00:04:26,880
+can be literally the number one two four
+
+134
+00:04:24,479 --> 00:04:28,880
+eight it can't have any other values and
+
+135
+00:04:26,880 --> 00:04:29,600
+in this form you can essentially think
+
+136
+00:04:28,880 --> 00:04:32,400
+of it like
+
+137
+00:04:29,600 --> 00:04:33,840
+the first value is a base the second
+
+138
+00:04:32,400 --> 00:04:35,680
+value is an index
+
+139
+00:04:33,840 --> 00:04:37,120
+and the x is a scale where you're
+
+140
+00:04:35,680 --> 00:04:39,759
+essentially scaling by
+
+141
+00:04:37,120 --> 00:04:40,720
+one two four eight and then the most
+
+142
+00:04:39,759 --> 00:04:42,880
+complicated form
+
+143
+00:04:40,720 --> 00:04:43,840
+is this base plus index time scale plus
+
+144
+00:04:42,880 --> 00:04:47,280
+displacement
+
+145
+00:04:43,840 --> 00:04:50,000
+so some base added to some value times
+
+146
+00:04:47,280 --> 00:04:51,120
+one two four eight and then plus a
+
+147
+00:04:50,000 --> 00:04:52,960
+displacement
+
+148
+00:04:51,120 --> 00:04:54,400
+now there's then further two different
+
+149
+00:04:52,960 --> 00:04:56,000
+forms of this where the y
+
+150
+00:04:54,400 --> 00:04:57,840
+could be encoded in the assembly
+
+151
+00:04:56,000 --> 00:05:00,880
+instruction as a single byte value
+
+152
+00:04:57,840 --> 00:05:03,520
+so you've got you know 0 to 255
+
+153
+00:05:00,880 --> 00:05:04,320
+or it could be encoded in a 4 byte value
+
+154
+00:05:03,520 --> 00:05:08,080
+so
+
+155
+00:05:04,320 --> 00:05:09,520
+0 to 4 billion so rmx is pretty
+
+156
+00:05:08,080 --> 00:05:11,840
+complicated way of
+
+157
+00:05:09,520 --> 00:05:13,840
+addressing memory locations but you can
+
+158
+00:05:11,840 --> 00:05:15,120
+see how they can kind of reach into and
+
+159
+00:05:13,840 --> 00:05:18,080
+pluck from memory
+
+160
+00:05:15,120 --> 00:05:21,280
+kind of anywhere within a large four
+
+161
+00:05:18,080 --> 00:05:23,680
+gigabyte space at a time
+
+162
+00:05:21,280 --> 00:05:24,960
+so also you can imagine that this base
+
+163
+00:05:23,680 --> 00:05:27,440
+plus index time
+
+164
+00:05:24,960 --> 00:05:29,120
+scale plus displacement has natural
+
+165
+00:05:27,440 --> 00:05:30,800
+applicability to things like
+
+166
+00:05:29,120 --> 00:05:33,120
+multi-dimensional arrays
+
+167
+00:05:30,800 --> 00:05:34,160
+uh arrays of structs and so forth right
+
+168
+00:05:33,120 --> 00:05:36,960
+so if you had
+
+169
+00:05:34,160 --> 00:05:39,199
+you know a simple 4x4 array you can
+
+170
+00:05:36,960 --> 00:05:40,560
+imagine that the base would start at the
+
+171
+00:05:39,199 --> 00:05:42,960
+base the zero zeroth
+
+172
+00:05:40,560 --> 00:05:43,680
+entry in the thing and if you are trying
+
+173
+00:05:42,960 --> 00:05:46,800
+to get
+
+174
+00:05:43,680 --> 00:05:49,440
+to you know square brackets
+
+175
+00:05:46,800 --> 00:05:50,400
+one square brackets zero that square
+
+176
+00:05:49,440 --> 00:05:52,160
+brackets one
+
+177
+00:05:50,400 --> 00:05:54,080
+implies that you know you've gone a full
+
+178
+00:05:52,160 --> 00:05:54,720
+four values into the thing and now
+
+179
+00:05:54,080 --> 00:05:57,919
+you're at
+
+180
+00:05:54,720 --> 00:05:59,680
+the fifth value and so the displacement
+
+181
+00:05:57,919 --> 00:06:01,840
+might be four times you know whatever
+
+182
+00:05:59,680 --> 00:06:03,759
+the size of your elements is
+
+183
+00:06:01,840 --> 00:06:04,960
+and so you've essentially skipped four
+
+184
+00:06:03,759 --> 00:06:07,120
+times that forward
+
+185
+00:06:04,960 --> 00:06:08,000
+and then the index would be zero and the
+
+186
+00:06:07,120 --> 00:06:09,840
+scale would be
+
+187
+00:06:08,000 --> 00:06:11,680
+again you know whatever the size is of
+
+188
+00:06:09,840 --> 00:06:13,680
+the elements of the array
+
+189
+00:06:11,680 --> 00:06:15,199
+so this this can be useful for that and
+
+190
+00:06:13,680 --> 00:06:16,880
+that's why intel made this more
+
+191
+00:06:15,199 --> 00:06:19,840
+complicated version of
+
+192
+00:06:16,880 --> 00:06:21,840
+addressing so this is rmx is going to be
+
+193
+00:06:19,840 --> 00:06:23,199
+a recurring thing throughout the class
+
+194
+00:06:21,840 --> 00:06:25,120
+and in the future when i'm giving you
+
+195
+00:06:23,199 --> 00:06:26,560
+your very simplified view of how
+
+196
+00:06:25,120 --> 00:06:28,240
+assembly instructions work
+
+197
+00:06:26,560 --> 00:06:30,479
+if i say that it supports access to
+
+198
+00:06:28,240 --> 00:06:32,800
+memory i basically mean that memory is
+
+199
+00:06:30,479 --> 00:06:34,880
+going to be encoded as an rmx form
+
+200
+00:06:32,800 --> 00:06:36,720
+when i say rmx i mean something that
+
+201
+00:06:34,880 --> 00:06:38,800
+could be as simple as that simple
+
+202
+00:06:36,720 --> 00:06:41,039
+r of a register or could be as
+
+203
+00:06:38,800 --> 00:06:41,840
+complicated as this base plus index time
+
+204
+00:06:41,039 --> 00:06:43,600
+scale plus
+
+205
+00:06:41,840 --> 00:06:45,280
+displacement so here's a couple quick
+
+206
+00:06:43,600 --> 00:06:47,919
+examples of that you could have
+
+207
+00:06:45,280 --> 00:06:48,319
+push straight up just normal register
+
+208
+00:06:47,919 --> 00:06:52,160
+and
+
+209
+00:06:48,319 --> 00:06:53,520
+push take that register grab to memory
+
+210
+00:06:52,160 --> 00:06:55,360
+grab some value out of memory and then
+
+211
+00:06:53,520 --> 00:06:55,680
+push it onto the stack and the same
+
+212
+00:06:55,360 --> 00:06:57,120
+thing
+
+213
+00:06:55,680 --> 00:06:58,400
+for different versions of the same thing
+
+214
+00:06:57,120 --> 00:06:58,880
+and you could fill in any sort of
+
+215
+00:06:58,400 --> 00:07:00,319
+different
+
+216
+00:06:58,880 --> 00:07:03,120
+general purpose register for these
+
+217
+00:07:00,319 --> 00:07:04,960
+encoding values
+
+218
+00:07:03,120 --> 00:07:07,039
+all right one other thing that is
+
+219
+00:07:04,960 --> 00:07:09,680
+specific to my version of the class
+
+220
+00:07:07,039 --> 00:07:12,080
+i use this back tick symbol when i'm
+
+221
+00:07:09,680 --> 00:07:14,479
+writing 64-bit numbers in the class
+
+222
+00:07:12,080 --> 00:07:16,479
+this is a thing that is only used on
+
+223
+00:07:14,479 --> 00:07:18,080
+windebug which is not a debugger that
+
+224
+00:07:16,479 --> 00:07:19,120
+we're actually going to be using in this
+
+225
+00:07:18,080 --> 00:07:21,120
+class
+
+226
+00:07:19,120 --> 00:07:23,280
+but i find it super useful because when
+
+227
+00:07:21,120 --> 00:07:24,800
+you start writing 64-bit numbers you can
+
+228
+00:07:23,280 --> 00:07:26,479
+lose track of whether you have the right
+
+229
+00:07:24,800 --> 00:07:28,800
+number of digits or not
+
+230
+00:07:26,479 --> 00:07:30,160
+so if i write something like hex one two
+
+231
+00:07:28,800 --> 00:07:31,759
+three four five six seven eight one two
+
+232
+00:07:30,160 --> 00:07:33,039
+three four five six seven eight with the
+
+233
+00:07:31,759 --> 00:07:34,880
+back tick in the middle
+
+234
+00:07:33,039 --> 00:07:36,639
+that's just to indicate it's a 64 bit
+
+235
+00:07:34,880 --> 00:07:37,919
+value and that helps me keep track of
+
+236
+00:07:36,639 --> 00:07:40,319
+that i'm writing the right number of
+
+237
+00:07:37,919 --> 00:07:40,319
+digits
+
+238
+00:07:40,720 --> 00:07:45,280
+so what would the push instruction
+
+239
+00:07:42,720 --> 00:07:47,039
+actually do when it's executed so let's
+
+240
+00:07:45,280 --> 00:07:50,400
+imagine that we have something like push
+
+241
+00:07:47,039 --> 00:07:53,759
+rax let's say the register rax was
+
+242
+00:07:50,400 --> 00:07:55,280
+holding the value 3 and rsp pointing at
+
+243
+00:07:53,759 --> 00:07:57,599
+the top of the stack let's say it was
+
+244
+00:07:55,280 --> 00:08:00,879
+pointing at 14fe08
+
+245
+00:07:57,599 --> 00:08:01,199
+so here's the location in memory here's
+
+246
+00:08:00,879 --> 00:08:03,440
+the
+
+247
+00:08:01,199 --> 00:08:05,120
+current value at the top of the stack
+
+248
+00:08:03,440 --> 00:08:06,240
+and the stack grows towards low
+
+249
+00:08:05,120 --> 00:08:07,919
+addresses
+
+250
+00:08:06,240 --> 00:08:10,720
+so if this is what the stack looked like
+
+251
+00:08:07,919 --> 00:08:11,759
+before then after the execution of the
+
+252
+00:08:10,720 --> 00:08:14,479
+push rax
+
+253
+00:08:11,759 --> 00:08:15,520
+assembly instruction we will see that
+
+254
+00:08:14,479 --> 00:08:18,879
+first of all
+
+255
+00:08:15,520 --> 00:08:22,720
+the rsp value changed so it went from
+
+256
+00:08:18,879 --> 00:08:24,800
+14 fe 0 8 to 14 fe 0 0
+
+257
+00:08:22,720 --> 00:08:26,000
+because the stack pointer is
+
+258
+00:08:24,800 --> 00:08:28,560
+automatically decremented
+
+259
+00:08:26,000 --> 00:08:29,199
+by eight it's gone from here down to
+
+260
+00:08:28,560 --> 00:08:31,039
+here
+
+261
+00:08:29,199 --> 00:08:32,959
+and furthermore it is now still pointing
+
+262
+00:08:31,039 --> 00:08:35,279
+at the top of the stack the last bit of
+
+263
+00:08:32,959 --> 00:08:37,360
+data that is actually used on the stack
+
+264
+00:08:35,279 --> 00:08:39,120
+which is the three that was pushed as
+
+265
+00:08:37,360 --> 00:08:41,200
+part of the push rax
+
+266
+00:08:39,120 --> 00:08:43,200
+all right so how do we balance out that
+
+267
+00:08:41,200 --> 00:08:44,000
+push well we have the pop assembly
+
+268
+00:08:43,200 --> 00:08:46,399
+instruction
+
+269
+00:08:44,000 --> 00:08:48,320
+so it pops a value from the stack and so
+
+270
+00:08:46,399 --> 00:08:51,519
+in 64-bit mode it can either
+
+271
+00:08:48,320 --> 00:08:52,800
+pop into a 64-bit register or it can pop
+
+272
+00:08:51,519 --> 00:08:55,200
+into a memory address
+
+273
+00:08:52,800 --> 00:08:57,200
+as given in rmx form so what would it
+
+274
+00:08:55,200 --> 00:08:59,920
+look like if we executed an assembly
+
+275
+00:08:57,200 --> 00:09:02,000
+instructions such as pop rax
+
+276
+00:08:59,920 --> 00:09:04,080
+well rax might have some value before
+
+277
+00:09:02,000 --> 00:09:05,279
+the pop and rsp would have some value
+
+278
+00:09:04,080 --> 00:09:07,120
+before the pop
+
+279
+00:09:05,279 --> 00:09:09,279
+but after the assembly instruction is
+
+280
+00:09:07,120 --> 00:09:11,279
+actually executed then the three from
+
+281
+00:09:09,279 --> 00:09:13,440
+the stack is going to be popped off
+
+282
+00:09:11,279 --> 00:09:14,720
+into the rax register overriding what
+
+283
+00:09:13,440 --> 00:09:16,880
+was already there
+
+284
+00:09:14,720 --> 00:09:18,399
+and automatically as a side effect of
+
+285
+00:09:16,880 --> 00:09:21,680
+the pop assembly instruction
+
+286
+00:09:18,399 --> 00:09:22,560
+rsp will be incremented by eight and so
+
+287
+00:09:21,680 --> 00:09:25,760
+this went from
+
+288
+00:09:22,560 --> 00:09:28,720
+14 f e 0 0 to 14 fe 0
+
+289
+00:09:25,760 --> 00:09:31,040
+8. furthermore this location for our
+
+290
+00:09:28,720 --> 00:09:33,839
+purposes is now considered undefined
+
+291
+00:09:31,040 --> 00:09:36,320
+i said before in reality data does exist
+
+292
+00:09:33,839 --> 00:09:38,000
+past the end of the stack and
+
+293
+00:09:36,320 --> 00:09:40,000
+so this three value will literally be
+
+294
+00:09:38,000 --> 00:09:41,600
+here still it's not like the
+
+295
+00:09:40,000 --> 00:09:43,440
+you know compil it's not like the
+
+296
+00:09:41,600 --> 00:09:45,360
+compiler generates assembly instructions
+
+297
+00:09:43,440 --> 00:09:46,959
+in order to like zero this value
+
+298
+00:09:45,360 --> 00:09:49,040
+it's not like the hardware automatically
+
+299
+00:09:46,959 --> 00:09:50,640
+zeros the value the memory is still
+
+300
+00:09:49,040 --> 00:09:52,800
+there it's just that
+
+301
+00:09:50,640 --> 00:09:54,800
+properly executing compilers should
+
+302
+00:09:52,800 --> 00:09:55,360
+never access memory beyond the top of
+
+303
+00:09:54,800 --> 00:09:57,920
+the stack
+
+304
+00:09:55,360 --> 00:09:59,600
+so quick throwback to the 32-bit world
+
+305
+00:09:57,920 --> 00:10:01,200
+because even though this class is about
+
+306
+00:09:59,600 --> 00:10:02,880
+64-bit assembly i do
+
+307
+00:10:01,200 --> 00:10:05,120
+want you to still get a sense of how
+
+308
+00:10:02,880 --> 00:10:07,680
+32-bit assembly works
+
+309
+00:10:05,120 --> 00:10:08,240
+if you are executing in 32-bit mode push
+
+310
+00:10:07,680 --> 00:10:10,720
+and pop
+
+311
+00:10:08,240 --> 00:10:12,560
+will add and remove 32-bit values at a
+
+312
+00:10:10,720 --> 00:10:15,760
+time rather than 64-bits
+
+313
+00:10:12,560 --> 00:10:16,240
+and thus they increment or decrement rsp
+
+314
+00:10:15,760 --> 00:10:18,320
+by
+
+315
+00:10:16,240 --> 00:10:20,000
+4 rather than eight similarly if you
+
+316
+00:10:18,320 --> 00:10:21,760
+happen to be executing in 16-bit mode
+
+317
+00:10:20,000 --> 00:10:23,440
+because i said that
+
+318
+00:10:21,760 --> 00:10:25,279
+intel still supports backwards
+
+319
+00:10:23,440 --> 00:10:26,800
+compatibility and actually still starts
+
+320
+00:10:25,279 --> 00:10:28,560
+up in 16-bit mode
+
+321
+00:10:26,800 --> 00:10:30,000
+it's gonna be the same thing two bytes
+
+322
+00:10:28,560 --> 00:10:31,920
+at a time instead of
+
+323
+00:10:30,000 --> 00:10:34,240
+four bytes at a time so great we now
+
+324
+00:10:31,920 --> 00:10:36,880
+know two more assembly instructions
+
+325
+00:10:34,240 --> 00:10:38,800
+so we knew no op and we now know push
+
+326
+00:10:36,880 --> 00:10:40,399
+and we now know pop and just like that
+
+327
+00:10:38,800 --> 00:10:41,839
+three assembly instructions were already
+
+328
+00:10:40,399 --> 00:10:43,839
+well over twenty percent
+
+329
+00:10:41,839 --> 00:10:46,240
+and we're well on our way to mastery of
+
+330
+00:10:43,839 --> 00:10:46,240
+assembly
+

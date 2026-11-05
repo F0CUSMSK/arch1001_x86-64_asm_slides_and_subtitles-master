@@ -1,0 +1,852 @@
+1
+00:00:00,080 --> 00:00:05,680
+our next example was to demonstrate both
+
+2
+00:00:02,960 --> 00:00:08,720
+the multiply and divide instruction
+
+3
+00:00:05,680 --> 00:00:08,720
+so let's see that
+
+4
+00:00:09,760 --> 00:00:13,519
+all right this was a simple example
+
+5
+00:00:11,840 --> 00:00:16,720
+taking some constants
+
+6
+00:00:13,519 --> 00:00:17,600
+0xdefec7ed into a and multiplying it by a
+
+7
+00:00:16,720 --> 00:00:20,240
+0xde7ec7ab1e
+
+8
+00:00:17,600 --> 00:00:20,880
+and dividing it by 0x2bad505ad note
+
+9
+00:00:20,240 --> 00:00:23,359
+these are
+
+10
+00:00:20,880 --> 00:00:25,599
+unsigned values so we would expect an
+
+11
+00:00:23,359 --> 00:00:30,800
+unsigned multiply and an unsigned divide
+
+12
+00:00:25,599 --> 00:00:33,679
+so let's go ahead and compile that
+
+13
+00:00:30,800 --> 00:00:33,679
+and debug it
+
+14
+00:00:36,480 --> 00:00:41,040
+so if we skim through the code we see
+
+15
+00:00:38,640 --> 00:00:42,800
+typical function prolog we see 0xdefec7ed
+
+16
+00:00:41,040 --> 00:00:46,239
+we see 0xde7ec7ab1e we see an
+
+17
+00:00:42,800 --> 00:00:47,920
+imul so looks like gcc prefers the
+
+18
+00:00:46,239 --> 00:00:49,280
+signed multiply over the unsigned
+
+19
+00:00:47,920 --> 00:00:52,320
+multiply as well
+
+20
+00:00:49,280 --> 00:00:52,960
+it's the two op operand form of the
+
+21
+00:00:52,320 --> 00:00:54,719
+imul
+
+22
+00:00:52,960 --> 00:00:56,480
+which is the form where it multiplies
+
+23
+00:00:54,719 --> 00:00:58,000
+the two registers together and sticks it
+
+24
+00:00:56,480 --> 00:01:01,199
+back into the same register thereby
+
+25
+00:00:58,000 --> 00:01:03,440
+truncating it and then we don't see
+
+26
+00:01:01,199 --> 00:01:05,600
+any divide instruction in the rest of
+
+27
+00:01:03,440 --> 00:01:07,920
+this we see a mov of a
+
+28
+00:01:05,600 --> 00:01:10,880
+large constant but that is not the
+
+29
+00:01:07,920 --> 00:01:14,320
+0x2bad505ad constant that we might expect
+
+30
+00:01:10,880 --> 00:01:16,240
+we also see some shifting so let's see
+
+31
+00:01:14,320 --> 00:01:17,759
+what the ultimate result of this is
+
+32
+00:01:16,240 --> 00:01:18,159
+let's actually you know see what we
+
+33
+00:01:17,759 --> 00:01:21,200
+should
+
+34
+00:01:18,159 --> 00:01:23,520
+expect here so let's do a little bit of
+
+35
+00:01:21,200 --> 00:01:23,520
+math
+
+36
+00:01:24,400 --> 00:01:28,479
+so we got 0xdefec7ed
+
+37
+00:01:31,200 --> 00:01:35,759
+times 0xde7ec7ab1e
+
+38
+00:01:34,320 --> 00:01:37,600
+so this should be our intermediate
+
+39
+00:01:35,759 --> 00:01:37,920
+result and that's supposed to be divided
+
+40
+00:01:37,600 --> 00:01:40,400
+by
+
+41
+00:01:37,920 --> 00:01:41,200
+0x2bad505ad so let's step through the
+
+42
+00:01:40,400 --> 00:01:43,520
+assembly and
+
+43
+00:01:41,200 --> 00:01:44,479
+see at least our intermediate result so
+
+44
+00:01:43,520 --> 00:01:47,680
+stepping
+
+45
+00:01:44,479 --> 00:01:48,399
+stepping we're stepping 0xdefec7ed into
+
+46
+00:01:47,680 --> 00:01:51,439
+rax
+
+47
+00:01:48,399 --> 00:01:53,200
+rax into rbp minus 8
+
+48
+00:01:51,439 --> 00:01:54,640
+so that's going to be that a variable
+
+49
+00:01:53,200 --> 00:01:58,640
+from here there's a
+
+50
+00:01:54,640 --> 00:01:59,119
+right yep a and then a back into rax and
+
+51
+00:01:58,640 --> 00:02:02,560
+then
+
+52
+00:01:59,119 --> 00:02:05,520
+mov this 0xde7ec7ab1e into rdx
+
+53
+00:02:02,560 --> 00:02:06,399
+and then imul is going to take rax
+
+54
+00:02:05,520 --> 00:02:10,640
+times
+
+55
+00:02:06,399 --> 00:02:14,400
+rdx and store the result into rax
+
+56
+00:02:10,640 --> 00:02:17,920
+so step and there we go cf60
+
+57
+00:02:14,400 --> 00:02:18,640
+blah blah blah cc6 cf60 blah blah
+
+58
+00:02:17,920 --> 00:02:21,920
+blah
+
+59
+00:02:18,640 --> 00:02:23,280
+bcc6 so that's exactly what we would
+
+60
+00:02:21,920 --> 00:02:24,319
+expect for the result of the
+
+61
+00:02:23,280 --> 00:02:25,920
+multiplication
+
+62
+00:02:24,319 --> 00:02:27,680
+and then now we would expect that to be
+
+63
+00:02:25,920 --> 00:02:30,800
+stored back into a because it was a
+
+64
+00:02:27,680 --> 00:02:31,280
+times equals operation in the C source
+
+65
+00:02:30,800 --> 00:02:33,200
+code
+
+66
+00:02:31,280 --> 00:02:34,480
+so step and that stores it and then
+
+67
+00:02:33,200 --> 00:02:37,040
+plugs it back out
+
+68
+00:02:34,480 --> 00:02:38,239
+and now we have this mov of this giant
+
+69
+00:02:37,040 --> 00:02:38,879
+constant that we don't even know what
+
+70
+00:02:38,239 --> 00:02:41,280
+that is
+
+71
+00:02:38,879 --> 00:02:42,480
+into rdx then we have a unsigned
+
+72
+00:02:41,280 --> 00:02:45,120
+multiply
+
+73
+00:02:42,480 --> 00:02:46,239
+by rdx and remember the unsigned
+
+74
+00:02:45,120 --> 00:02:48,480
+multiply
+
+75
+00:02:46,239 --> 00:02:49,760
+has only the single form the one where
+
+76
+00:02:48,480 --> 00:02:51,920
+it implicitly
+
+77
+00:02:49,760 --> 00:02:54,879
+is going to be multiplying whatever
+
+78
+00:02:51,920 --> 00:02:58,159
+register you give it in r/mX
+
+79
+00:02:54,879 --> 00:03:00,879
+against the 64-bit value
+
+80
+00:02:58,159 --> 00:03:03,760
+so here it's going to multiply the rdx
+
+81
+00:03:00,879 --> 00:03:04,480
+implicitly times the rax and store the
+
+82
+00:03:03,760 --> 00:03:07,840
+result
+
+83
+00:03:04,480 --> 00:03:09,519
+into a 128-bit value where the most
+
+84
+00:03:07,840 --> 00:03:12,159
+significant bits are in rdx and the
+
+85
+00:03:09,519 --> 00:03:14,640
+least significant bits are in rax
+
+86
+00:03:12,159 --> 00:03:15,760
+so let's go ahead and do that alright so
+
+87
+00:03:14,640 --> 00:03:18,720
+we got some
+
+88
+00:03:15,760 --> 00:03:19,280
+giant results with the upper bits here
+
+89
+00:03:18,720 --> 00:03:22,480
+in
+
+90
+00:03:19,280 --> 00:03:23,120
+rdx the lower bits in rax next it's just
+
+91
+00:03:22,480 --> 00:03:24,879
+going to
+
+92
+00:03:23,120 --> 00:03:26,400
+take the upper bits and it's going to
+
+93
+00:03:24,879 --> 00:03:28,879
+stick them into rax
+
+94
+00:03:26,400 --> 00:03:31,040
+so seems like it's just clobbering
+
+95
+00:03:28,879 --> 00:03:33,599
+everything in the lower bits
+
+96
+00:03:31,040 --> 00:03:34,400
+so step through that and then next it's
+
+97
+00:03:33,599 --> 00:03:37,760
+going to
+
+98
+00:03:34,400 --> 00:03:41,200
+logical shift right by 21 bits
+
+99
+00:03:37,760 --> 00:03:44,720
+0x21 so 33 and then
+
+100
+00:03:41,200 --> 00:03:48,879
+this is the net result
+
+101
+00:03:44,720 --> 00:03:52,319
+0x4bf7be10. so if we go back and we look at
+
+102
+00:03:48,879 --> 00:03:53,760
+our code right here and we take our
+
+103
+00:03:52,319 --> 00:03:58,000
+intermediate result
+
+104
+00:03:53,760 --> 00:04:01,599
+we divide it by this 0x2bad505ad
+
+105
+00:03:58,000 --> 00:04:04,480
+then we're going to get 0x4bf7be10
+
+106
+00:04:01,599 --> 00:04:05,680
+so we yielded the right result but what
+
+107
+00:04:04,480 --> 00:04:08,640
+was up with that
+
+108
+00:04:05,680 --> 00:04:09,200
+giant random constant well the answer to
+
+109
+00:04:08,640 --> 00:04:11,360
+that
+
+110
+00:04:09,200 --> 00:04:13,280
+is that it was doing reciprocal
+
+111
+00:04:11,360 --> 00:04:14,799
+multiplication
+
+112
+00:04:13,280 --> 00:04:16,400
+and the basic point of reciprocal
+
+113
+00:04:14,799 --> 00:04:18,720
+multiplication is that divide
+
+114
+00:04:16,400 --> 00:04:20,959
+instructions are very expensive
+
+115
+00:04:18,720 --> 00:04:21,919
+and so if you can instead multiply by a
+
+116
+00:04:20,959 --> 00:04:24,000
+reciprocal
+
+117
+00:04:21,919 --> 00:04:25,759
+then that'll be cheaper and that'll be a
+
+118
+00:04:24,000 --> 00:04:27,600
+more optimized way of doing things
+
+119
+00:04:25,759 --> 00:04:30,479
+so for instance instead of dividing by
+
+120
+00:04:27,600 --> 00:04:32,400
+10 you can multiply by 1 over 10
+
+121
+00:04:30,479 --> 00:04:34,080
+and then you know this tutorial talks
+
+122
+00:04:32,400 --> 00:04:36,880
+about how a fraction like
+
+123
+00:04:34,080 --> 00:04:38,560
+1/10 can be represented you know in
+
+124
+00:04:36,880 --> 00:04:41,680
+decimal it's 0.1
+
+125
+00:04:38,560 --> 00:04:43,919
+because essentially this place is 10
+
+126
+00:04:41,680 --> 00:04:45,600
+raised to the negative 1 power and
+
+127
+00:04:43,919 --> 00:04:46,400
+then the next place over that this is
+
+128
+00:04:45,600 --> 00:04:49,120
+the tenths
+
+129
+00:04:46,400 --> 00:04:50,720
+is 10 to the negative 1 hundredths is
+
+130
+00:04:49,120 --> 00:04:53,120
+10 to the negative 2
+
+131
+00:04:50,720 --> 00:04:54,080
+thousandths is 10 to the negative 3
+
+132
+00:04:53,120 --> 00:04:57,440
+and so it
+
+133
+00:04:54,080 --> 00:05:02,960
+says here you can represent 0.1 in
+
+134
+00:04:57,440 --> 00:05:05,120
+base 10 as 0.000110011 repeating
+
+135
+00:05:02,960 --> 00:05:07,199
+but like there's no real justification
+
+136
+00:05:05,120 --> 00:05:09,440
+of like how we got this number at all
+
+137
+00:05:07,199 --> 00:05:11,440
+so to do that you know we have to
+
+138
+00:05:09,440 --> 00:05:13,600
+recognize how fractions are
+
+139
+00:05:11,440 --> 00:05:14,800
+represented that 10 to the negative 1 10
+
+140
+00:05:13,600 --> 00:05:16,720
+to the negative 2
+
+141
+00:05:14,800 --> 00:05:18,240
+and then recognize that in binary it's
+
+142
+00:05:16,720 --> 00:05:19,039
+going to be the same thing 2 to the
+
+143
+00:05:18,240 --> 00:05:21,360
+negative 1
+
+144
+00:05:19,039 --> 00:05:22,960
+to the negative 2 etc so if you're
+
+145
+00:05:21,360 --> 00:05:25,039
+trying to represent something like
+
+146
+00:05:22,960 --> 00:05:27,199
+point one you would see that there's
+
+147
+00:05:25,039 --> 00:05:29,120
+zero point fives in point one
+
+148
+00:05:27,199 --> 00:05:30,320
+there's zero point two fives in point
+
+149
+00:05:29,120 --> 00:05:32,800
+one there's zero
+
+150
+00:05:30,320 --> 00:05:34,320
+point one two fives in point one but
+
+151
+00:05:32,800 --> 00:05:37,680
+there is one point
+
+152
+00:05:34,320 --> 00:05:38,400
+six in point one and there is further
+
+153
+00:05:37,680 --> 00:05:40,560
+another
+
+154
+00:05:38,400 --> 00:05:41,759
+point three in point one so adding those
+
+155
+00:05:40,560 --> 00:05:43,759
+together is still less than
+
+156
+00:05:41,759 --> 00:05:45,680
+point one and so the fraction would
+
+157
+00:05:43,759 --> 00:05:46,800
+continue and so that's basically what
+
+158
+00:05:45,680 --> 00:05:48,639
+he's showing here
+
+159
+00:05:46,800 --> 00:05:50,240
+is basically there's no point fives
+
+160
+00:05:48,639 --> 00:05:51,600
+there's no point two fives there's no
+
+161
+00:05:50,240 --> 00:05:55,280
+point one two fives
+
+162
+00:05:51,600 --> 00:05:59,440
+but there is a .006
+
+163
+00:05:55,280 --> 00:06:01,759
+whatever it is 0.0625 and so forth
+
+164
+00:05:59,440 --> 00:06:03,280
+so that is basically saying that we can
+
+165
+00:06:01,759 --> 00:06:05,360
+represent fractions
+
+166
+00:06:03,280 --> 00:06:06,400
+in decimal like this and then there's
+
+167
+00:06:05,360 --> 00:06:08,319
+further examples
+
+168
+00:06:06,400 --> 00:06:10,000
+I put this here just to say you know
+
+169
+00:06:08,319 --> 00:06:12,800
+there's a tutorial you can go
+
+170
+00:06:10,000 --> 00:06:14,240
+dig into it if you want but it's very
+
+171
+00:06:12,800 --> 00:06:16,240
+long and it's detailed it's talking
+
+172
+00:06:14,240 --> 00:06:17,600
+about 16-bit you know it explains why
+
+173
+00:06:16,240 --> 00:06:19,520
+there's going to be
+
+174
+00:06:17,600 --> 00:06:21,600
+you know things like bit shifts and so
+
+175
+00:06:19,520 --> 00:06:22,080
+forth that that's where our shift came
+
+176
+00:06:21,600 --> 00:06:23,680
+from
+
+177
+00:06:22,080 --> 00:06:25,919
+and it ultimately gives you the
+
+178
+00:06:23,680 --> 00:06:28,560
+generalized form of like how you
+
+179
+00:06:25,919 --> 00:06:29,280
+calculate a reciprocal for some constant
+
+180
+00:06:28,560 --> 00:06:31,120
+d
+
+181
+00:06:29,280 --> 00:06:33,680
+and you know the answer is a bunch of
+
+182
+00:06:31,120 --> 00:06:35,280
+math and the compiler has clearly done
+
+183
+00:06:33,680 --> 00:06:37,039
+this sort of math in order to
+
+184
+00:06:35,280 --> 00:06:38,479
+just pre-calculate what the reciprocal
+
+185
+00:06:37,039 --> 00:06:40,400
+could be as an optimization
+
+186
+00:06:38,479 --> 00:06:42,160
+so again my assertion is for the most
+
+187
+00:06:40,400 --> 00:06:46,800
+part you really don't need to
+
+188
+00:06:42,160 --> 00:06:46,800
+know exactly how to calculate those
+
+189
+00:06:46,840 --> 00:06:52,160
+reciprocals
+
+190
+00:06:48,560 --> 00:06:53,120
+what you need is to be able to recognize
+
+191
+00:06:52,160 --> 00:06:55,919
+when you see
+
+192
+00:06:53,120 --> 00:06:56,800
+this kind of thing some giant weird
+
+193
+00:06:55,919 --> 00:06:59,680
+constants
+
+194
+00:06:56,800 --> 00:07:01,440
+some multiply some shift that probably
+
+195
+00:06:59,680 --> 00:07:03,440
+what's going on is the compiler you know
+
+196
+00:07:01,440 --> 00:07:05,039
+the human probably hasn't written that
+
+197
+00:07:03,440 --> 00:07:06,479
+unless you know you're dealing with some
+
+198
+00:07:05,039 --> 00:07:08,160
+you know human
+
+199
+00:07:06,479 --> 00:07:09,680
+making malicious code that looks all
+
+200
+00:07:08,160 --> 00:07:10,720
+weird but quite frankly again a human
+
+201
+00:07:09,680 --> 00:07:11,520
+shouldn't write that they should be
+
+202
+00:07:10,720 --> 00:07:13,280
+writing you know
+
+203
+00:07:11,520 --> 00:07:14,800
+programmatically generated weird code if
+
+204
+00:07:13,280 --> 00:07:16,000
+they're trying to do you know program up
+
+205
+00:07:14,800 --> 00:07:17,840
+obfuscation so
+
+206
+00:07:16,000 --> 00:07:19,360
+the point is just to recognize that this
+
+207
+00:07:17,840 --> 00:07:21,440
+kind of thing is probably compiler
+
+208
+00:07:19,360 --> 00:07:23,280
+generated optimization
+
+209
+00:07:21,440 --> 00:07:25,440
+as opposed to something the programmer
+
+210
+00:07:23,280 --> 00:07:27,039
+is going for and you just roll with it
+
+211
+00:07:25,440 --> 00:07:28,240
+by just you know stepping through and
+
+212
+00:07:27,039 --> 00:07:31,759
+seeing what the result is
+
+213
+00:07:28,240 --> 00:07:31,759
+and taking it from there
+

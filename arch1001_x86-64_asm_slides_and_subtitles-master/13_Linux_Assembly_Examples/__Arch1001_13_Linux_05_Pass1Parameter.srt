@@ -1,0 +1,352 @@
+1
+00:00:00,160 --> 00:00:04,080
+next we're going to start looking again
+
+2
+00:00:01,760 --> 00:00:05,520
+at how function parameters are passed so
+
+3
+00:00:04,080 --> 00:00:07,359
+we're going to start with
+
+4
+00:00:05,520 --> 00:00:10,080
+Pass1Parameter
+
+5
+00:00:07,359 --> 00:00:11,759
+let's take a look at that that was the
+
+6
+00:00:10,080 --> 00:00:13,920
+one that had main with no local
+
+7
+00:00:11,759 --> 00:00:14,799
+variables calling func with hardcoded
+
+8
+00:00:13,920 --> 00:00:17,039
+0x11
+
+9
+00:00:14,799 --> 00:00:18,400
+a which is the argument gets put into
+
+10
+00:00:17,039 --> 00:00:19,760
+local variable i
+
+11
+00:00:18,400 --> 00:00:23,439
+which then just gets immediately
+
+12
+00:00:19,760 --> 00:00:23,439
+returned so let's compile it
+
+13
+00:00:27,680 --> 00:00:34,239
+and debug it okay so we see
+
+14
+00:00:31,439 --> 00:00:34,960
+that 0x11 is going to be moving into
+
+15
+00:00:34,239 --> 00:00:37,440
+edi
+
+16
+00:00:34,960 --> 00:00:39,040
+so that has to do with the System V
+
+17
+00:00:37,440 --> 00:00:42,320
+calling convention where we said
+
+18
+00:00:39,040 --> 00:00:46,079
+rsi or sorry rdi rsi
+
+19
+00:00:42,320 --> 00:00:48,559
+rdx rcx r8 r9 are the registers that are
+
+20
+00:00:46,079 --> 00:00:51,120
+used for passing parameters
+
+21
+00:00:48,559 --> 00:00:52,960
+so let's go ahead and step into this
+
+22
+00:00:51,120 --> 00:00:54,800
+then inside of function we have the
+
+23
+00:00:52,960 --> 00:00:58,000
+standard function prolog
+
+24
+00:00:54,800 --> 00:01:01,120
+then we see edi which is
+
+25
+00:00:58,000 --> 00:01:04,080
+because it's an int being put into rbp
+
+26
+00:01:01,120 --> 00:01:05,519
+minus 0x14 so again accessing the red zone
+
+27
+00:01:04,080 --> 00:01:07,520
+then it's immediately pulling it right
+
+28
+00:01:05,519 --> 00:01:10,799
+back out and putting it into eax
+
+29
+00:01:07,520 --> 00:01:13,119
+and then eax goes into 4 and then
+
+30
+00:01:10,799 --> 00:01:15,200
+4 gets put into the return value so
+
+31
+00:01:13,119 --> 00:01:16,720
+we've got the thing being stored here
+
+32
+00:01:15,200 --> 00:01:17,840
+onto the stack a couple of times
+
+33
+00:01:16,720 --> 00:01:19,439
+duplicatively
+
+34
+00:01:17,840 --> 00:01:21,600
+go ahead and you know just take a look
+
+35
+00:01:19,439 --> 00:01:24,080
+at this let's set up a display
+
+36
+00:01:21,600 --> 00:01:24,960
+and we need to display at least 0x14
+
+37
+00:01:24,080 --> 00:01:27,600
+down so
+
+38
+00:01:24,960 --> 00:01:28,880
+i'm going to go ahead and display it in
+
+39
+00:01:27,600 --> 00:01:32,560
+integer sizes
+
+40
+00:01:28,880 --> 00:01:34,560
+so display 5 words because that's the
+
+41
+00:01:32,560 --> 00:01:37,759
+integer size for gdb
+
+42
+00:01:34,560 --> 00:01:41,600
+in hex and starting at rbp
+
+43
+00:01:37,759 --> 00:01:45,600
+minus 0x14 so let's go ahead and step
+
+44
+00:01:41,600 --> 00:01:46,720
+step step step there we go we saw that
+
+45
+00:01:45,600 --> 00:01:49,840
+moved into
+
+46
+00:01:46,720 --> 00:01:51,040
+rbp minus 0x14 0x11 goes there
+
+47
+00:01:49,840 --> 00:01:53,040
+and then it's going to be pulled right
+
+48
+00:01:51,040 --> 00:01:56,479
+back out put into eax
+
+49
+00:01:53,040 --> 00:01:59,200
+and eax is gonna go into rbp minus 4
+
+50
+00:01:56,479 --> 00:02:00,640
+so there we go we saw that right there
+
+51
+00:01:59,200 --> 00:02:02,320
+rbp minus 4
+
+52
+00:02:00,640 --> 00:02:04,479
+and that's just pulled back out and put
+
+53
+00:02:02,320 --> 00:02:06,560
+into eax which is the return value
+
+54
+00:02:04,479 --> 00:02:07,759
+and so that's all that happens in this
+
+55
+00:02:06,560 --> 00:02:09,520
+function if we
+
+56
+00:02:07,759 --> 00:02:11,120
+wanted to get a sense of what our stack
+
+57
+00:02:09,520 --> 00:02:12,160
+was looking like here it would look
+
+58
+00:02:11,120 --> 00:02:14,160
+something like this
+
+59
+00:02:12,160 --> 00:02:15,520
+you have the return address to get back
+
+60
+00:02:14,160 --> 00:02:17,760
+out of main you've got the
+
+61
+00:02:15,520 --> 00:02:19,520
+ebp which gets saved immediately when
+
+62
+00:02:17,760 --> 00:02:22,000
+you get into main
+
+63
+00:02:19,520 --> 00:02:23,280
+0 because there's no further stack
+
+64
+00:02:22,000 --> 00:02:25,680
+frames before this
+
+65
+00:02:23,280 --> 00:02:27,040
+then when main calls into func you get
+
+66
+00:02:25,680 --> 00:02:29,040
+the return address there
+
+67
+00:02:27,040 --> 00:02:31,360
+and again first thing it does is save
+
+68
+00:02:29,040 --> 00:02:32,319
+the ebp or rbp is what that should
+
+69
+00:02:31,360 --> 00:02:35,120
+actually say
+
+70
+00:02:32,319 --> 00:02:35,599
+I'll fix that slide in a bit and then
+
+71
+00:02:35,120 --> 00:02:39,519
+the
+
+72
+00:02:35,599 --> 00:02:41,519
+0x11 gets placed at rbp minus 0x14
+
+73
+00:02:39,519 --> 00:02:43,840
+and I'm going to tell you that that's a
+
+74
+00:02:41,519 --> 00:02:46,959
+and then the 0x11 gets placed at
+
+75
+00:02:43,840 --> 00:02:48,640
+ebp minus or rbp minus 4
+
+76
+00:02:46,959 --> 00:02:50,160
+and I'm going to tell you that's I and
+
+77
+00:02:48,640 --> 00:02:51,840
+in order to really come to those
+
+78
+00:02:50,160 --> 00:02:53,280
+conclusions you know we could do more
+
+79
+00:02:51,840 --> 00:02:54,800
+experiments we could play around with
+
+80
+00:02:53,280 --> 00:02:56,560
+the code but we've already got a
+
+81
+00:02:54,800 --> 00:02:57,760
+pre-made experiment for us it's going to
+
+82
+00:02:56,560 --> 00:03:00,080
+be the next example
+
+83
+00:02:57,760 --> 00:03:02,000
+which is too many parameters now let's
+
+84
+00:03:00,080 --> 00:03:03,519
+just get a sense of there's a local
+
+85
+00:03:02,000 --> 00:03:05,440
+variable and there's
+
+86
+00:03:03,519 --> 00:03:07,599
+some sort of storage of the function
+
+87
+00:03:05,440 --> 00:03:10,959
+parameter which may or may not look like
+
+88
+00:03:07,599 --> 00:03:10,959
+something we've seen in the past
+

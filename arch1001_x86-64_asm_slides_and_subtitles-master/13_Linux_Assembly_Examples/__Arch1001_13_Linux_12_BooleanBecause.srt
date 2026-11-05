@@ -1,0 +1,292 @@
+1
+00:00:00,160 --> 00:00:03,199
+we're going to do some examples that
+
+2
+00:00:02,240 --> 00:00:05,600
+should cause
+
+3
+00:00:03,199 --> 00:00:06,240
+boolean operations to appear so let's
+
+4
+00:00:05,600 --> 00:00:09,360
+start with
+
+5
+00:00:06,240 --> 00:00:12,960
+BooleanBecause and as a reminder
+
+6
+00:00:09,360 --> 00:00:13,679
+this was taking 0x50da into i 0xc0ffee into
+
+7
+00:00:12,960 --> 00:00:17,039
+j
+
+8
+00:00:13,679 --> 00:00:18,640
+0x7ea707a11ed into k and then from the order
+
+9
+00:00:17,039 --> 00:00:21,520
+of operations it would do
+
+10
+00:00:18,640 --> 00:00:22,480
+i and j and then it would not that
+
+11
+00:00:21,520 --> 00:00:24,480
+result
+
+12
+00:00:22,480 --> 00:00:25,519
+and then it would or that result with
+
+13
+00:00:24,480 --> 00:00:28,480
+0x7ab00
+
+14
+00:00:25,519 --> 00:00:30,080
+and then it would xor that result with k
+
+15
+00:00:28,480 --> 00:00:32,000
+and store it back into k
+
+16
+00:00:30,080 --> 00:00:33,840
+because this is an xor equals it's
+
+17
+00:00:32,000 --> 00:00:36,880
+basically k xor
+
+18
+00:00:33,840 --> 00:00:38,960
+k stored back into k sorry k xor end
+
+19
+00:00:36,880 --> 00:00:41,920
+result of this store back into k
+
+20
+00:00:38,960 --> 00:00:43,200
+all right so let's compile that and see
+
+21
+00:00:41,920 --> 00:00:45,680
+the assembly
+
+22
+00:00:43,200 --> 00:00:47,440
+so from before we expected that an and
+
+23
+00:00:45,680 --> 00:00:50,320
+would happen first and then a not
+
+24
+00:00:47,440 --> 00:00:50,960
+on the result and then an or with 0x7ab00
+
+25
+00:00:50,320 --> 00:00:53,840
+and then an
+
+26
+00:00:50,960 --> 00:00:54,399
+xor of k back into the result of all
+
+27
+00:00:53,840 --> 00:00:56,399
+this
+
+28
+00:00:54,399 --> 00:00:57,680
+so let's go ahead and just you know step
+
+29
+00:00:56,399 --> 00:01:00,879
+through and watch the
+
+30
+00:00:57,680 --> 00:01:01,440
+what's the wonder of the math so stack
+
+31
+00:01:00,879 --> 00:01:06,080
+frame
+
+32
+00:01:01,440 --> 00:01:09,439
+setup and then 0x50da into i
+
+33
+00:01:06,080 --> 00:01:13,760
+so i must be at rbp minus 4
+
+34
+00:01:09,439 --> 00:01:16,799
+j must be at rbp minus 8 and
+
+35
+00:01:13,760 --> 00:01:18,560
+k 0x7ea707a11ed into rax but then rax goes
+
+36
+00:01:16,799 --> 00:01:21,200
+into rbp minus 10.
+
+37
+00:01:18,560 --> 00:01:22,000
+so step step step writing some stuff
+
+38
+00:01:21,200 --> 00:01:24,799
+there
+
+39
+00:01:22,000 --> 00:01:27,040
+and then pulling it back out so we're
+
+40
+00:01:24,799 --> 00:01:28,479
+gonna take the i
+
+41
+00:01:27,040 --> 00:01:31,119
+and we're going to put in the eax and
+
+42
+00:01:28,479 --> 00:01:33,680
+we're going to and that with the j
+
+43
+00:01:31,119 --> 00:01:34,400
+and then put that result back into eax
+
+44
+00:01:33,680 --> 00:01:38,479
+so
+
+45
+00:01:34,400 --> 00:01:41,600
+step 0x50da and added together
+
+46
+00:01:38,479 --> 00:01:45,920
+is going to yield 0x50ca
+
+47
+00:01:41,600 --> 00:01:49,439
+and then notted 0xffffaf35
+
+48
+00:01:45,920 --> 00:01:51,840
+and ored with 0x7ab00 and no
+
+49
+00:01:49,439 --> 00:01:53,680
+meaningful change there did i it's going
+
+50
+00:01:51,840 --> 00:01:56,079
+back in the same register yes it is
+
+51
+00:01:53,680 --> 00:01:57,600
+so none of the bits sort of were
+
+52
+00:01:56,079 --> 00:02:01,280
+different there
+
+53
+00:01:57,600 --> 00:02:04,560
+faf3 yup same thing
+
+54
+00:02:01,280 --> 00:02:06,880
+all right and then mov eax to eax
+
+55
+00:02:04,560 --> 00:02:07,680
+whole bunch of nothing going on there
+
+56
+00:02:06,880 --> 00:02:11,680
+thanks to
+
+57
+00:02:07,680 --> 00:02:15,120
+unoptimized compilation now xor
+
+58
+00:02:11,680 --> 00:02:17,920
+rax with rbp minus 10.
+
+59
+00:02:15,120 --> 00:02:18,800
+that was the 0x7ea707a11ed that was the k
+
+60
+00:02:17,920 --> 00:02:22,000
+value
+
+61
+00:02:18,800 --> 00:02:24,640
+so this was the result and it's taking
+
+62
+00:02:22,000 --> 00:02:25,920
+the result right here and xoring it with
+
+63
+00:02:24,640 --> 00:02:27,200
+the k value and then it's going to store
+
+64
+00:02:25,920 --> 00:02:29,120
+it back into k
+
+65
+00:02:27,200 --> 00:02:30,560
+and sorry to be clear it's taking this
+
+66
+00:02:29,120 --> 00:02:32,319
+value out of memory
+
+67
+00:02:30,560 --> 00:02:34,480
+xoring it with the result that we have
+
+68
+00:02:32,319 --> 00:02:36,319
+thus far and storing it back in because
+
+69
+00:02:34,480 --> 00:02:39,920
+you know the operations are
+
+70
+00:02:36,319 --> 00:02:41,760
+this xor that into that step
+
+71
+00:02:39,920 --> 00:02:44,160
+and then plucking it out of that and
+
+72
+00:02:41,760 --> 00:02:48,000
+putting in an rax so we can return it
+
+73
+00:02:44,160 --> 00:02:48,000
+and that is the net result
+

@@ -1,0 +1,944 @@
+1
+00:00:00,160 --> 00:00:03,760
+we're now going to get into the heart of
+
+2
+00:00:01,599 --> 00:00:04,560
+the class which is looking at very
+
+3
+00:00:03,760 --> 00:00:06,160
+simple c
+
+4
+00:00:04,560 --> 00:00:07,839
+code and seeing the assembly
+
+5
+00:00:06,160 --> 00:00:09,679
+instructions that it generates
+
+6
+00:00:07,839 --> 00:00:11,200
+so here we have something that's utterly
+
+7
+00:00:09,679 --> 00:00:13,840
+trivial just main
+
+8
+00:00:11,200 --> 00:00:15,440
+calls a function function just returns a
+
+9
+00:00:13,840 --> 00:00:17,039
+hard-coded constant
+
+10
+00:00:15,440 --> 00:00:18,720
+and then we don't actually even do
+
+11
+00:00:17,039 --> 00:00:20,880
+anything with that return address
+
+12
+00:00:18,720 --> 00:00:21,840
+and main returns some other hard-coded
+
+13
+00:00:20,880 --> 00:00:24,640
+constant
+
+14
+00:00:21,840 --> 00:00:25,840
+so what gets generated for this here's
+
+15
+00:00:24,640 --> 00:00:27,599
+the assembly
+
+16
+00:00:25,840 --> 00:00:29,279
+and it looks like we have five
+
+17
+00:00:27,599 --> 00:00:31,840
+completely new assembly instructions
+
+18
+00:00:29,279 --> 00:00:35,120
+that we need to learn about
+
+19
+00:00:31,840 --> 00:00:37,040
+the first one call call's job is to
+
+20
+00:00:35,120 --> 00:00:38,879
+transfer control to a different function
+
+21
+00:00:37,040 --> 00:00:40,879
+in a way that the control can later be
+
+22
+00:00:38,879 --> 00:00:43,520
+resumed where it left off
+
+23
+00:00:40,879 --> 00:00:44,000
+so basically it's going to push the
+
+24
+00:00:43,520 --> 00:00:47,200
+address
+
+25
+00:00:44,000 --> 00:00:49,120
+of the next instruction onto the stack
+
+26
+00:00:47,200 --> 00:00:50,879
+so implicitly that push is going to move
+
+27
+00:00:49,120 --> 00:00:52,960
+rsp down by eight
+
+28
+00:00:50,879 --> 00:00:54,800
+and so that's going to serve as what we
+
+29
+00:00:52,960 --> 00:00:56,079
+call the return address which will be
+
+30
+00:00:54,800 --> 00:00:58,480
+used by the return
+
+31
+00:00:56,079 --> 00:00:59,840
+instruction in order to get back to the
+
+32
+00:00:58,480 --> 00:01:01,600
+calling function
+
+33
+00:00:59,840 --> 00:01:03,199
+so i mentioned that in the stack section
+
+34
+00:01:01,600 --> 00:01:05,600
+return addresses are one of the things
+
+35
+00:01:03,199 --> 00:01:07,680
+that end up on the stack
+
+36
+00:01:05,600 --> 00:01:08,960
+after the return address is pushed into
+
+37
+00:01:07,680 --> 00:01:12,080
+the stack by the call
+
+38
+00:01:08,960 --> 00:01:14,479
+assembly instruction it changes rip
+
+39
+00:01:12,080 --> 00:01:16,159
+the really long instruction pointer to
+
+40
+00:01:14,479 --> 00:01:17,759
+the address that's given in the
+
+41
+00:01:16,159 --> 00:01:19,360
+instructions so that's going to be the
+
+42
+00:01:17,759 --> 00:01:21,119
+address of the target function that you
+
+43
+00:01:19,360 --> 00:01:23,520
+want to call
+
+44
+00:01:21,119 --> 00:01:25,439
+now the destination address can actually
+
+45
+00:01:23,520 --> 00:01:27,759
+be specified in multiple ways
+
+46
+00:01:25,439 --> 00:01:29,280
+it could be an absolute address or it
+
+47
+00:01:27,759 --> 00:01:31,280
+could be a relative address
+
+48
+00:01:29,280 --> 00:01:33,040
+which could either be relative to the
+
+49
+00:01:31,280 --> 00:01:35,320
+end of the call instruction
+
+50
+00:01:33,040 --> 00:01:36,880
+or it could be relative to some
+
+51
+00:01:35,320 --> 00:01:39,360
+completely different
+
+52
+00:01:36,880 --> 00:01:40,720
+register so we're not exactly going to
+
+53
+00:01:39,360 --> 00:01:42,479
+care about these you're not going to
+
+54
+00:01:40,720 --> 00:01:43,920
+really see the differences between the
+
+55
+00:01:42,479 --> 00:01:46,240
+encoding for the most part
+
+56
+00:01:43,920 --> 00:01:47,759
+but later on when we talk about assembly
+
+57
+00:01:46,240 --> 00:01:50,399
+instruction encoding
+
+58
+00:01:47,759 --> 00:01:52,399
+or if and if you happen to be you know
+
+59
+00:01:50,399 --> 00:01:54,560
+hard coding some assembly yourself
+
+60
+00:01:52,399 --> 00:01:55,520
+then you'll certainly care about how
+
+61
+00:01:54,560 --> 00:01:58,000
+exactly
+
+62
+00:01:55,520 --> 00:02:00,640
+targets of call assembly instructions
+
+63
+00:01:58,000 --> 00:02:00,640
+are encoded
+
+64
+00:02:00,719 --> 00:02:03,759
+so perfectly balanced the call has its
+
+65
+00:02:03,360 --> 00:02:06,399
+own
+
+66
+00:02:03,759 --> 00:02:07,040
+return there are two forms of return the
+
+67
+00:02:06,399 --> 00:02:09,840
+first one
+
+68
+00:02:07,040 --> 00:02:11,280
+just basically pops the top of the stack
+
+69
+00:02:09,840 --> 00:02:12,239
+whatever is on top of the stack at the
+
+70
+00:02:11,280 --> 00:02:14,640
+time that the ret
+
+71
+00:02:12,239 --> 00:02:16,640
+instruction is called that's going to go
+
+72
+00:02:14,640 --> 00:02:18,400
+back into rip
+
+73
+00:02:16,640 --> 00:02:20,879
+and of course because it's popping
+
+74
+00:02:18,400 --> 00:02:22,080
+implicitly pop is going to increment the
+
+75
+00:02:20,879 --> 00:02:23,920
+stack pointer rsp
+
+76
+00:02:22,080 --> 00:02:26,319
+by 8. so basically whatever's on the
+
+77
+00:02:23,920 --> 00:02:29,680
+stack stick it in rip and rsp
+
+78
+00:02:26,319 --> 00:02:30,640
+plus 8. there's also another form of pop
+
+79
+00:02:29,680 --> 00:02:33,280
+that you will see
+
+80
+00:02:30,640 --> 00:02:34,720
+less frequently where it can essentially
+
+81
+00:02:33,280 --> 00:02:36,400
+do the same thing as that but then you
+
+82
+00:02:34,720 --> 00:02:38,319
+can actually also specify
+
+83
+00:02:36,400 --> 00:02:39,440
+some number of bytes that you want also
+
+84
+00:02:38,319 --> 00:02:41,200
+added to rsp
+
+85
+00:02:39,440 --> 00:02:42,480
+so instead of just popping one thing off
+
+86
+00:02:41,200 --> 00:02:44,640
+the top of the stack it's like pop it
+
+87
+00:02:42,480 --> 00:02:46,800
+off the top of the stack put it in rip
+
+88
+00:02:44,640 --> 00:02:49,360
+and then go ahead and add an extra 8
+
+89
+00:02:46,800 --> 00:02:51,040
+bytes to rrsp add an extra 20 bytes
+
+90
+00:02:49,360 --> 00:02:53,280
+like i said you won't see this as much
+
+91
+00:02:51,040 --> 00:02:55,760
+but there is a particular
+
+92
+00:02:53,280 --> 00:02:57,200
+way of calling functions that's used by
+
+93
+00:02:55,760 --> 00:02:59,040
+windows apis
+
+94
+00:02:57,200 --> 00:03:00,480
+and so if you ever start disassembling
+
+95
+00:02:59,040 --> 00:03:02,840
+windows apis you will
+
+96
+00:03:00,480 --> 00:03:05,040
+potentially see this type of assembly
+
+97
+00:03:02,840 --> 00:03:06,400
+instruction
+
+98
+00:03:05,040 --> 00:03:08,720
+now before we get to the next
+
+99
+00:03:06,400 --> 00:03:12,159
+instruction we have to talk about how
+
+100
+00:03:08,720 --> 00:03:15,519
+intel versus at t syntax deal with
+
+101
+00:03:12,159 --> 00:03:19,519
+two operand instructions so
+
+102
+00:03:15,519 --> 00:03:20,560
+in Intel syntax two operand instructions
+
+103
+00:03:19,519 --> 00:03:22,640
+have the sources
+
+104
+00:03:20,560 --> 00:03:24,080
+on the right and the destinations on the
+
+105
+00:03:22,640 --> 00:03:26,480
+left so
+
+106
+00:03:24,080 --> 00:03:27,519
+windows uses this form typically windows
+
+107
+00:03:26,480 --> 00:03:30,560
+tends to use
+
+108
+00:03:27,519 --> 00:03:33,680
+intel assembly and things like unix's
+
+109
+00:03:30,560 --> 00:03:35,440
+tend to use AT&T assembly syntax so
+
+110
+00:03:33,680 --> 00:03:37,280
+sources on the right destinations on the
+
+111
+00:03:35,440 --> 00:03:39,519
+left you can think of this kind of like
+
+112
+00:03:37,280 --> 00:03:41,280
+c programming or algebra where you have
+
+113
+00:03:39,519 --> 00:03:41,680
+stuff over here and it goes into the
+
+114
+00:03:41,280 --> 00:03:45,280
+thing
+
+115
+00:03:41,680 --> 00:03:48,400
+on the left so if i show you a move
+
+116
+00:03:45,280 --> 00:03:50,080
+rsp to rbp if i show you an instruction
+
+117
+00:03:48,400 --> 00:03:52,159
+move and two operands you don't
+
+118
+00:03:50,080 --> 00:03:53,840
+necessarily know which way it's going
+
+119
+00:03:52,159 --> 00:03:55,200
+except that i'm telling you if you're in
+
+120
+00:03:53,840 --> 00:03:58,319
+Intel syntax
+
+121
+00:03:55,200 --> 00:04:00,640
+it's going from the right to the left
+
+122
+00:03:58,319 --> 00:04:03,200
+so this would take the register rsp and
+
+123
+00:04:00,640 --> 00:04:04,640
+put the value into rbp
+
+124
+00:04:03,200 --> 00:04:06,400
+add you know we haven't covered these
+
+125
+00:04:04,640 --> 00:04:10,000
+assembly instructions yet but you know
+
+126
+00:04:06,400 --> 00:04:11,200
+just add is going to take rsp plus 14
+
+127
+00:04:10,000 --> 00:04:13,200
+and then it's going to put it back into
+
+128
+00:04:11,200 --> 00:04:14,480
+rsp so even though there's kind of two
+
+129
+00:04:13,200 --> 00:04:17,600
+assembly instructions
+
+130
+00:04:14,480 --> 00:04:20,079
+this is both a source and a destination
+
+131
+00:04:17,600 --> 00:04:21,199
+right AT&T syntax it's the opposite
+
+132
+00:04:20,079 --> 00:04:23,680
+direction
+
+133
+00:04:21,199 --> 00:04:24,240
+so elementary school one plus two equals
+
+134
+00:04:23,680 --> 00:04:27,520
+three
+
+135
+00:04:24,240 --> 00:04:30,240
+so again move rsp rbp you have no way to
+
+136
+00:04:27,520 --> 00:04:30,560
+implicitly know what the direction is of
+
+137
+00:04:30,240 --> 00:04:32,320
+here
+
+138
+00:04:30,560 --> 00:04:33,600
+other than that i'm telling you if it's
+
+139
+00:04:32,320 --> 00:04:35,520
+at t syntax
+
+140
+00:04:33,600 --> 00:04:36,880
+it's moving from the left to the right
+
+141
+00:04:35,520 --> 00:04:41,199
+move rsp to
+
+142
+00:04:36,880 --> 00:04:44,400
+rbp also you'll see that registers get a
+
+143
+00:04:41,199 --> 00:04:45,680
+percent sign prefix in front of them so
+
+144
+00:04:44,400 --> 00:04:46,639
+you know like okay that's register
+
+145
+00:04:45,680 --> 00:04:49,280
+that's register
+
+146
+00:04:46,639 --> 00:04:50,240
+and immediates those constant values get
+
+147
+00:04:49,280 --> 00:04:53,360
+a dollar sign
+
+148
+00:04:50,240 --> 00:04:55,280
+prefix in front of them so in this class
+
+149
+00:04:53,360 --> 00:04:56,160
+i'm going to prefer Intel syntax even
+
+150
+00:04:55,280 --> 00:04:59,360
+though i originally
+
+151
+00:04:56,160 --> 00:05:01,120
+learned AT&T syntax but it's
+
+152
+00:04:59,360 --> 00:05:03,280
+important for you to know both and you
+
+153
+00:05:01,120 --> 00:05:03,680
+know we'll cover AT&T and Intel syntax
+
+154
+00:05:03,280 --> 00:05:05,759
+more
+
+155
+00:05:03,680 --> 00:05:07,360
+later on but you need to know both
+
+156
+00:05:05,759 --> 00:05:08,960
+because essentially you know
+
+157
+00:05:07,360 --> 00:05:11,199
+per one of the reasons why should you
+
+158
+00:05:08,960 --> 00:05:13,039
+learn assembly because people giving
+
+159
+00:05:11,199 --> 00:05:14,240
+talks might be showing you some assembly
+
+160
+00:05:13,039 --> 00:05:15,919
+to try to make a point
+
+161
+00:05:14,240 --> 00:05:17,680
+you don't get to choose how the
+
+162
+00:05:15,919 --> 00:05:18,880
+particular person giving the talk is
+
+163
+00:05:17,680 --> 00:05:21,120
+going to put it in intel
+
+164
+00:05:18,880 --> 00:05:22,560
+or AT&T syntax so you're going to be able
+
+165
+00:05:21,120 --> 00:05:24,240
+to read both to understand what they're
+
+166
+00:05:22,560 --> 00:05:26,639
+saying so the move instruction
+
+167
+00:05:24,240 --> 00:05:28,800
+has many different forms it can move
+
+168
+00:05:26,639 --> 00:05:30,560
+from one register to the next register
+
+169
+00:05:28,800 --> 00:05:32,320
+it can take memory and put it into a
+
+170
+00:05:30,560 --> 00:05:33,199
+register it can take register and put it
+
+171
+00:05:32,320 --> 00:05:34,960
+into memory
+
+172
+00:05:33,199 --> 00:05:36,400
+and it can take an immediate value and
+
+173
+00:05:34,960 --> 00:05:39,039
+put it into a register or
+
+174
+00:05:36,400 --> 00:05:40,160
+immediate value into memory but the form
+
+175
+00:05:39,039 --> 00:05:42,400
+you don't see here
+
+176
+00:05:40,160 --> 00:05:43,360
+is memory to memory so move does not
+
+177
+00:05:42,400 --> 00:05:46,000
+support
+
+178
+00:05:43,360 --> 00:05:47,680
+memory to memory transfers and whenever
+
+179
+00:05:46,000 --> 00:05:49,919
+i talk about memory up here
+
+180
+00:05:47,680 --> 00:05:52,960
+in the possible forms memory addresses
+
+181
+00:05:49,919 --> 00:05:55,120
+are always given in rmx forms
+
+182
+00:05:52,960 --> 00:05:57,039
+so for instance i said it can put an
+
+183
+00:05:55,120 --> 00:05:58,720
+immediate into memory so that would be
+
+184
+00:05:57,039 --> 00:06:01,759
+like an immediate value
+
+185
+00:05:58,720 --> 00:06:03,440
+and stick it into a memory address intel
+
+186
+00:06:01,759 --> 00:06:05,840
+can't actually support
+
+187
+00:06:03,440 --> 00:06:06,479
+64-bit immediate values when moving into
+
+188
+00:06:05,840 --> 00:06:08,880
+memory
+
+189
+00:06:06,479 --> 00:06:11,440
+but it can support 64-bit immediate
+
+190
+00:06:08,880 --> 00:06:13,600
+values when moving into a register
+
+191
+00:06:11,440 --> 00:06:15,520
+so here we have you know the various
+
+192
+00:06:13,600 --> 00:06:17,280
+forms of rmx that we saw before
+
+193
+00:06:15,520 --> 00:06:18,560
+we said it does register to memory or
+
+194
+00:06:17,280 --> 00:06:22,319
+memory to register
+
+195
+00:06:18,560 --> 00:06:24,400
+so Intel syntax register the source
+
+196
+00:06:22,319 --> 00:06:25,759
+operand goes on the right side the
+
+197
+00:06:24,400 --> 00:06:28,479
+destination operand
+
+198
+00:06:25,759 --> 00:06:29,280
+on the left side so register to memory
+
+199
+00:06:28,479 --> 00:06:32,240
+or
+
+200
+00:06:29,280 --> 00:06:33,120
+memory as specified in rmx form on the
+
+201
+00:06:32,240 --> 00:06:35,919
+right side
+
+202
+00:06:33,120 --> 00:06:36,639
+to register the destination and register
+
+203
+00:06:35,919 --> 00:06:39,039
+to register
+
+204
+00:06:36,639 --> 00:06:40,560
+then we have the add and subtract
+
+205
+00:06:39,039 --> 00:06:42,240
+assembly instructions which of course
+
+206
+00:06:40,560 --> 00:06:43,199
+add and subtract exactly like you would
+
+207
+00:06:42,240 --> 00:06:45,680
+expect
+
+208
+00:06:43,199 --> 00:06:47,360
+now the destination operand can be an
+
+209
+00:06:45,680 --> 00:06:49,599
+rmx or a register
+
+210
+00:06:47,360 --> 00:06:51,360
+the source operand can be an rmx or a
+
+211
+00:06:49,599 --> 00:06:52,880
+register or an immediate
+
+212
+00:06:51,360 --> 00:06:54,800
+but you can't have source and
+
+213
+00:06:52,880 --> 00:06:55,440
+destination rmx's because that would
+
+214
+00:06:54,800 --> 00:06:57,919
+allow for
+
+215
+00:06:55,440 --> 00:07:00,080
+memory to memory which again we don't
+
+216
+00:06:57,919 --> 00:07:02,240
+have memory to memory transfers
+
+217
+00:07:00,080 --> 00:07:03,840
+moves ads subtracts never memory to
+
+218
+00:07:02,240 --> 00:07:04,880
+memory only these other combination
+
+219
+00:07:03,840 --> 00:07:08,720
+forms
+
+220
+00:07:04,880 --> 00:07:12,160
+so Intel syntax style add rsp
+
+221
+00:07:08,720 --> 00:07:15,520
+plus eight takes rsp plus eight
+
+222
+00:07:12,160 --> 00:07:18,880
+and moves it back into rsp so again
+
+223
+00:07:15,520 --> 00:07:20,479
+in two operand form this actually has
+
+224
+00:07:18,880 --> 00:07:21,680
+source and destination but the
+
+225
+00:07:20,479 --> 00:07:23,919
+destination
+
+226
+00:07:21,680 --> 00:07:26,000
+is always going to be on the left
+
+227
+00:07:23,919 --> 00:07:29,280
+likewise subtract rax
+
+228
+00:07:26,000 --> 00:07:30,240
+rbx times two it's an rmx form which is
+
+229
+00:07:29,280 --> 00:07:33,440
+going to take
+
+230
+00:07:30,240 --> 00:07:34,400
+rbx to multiply it by 2 treat it as a
+
+231
+00:07:33,440 --> 00:07:36,479
+memory address
+
+232
+00:07:34,400 --> 00:07:37,919
+grab a value from that memory address
+
+233
+00:07:36,479 --> 00:07:40,400
+add it to rax
+
+234
+00:07:37,919 --> 00:07:41,840
+and then put it back into sorry subtract
+
+235
+00:07:40,400 --> 00:07:45,280
+it from rax and then put
+
+236
+00:07:41,840 --> 00:07:45,280
+the value back into rax
+

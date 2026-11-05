@@ -1,0 +1,80 @@
+1
+00:00:00,000 --> 00:00:04,080
+so the takeaway from BooleanBecause.c
+
+2
+00:00:02,399 --> 00:00:06,480
+is quite simple it's that there's a
+
+3
+00:00:04,080 --> 00:00:09,840
+one-to-one correspondence between
+
+4
+00:00:06,480 --> 00:00:12,080
+any boolean bitwise operations you may
+
+5
+00:00:09,840 --> 00:00:13,599
+place into your C code and boolean
+
+6
+00:00:12,080 --> 00:00:15,759
+bitwise operations that will be
+
+7
+00:00:13,599 --> 00:00:17,600
+generated in the assembly
+
+8
+00:00:15,759 --> 00:00:20,000
+so we just picked up four new assembly
+
+9
+00:00:17,600 --> 00:00:22,720
+instructions where do they show up
+
+10
+00:00:20,000 --> 00:00:24,000
+well we've got and here coming in at one
+
+11
+00:00:22,720 --> 00:00:27,439
+percent
+
+12
+00:00:24,000 --> 00:00:29,760
+we've got or at one percent we've got
+
+13
+00:00:27,439 --> 00:00:31,519
+xor at three percent that's probably
+
+14
+00:00:29,760 --> 00:00:33,680
+because like I said the compiler will
+
+15
+00:00:31,519 --> 00:00:35,360
+generate more xors than people actually
+
+16
+00:00:33,680 --> 00:00:36,960
+write because it uses them to zero
+
+17
+00:00:35,360 --> 00:00:39,760
+registers
+
+18
+00:00:36,960 --> 00:00:40,960
+and we've got not coming in at not at
+
+19
+00:00:39,760 --> 00:00:45,840
+least one percent
+
+20
+00:00:40,960 --> 00:00:45,840
+so it's in the bucket with the others
+

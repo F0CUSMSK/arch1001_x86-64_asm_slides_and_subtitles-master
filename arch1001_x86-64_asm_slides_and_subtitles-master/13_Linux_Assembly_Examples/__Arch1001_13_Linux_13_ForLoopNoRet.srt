@@ -1,0 +1,556 @@
+1
+00:00:00,320 --> 00:00:03,040
+next on our cavalcade of boolean
+
+2
+00:00:02,159 --> 00:00:06,399
+operations
+
+3
+00:00:03,040 --> 00:00:09,679
+was the ForLoopNoRet which was
+
+4
+00:00:06,399 --> 00:00:12,480
+named just for example in the past so
+
+5
+00:00:09,679 --> 00:00:12,960
+let's put ForLoopNoRet what did it
+
+6
+00:00:12,480 --> 00:00:14,960
+have
+
+7
+00:00:12,960 --> 00:00:16,320
+well it was a for loop with no return so
+
+8
+00:00:14,960 --> 00:00:18,640
+basic for loop i
+
+9
+00:00:16,320 --> 00:00:20,800
+i is equal to 0 and while i is less
+
+10
+00:00:18,640 --> 00:00:21,600
+than 10 i++ and then just print
+
+11
+00:00:20,800 --> 00:00:23,359
+out the i
+
+12
+00:00:21,600 --> 00:00:24,640
+finally when it's done with the loop and
+
+13
+00:00:23,359 --> 00:00:27,439
+i--
+
+14
+00:00:24,640 --> 00:00:28,480
+and a return is not placed here
+
+15
+00:00:27,439 --> 00:00:31,439
+explicitly
+
+16
+00:00:28,480 --> 00:00:34,239
+so we had said visual studio had xored
+
+17
+00:00:31,439 --> 00:00:34,800
+rax with rax to yield a zero value for
+
+18
+00:00:34,239 --> 00:00:37,920
+return
+
+19
+00:00:34,800 --> 00:00:39,760
+let's see what uh what gcc does also we
+
+20
+00:00:37,920 --> 00:00:42,239
+saw that visual studio used an
+
+21
+00:00:39,760 --> 00:00:43,760
+inc instruction increment for i++
+
+22
+00:00:42,239 --> 00:00:44,399
+and a dec instruction for
+
+23
+00:00:43,760 --> 00:00:46,640
+decrement
+
+24
+00:00:44,399 --> 00:00:47,840
+even though the visual studio sorry even
+
+25
+00:00:46,640 --> 00:00:50,239
+though the Intel
+
+26
+00:00:47,840 --> 00:00:51,760
+uh manuals had suggested that those
+
+27
+00:00:50,239 --> 00:00:53,360
+assembly instructions should generally
+
+28
+00:00:51,760 --> 00:00:55,360
+not be preferred but you know visual
+
+29
+00:00:53,360 --> 00:00:57,520
+studio unoptimized it does you know very
+
+30
+00:00:55,360 --> 00:00:58,320
+simple things so let's see what gcc does
+
+31
+00:00:57,520 --> 00:01:02,079
+instead
+
+32
+00:00:58,320 --> 00:01:03,840
+okay let's disassemble it
+
+33
+00:01:02,079 --> 00:01:05,280
+and what do we see we see a function
+
+34
+00:01:03,840 --> 00:01:08,320
+prolog we see some
+
+35
+00:01:05,280 --> 00:01:11,280
+explicit allocation of stack frame space
+
+36
+00:01:08,320 --> 00:01:13,040
+we see a move of 0 into rbp minus
+
+37
+00:01:11,280 --> 00:01:16,159
+4 well that should be our i
+
+38
+00:01:13,040 --> 00:01:19,759
+variable set to i equals 0 then a
+
+39
+00:01:16,159 --> 00:01:23,600
+jump downward unconditional so down to
+
+40
+00:01:19,759 --> 00:01:26,640
+78. so compare i which is 0
+
+41
+00:01:23,600 --> 00:01:30,000
+to 9 and if it's less than or equal
+
+42
+00:01:26,640 --> 00:01:32,159
+jump backwards jump up to 15e
+
+43
+00:01:30,000 --> 00:01:34,240
+so this is the main actual body of the
+
+44
+00:01:32,159 --> 00:01:35,119
+for loop it just jumped past the end it
+
+45
+00:01:34,240 --> 00:01:37,280
+did the
+
+46
+00:01:35,119 --> 00:01:38,320
+check basically what the the for loop
+
+47
+00:01:37,280 --> 00:01:40,799
+has a while i
+
+48
+00:01:38,320 --> 00:01:42,799
+is less than 10 and so that's what that
+
+49
+00:01:40,799 --> 00:01:44,560
+is so less than or equal to 9 is the
+
+50
+00:01:42,799 --> 00:01:45,840
+same thing as less than 10.
+
+51
+00:01:44,560 --> 00:01:48,000
+so this is the body and it's going to be
+
+52
+00:01:45,840 --> 00:01:50,399
+looping around that and when eventually
+
+53
+00:01:48,000 --> 00:01:51,840
+i is equal to 9 that it'll exit out
+
+54
+00:01:50,399 --> 00:01:53,840
+it'll do a subtract
+
+55
+00:01:51,840 --> 00:01:55,680
+1. well so that looks like it's not
+
+56
+00:01:53,840 --> 00:01:57,600
+doing a dec instruction for that
+
+57
+00:01:55,680 --> 00:01:58,719
+i-- at the end it chose to use
+
+58
+00:01:57,600 --> 00:02:00,640
+sub
+
+59
+00:01:58,719 --> 00:02:02,000
+so be it you know that's that's what
+
+60
+00:02:00,640 --> 00:02:03,600
+they're supposed to do
+
+61
+00:02:02,000 --> 00:02:05,680
+so let's go ahead and start stepping
+
+62
+00:02:03,600 --> 00:02:08,399
+through this so step step
+
+63
+00:02:05,680 --> 00:02:09,280
+there we go allocate some stack space
+
+64
+00:02:08,399 --> 00:02:12,160
+0 into
+
+65
+00:02:09,280 --> 00:02:13,680
+i jump to the end compare against 9
+
+66
+00:02:12,160 --> 00:02:16,959
+jump backwards
+
+67
+00:02:13,680 --> 00:02:20,560
+and now do the actual work so i
+
+68
+00:02:16,959 --> 00:02:23,680
+into eax then eax and
+
+69
+00:02:20,560 --> 00:02:25,520
+esi now is putting it into esi and were
+
+70
+00:02:23,680 --> 00:02:26,319
+a couple of assembly instructions before
+
+71
+00:02:25,520 --> 00:02:28,879
+a call
+
+72
+00:02:26,319 --> 00:02:30,400
+so that seems like that was probably the
+
+73
+00:02:28,879 --> 00:02:32,319
+second argument to the call
+
+74
+00:02:30,400 --> 00:02:34,640
+the call is printf and we know that it's
+
+75
+00:02:32,319 --> 00:02:35,519
+printing out basically just the i value
+
+76
+00:02:34,640 --> 00:02:37,519
+each time
+
+77
+00:02:35,519 --> 00:02:39,360
+so that was the second argument probably
+
+78
+00:02:37,519 --> 00:02:40,800
+here comes the first argument which is
+
+79
+00:02:39,360 --> 00:02:43,440
+going to be the format string
+
+80
+00:02:40,800 --> 00:02:45,440
+in order to specify the i printout so
+
+81
+00:02:43,440 --> 00:02:47,840
+let's go ahead and step over that
+
+82
+00:02:45,440 --> 00:02:49,280
+and rdi should now have the format
+
+83
+00:02:47,840 --> 00:02:53,120
+string let's confirm
+
+84
+00:02:49,280 --> 00:02:56,640
+that examine as string format string yep
+
+85
+00:02:53,120 --> 00:03:00,080
+i = %d\n and then
+
+86
+00:02:56,640 --> 00:03:02,480
+moving 0 into eax that's the sort of
+
+87
+00:03:00,080 --> 00:03:03,920
+presumed zero initialization of the
+
+88
+00:03:02,480 --> 00:03:05,360
+return value just in case the thing
+
+89
+00:03:03,920 --> 00:03:07,280
+doesn't return anything
+
+90
+00:03:05,360 --> 00:03:08,959
+that we saw earlier on in the linux
+
+91
+00:03:07,280 --> 00:03:11,920
+examples so we want to step
+
+92
+00:03:08,959 --> 00:03:13,680
+over this call to printf and we do that
+
+93
+00:03:11,920 --> 00:03:16,879
+and we get the printf doing i
+
+94
+00:03:13,680 --> 00:03:19,280
+equal 0. and it's add 1 to
+
+95
+00:03:16,879 --> 00:03:20,400
+i and so that means they're not using an
+
+96
+00:03:19,280 --> 00:03:22,879
+inc instruction
+
+97
+00:03:20,400 --> 00:03:23,599
+again that's what they're supposed to do
+
+98
+00:03:22,879 --> 00:03:25,920
+and it's just
+
+99
+00:03:23,599 --> 00:03:27,360
+gcc happens to be you know doing things
+
+100
+00:03:25,920 --> 00:03:29,519
+a little more smartly in
+
+101
+00:03:27,360 --> 00:03:30,959
+the fully optimized form they're sorry
+
+102
+00:03:29,519 --> 00:03:33,680
+fully unoptimized form
+
+103
+00:03:30,959 --> 00:03:34,640
+and so basically again increment it and
+
+104
+00:03:33,680 --> 00:03:37,200
+do the check
+
+105
+00:03:34,640 --> 00:03:38,000
+is i which is now equal to one let's
+
+106
+00:03:37,200 --> 00:03:41,680
+confirm that
+
+107
+00:03:38,000 --> 00:03:45,680
+x as 1 word hex
+
+108
+00:03:41,680 --> 00:03:48,159
+rbp minus 4 yep i is now equal to 1
+
+109
+00:03:45,680 --> 00:03:48,799
+is 1 less than or equal to 9 it
+
+110
+00:03:48,159 --> 00:03:50,720
+is
+
+111
+00:03:48,799 --> 00:03:53,200
+so we could just keep stepping through
+
+112
+00:03:50,720 --> 00:03:56,319
+all of this but that takes a while
+
+113
+00:03:53,200 --> 00:03:57,120
+so let's go ahead and just use the until
+
+114
+00:03:56,319 --> 00:03:59,360
+command
+
+115
+00:03:57,120 --> 00:04:01,120
+to run until the assembly instruction
+
+116
+00:03:59,360 --> 00:04:01,760
+after we know that this thing will exit
+
+117
+00:04:01,120 --> 00:04:04,799
+out of the loop
+
+118
+00:04:01,760 --> 00:04:07,360
+so until we need to use this star
+
+119
+00:04:04,799 --> 00:04:09,439
+i'm specifying an address and there we
+
+120
+00:04:07,360 --> 00:04:11,599
+go it ran until that address
+
+121
+00:04:09,439 --> 00:04:12,720
+and here's all the print out from
+
+122
+00:04:11,599 --> 00:04:15,040
+printfs and each
+
+123
+00:04:12,720 --> 00:04:16,000
+iteration through the loop and finally
+
+124
+00:04:15,040 --> 00:04:19,040
+we have you know this
+
+125
+00:04:16,000 --> 00:04:21,919
+minus minus so step over that
+
+126
+00:04:19,040 --> 00:04:22,800
+and a move of 0 to eax well that's
+
+127
+00:04:21,919 --> 00:04:25,680
+disappointing
+
+128
+00:04:22,800 --> 00:04:27,680
+we are not having an xor eax eax in
+
+129
+00:04:25,680 --> 00:04:30,240
+order to set a 0 return value
+
+130
+00:04:27,680 --> 00:04:32,479
+so gcc is setting a 0 return value
+
+131
+00:04:30,240 --> 00:04:34,160
+when the programmer did not specify an
+
+132
+00:04:32,479 --> 00:04:35,759
+actual explicit return value
+
+133
+00:04:34,160 --> 00:04:37,680
+but it's doing it with mov instead of
+
+134
+00:04:35,759 --> 00:04:38,720
+an xor and so this example was a
+
+135
+00:04:37,680 --> 00:04:40,880
+complete failure
+
+136
+00:04:38,720 --> 00:04:42,240
+in gcc because we didn't see inc we
+
+137
+00:04:40,880 --> 00:04:44,479
+didn't see dec and we didn't see
+
+138
+00:04:42,240 --> 00:04:48,720
+xor but that's just the way it goes
+
+139
+00:04:44,479 --> 00:04:48,720
+sometimes when using different compilers
+

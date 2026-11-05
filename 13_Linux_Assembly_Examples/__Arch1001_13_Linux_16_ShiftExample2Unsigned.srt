@@ -1,0 +1,512 @@
+1
+00:00:00,080 --> 00:00:03,760
+okay the next example is ShiftExample2
+
+2
+00:00:02,720 --> 00:00:06,080
+Unsigned
+
+3
+00:00:03,760 --> 00:00:06,960
+so that was the case where we took atoi
+
+4
+00:00:06,080 --> 00:00:09,760
+into a
+
+5
+00:00:06,960 --> 00:00:11,840
+multiplied by 8 and divided by 16 and
+
+6
+00:00:09,760 --> 00:00:13,599
+what we were looking for is that we
+
+7
+00:00:11,840 --> 00:00:15,839
+were expecting that the compiler would
+
+8
+00:00:13,599 --> 00:00:16,400
+essentially turn the multiply by 8 into
+
+9
+00:00:15,839 --> 00:00:19,359
+a
+
+10
+00:00:16,400 --> 00:00:20,800
+left shift by 3 and divide by 16 into a
+
+11
+00:00:19,359 --> 00:00:22,800
+right shift by 4.
+
+12
+00:00:20,800 --> 00:00:24,880
+so we'll see whether or not gcc does
+
+13
+00:00:22,800 --> 00:00:25,840
+that here but i'm going to add a little
+
+14
+00:00:24,880 --> 00:00:28,480
+optimization
+
+15
+00:00:25,840 --> 00:00:30,000
+in to get rid of this atoi so if i just
+
+16
+00:00:28,480 --> 00:00:32,480
+compile it as we normally
+
+17
+00:00:30,000 --> 00:00:34,320
+do we've been you know compiling like
+
+18
+00:00:32,480 --> 00:00:37,360
+this thus far
+
+19
+00:00:34,320 --> 00:00:42,000
+and the net result of that
+
+20
+00:00:37,360 --> 00:00:42,000
+is always this first initial sequence
+
+21
+00:00:43,280 --> 00:00:46,480
+which we see over and over again which
+
+22
+00:00:45,200 --> 00:00:49,840
+is essentially just
+
+23
+00:00:46,480 --> 00:00:53,199
+save the argc and the argv pluck out
+
+24
+00:00:49,840 --> 00:00:54,320
+the value from for from argv 1 and pass
+
+25
+00:00:53,199 --> 00:00:56,239
+it to atoi
+
+26
+00:00:54,320 --> 00:00:57,920
+so that it gets converted into a number
+
+27
+00:00:56,239 --> 00:01:00,239
+which gets returned back into edx
+
+28
+00:00:57,920 --> 00:01:01,120
+so i want to focus more on the shifts
+
+29
+00:01:00,239 --> 00:01:03,199
+that we're going to see
+
+30
+00:01:01,120 --> 00:01:05,439
+so just to clean it up a little bit just
+
+31
+00:01:03,199 --> 00:01:06,960
+like i did in the visual studio stuff
+
+32
+00:01:05,439 --> 00:01:08,400
+i'm going to add in a little bit of
+
+33
+00:01:06,960 --> 00:01:10,720
+optimization
+
+34
+00:01:08,400 --> 00:01:11,600
+to simplify it down a little bit but not
+
+35
+00:01:10,720 --> 00:01:13,840
+too much
+
+36
+00:01:11,600 --> 00:01:15,840
+also the fact that it's using argv of 1
+
+37
+00:01:13,840 --> 00:01:19,119
+means the compiler can't shift it
+
+38
+00:01:15,840 --> 00:01:20,640
+sorry can't uh simplify it too much
+
+39
+00:01:19,119 --> 00:01:22,159
+because it doesn't actually know what
+
+40
+00:01:20,640 --> 00:01:23,920
+the expected values are it can't like
+
+41
+00:01:22,159 --> 00:01:25,600
+pre-compute some value and just you know
+
+42
+00:01:23,920 --> 00:01:27,280
+spit out a hard code constant
+
+43
+00:01:25,600 --> 00:01:29,840
+so along those same lines we've got to
+
+44
+00:01:27,280 --> 00:01:34,320
+make sure we have the right thing
+
+45
+00:01:29,840 --> 00:01:36,560
+in my gdb configuration
+
+46
+00:01:34,320 --> 00:01:39,520
+because i was playing around with it for
+
+47
+00:01:36,560 --> 00:01:43,119
+the next example
+
+48
+00:01:39,520 --> 00:01:44,640
+so now let's compile it right with
+
+49
+00:01:43,119 --> 00:01:48,880
+optimization 1 and
+
+50
+00:01:44,640 --> 00:01:52,159
+gdb it summarization
+
+51
+00:01:48,880 --> 00:01:53,840
+so what's going on here well we've got a
+
+52
+00:01:52,159 --> 00:01:55,840
+super quick and dirty version of that
+
+53
+00:01:53,840 --> 00:01:58,479
+plucking out the argv of 1
+
+54
+00:01:55,840 --> 00:02:00,079
+because it basically takes rsi adds
+
+55
+00:01:58,479 --> 00:02:04,000
+8 to it that gets you from
+
+56
+00:02:00,079 --> 00:02:05,600
+argv 0 to argv 1 and then dereferences it
+
+57
+00:02:04,000 --> 00:02:08,239
+and then moves that dereference value
+
+58
+00:02:05,600 --> 00:02:10,640
+into rdi and that should exactly be
+
+59
+00:02:08,239 --> 00:02:11,520
+the pointer to the string which is argv
+
+60
+00:02:10,640 --> 00:02:13,360
+of 1
+
+61
+00:02:11,520 --> 00:02:15,040
+so let's go ahead and step in and see if
+
+62
+00:02:13,360 --> 00:02:17,040
+that's true got a little bit of
+
+63
+00:02:15,040 --> 00:02:19,280
+allocation of space on the stack
+
+64
+00:02:17,040 --> 00:02:20,959
+also I have a note we don't have the
+
+65
+00:02:19,280 --> 00:02:21,440
+normal function prolog and that we're
+
+66
+00:02:20,959 --> 00:02:23,760
+not
+
+67
+00:02:21,440 --> 00:02:24,560
+pushing rbp we're not popping rbp at the
+
+68
+00:02:23,760 --> 00:02:26,400
+end so
+
+69
+00:02:24,560 --> 00:02:28,239
+optimization seems to have gotten rid of
+
+70
+00:02:26,400 --> 00:02:29,920
+our stack frame usage which is about
+
+71
+00:02:28,239 --> 00:02:32,080
+what we would expect because it's not
+
+72
+00:02:29,920 --> 00:02:32,800
+strictly necessary and it does go faster
+
+73
+00:02:32,080 --> 00:02:34,800
+without it
+
+74
+00:02:32,800 --> 00:02:36,400
+so let's step over this in order to
+
+75
+00:02:34,800 --> 00:02:38,640
+allocate a little stack space
+
+76
+00:02:36,400 --> 00:02:39,680
+and let's do this computation and we
+
+77
+00:02:38,640 --> 00:02:42,879
+expect the result
+
+78
+00:02:39,680 --> 00:02:46,080
+afterwards is going to be the string of
+
+79
+00:02:42,879 --> 00:02:48,480
+argv 1 and indeed it is the
+
+80
+00:02:46,080 --> 00:02:50,560
+parameter that I passed in my gdb config
+
+81
+00:02:48,480 --> 00:02:51,040
+file now the question is what's up with
+
+82
+00:02:50,560 --> 00:02:54,480
+this
+
+83
+00:02:51,040 --> 00:02:57,280
+moving of 0xa to edx and 0 to
+
+84
+00:02:54,480 --> 00:02:58,599
+esi and it seems to be not calling atoi
+
+85
+00:02:57,280 --> 00:03:01,200
+anymore it's calling
+
+86
+00:02:58,599 --> 00:03:02,640
+strtol so if we actually look at
+
+87
+00:03:01,200 --> 00:03:04,959
+the man page for
+
+88
+00:03:02,640 --> 00:03:07,280
+atoi we will see that it actually says in
+
+89
+00:03:04,959 --> 00:03:08,480
+here the atoi function converts it you
+
+90
+00:03:07,280 --> 00:03:11,599
+know into an integer
+
+91
+00:03:08,480 --> 00:03:14,879
+this behavior is the same as strtol
+
+92
+00:03:11,599 --> 00:03:17,920
+with the pointer to the string
+
+93
+00:03:14,879 --> 00:03:19,840
+and then if you pass null and base 10
+
+94
+00:03:17,920 --> 00:03:21,680
+for the second two parameters
+
+95
+00:03:19,840 --> 00:03:23,599
+then that'll do the same thing as atoi
+
+96
+00:03:21,680 --> 00:03:23,920
+so the compiler when it's optimizing
+
+97
+00:03:23,599 --> 00:03:25,760
+just
+
+98
+00:03:23,920 --> 00:03:27,360
+decided that that would be a better way
+
+99
+00:03:25,760 --> 00:03:28,640
+to go so that's what it's doing so I'm
+
+100
+00:03:27,360 --> 00:03:29,680
+going to step over that and I would
+
+101
+00:03:28,640 --> 00:03:33,040
+expect that
+
+102
+00:03:29,680 --> 00:03:34,640
+the output of that strtol
+
+103
+00:03:33,040 --> 00:03:36,560
+is going to be 31337
+
+104
+00:03:34,640 --> 00:03:38,640
+and it is
+
+105
+00:03:36,560 --> 00:03:40,480
+0x7a69 is
+
+106
+00:03:38,640 --> 00:03:41,599
+31337 and from there this is
+
+107
+00:03:40,480 --> 00:03:43,920
+just the trivial
+
+108
+00:03:41,599 --> 00:03:44,720
+shift left 3 shift right 4 these
+
+109
+00:03:43,920 --> 00:03:47,120
+are both
+
+110
+00:03:44,720 --> 00:03:48,879
+logical shifts not arithmetic shifts
+
+111
+00:03:47,120 --> 00:03:49,599
+because we're operating on unsigned
+
+112
+00:03:48,879 --> 00:03:51,280
+values
+
+113
+00:03:49,599 --> 00:03:53,200
+so it doesn't need to keep track of you
+
+114
+00:03:51,280 --> 00:03:55,599
+know the sign bit and worry about
+
+115
+00:03:53,200 --> 00:03:56,319
+clobbering it when it right shifts back
+
+116
+00:03:55,599 --> 00:03:59,840
+so
+
+117
+00:03:56,319 --> 00:04:02,480
+eax right now holds 31337
+
+118
+00:03:59,840 --> 00:04:02,879
+so shift it left by 3 shift it right
+
+119
+00:04:02,480 --> 00:04:06,080
+by
+
+120
+00:04:02,879 --> 00:04:08,480
+4 and you get 0x3d34 and
+
+121
+00:04:06,080 --> 00:04:09,439
+it is in rax still so that goes ahead
+
+122
+00:04:08,480 --> 00:04:11,599
+and you know
+
+123
+00:04:09,439 --> 00:04:13,360
+acts as the return value here now it's
+
+124
+00:04:11,599 --> 00:04:15,519
+adding 8 back into rsp
+
+125
+00:04:13,360 --> 00:04:17,040
+because that just compensates for the 8
+
+126
+00:04:15,519 --> 00:04:19,759
+that it subtracted to
+
+127
+00:04:17,040 --> 00:04:22,880
+make the stack area for during the
+
+128
+00:04:19,759 --> 00:04:22,880
+function prologue
+

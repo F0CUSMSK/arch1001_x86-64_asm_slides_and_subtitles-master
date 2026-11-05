@@ -1,0 +1,60 @@
+1
+00:00:00,000 --> 00:00:04,400
+so the takeaways from MulDivExample
+
+2
+00:00:02,159 --> 00:00:06,160
+is that when it's a multiply or divide
+
+3
+00:00:04,400 --> 00:00:07,600
+that is not a power of 2, the compiler
+
+4
+00:00:06,160 --> 00:00:08,880
+will go ahead and use multiply and
+
+5
+00:00:07,600 --> 00:00:11,120
+divide instructions
+
+6
+00:00:08,880 --> 00:00:12,400
+and as before visual studio really
+
+7
+00:00:11,120 --> 00:00:14,240
+prefers imul over
+
+8
+00:00:12,400 --> 00:00:16,320
+mul the unsigned multiply even when
+
+9
+00:00:14,240 --> 00:00:18,000
+you're dealing with unsigned operands
+
+10
+00:00:16,320 --> 00:00:20,080
+two new assembly instructions to the
+
+11
+00:00:18,000 --> 00:00:21,600
+pile div and idiv
+
+12
+00:00:20,080 --> 00:00:23,840
+and where do they show up well we
+
+13
+00:00:21,600 --> 00:00:24,720
+already know we exhausted everything on
+
+14
+00:00:23,840 --> 00:00:29,199
+the pie chart
+
+15
+00:00:24,720 --> 00:00:29,199
+so two more others div and idiv
+

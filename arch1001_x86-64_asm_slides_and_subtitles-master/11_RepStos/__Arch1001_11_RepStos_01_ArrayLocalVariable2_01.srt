@@ -1,0 +1,424 @@
+1
+00:00:00,080 --> 00:00:03,439
+in arraylocalvariable.c earlier in the
+
+2
+00:00:02,320 --> 00:00:05,279
+class we saw
+
+3
+00:00:03,439 --> 00:00:07,200
+how the assembly looks when you're
+
+4
+00:00:05,279 --> 00:00:10,400
+accessing an array local variable
+
+5
+00:00:07,200 --> 00:00:11,200
+in arraylocalvariable2.c we're going to
+
+6
+00:00:10,400 --> 00:00:14,400
+add some
+
+7
+00:00:11,200 --> 00:00:17,760
+zeroization to an initialization
+
+8
+00:00:14,400 --> 00:00:19,680
+of an array and what does this lead to
+
+9
+00:00:17,760 --> 00:00:20,720
+well this leads to a new assembly
+
+10
+00:00:19,680 --> 00:00:24,320
+instruction
+
+11
+00:00:20,720 --> 00:00:27,279
+rep stos so what is rep stops
+
+12
+00:00:24,320 --> 00:00:28,480
+this is the repeat store string now this
+
+13
+00:00:27,279 --> 00:00:31,039
+is actually
+
+14
+00:00:28,480 --> 00:00:31,519
+the stos instruction which is a store a
+
+15
+00:00:31,039 --> 00:00:34,160
+string
+
+16
+00:00:31,519 --> 00:00:34,800
+with the rep instruction prefix in front
+
+17
+00:00:34,160 --> 00:00:37,520
+of it
+
+18
+00:00:34,800 --> 00:00:39,520
+so the rep prefix means let's do a stos
+
+19
+00:00:37,520 --> 00:00:41,680
+over and over and over and over again
+
+20
+00:00:39,520 --> 00:00:42,559
+so any assembly instruction which
+
+21
+00:00:41,680 --> 00:00:44,719
+supports the
+
+22
+00:00:42,559 --> 00:00:46,640
+rep prefix which is not all of them just
+
+23
+00:00:44,719 --> 00:00:49,120
+a small subset
+
+24
+00:00:46,640 --> 00:00:50,719
+when it tries to do this assembly
+
+25
+00:00:49,120 --> 00:00:53,840
+instruction it's going to do it
+
+26
+00:00:50,719 --> 00:00:57,600
+cx number of times so cx meaning
+
+27
+00:00:53,840 --> 00:01:00,879
+cx and 16 bit ecx in 32 bit or
+
+28
+00:00:57,600 --> 00:01:03,359
+rcx in 64-bit is used as a
+
+29
+00:01:00,879 --> 00:01:04,799
+counter to basically say I want to do a
+
+30
+00:01:03,359 --> 00:01:06,880
+stos operation
+
+31
+00:01:04,799 --> 00:01:08,000
+cx number of times each time the
+
+32
+00:01:06,880 --> 00:01:10,960
+operation is done
+
+33
+00:01:08,000 --> 00:01:12,400
+cx is decremented by 1 and when cx
+
+34
+00:01:10,960 --> 00:01:15,040
+finally equals zero
+
+35
+00:01:12,400 --> 00:01:16,960
+then this stos operation stops and it moves
+
+36
+00:01:15,040 --> 00:01:19,360
+on to the next assembly instruction
+
+37
+00:01:16,960 --> 00:01:21,600
+in this case it either stores 1, 2
+
+38
+00:01:19,360 --> 00:01:25,439
+4 or 8 bytes at a time
+
+39
+00:01:21,600 --> 00:01:27,600
+to a destination so this di register
+
+40
+00:01:25,439 --> 00:01:29,439
+so there's one form that takes only a
+
+41
+00:01:27,600 --> 00:01:31,439
+single byte and stores it at di that's
+
+42
+00:01:29,439 --> 00:01:32,479
+more for 16-bit form we don't care as
+
+43
+00:01:31,439 --> 00:01:35,040
+much about that
+
+44
+00:01:32,479 --> 00:01:36,400
+it'll store to di whatever is in al we
+
+45
+00:01:35,040 --> 00:01:38,560
+care more about the form
+
+46
+00:01:36,400 --> 00:01:39,520
+that stores 1, 2, 4 or 8 bytes
+
+47
+00:01:38,560 --> 00:01:43,119
+at a time
+
+48
+00:01:39,520 --> 00:01:45,200
+to di meaning di edi rdi
+
+49
+00:01:43,119 --> 00:01:46,640
+with either al if it's one byte at a
+
+50
+00:01:45,200 --> 00:01:50,159
+time or ax
+
+51
+00:01:46,640 --> 00:01:51,119
+eax rax if it's 2, 4 or 8 bytes
+
+52
+00:01:50,159 --> 00:01:54,320
+at a time
+
+53
+00:01:51,119 --> 00:01:54,880
+so it's basically going to take the
+
+54
+00:01:54,320 --> 00:01:57,920
+value
+
+55
+00:01:54,880 --> 00:02:01,280
+from this register let's say it's rax
+
+56
+00:01:57,920 --> 00:02:03,520
+and it's going to copy it to rdi
+
+57
+00:02:01,280 --> 00:02:05,200
+after it's copied that value into rdi
+
+58
+00:02:03,520 --> 00:02:06,079
+it's going to actually increment the
+
+59
+00:02:05,200 --> 00:02:07,920
+register by
+
+60
+00:02:06,079 --> 00:02:09,840
+1, 2, 4, 8 bytes however many
+
+61
+00:02:07,920 --> 00:02:10,560
+bytes were copied so that when this
+
+62
+00:02:09,840 --> 00:02:13,200
+repeated
+
+63
+00:02:10,560 --> 00:02:15,200
+store happens it can basically do you
+
+64
+00:02:13,200 --> 00:02:16,480
+know 1 byte 1 byte 1 byte 1 byte
+
+65
+00:02:15,200 --> 00:02:19,280
+1 byte 1 byte
+
+66
+00:02:16,480 --> 00:02:21,040
+all consecutively so the net result is
+
+67
+00:02:19,280 --> 00:02:24,160
+that a rep stos instruction
+
+68
+00:02:21,040 --> 00:02:26,560
+is effectively a memset in a box
+
+69
+00:02:24,160 --> 00:02:27,920
+except that there's some setup that has
+
+70
+00:02:26,560 --> 00:02:30,000
+to occur first
+
+71
+00:02:27,920 --> 00:02:31,599
+first you need to set di to the
+
+72
+00:02:30,000 --> 00:02:34,640
+destination you need to
+
+73
+00:02:31,599 --> 00:02:36,400
+set al or ax to the value to store
+
+74
+00:02:34,640 --> 00:02:38,800
+some number of times and you need to set
+
+75
+00:02:36,400 --> 00:02:40,400
+the cx to the number of times that you
+
+76
+00:02:38,800 --> 00:02:42,319
+want to store the value
+
+77
+00:02:40,400 --> 00:02:43,840
+so I was just talking in generalities
+
+78
+00:02:42,319 --> 00:02:45,040
+about the different forms for different
+
+79
+00:02:43,840 --> 00:02:47,920
+16 32
+
+80
+00:02:45,040 --> 00:02:49,440
+64-bit modes let's talk in specificities
+
+81
+00:02:47,920 --> 00:02:50,319
+to the version that we're going to see
+
+82
+00:02:49,440 --> 00:02:52,640
+here
+
+83
+00:02:50,319 --> 00:02:54,720
+so basically it is going to store
+
+84
+00:02:52,640 --> 00:02:58,400
+1, 2, 4, or 8 bytes at a time
+
+85
+00:02:54,720 --> 00:03:02,400
+to rdi so the memory pointed to by rdi
+
+86
+00:02:58,400 --> 00:03:04,319
+with a value from al, ax, ecx or rcx based
+
+87
+00:03:02,400 --> 00:03:05,519
+on whether it's 1, 2, 4, 8 bytes
+
+88
+00:03:04,319 --> 00:03:08,480
+that's being copied
+
+89
+00:03:05,519 --> 00:03:09,840
+and then it will increment rdi by 1
+
+90
+00:03:08,480 --> 00:03:11,280
+2, 4, 8 bytes
+
+91
+00:03:09,840 --> 00:03:13,120
+based on the number of bytes it's being
+
+92
+00:03:11,280 --> 00:03:15,040
+copied at a time but
+
+93
+00:03:13,120 --> 00:03:18,000
+just as a reminder this assembly
+
+94
+00:03:15,040 --> 00:03:21,120
+instruction has baked into it a store to
+
+95
+00:03:18,000 --> 00:03:22,720
+the memory pointed to by rdi. rdi is a
+
+96
+00:03:21,120 --> 00:03:24,080
+callee save register
+
+97
+00:03:22,720 --> 00:03:26,480
+so this is going to mean there's
+
+98
+00:03:24,080 --> 00:03:27,200
+probably going to be some need to save
+
+99
+00:03:26,480 --> 00:03:30,080
+and restore
+
+100
+00:03:27,200 --> 00:03:31,200
+rdi before the rep stos assembly instruction
+
+101
+00:03:30,080 --> 00:03:33,440
+uses it
+
+102
+00:03:31,200 --> 00:03:35,200
+alright with all that said now it is
+
+103
+00:03:33,440 --> 00:03:37,120
+time for you to step through the
+
+104
+00:03:35,200 --> 00:03:38,720
+assembly and make sure you understand
+
+105
+00:03:37,120 --> 00:03:43,599
+all the various components that are
+
+106
+00:03:38,720 --> 00:03:43,599
+being used in it
+

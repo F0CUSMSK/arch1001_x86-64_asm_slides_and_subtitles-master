@@ -1,0 +1,140 @@
+0
+00:00:00,024 --> 00:00:03,085
+ShiftExample2Unsigned.c is trying to lay
+
+1
+00:00:03,085 --> 00:00:06,009
+a simple truth on you and that truth is,
+
+2
+00:00:06,091 --> 00:00:10,003
+you may see shifts in the assembly when no one
+
+3
+00:00:10,003 --> 00:00:12,085
+wrote any shifts in the C
+
+4
+00:00:13,034 --> 00:00:16,056
+So if a multiply by a power of 2 or
+
+5
+00:00:16,056 --> 00:00:18,074
+a divide by a power of 2 exists in the
+
+6
+00:00:18,074 --> 00:00:19,016
+C,
+
+7
+00:00:19,054 --> 00:00:22,063
+then the compiler may just turn it into a shift
+
+8
+00:00:22,063 --> 00:00:27,004
+left or a shift right. This particular assembly was compiled
+
+9
+00:00:27,004 --> 00:00:28,091
+with a optimization
+
+10
+00:00:28,091 --> 00:00:30,013
+Unlike all of our past,
+
+11
+00:00:30,013 --> 00:00:32,082
+assembly this was set to maximize speed so that it would
+
+12
+00:00:32,082 --> 00:00:36,028
+generate much smaller assembly code because we don't really care
+
+13
+00:00:36,028 --> 00:00:39,007
+about all of this indexing into argv[1] and
+
+14
+00:00:39,007 --> 00:00:41,039
+calling atoi() and all of that just to get this
+
+15
+00:00:41,039 --> 00:00:44,007
+number so you can go ahead and change the optimization
+
+16
+00:00:44,007 --> 00:00:47,035
+back to no optimization if you'd like to step through
+
+17
+00:00:47,035 --> 00:00:48,065
+a more complicated version
+
+18
+00:00:49,014 --> 00:00:51,069
+But the basic point is just to see a correspondence
+
+19
+00:00:51,069 --> 00:00:54,056
+between multiply by 8
+
+20
+00:00:54,078 --> 00:00:57,011
+This is a shift left by 2 to the power
+
+21
+00:00:57,011 --> 00:00:57,062
+of 3,
+
+22
+00:00:57,062 --> 00:00:58,044
+which is 8,
+
+23
+00:00:58,045 --> 00:00:59,092
+and divide by 16
+
+24
+00:00:59,092 --> 00:01:02,077
+This is a shift right by 2 to the power
+
+25
+00:01:02,077 --> 00:01:04,006
+of 4, 16,
+
+26
+00:01:04,094 --> 00:01:07,018
+and that's the only take away I have for you
+
+27
+00:01:07,041 --> 00:01:10,085
+Multiplies and divides by powers of two compilers prefers shifts
+
+28
+00:01:11,054 --> 00:01:12,068
+but you should still,
+
+29
+00:01:12,068 --> 00:01:13,063
+as always,
+
+30
+00:01:13,064 --> 00:01:17,014
+step through the assembly and check your understanding again
+
+31
+00:01:17,014 --> 00:01:19,001
+If you'd like to make a little more complicated on
+
+32
+00:01:19,001 --> 00:01:19,058
+yourself,
+
+33
+00:01:19,058 --> 00:01:22,002
+go ahead and go to the properties of the project
+
+34
+00:01:22,003 --> 00:01:25,076
+and set the optimization back to disabled
+

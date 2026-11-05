@@ -1,0 +1,424 @@
+1
+00:00:00,240 --> 00:00:04,799
+now the first thing to say about using
+
+2
+00:00:02,320 --> 00:00:06,640
+inline assembly in visual studio is that
+
+3
+00:00:04,799 --> 00:00:07,440
+strictly speaking you may not even need
+
+4
+00:00:06,640 --> 00:00:09,200
+to
+
+5
+00:00:07,440 --> 00:00:10,480
+visual studio has this notion of
+
+6
+00:00:09,200 --> 00:00:13,440
+intrinsics which
+
+7
+00:00:10,480 --> 00:00:13,840
+are basically wrappers around assembly
+
+8
+00:00:13,440 --> 00:00:15,839
+and
+
+9
+00:00:13,840 --> 00:00:17,199
+they provide a function like
+
+10
+00:00:15,839 --> 00:00:19,680
+representation
+
+11
+00:00:17,199 --> 00:00:22,640
+so instead of needing to write the rep
+
+12
+00:00:19,680 --> 00:00:24,880
+stos or rep movs assembly instruction
+
+13
+00:00:22,640 --> 00:00:26,960
+you can use these __stos
+
+14
+00:00:24,880 --> 00:00:31,840
+and then there's going to be a size
+
+15
+00:00:26,960 --> 00:00:31,840
+like 32.
+
+16
+00:00:34,160 --> 00:00:37,440
+and that will behind the scenes generate
+
+17
+00:00:36,320 --> 00:00:39,120
+a rep stos
+
+18
+00:00:37,440 --> 00:00:41,200
+and you know you'll give it some
+
+19
+00:00:39,120 --> 00:00:42,800
+addresses of locations that you want to
+
+20
+00:00:41,200 --> 00:00:45,520
+you know store to string
+
+21
+00:00:42,800 --> 00:00:47,760
+you can see a list of the visual studio
+
+22
+00:00:45,520 --> 00:00:50,000
+intrinsics at this link which will be
+
+23
+00:00:47,760 --> 00:00:52,079
+put down below the video but most of
+
+24
+00:00:50,000 --> 00:00:54,719
+these end up being more relevant to
+
+25
+00:00:52,079 --> 00:00:56,840
+architecture 2001. basically they're
+
+26
+00:00:54,719 --> 00:01:00,160
+there to help you know the
+
+27
+00:00:56,840 --> 00:01:02,320
+microsoft kernel team interact with
+
+28
+00:01:00,160 --> 00:01:04,640
+control registers and things like that
+
+29
+00:01:02,320 --> 00:01:06,159
+people interact with model specific
+
+30
+00:01:04,640 --> 00:01:08,880
+registers and a bunch of other stuff
+
+31
+00:01:06,159 --> 00:01:10,400
+you'll learn about in architecture 2001.
+
+32
+00:01:08,880 --> 00:01:12,560
+in general they don't tend to have
+
+33
+00:01:10,400 --> 00:01:14,240
+intrinsics for the super simple assembly
+
+34
+00:01:12,560 --> 00:01:15,520
+instructions that we learn about in this
+
+35
+00:01:14,240 --> 00:01:17,439
+class the things like add
+
+36
+00:01:15,520 --> 00:01:19,280
+sub etc because you don't need
+
+37
+00:01:17,439 --> 00:01:21,600
+intrinsics for that you just use
+
+38
+00:01:19,280 --> 00:01:23,759
+adds and subs in your C code now as
+
+39
+00:01:21,600 --> 00:01:26,080
+previously mentioned visual studio does
+
+40
+00:01:23,759 --> 00:01:28,159
+support inline assembly for 32-bit code
+
+41
+00:01:26,080 --> 00:01:30,640
+but not for 64-bit code
+
+42
+00:01:28,159 --> 00:01:32,320
+so instead for our purposes you're going
+
+43
+00:01:30,640 --> 00:01:35,360
+to have to write code in
+
+44
+00:01:32,320 --> 00:01:36,960
+a masm file microsoft assembler using
+
+45
+00:01:35,360 --> 00:01:40,240
+its particular syntax
+
+46
+00:01:36,960 --> 00:01:42,079
+it goes into a .asm file and it needs
+
+47
+00:01:40,240 --> 00:01:44,000
+to have something like an exported
+
+48
+00:01:42,079 --> 00:01:44,880
+function name that then can be called
+
+49
+00:01:44,000 --> 00:01:47,119
+from within the C
+
+50
+00:01:44,880 --> 00:01:48,640
+code so the C code just treats it as
+
+51
+00:01:47,119 --> 00:01:51,520
+some external
+
+52
+00:01:48,640 --> 00:01:52,799
+undefined function and then the linker
+
+53
+00:01:51,520 --> 00:01:54,720
+links it all together
+
+54
+00:01:52,799 --> 00:01:55,840
+and makes it so that the C code can call
+
+55
+00:01:54,720 --> 00:01:58,000
+the assembly code
+
+56
+00:01:55,840 --> 00:02:00,159
+we will have a quick example of how to
+
+57
+00:01:58,000 --> 00:02:00,719
+create a new project that has masm
+
+58
+00:02:00,159 --> 00:02:02,399
+support
+
+59
+00:02:00,719 --> 00:02:04,320
+just so that you can see the one little
+
+60
+00:02:02,399 --> 00:02:06,079
+tweak that it takes to make that work
+
+61
+00:02:04,320 --> 00:02:08,720
+but if you want to skip that you can
+
+62
+00:02:06,079 --> 00:02:10,560
+pretty much just use the scratchpad_asm
+
+63
+00:02:08,720 --> 00:02:12,560
+project within the visual studio
+
+64
+00:02:10,560 --> 00:02:13,280
+solution which was provided now I said
+
+65
+00:02:12,560 --> 00:02:16,000
+before that
+
+66
+00:02:13,280 --> 00:02:16,400
+writing raw bytes can be useful as a way
+
+67
+00:02:16,000 --> 00:02:18,080
+to
+
+68
+00:02:16,400 --> 00:02:19,599
+confirm your understanding once you've
+
+69
+00:02:18,080 --> 00:02:21,440
+read the fun manuals
+
+70
+00:02:19,599 --> 00:02:23,680
+and so the way that you do that in masm
+
+71
+00:02:21,440 --> 00:02:27,280
+syntax is you write db
+
+72
+00:02:23,680 --> 00:02:30,959
+for data byte and then xx and
+
+73
+00:02:27,280 --> 00:02:34,959
+h for hex so db 04h
+
+74
+00:02:30,959 --> 00:02:37,319
+followed by db 01h or you can just put
+
+75
+00:02:34,959 --> 00:02:40,560
+commas in between them so a single line
+
+76
+00:02:37,319 --> 00:02:41,360
+db 04h, 01h now if you were
+
+77
+00:02:40,560 --> 00:02:43,840
+to put this
+
+78
+00:02:41,360 --> 00:02:45,920
+into your assembly file it would just
+
+79
+00:02:43,840 --> 00:02:46,959
+get stuck into the assembly stream like
+
+80
+00:02:45,920 --> 00:02:48,879
+anything else
+
+81
+00:02:46,959 --> 00:02:50,640
+and when the CPU eventually comes along
+
+82
+00:02:48,879 --> 00:02:52,720
+and interprets that it would say
+
+83
+00:02:50,640 --> 00:02:55,599
+okay I see the number 4 that is the
+
+84
+00:02:52,720 --> 00:02:57,280
+opcode for an add assembly instruction
+
+85
+00:02:55,599 --> 00:02:59,200
+and I'm going to expect that there's
+
+86
+00:02:57,280 --> 00:03:01,840
+going to be a 1 byte
+
+87
+00:02:59,200 --> 00:03:03,680
+immediate value followed and I will
+
+88
+00:03:01,840 --> 00:03:05,840
+treat that immediate value as something
+
+89
+00:03:03,680 --> 00:03:07,680
+that is to be added to the al
+
+90
+00:03:05,840 --> 00:03:09,360
+register one quick thing to help you
+
+91
+00:03:07,680 --> 00:03:11,280
+avoid some headaches is that
+
+92
+00:03:09,360 --> 00:03:13,200
+masm doesn't like immediates that
+
+93
+00:03:11,280 --> 00:03:13,760
+start with an alphabetical character
+
+94
+00:03:13,200 --> 00:03:16,159
+even if
+
+95
+00:03:13,760 --> 00:03:18,319
+you're telling it that it's hex so you
+
+96
+00:03:16,159 --> 00:03:20,480
+can't do something like move rax
+
+97
+00:03:18,319 --> 00:03:21,760
+e blah blah blah blah like I sort of
+
+98
+00:03:20,480 --> 00:03:23,760
+mentioned offhandedly
+
+99
+00:03:21,760 --> 00:03:26,159
+quite a while ago in the class instead
+
+100
+00:03:23,760 --> 00:03:28,159
+you need to prefix that with a 0
+
+101
+00:03:26,159 --> 00:03:29,519
+and once you do that then it's all good
+
+102
+00:03:28,159 --> 00:03:31,360
+and the same thing applies
+
+103
+00:03:29,519 --> 00:03:33,599
+if you're outputting raw bytes you can't
+
+104
+00:03:31,360 --> 00:03:36,799
+just do db c3h
+
+105
+00:03:33,599 --> 00:03:40,480
+you have to do db 0c3h and then it
+
+106
+00:03:36,799 --> 00:03:40,480
+interprets it and compiles it fine
+

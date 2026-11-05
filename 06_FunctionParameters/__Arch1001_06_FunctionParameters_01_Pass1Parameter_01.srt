@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:03,439
+so thus far we've seen calling a
+
+2
+00:00:01,920 --> 00:00:06,080
+function and we've seen
+
+3
+00:00:03,439 --> 00:00:08,160
+local variables and now we're going to
+
+4
+00:00:06,080 --> 00:00:09,840
+expand that by calling a function
+
+5
+00:00:08,160 --> 00:00:11,040
+that takes a parameter so what do you
+
+6
+00:00:09,840 --> 00:00:12,400
+think i'm going to want out of you in
+
+7
+00:00:11,040 --> 00:00:14,960
+this exercise
+
+8
+00:00:12,400 --> 00:00:16,080
+the same thing we do every exercise step
+
+9
+00:00:14,960 --> 00:00:20,400
+through the assembly draw
+
+10
+00:00:16,080 --> 00:00:20,400
+stack diagram and try to take over the
+
+11
+00:00:21,560 --> 00:00:24,560
+world
+

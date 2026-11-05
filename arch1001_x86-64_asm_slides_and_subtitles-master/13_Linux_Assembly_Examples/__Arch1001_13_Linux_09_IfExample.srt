@@ -1,0 +1,484 @@
+1
+00:00:00,399 --> 00:00:04,000
+our next control flow example is the
+
+2
+00:00:02,960 --> 00:00:07,200
+IfExample
+
+3
+00:00:04,000 --> 00:00:10,240
+so this was a signed integer a
+
+4
+00:00:07,200 --> 00:00:12,960
+negative 1 and a signed integer b
+
+5
+00:00:10,240 --> 00:00:14,400
+positive 2 then it's just checking if
+
+6
+00:00:12,960 --> 00:00:16,080
+a is equal to b well that's not going to
+
+7
+00:00:14,400 --> 00:00:17,279
+be true if a is greater than b well
+
+8
+00:00:16,080 --> 00:00:19,439
+that's not going to be true
+
+9
+00:00:17,279 --> 00:00:21,760
+if a is less than b that will be true
+
+10
+00:00:19,439 --> 00:00:24,400
+so we expect this to always return
+
+11
+00:00:21,760 --> 00:00:25,359
+3 and to never be able to return 0xdefea7
+
+12
+00:00:24,400 --> 00:00:27,519
+or 2 or 1
+
+13
+00:00:25,359 --> 00:00:29,439
+should be unreachable so let's compile
+
+14
+00:00:27,519 --> 00:00:32,880
+this and see what it turns into
+
+15
+00:00:29,439 --> 00:00:35,440
+so looking at the overall function
+
+16
+00:00:32,880 --> 00:00:38,000
+we've got a typical function prologue
+
+17
+00:00:35,440 --> 00:00:40,879
+we've got this negative 1 going into
+
+18
+00:00:38,000 --> 00:00:41,520
+rbp minus 4 we've got 2 going into
+
+19
+00:00:40,879 --> 00:00:44,160
+rbp
+
+20
+00:00:41,520 --> 00:00:45,600
+minus 8 so this is our a and our b
+
+21
+00:00:44,160 --> 00:00:48,480
+respectively then we've got
+
+22
+00:00:45,600 --> 00:00:49,920
+pulling out that a putting it in eax and
+
+23
+00:00:48,480 --> 00:00:52,800
+then doing a comparison
+
+24
+00:00:49,920 --> 00:00:54,320
+now here i want to caution you about the
+
+25
+00:00:52,800 --> 00:00:56,640
+fact that we're in AT&T
+
+26
+00:00:54,320 --> 00:00:58,960
+syntax and stuff is backwards doesn't
+
+27
+00:00:56,640 --> 00:01:01,199
+matter so much in a not equal check but
+
+28
+00:00:58,960 --> 00:01:02,960
+something like the jump less than or
+
+29
+00:01:01,199 --> 00:01:05,360
+equal jump greater than or equal
+
+30
+00:01:02,960 --> 00:01:07,439
+because these are signed checks uh we
+
+31
+00:01:05,360 --> 00:01:08,560
+can't just do the thing where we take a
+
+32
+00:01:07,439 --> 00:01:10,320
+less than or equal sign
+
+33
+00:01:08,560 --> 00:01:12,159
+and put it between these two operands
+
+34
+00:01:10,320 --> 00:01:13,200
+because they're basically backwards so
+
+35
+00:01:12,159 --> 00:01:15,119
+you're gonna have to
+
+36
+00:01:13,200 --> 00:01:16,400
+sort of mentally flip them around or
+
+37
+00:01:15,119 --> 00:01:17,360
+you're gonna have to flip around the
+
+38
+00:01:16,400 --> 00:01:19,119
+sign in your head
+
+39
+00:01:17,360 --> 00:01:20,560
+i personally find it just easier to kind
+
+40
+00:01:19,119 --> 00:01:23,280
+of mentally flip these around so
+
+41
+00:01:20,560 --> 00:01:24,159
+is the eax less than or equal to rbp
+
+42
+00:01:23,280 --> 00:01:26,080
+minus 8
+
+43
+00:01:24,159 --> 00:01:28,000
+so let's go ahead and step through this
+
+44
+00:01:26,080 --> 00:01:28,960
+and we expect it will always return
+
+45
+00:01:28,000 --> 00:01:32,159
+3 right
+
+46
+00:01:28,960 --> 00:01:35,439
+so step into it step step
+
+47
+00:01:32,159 --> 00:01:38,320
+move the negative 1 to rbp minus 4
+
+48
+00:01:35,439 --> 00:01:40,240
+well we've got red zone access again so
+
+49
+00:01:38,320 --> 00:01:44,479
+let's go ahead and you know get a basic
+
+50
+00:01:40,240 --> 00:01:48,399
+red zone read set up so display
+
+51
+00:01:44,479 --> 00:01:51,040
+let's do 2 words in hex
+
+52
+00:01:48,399 --> 00:01:52,079
+rbp minus 8 so it's going to be our
+
+53
+00:01:51,040 --> 00:01:55,439
+a and b
+
+54
+00:01:52,079 --> 00:01:55,920
+step there goes our a step there goes
+
+55
+00:01:55,439 --> 00:01:59,360
+our b
+
+56
+00:01:55,920 --> 00:02:02,640
+so a and b now it's pulling it out
+
+57
+00:01:59,360 --> 00:02:05,280
+and it's doing a compare is eax
+
+58
+00:02:02,640 --> 00:02:05,680
+which is negative 1 is that not equal
+
+59
+00:02:05,280 --> 00:02:08,879
+to
+
+60
+00:02:05,680 --> 00:02:09,520
+rbp minus 8 this is our rbp minus
+
+61
+00:02:08,879 --> 00:02:12,800
+8
+
+62
+00:02:09,520 --> 00:02:14,959
+so is negative 1 not equal to 2
+
+63
+00:02:12,800 --> 00:02:16,400
+it is not equal so it's going to take
+
+64
+00:02:14,959 --> 00:02:17,680
+the jump now the way that you have to
+
+65
+00:02:16,400 --> 00:02:21,520
+kind of see these is that
+
+66
+00:02:17,680 --> 00:02:24,080
+the original source code had a if equal
+
+67
+00:02:21,520 --> 00:02:24,720
+return 1 so if equal it would
+
+68
+00:02:24,080 --> 00:02:27,599
+essentially
+
+69
+00:02:24,720 --> 00:02:28,800
+fall through here and stick 1 into the
+
+70
+00:02:27,599 --> 00:02:30,480
+return register
+
+71
+00:02:28,800 --> 00:02:31,920
+and then you know it's gonna just exit
+
+72
+00:02:30,480 --> 00:02:34,080
+out this fff
+
+73
+00:02:31,920 --> 00:02:35,760
+sorry 555171 you
+
+74
+00:02:34,080 --> 00:02:37,120
+can see it multiple places that's
+
+75
+00:02:35,760 --> 00:02:39,360
+basically the end
+
+76
+00:02:37,120 --> 00:02:41,120
+of the assembly it's basically just
+
+77
+00:02:39,360 --> 00:02:43,519
+going to exit out the function because
+
+78
+00:02:41,120 --> 00:02:44,879
+someone's already set a return value so
+
+79
+00:02:43,519 --> 00:02:46,959
+all they have to do is you know
+
+80
+00:02:44,879 --> 00:02:48,319
+tear it down and exit out if these were
+
+81
+00:02:46,959 --> 00:02:50,480
+equal it would fall through
+
+82
+00:02:48,319 --> 00:02:51,760
+are they not equal well yes negative 1
+
+83
+00:02:50,480 --> 00:02:54,319
+is not equal to 2
+
+84
+00:02:51,760 --> 00:02:55,519
+so it takes the jump and skips over the
+
+85
+00:02:54,319 --> 00:02:58,239
+returning of 1
+
+86
+00:02:55,519 --> 00:02:58,560
+so that it can live to compare another
+
+87
+00:02:58,239 --> 00:03:01,200
+day
+
+88
+00:02:58,560 --> 00:03:01,599
+so takes the jump now once again plucks
+
+89
+00:03:01,200 --> 00:03:03,599
+it out
+
+90
+00:03:01,599 --> 00:03:05,120
+puts it in the eax now we have a less
+
+91
+00:03:03,599 --> 00:03:09,200
+than or equal check so
+
+92
+00:03:05,120 --> 00:03:12,000
+is negative 1 less than or equal to
+
+93
+00:03:09,200 --> 00:03:13,920
+2 it is less than or equal to 2 and
+
+94
+00:03:12,000 --> 00:03:16,080
+so it's going to take the jump it's not
+
+95
+00:03:13,920 --> 00:03:19,760
+going to fall through and return 2
+
+96
+00:03:16,080 --> 00:03:22,000
+so step step step and it took the jump
+
+97
+00:03:19,760 --> 00:03:22,959
+it didn't fall through to return 2 so
+
+98
+00:03:22,000 --> 00:03:24,799
+now we should be
+
+99
+00:03:22,959 --> 00:03:26,239
+getting close to our returning of 3
+
+100
+00:03:24,799 --> 00:03:28,239
+which we expect so
+
+101
+00:03:26,239 --> 00:03:29,280
+same thing take the negative 1 put it
+
+102
+00:03:28,239 --> 00:03:32,080
+into the register
+
+103
+00:03:29,280 --> 00:03:33,280
+and compare it so is negative 1 greater
+
+104
+00:03:32,080 --> 00:03:36,480
+than or equal to
+
+105
+00:03:33,280 --> 00:03:38,159
+2 and the answer is no it is not
+
+106
+00:03:36,480 --> 00:03:39,519
+so it's going to go ahead and fall
+
+107
+00:03:38,159 --> 00:03:42,480
+through and return 3.
+
+108
+00:03:39,519 --> 00:03:43,280
+so step step step it doesn't take the
+
+109
+00:03:42,480 --> 00:03:46,879
+jump
+
+110
+00:03:43,280 --> 00:03:49,280
+it moves 3 to eax rax
+
+111
+00:03:46,879 --> 00:03:49,920
+and now it jumps to the end and this
+
+112
+00:03:49,280 --> 00:03:51,680
+helps us
+
+113
+00:03:49,920 --> 00:03:53,680
+jump over this dead code that shouldn't
+
+114
+00:03:51,680 --> 00:03:54,319
+be reachable should never be possible to
+
+115
+00:03:53,680 --> 00:03:57,519
+return
+
+116
+00:03:54,319 --> 00:03:58,959
+0xdefea7 and so at this address
+
+117
+00:03:57,519 --> 00:04:00,720
+that's where everyone else was jumping
+
+118
+00:03:58,959 --> 00:04:02,799
+to this is just the exiting out of the
+
+119
+00:04:00,720 --> 00:04:05,200
+function tearing it all down so step
+
+120
+00:04:02,799 --> 00:04:07,920
+unconditional jump and now exit out of
+
+121
+00:04:05,200 --> 00:04:07,920
+the function
+

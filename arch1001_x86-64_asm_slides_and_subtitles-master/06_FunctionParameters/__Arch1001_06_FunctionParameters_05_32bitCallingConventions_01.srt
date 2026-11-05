@@ -1,0 +1,360 @@
+1
+00:00:00,320 --> 00:00:03,919
+so now let's learn about 32-bit stack
+
+2
+00:00:02,720 --> 00:00:05,759
+calling conventions
+
+3
+00:00:03,919 --> 00:00:07,839
+again both because I want you to know
+
+4
+00:00:05,759 --> 00:00:09,679
+64-bit and 32-bit code
+
+5
+00:00:07,839 --> 00:00:10,960
+after you take this class but also
+
+6
+00:00:09,679 --> 00:00:13,440
+because it'll help
+
+7
+00:00:10,960 --> 00:00:15,599
+exemplify one of the differences between
+
+8
+00:00:13,440 --> 00:00:18,080
+the microsoft and the System V
+
+9
+00:00:15,599 --> 00:00:19,760
+calling conventions and stack usage and
+
+10
+00:00:18,080 --> 00:00:21,840
+64-bit systems
+
+11
+00:00:19,760 --> 00:00:23,519
+so in 32-bit systems there were many
+
+12
+00:00:21,840 --> 00:00:25,359
+more calling conventions in use you can
+
+13
+00:00:23,519 --> 00:00:26,720
+go see the wikipedia page on calling
+
+14
+00:00:25,359 --> 00:00:28,720
+conventions to see
+
+15
+00:00:26,720 --> 00:00:30,560
+many of them and they all had a variety
+
+16
+00:00:28,720 --> 00:00:33,200
+of names things like cdecl
+
+17
+00:00:30,560 --> 00:00:35,280
+or C declaration which is the default
+
+18
+00:00:33,200 --> 00:00:37,600
+used by most C code
+
+19
+00:00:35,280 --> 00:00:38,960
+and in the 64-bit calling conventions
+
+20
+00:00:37,600 --> 00:00:39,760
+I said that it's common that you know the
+
+21
+00:00:38,960 --> 00:00:41,680
+callers
+
+22
+00:00:39,760 --> 00:00:43,040
+and callees are responsible for sort of
+
+23
+00:00:41,680 --> 00:00:44,640
+cleaning up the stack
+
+24
+00:00:43,040 --> 00:00:46,079
+there's an interesting difference here
+
+25
+00:00:44,640 --> 00:00:47,840
+in that cdecl
+
+26
+00:00:46,079 --> 00:00:49,680
+is just always the caller cleans up the
+
+27
+00:00:47,840 --> 00:00:51,680
+stack so if you push some parameters
+
+28
+00:00:49,680 --> 00:00:53,360
+onto the stack you are also responsible
+
+29
+00:00:51,680 --> 00:00:56,399
+for cleaning them up
+
+30
+00:00:53,360 --> 00:00:57,920
+microsoft on windows 32 APIs
+
+31
+00:00:56,399 --> 00:00:59,680
+used a different calling convention
+
+32
+00:00:57,920 --> 00:01:01,039
+called standard call which was not the
+
+33
+00:00:59,680 --> 00:01:02,800
+standard at all
+
+34
+00:01:01,039 --> 00:01:05,280
+standard call not the standard at all
+
+35
+00:01:02,800 --> 00:01:08,240
+yeah that rhymes it must be true
+
+36
+00:01:05,280 --> 00:01:08,880
+and in that calling convention if the
+
+37
+00:01:08,240 --> 00:01:10,400
+caller
+
+38
+00:01:08,880 --> 00:01:12,159
+pushed a bunch of arguments onto the
+
+39
+00:01:10,400 --> 00:01:14,720
+stack then the callee
+
+40
+00:01:12,159 --> 00:01:16,479
+inside the Win32 API was actually
+
+41
+00:01:14,720 --> 00:01:18,159
+responsible for cleaning up the stack
+
+42
+00:01:16,479 --> 00:01:20,400
+way back when we were learning about the
+
+43
+00:01:18,159 --> 00:01:22,640
+call and return assembly instructions
+
+44
+00:01:20,400 --> 00:01:25,040
+I said that return actually has another
+
+45
+00:01:22,640 --> 00:01:27,040
+form where it can
+
+46
+00:01:25,040 --> 00:01:29,680
+pop something off of the stack into rip
+
+47
+00:01:27,040 --> 00:01:32,240
+but can also add to the stack
+
+48
+00:01:29,680 --> 00:01:34,000
+that is the place Win32 APIs calling
+
+49
+00:01:32,240 --> 00:01:35,680
+convention using standard call
+
+50
+00:01:34,000 --> 00:01:37,520
+that is the place that you are most
+
+51
+00:01:35,680 --> 00:01:39,200
+likely to find that particular form of
+
+52
+00:01:37,520 --> 00:01:41,439
+the ret instruction
+
+53
+00:01:39,200 --> 00:01:43,280
+and as I already alluded to function
+
+54
+00:01:41,439 --> 00:01:46,720
+parameters are pushed onto the stack
+
+55
+00:01:43,280 --> 00:01:48,399
+from right to left pushed right to left
+
+56
+00:01:46,720 --> 00:01:49,920
+so that ultimately when you look at the
+
+57
+00:01:48,399 --> 00:01:52,240
+stack from
+
+58
+00:01:49,920 --> 00:01:53,600
+bottom to top you see the bottom one is
+
+59
+00:01:52,240 --> 00:01:55,759
+the leftmost
+
+60
+00:01:53,600 --> 00:01:57,200
+and the rightmost one is on the top
+
+61
+00:01:55,759 --> 00:01:59,280
+higher address
+
+62
+00:01:57,200 --> 00:02:01,520
+so what I need you to do is go see for
+
+63
+00:01:59,280 --> 00:02:02,960
+yourself how this 32-bit calling
+
+64
+00:02:01,520 --> 00:02:05,159
+convention looks
+
+65
+00:02:02,960 --> 00:02:06,799
+to do that i recommend you take
+
+66
+00:02:05,159 --> 00:02:10,239
+TooManyParameters.c
+
+67
+00:02:06,799 --> 00:02:10,560
+go and change all those uint64s in there
+
+68
+00:02:10,239 --> 00:02:12,560
+to
+
+69
+00:02:10,560 --> 00:02:14,000
+ints you don't have to it's just going to
+
+70
+00:02:12,560 --> 00:02:16,319
+make it a little bit cleaner but
+
+71
+00:02:14,000 --> 00:02:18,560
+feel free to try it both ways change all
+
+72
+00:02:16,319 --> 00:02:21,440
+these function parameters to ints
+
+73
+00:02:18,560 --> 00:02:22,319
+and then go up to here in your visual
+
+74
+00:02:21,440 --> 00:02:25,360
+studio
+
+75
+00:02:22,319 --> 00:02:27,760
+pull it down and set it to win32 instead
+
+76
+00:02:25,360 --> 00:02:29,120
+of x64 this will cause it to compile as
+
+77
+00:02:27,760 --> 00:02:31,120
+32-bit code
+
+78
+00:02:29,120 --> 00:02:32,720
+start the debugger make sure that you
+
+79
+00:02:31,120 --> 00:02:36,080
+set your memory window for
+
+80
+00:02:32,720 --> 00:02:37,599
+esp and auto refresh instead of rsp
+
+81
+00:02:36,080 --> 00:02:40,720
+otherwise it'll give you an error
+
+82
+00:02:37,599 --> 00:02:41,599
+and set it to 4 byte size because in 32
+
+83
+00:02:40,720 --> 00:02:44,480
+bit code
+
+84
+00:02:41,599 --> 00:02:46,319
+pointers are 4 bytes and then yeah just
+
+85
+00:02:44,480 --> 00:02:47,040
+go ahead and step through the assembly
+
+86
+00:02:46,319 --> 00:02:50,319
+and
+
+87
+00:02:47,040 --> 00:02:51,120
+draw a stack diagram as usual probably
+
+88
+00:02:50,319 --> 00:02:53,760
+want to use
+
+89
+00:02:51,120 --> 00:03:00,239
+4 byte sizes instead of 8 byte sizes
+
+90
+00:02:53,760 --> 00:03:00,239
+because we're dealing with 32-bit code
+

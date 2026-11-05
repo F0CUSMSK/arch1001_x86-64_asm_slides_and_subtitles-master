@@ -1,0 +1,1224 @@
+0
+00:00:00,044 --> 00:00:01,009
+So your stack
+
+1
+00:00:01,009 --> 00:00:03,002
+diagram should look something like this
+
+2
+00:00:03,002 --> 00:00:06,029
+You have your typical return address of whoever called main
+
+3
+00:00:06,003 --> 00:00:08,052
+And then you would have noticed that the very first
+
+4
+00:00:08,052 --> 00:00:11,011
+thing that you see inside of main is a push
+
+5
+00:00:11,012 --> 00:00:11,078
+ebp
+
+6
+00:00:11,081 --> 00:00:14,058
+So whatever the ebp register was pointing out that gets
+
+7
+00:00:14,058 --> 00:00:15,081
+pushed onto the stack
+
+8
+00:00:15,082 --> 00:00:18,086
+Then you start seeing your parameters for the call to
+
+9
+00:00:18,086 --> 00:00:22,006
+func being pushed on the stack from right to left
+
+10
+00:00:22,061 --> 00:00:27,001
+So push 55 push 44 push 33 so forth
+
+11
+00:00:27,011 --> 00:00:29,056
+That's to make them basically take this ordering
+
+12
+00:00:30,004 --> 00:00:32,094
+And this looks very much like the shadow stack diagram
+
+13
+00:00:32,094 --> 00:00:45,043
+that we saw before in 64 bit that we have
+
+14
+00:00:45,043 --> 00:00:47,065
+1, 2, 3, 4, 5 upwards
+
+15
+00:00:48,004 --> 00:00:49,054
+But this is not the Shadow Stack
+
+16
+00:00:49,054 --> 00:00:52,038
+This is just how the calling convention works out in
+
+17
+00:00:52,038 --> 00:00:53,056
+32 bit systems
+
+18
+00:00:54,024 --> 00:00:54,051
+Then,
+
+19
+00:00:54,051 --> 00:00:55,096
+when main called the func,
+
+20
+00:00:55,096 --> 00:00:57,036
+you'd get a return address again
+
+21
+00:00:57,036 --> 00:00:57,066
+func
+
+22
+00:00:57,066 --> 00:00:59,036
+First thing push ebp,
+
+23
+00:00:59,074 --> 00:01:01,051
+and there's no sort of padding,
+
+24
+00:01:01,051 --> 00:01:03,004
+no alignment attempts here,
+
+25
+00:01:03,005 --> 00:01:05,059
+so it just does the math of
+
+26
+00:01:05,059 --> 00:01:06,087
+a + b - c + d - e
+
+27
+00:01:06,087 --> 00:01:08,063
+sticks it into "i"
+
+28
+00:01:08,063 --> 00:01:10,026
+So this would be "i" down here
+
+29
+00:01:11,014 --> 00:01:15,023
+So here's the assembly that I saw and a common
+
+30
+00:01:15,023 --> 00:01:16,007
+thing about 32-bit
+
+31
+00:01:16,007 --> 00:01:17,009
+code is that if you see a bunch of
+
+32
+00:01:17,009 --> 00:01:21,003
+pushes right before a call that typically gives you a
+
+33
+00:01:21,003 --> 00:01:24,023
+very good hint of this is how many arguments there
+
+34
+00:01:24,023 --> 00:01:27,002
+are and what the particular values are that this particular
+
+35
+00:01:27,002 --> 00:01:31,041
+function was being called. In more complicated code
+
+36
+00:01:31,041 --> 00:01:34,036
+there could be more additional manipulation that's going onto the
+
+37
+00:01:34,036 --> 00:01:37,022
+stack so that it's not literally every argument as a
+
+38
+00:01:37,022 --> 00:01:37,073
+push
+
+39
+00:01:37,074 --> 00:01:39,067
+It could just be moved onto the stack after some
+
+40
+00:01:39,067 --> 00:01:40,021
+math
+
+41
+00:01:40,022 --> 00:01:42,042
+But this gives you a pretty good idea of what's
+
+42
+00:01:42,042 --> 00:01:44,036
+going on with functions in 32-bit code
+
+43
+00:01:45,094 --> 00:01:46,044
+Also,
+
+44
+00:01:46,044 --> 00:01:49,012
+you could be forgiven if you thought this push
+
+45
+00:01:49,012 --> 00:01:51,005
+ecx right at the beginning of func was something
+
+46
+00:01:51,005 --> 00:01:53,076
+like a calle's register save
+
+47
+00:01:54,014 --> 00:01:56,097
+But it's actually not the reason that you shouldn't think
+
+48
+00:01:56,097 --> 00:01:59,003
+that is because you don't see balance here
+
+49
+00:01:59,003 --> 00:02:00,016
+There's no push
+
+50
+00:02:00,017 --> 00:02:04,055
+ecx and corresponding pop ecx restoration at the
+
+51
+00:02:04,055 --> 00:02:04,082
+end
+
+52
+00:02:04,082 --> 00:02:07,002
+And with a callee save register,
+
+53
+00:02:07,002 --> 00:02:09,027
+we would expect saving at the beginning of the function
+
+54
+00:02:09,027 --> 00:02:10,055
+and restoring at the end
+
+55
+00:02:11,094 --> 00:02:12,006
+Also,
+
+56
+00:02:12,061 --> 00:02:15,019
+now that I'm showing you the 32 bit caller versus
+
+57
+00:02:15,019 --> 00:02:16,046
+callee-save regs
+
+58
+00:02:16,094 --> 00:02:19,087
+ecx is not a callee-save reg anyways
+
+59
+00:02:19,088 --> 00:02:22,098
+so these are all the exact same things that you
+
+60
+00:02:22,098 --> 00:02:26,006
+saw on the 64 bit esi edi
+
+61
+00:02:26,006 --> 00:02:30,009
+Instead of rsi rdi all the same conventions,
+
+62
+00:02:30,009 --> 00:02:33,075
+it's just 32 bit e register forms instead of 64
+
+63
+00:02:33,075 --> 00:02:35,036
+bit r registered forms
+
+64
+00:02:36,014 --> 00:02:38,067
+But here's an interesting difference between the calling convention that
+
+65
+00:02:38,067 --> 00:02:41,028
+we've seen on the Microsoft visual studio thus far in
+
+66
+00:02:41,028 --> 00:02:42,095
+these 32 bit calling conventions,
+
+67
+00:02:43,054 --> 00:02:45,031
+both cdecl and standard call
+
+68
+00:02:45,032 --> 00:02:48,076
+Do what I call explicit stack frame linkage
+
+69
+00:02:49,024 --> 00:02:51,016
+So each time you enter a new function,
+
+70
+00:02:51,017 --> 00:02:54,004
+the old ebp gets pushed onto the stack
+
+71
+00:02:54,004 --> 00:02:55,092
+We saw that in the code we're just looking at
+
+72
+00:02:55,094 --> 00:02:57,079
+as a reminder ebp the
+
+73
+00:02:57,079 --> 00:03:01,012
+bp stands for stack frame base pointer
+
+74
+00:03:01,012 --> 00:03:03,055
+So it's sort of a base of a stack frame
+
+75
+00:03:04,004 --> 00:03:08,096
+and we also saw that the new esp gets moved
+
+76
+00:03:08,096 --> 00:03:09,007
+into
+
+77
+00:03:09,007 --> 00:03:10,008
+ebp
+
+78
+00:03:10,009 --> 00:03:12,098
+So the sort of like second assembly instruction is usually
+
+79
+00:03:12,098 --> 00:03:14,035
+move esp to ebp
+
+80
+00:03:14,084 --> 00:03:15,023
+Again,
+
+81
+00:03:15,023 --> 00:03:18,036
+the esp is the top of the stack pointer gets
+
+82
+00:03:18,036 --> 00:03:19,081
+moved into ebp,
+
+83
+00:03:19,081 --> 00:03:21,046
+the base of the stack frame
+
+84
+00:03:22,014 --> 00:03:23,058
+So what's going on there
+
+85
+00:03:23,059 --> 00:03:26,022
+So let's look at that in a simpler example than
+
+86
+00:03:26,022 --> 00:03:27,062
+the TooManyParameters
+
+87
+00:03:27,063 --> 00:03:30,093
+So back to this very simple calling a function
+
+88
+00:03:31,008 --> 00:03:33,014
+This was the code in 64 bit,
+
+89
+00:03:33,033 --> 00:03:35,074
+and this is what the code would look like in
+
+90
+00:03:35,074 --> 00:03:36,045
+32 bit
+
+91
+00:03:36,094 --> 00:03:40,089
+So I've created a nice new coloring pneumonic be for
+
+92
+00:03:40,089 --> 00:03:42,023
+balanced push,
+
+93
+00:03:42,023 --> 00:03:45,096
+pop push pop and lavender for linkage
+
+94
+00:03:46,044 --> 00:03:48,045
+So let's see what's going on here
+
+95
+00:03:49,014 --> 00:03:51,038
+We're going to draw this in our sort of simplified
+
+96
+00:03:51,038 --> 00:03:53,046
+stack diagram that we have been building up
+
+97
+00:03:53,084 --> 00:03:56,026
+So when main starts running,
+
+98
+00:03:56,084 --> 00:03:57,021
+of course,
+
+99
+00:03:57,021 --> 00:04:00,005
+there's a return address on the top of the stack
+
+100
+00:04:00,006 --> 00:04:01,088
+esp is pointing at the return address,
+
+101
+00:04:01,088 --> 00:04:04,018
+and ebp is pointing somewhere else
+
+102
+00:04:04,018 --> 00:04:05,009
+And I'm going to say it's,
+
+103
+00:04:05,009 --> 00:04:05,038
+you know,
+
+104
+00:04:05,038 --> 00:04:07,036
+at some higher address than esp
+
+105
+00:04:08,064 --> 00:04:12,062
+So main's frame is now created because we're into main
+
+106
+00:04:12,063 --> 00:04:14,065
+First thing main is going to do is push the
+
+107
+00:04:14,065 --> 00:04:15,026
+ebp
+
+108
+00:04:15,074 --> 00:04:17,049
+So esp moves down,
+
+109
+00:04:17,049 --> 00:04:22,016
+automatically decremented by the push assembly instruction and that pushed
+
+110
+00:04:22,017 --> 00:04:22,081
+ebp
+
+111
+00:04:22,081 --> 00:04:26,041
+So ebp register points at some address up here
+
+112
+00:04:26,041 --> 00:04:30,096
+that saved ebp is actually pointing at wherever ebp is pointing
+
+113
+00:04:31,074 --> 00:04:36,061
+The next assembly instruction is doing mov esp to ebp so
+
+114
+00:04:36,061 --> 00:04:38,032
+that's going to move ebp
+
+115
+00:04:38,032 --> 00:04:40,045
+So that's pointing at the same place as esp
+
+116
+00:04:40,045 --> 00:04:42,046
+So they're now both pointing out this lot
+
+117
+00:04:42,047 --> 00:04:43,048
+And this lot,
+
+118
+00:04:43,049 --> 00:04:47,079
+in some notional sense is pointing back wherever ebp used
+
+119
+00:04:47,079 --> 00:04:51,014
+to point before it just got moved here and then
+
+120
+00:04:51,004 --> 00:04:53,006
+main is going to call func
+
+121
+00:04:53,054 --> 00:04:55,076
+So that's going to push your return address onto the
+
+122
+00:04:55,076 --> 00:04:56,054
+stack decrementing
+
+123
+00:04:56,054 --> 00:04:57,095
+esp
+
+124
+00:04:58,084 --> 00:05:01,004
+func now has a notional stack frame
+
+125
+00:05:01,005 --> 00:05:03,027
+First thing func does with that stack frame is it's
+
+126
+00:05:03,027 --> 00:05:04,045
+going to push the ebp
+
+127
+00:05:05,054 --> 00:05:07,007
+esp decrements ebp,
+
+128
+00:05:07,071 --> 00:05:09,055
+which still points up here
+
+129
+00:05:09,056 --> 00:05:11,065
+It's pointing out this address on the stack
+
+130
+00:05:11,066 --> 00:05:14,057
+It's going to push that address of this location on
+
+131
+00:05:14,057 --> 00:05:15,005
+the stack
+
+132
+00:05:15,044 --> 00:05:17,014
+So in some notional sense,
+
+133
+00:05:17,015 --> 00:05:21,001
+it is pointing back at where ebp pointed is currently
+
+134
+00:05:21,001 --> 00:05:21,095
+pointing rather
+
+135
+00:05:22,034 --> 00:05:23,007
+And then again,
+
+136
+00:05:23,007 --> 00:05:24,007
+the next assembly instruction
+
+137
+00:05:24,072 --> 00:05:26,036
+mov esp to
+
+138
+00:05:26,036 --> 00:05:26,074
+ebp
+
+139
+00:05:26,074 --> 00:05:28,037
+thereby moving down
+
+140
+00:05:28,037 --> 00:05:28,065
+ebp
+
+141
+00:05:28,066 --> 00:05:31,026
+So this is the sort of linkage that I'm talking
+
+142
+00:05:31,026 --> 00:05:31,074
+about
+
+143
+00:05:31,075 --> 00:05:34,091
+ebp is always kind of being kept pointing
+
+144
+00:05:34,091 --> 00:05:36,009
+at the base of each stack frame,
+
+145
+00:05:36,091 --> 00:05:40,021
+but the the value at that base is pointing back
+
+146
+00:05:40,021 --> 00:05:41,028
+at the previous bases,
+
+147
+00:05:41,028 --> 00:05:42,076
+pointing back at the previous base
+
+148
+00:05:43,024 --> 00:05:45,065
+So let's put together more what this code would look
+
+149
+00:05:45,065 --> 00:05:48,067
+like that we've been building up are stacked diagrams for
+
+150
+00:05:48,067 --> 00:05:49,056
+throughout the class
+
+151
+00:05:49,094 --> 00:05:53,006
+If we were doing the 32 bit calling convention,
+
+152
+00:05:53,044 --> 00:05:57,043
+So ebp is pointing somewhere on the stack. And when main
+
+153
+00:05:57,043 --> 00:05:58,027
+gets called,
+
+154
+00:05:58,028 --> 00:06:00,036
+the return address of whoever called main is going to
+
+155
+00:06:00,036 --> 00:06:00,071
+be there
+
+156
+00:06:00,071 --> 00:06:02,026
+esp now points there
+
+157
+00:06:02,064 --> 00:06:04,018
+Stack frame exists for main,
+
+158
+00:06:04,018 --> 00:06:08,032
+and first assembly instruction in main would be the push
+
+159
+00:06:08,033 --> 00:06:09,004
+ebp,
+
+160
+00:06:09,004 --> 00:06:11,085
+and that would cause this sort of notional linkage back
+
+161
+00:06:11,085 --> 00:06:13,056
+to the previous value of ebp
+
+162
+00:06:13,094 --> 00:06:17,006
+Next assembly instruction would be anticipated to be mov esp to
+
+163
+00:06:17,061 --> 00:06:18,032
+ebp,
+
+164
+00:06:18,051 --> 00:06:20,061
+pulling it down and pointing it at the beginning of
+
+165
+00:06:20,061 --> 00:06:21,076
+this new stack frame
+
+166
+00:06:22,044 --> 00:06:22,086
+And then,
+
+167
+00:06:22,086 --> 00:06:24,014
+in this particular case,
+
+168
+00:06:24,018 --> 00:06:26,059
+main has a single local variable C,
+
+169
+00:06:26,059 --> 00:06:29,016
+so it would allocate some space for a local variable
+
+170
+00:06:29,094 --> 00:06:31,086
+Then it would further allocate some space
+
+171
+00:06:31,086 --> 00:06:35,029
+It would push onto the stack 7 as the parameter
+
+172
+00:06:35,029 --> 00:06:36,011
+to foo,
+
+173
+00:06:36,013 --> 00:06:39,084
+So push the function arguments 7, esp moving down once again
+
+174
+00:06:39,084 --> 00:06:43,094
+and then call into the function and it's going
+
+175
+00:06:43,094 --> 00:06:45,095
+to push the return address onto the stack
+
+176
+00:06:46,074 --> 00:06:48,006
+Then we're going to be in foo and the first
+
+177
+00:06:48,006 --> 00:06:51,062
+thing we would expect in that sort of function prologue
+
+178
+00:06:51,063 --> 00:06:52,089
+using this new term,
+
+179
+00:06:53,005 --> 00:06:55,003
+that first little bit of assembly at the beginning of
+
+180
+00:06:55,003 --> 00:06:56,084
+the function we call the function prologue
+
+181
+00:06:57,044 --> 00:06:58,047
+First bit of assembly
+
+182
+00:06:58,048 --> 00:06:59,036
+push ebp
+
+183
+00:06:59,094 --> 00:07:01,023
+So a new stack frame,
+
+184
+00:07:01,024 --> 00:07:02,018
+push ebp,
+
+185
+00:07:02,018 --> 00:07:04,005
+which has the value that points up here at the
+
+186
+00:07:04,051 --> 00:07:08,065
+previous saved ebp and then mov esp to ebp
+
+187
+00:07:09,044 --> 00:07:09,092
+There you go
+
+188
+00:07:09,092 --> 00:07:10,056
+Move it down
+
+189
+00:07:10,056 --> 00:07:12,056
+Now it's pointing at the base of this stack frame
+
+190
+00:07:12,094 --> 00:07:13,036
+Alright,
+
+191
+00:07:13,036 --> 00:07:14,009
+"b" has a single, sorry
+
+192
+00:07:14,009 --> 00:07:17,077
+foo has a single local variable of "b" so that
+
+193
+00:07:17,077 --> 00:07:20,045
+would get allocated and placed under the stack
+
+194
+00:07:21,014 --> 00:07:24,081
+And then any function parameters such as this "b",
+
+195
+00:07:24,081 --> 00:07:27,006
+which acts as the "y" for bar is going to
+
+196
+00:07:27,006 --> 00:07:28,083
+be pushed onto the stack
+
+197
+00:07:28,084 --> 00:07:30,024
+And then when you call the function,
+
+198
+00:07:30,024 --> 00:07:31,098
+the return address is going to get pushed on the
+
+199
+00:07:31,098 --> 00:07:32,059
+stack
+
+200
+00:07:32,006 --> 00:07:33,004
+So now, you're
+
+201
+00:07:33,004 --> 00:07:36,006
+notionally in the bar frame and we expect the first
+
+202
+00:07:36,006 --> 00:07:38,042
+assembly instruction to be push ebp
+
+203
+00:07:38,042 --> 00:07:40,067
+it's going to save ebp,
+
+204
+00:07:40,067 --> 00:07:41,056
+which points back here,
+
+205
+00:07:41,056 --> 00:07:45,007
+where ebp currently points and then mov esp to ebp
+
+206
+00:07:45,007 --> 00:07:46,036
+to move it down
+
+207
+00:07:46,074 --> 00:07:49,042
+There is a single local variable "a" in bar,
+
+208
+00:07:49,042 --> 00:07:51,026
+so it would allocate space for that,
+
+209
+00:07:51,027 --> 00:07:53,024
+it would fill in the value of three times
+
+210
+00:07:53,024 --> 00:07:54,056
+"y" and do all the math there
+
+211
+00:07:55,004 --> 00:07:58,081
+bar does call other functions so it would actually push
+
+212
+00:07:58,081 --> 00:07:59,066
+the parameters
+
+213
+00:07:59,066 --> 00:08:02,096
+This a pointer to a string for printf and
+
+214
+00:08:02,096 --> 00:08:04,095
+the value of "a". But we're just going to stop
+
+215
+00:08:04,095 --> 00:08:06,059
+there to keep it simple for now
+
+216
+00:08:06,006 --> 00:08:07,041
+So at this point,
+
+217
+00:08:07,041 --> 00:08:09,069
+I think you're ready to see the sort of maximum
+
+218
+00:08:09,069 --> 00:08:10,005
+stack diagram
+
+219
+00:08:10,005 --> 00:08:13,011
+This is the thing that I said was super complicated
+
+220
+00:08:13,011 --> 00:08:14,081
+and I tried to get into it too early in
+
+221
+00:08:14,081 --> 00:08:15,085
+previous classes
+
+222
+00:08:16,004 --> 00:08:19,017
+But now that we've learned all about calling functions and
+
+223
+00:08:19,017 --> 00:08:22,087
+passing parameters and local variables callee-save registers,
+
+224
+00:08:22,087 --> 00:08:24,029
+caller-save registers
+
+225
+00:08:24,003 --> 00:08:26,009
+We can finally see sort of what all is going
+
+226
+00:08:26,009 --> 00:08:29,017
+to be in a maximum stack
+
+227
+00:08:29,002 --> 00:08:29,092
+So again,
+
+228
+00:08:29,092 --> 00:08:32,035
+we would have ebp, esp
+
+229
+00:08:32,084 --> 00:08:35,075
+And so we've got the return address from main to
+
+230
+00:08:35,076 --> 00:08:37,056
+whoever called main as the first thing,
+
+231
+00:08:37,056 --> 00:08:39,056
+always some new stack frame
+
+232
+00:08:40,054 --> 00:08:40,089
+Then,
+
+233
+00:08:40,089 --> 00:08:44,019
+in a 32 bit world with 32 bit stack calling
+
+234
+00:08:44,019 --> 00:08:44,089
+conventions,
+
+235
+00:08:44,089 --> 00:08:47,087
+you would have always saved ebp as the first thing
+
+236
+00:08:47,087 --> 00:08:48,066
+on that frame
+
+237
+00:08:49,024 --> 00:08:51,077
+You have local variables stored on the stack frame
+
+238
+00:08:51,077 --> 00:08:53,026
+If any local variables,
+
+239
+00:08:53,064 --> 00:08:56,001
+you would have callee save registers,
+
+240
+00:08:56,012 --> 00:08:56,085
+if any
+
+241
+00:08:57,034 --> 00:08:59,003
+And then before it starts calling a function,
+
+242
+00:08:59,031 --> 00:09:00,086
+it would save any callers,
+
+243
+00:09:00,086 --> 00:09:01,096
+save registers,
+
+244
+00:09:02,044 --> 00:09:05,005
+and it would push any function arguments
+
+245
+00:09:05,044 --> 00:09:06,092
+And when it finally calls it,
+
+246
+00:09:06,093 --> 00:09:09,037
+it would have the return address to get back to
+
+247
+00:09:09,037 --> 00:09:09,069
+main
+
+248
+00:09:09,073 --> 00:09:12,082
+So this is sort of the maximum stack contents
+
+249
+00:09:12,085 --> 00:09:14,022
+But see that it says,
+
+250
+00:09:14,023 --> 00:09:15,005
+if any,
+
+251
+00:09:15,005 --> 00:09:16,055
+all of these places
+
+252
+00:09:16,056 --> 00:09:16,096
+So,
+
+253
+00:09:16,096 --> 00:09:17,057
+quite frankly,
+
+254
+00:09:17,057 --> 00:09:18,092
+there could be no local variables
+
+255
+00:09:18,092 --> 00:09:20,085
+There could be no callee-save registers,
+
+256
+00:09:20,085 --> 00:09:23,076
+caller-save registers or function arguments
+
+257
+00:09:24,024 --> 00:09:25,096
+If this was a leaf node,
+
+258
+00:09:25,097 --> 00:09:26,064
+of course,
+
+259
+00:09:26,064 --> 00:09:28,067
+it would have just saved ebp,
+
+260
+00:09:28,067 --> 00:09:31,057
+like we saw in our simple example before and no
+
+261
+00:09:31,057 --> 00:09:33,026
+further usage of the stack frame
+
+262
+00:09:33,064 --> 00:09:36,085
+And so that would continue as a function calls other
+
+263
+00:09:36,085 --> 00:09:42,038
+functions, saved ebp go first and so forth, all
+
+264
+00:09:42,038 --> 00:09:44,066
+the stuff that we just saw in the previous example
+
+265
+00:09:45,014 --> 00:09:47,019
+And when we finally get to a leaf node,
+
+266
+00:09:47,023 --> 00:09:49,087
+we would expect the leaf node and the leaf function
+
+267
+00:09:49,096 --> 00:09:53,003
+to have only these things only potentially call the same
+
+268
+00:09:53,003 --> 00:09:56,026
+registers local variables and the saved ebp
+
+269
+00:09:56,043 --> 00:09:58,008
+No caller save registers,
+
+270
+00:09:58,008 --> 00:10:00,096
+no function arguments and no return address if it doesn't
+
+271
+00:10:00,096 --> 00:10:01,066
+call anything
+
+272
+00:10:01,074 --> 00:10:03,075
+And so one little helpful thing if you happen to
+
+273
+00:10:03,075 --> 00:10:05,046
+be looking at 32 bit code,
+
+274
+00:10:05,074 --> 00:10:09,005
+is that frequently you will see function parameters getting referenced
+
+275
+00:10:09,005 --> 00:10:13,043
+as ebp plus something and local variables as ebp
+
+276
+00:10:13,043 --> 00:10:14,066
+minus something
+
+277
+00:10:14,067 --> 00:10:16,007
+Or depending on the compiler,
+
+278
+00:10:16,007 --> 00:10:18,008
+it might be esp plus something So you
+
+279
+00:10:18,008 --> 00:10:21,005
+can see that if this was our final sort of
+
+280
+00:10:21,005 --> 00:10:22,013
+stack diagram,
+
+281
+00:10:22,018 --> 00:10:25,067
+and ebp is always kind of pointing at the beginning
+
+282
+00:10:25,067 --> 00:10:28,046
+of a particular frame for the function that you're in
+
+283
+00:10:29,014 --> 00:10:32,000
+then ebp plus something is going to be
+
+284
+00:10:32,000 --> 00:10:32,009
+the function arguments
+
+285
+00:10:32,091 --> 00:10:33,072
+If you're in bar,
+
+286
+00:10:33,072 --> 00:10:35,011
+the functional arguments are here
+
+287
+00:10:35,011 --> 00:10:36,054
+If you're in foo function,
+
+288
+00:10:36,054 --> 00:10:37,063
+arguments are here,
+
+289
+00:10:37,064 --> 00:10:39,066
+but they're always kind of ebp plus something
+
+290
+00:10:40,054 --> 00:10:43,059
+and the local variables would then be a ebp minus
+
+291
+00:10:43,059 --> 00:10:46,086
+something that would be typical of a local variable access
+
+292
+00:10:47,044 --> 00:10:49,092
+But some compilers or some compiler options
+
+293
+00:10:50,005 --> 00:10:50,065
+Instead,
+
+294
+00:10:50,065 --> 00:10:53,065
+they index things as esp plus something,
+
+295
+00:10:54,004 --> 00:10:55,025
+and sometimes it's mixed,
+
+296
+00:10:55,025 --> 00:10:58,023
+so they'll still do ebp plus something for function arguments
+
+297
+00:10:58,024 --> 00:11:00,042
+and esp plus something for locals
+
+298
+00:11:00,043 --> 00:11:02,092
+Or it might just be esp plus something
+
+299
+00:11:02,092 --> 00:11:03,085
+for all of it
+
+300
+00:11:04,024 --> 00:11:06,002
+But that's just a basic heuristic for you
+
+301
+00:11:06,021 --> 00:11:08,022
+If you happen to be looking at 32-bit code
+
+302
+00:11:08,028 --> 00:11:10,029
+and you see ebp plus something,
+
+303
+00:11:10,037 --> 00:11:12,029
+it's probably a function argument
+
+304
+00:11:12,038 --> 00:11:14,036
+If you see ebp minus something,
+
+305
+00:11:14,049 --> 00:11:16,036
+it's probably a local variable access
+

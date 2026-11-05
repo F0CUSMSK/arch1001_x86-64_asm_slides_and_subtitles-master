@@ -1,0 +1,240 @@
+1
+00:00:00,240 --> 00:00:08,160
+OST presents Brendan Fraser in
+
+2
+00:00:03,520 --> 00:00:08,160
+journey to the center of the memcpy
+
+3
+00:00:08,240 --> 00:00:11,519
+so 
+
+4
+00:00:10,320 --> 00:00:14,000
+JourneyToTheCenterOfMemcpy.c
+
+5
+00:00:11,519 --> 00:00:14,960
+we are going to dig down in memcpy
+
+6
+00:00:14,000 --> 00:00:18,240
+looking for the
+
+7
+00:00:14,960 --> 00:00:20,640
+elusive rep movs instruction
+
+8
+00:00:18,240 --> 00:00:21,920
+so we have a structure here that we've
+
+9
+00:00:20,640 --> 00:00:24,800
+pragma pack 1
+
+10
+00:00:21,920 --> 00:00:26,800
+to squish it all together, we have 2
+
+11
+00:00:24,800 --> 00:00:30,400
+instances of the structure we
+
+12
+00:00:26,800 --> 00:00:32,320
+set a single variable to 0xff and then
+
+13
+00:00:30,400 --> 00:00:34,000
+memcpy from a to b so that we can
+
+14
+00:00:32,320 --> 00:00:37,360
+confirm when it's actually copied
+
+15
+00:00:34,000 --> 00:00:40,719
+of course we return 0xAce0fBa5e
+
+16
+00:00:37,360 --> 00:00:43,360
+so here's the assembly and I want you to
+
+17
+00:00:40,719 --> 00:00:45,200
+step into the unknown. memcpy is a
+
+18
+00:00:43,360 --> 00:00:46,000
+library function this is not our source
+
+19
+00:00:45,200 --> 00:00:47,840
+code
+
+20
+00:00:46,000 --> 00:00:49,039
+but I want you to step in in the
+
+21
+00:00:47,840 --> 00:00:52,079
+assembly view
+
+22
+00:00:49,039 --> 00:00:52,800
+and dig down in it until you find rep
+
+23
+00:00:52,079 --> 00:00:54,719
+movs
+
+24
+00:00:52,800 --> 00:00:56,960
+so rep movs is the assembly
+
+25
+00:00:54,719 --> 00:00:58,879
+instruction we're searching for here
+
+26
+00:00:56,960 --> 00:01:00,719
+we just learned about rep stos and so
+
+27
+00:00:58,879 --> 00:01:01,440
+this is going to be somehow related to
+
+28
+00:01:00,719 --> 00:01:03,920
+that
+
+29
+00:01:01,440 --> 00:01:05,760
+now traditionally in the in person class
+
+30
+00:01:03,920 --> 00:01:08,080
+I had just you know taken people
+
+31
+00:01:05,760 --> 00:01:09,200
+through the source code and explained it
+
+32
+00:01:08,080 --> 00:01:11,360
+in slides
+
+33
+00:01:09,200 --> 00:01:12,960
+this is necessary because typically this
+
+34
+00:01:11,360 --> 00:01:14,479
+example comes towards the end of the
+
+35
+00:01:12,960 --> 00:01:15,920
+class and I need to make sure we get the
+
+36
+00:01:14,479 --> 00:01:17,840
+entire class done
+
+37
+00:01:15,920 --> 00:01:19,200
+but it is much better for your learning
+
+38
+00:01:17,840 --> 00:01:21,520
+experience if
+
+39
+00:01:19,200 --> 00:01:23,439
+those of you who are bold will now
+
+40
+00:01:21,520 --> 00:01:24,159
+choose to go do this exercise by
+
+41
+00:01:23,439 --> 00:01:27,200
+yourself
+
+42
+00:01:24,159 --> 00:01:29,119
+before I show you the solution so what I
+
+43
+00:01:27,200 --> 00:01:31,759
+need you to do is stop
+
+44
+00:01:29,119 --> 00:01:32,240
+step through the memcpy assembly and
+
+45
+00:01:31,759 --> 00:01:35,280
+find
+
+46
+00:01:32,240 --> 00:01:37,360
+the rep movs now in particular you're
+
+47
+00:01:35,280 --> 00:01:39,040
+probably going to need well I shouldn't
+
+48
+00:01:37,360 --> 00:01:39,520
+say probably you're definitely going to
+
+49
+00:01:39,040 --> 00:01:42,399
+need
+
+50
+00:01:39,520 --> 00:01:44,240
+to modify the struct in order to force
+
+51
+00:01:42,399 --> 00:01:46,159
+the memcpy assembly
+
+52
+00:01:44,240 --> 00:01:48,399
+down the right path that ultimately
+
+53
+00:01:46,159 --> 00:01:51,040
+leads you to rep movs
+
+54
+00:01:48,399 --> 00:01:53,040
+and to make it even more challenging
+
+55
+00:01:51,040 --> 00:01:54,159
+when you finally find the rep movs I
+
+56
+00:01:53,040 --> 00:01:57,439
+want you to write down
+
+57
+00:01:54,159 --> 00:02:00,640
+pseudocode for the path that leads to it
+
+58
+00:01:57,439 --> 00:02:09,840
+alright so now bold adventurers
+
+59
+00:02:00,640 --> 00:02:09,840
+once more into the abyss
+
+60
+00:02:10,160 --> 00:02:12,239
+you
+

@@ -1,0 +1,140 @@
+1
+00:00:00,160 --> 00:00:04,080
+so the takeaways from
+
+2
+00:00:02,159 --> 00:00:06,480
+ShiftExample3Signed.c
+
+3
+00:00:04,080 --> 00:00:07,120
+is that as usual compilers will prefer
+
+4
+00:00:06,480 --> 00:00:08,720
+shifts
+
+5
+00:00:07,120 --> 00:00:10,480
+over multiplies and divides when you're
+
+6
+00:00:08,720 --> 00:00:13,200
+dealing with powers of two
+
+7
+00:00:10,480 --> 00:00:14,559
+if it is a signed variable which is
+
+8
+00:00:13,200 --> 00:00:16,480
+being operated on
+
+9
+00:00:14,559 --> 00:00:18,080
+then the compiler must generate
+
+10
+00:00:16,480 --> 00:00:19,760
+different instructions such as the
+
+11
+00:00:18,080 --> 00:00:21,840
+arithmetic shift right in order to
+
+12
+00:00:19,760 --> 00:00:23,760
+maintain the signedness
+
+13
+00:00:21,840 --> 00:00:25,439
+as it's being shifted to the right and
+
+14
+00:00:23,760 --> 00:00:27,599
+it might have to do some other things
+
+15
+00:00:25,439 --> 00:00:28,640
+like cdq in order to make sure the math
+
+16
+00:00:27,599 --> 00:00:30,320
+all works out
+
+17
+00:00:28,640 --> 00:00:32,239
+but i said for now we don't really care
+
+18
+00:00:30,320 --> 00:00:33,520
+about cdq you could have obviously
+
+19
+00:00:32,239 --> 00:00:35,200
+played around with it and
+
+20
+00:00:33,520 --> 00:00:37,680
+you know seen and inferred what exactly
+
+21
+00:00:35,200 --> 00:00:39,600
+is going on but because cdq
+
+22
+00:00:37,680 --> 00:00:41,680
+is not the kind of thing that i ran into
+
+23
+00:00:39,600 --> 00:00:44,000
+a lot or when i did run into it really
+
+24
+00:00:41,680 --> 00:00:46,719
+didn't matter that much
+
+25
+00:00:44,000 --> 00:00:47,680
+i'm leaving this as something to be read
+
+26
+00:00:46,719 --> 00:00:49,600
+in the fun manual
+
+27
+00:00:47,680 --> 00:00:51,199
+later on after you learn how to read the
+
+28
+00:00:49,600 --> 00:00:53,039
+fun manual
+
+29
+00:00:51,199 --> 00:00:54,559
+so two more assembly instructions of
+
+30
+00:00:53,039 --> 00:00:56,800
+course one of them happens to be the
+
+31
+00:00:54,559 --> 00:00:59,680
+same as the other
+
+32
+00:00:56,800 --> 00:01:00,239
+and there we go shift arithmetic left
+
+33
+00:00:59,680 --> 00:01:03,520
+and
+
+34
+00:01:00,239 --> 00:01:07,760
+shift arithmetic right it is no longer
+
+35
+00:01:03,520 --> 00:01:07,760
+shifty time today
+

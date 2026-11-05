@@ -1,0 +1,444 @@
+1
+00:00:00,160 --> 00:00:03,919
+and our final control flow example is
+
+2
+00:00:02,320 --> 00:00:06,720
+the SwitchExample
+
+3
+00:00:03,919 --> 00:00:07,520
+so let's go see what that was all right
+
+4
+00:00:06,720 --> 00:00:10,320
+we take
+
+5
+00:00:07,520 --> 00:00:11,200
+a argument we put it into a and then we
+
+6
+00:00:10,320 --> 00:00:13,280
+switch on a
+
+7
+00:00:11,200 --> 00:00:14,320
+if the argument is 0 we return 1 if
+
+8
+00:00:13,280 --> 00:00:16,720
+it's 1 we return
+
+9
+00:00:14,320 --> 00:00:17,920
+2 and anything else we return 3
+
+10
+00:00:16,720 --> 00:00:19,840
+otherwise return
+
+11
+00:00:17,920 --> 00:00:21,920
+0xfee1fed but we should never be able to
+
+12
+00:00:19,840 --> 00:00:22,960
+do that because this default case should
+
+13
+00:00:21,920 --> 00:00:25,519
+catch everything
+
+14
+00:00:22,960 --> 00:00:26,560
+else for all other cases so let's go
+
+15
+00:00:25,519 --> 00:00:28,000
+ahead and compile that
+
+16
+00:00:26,560 --> 00:00:29,679
+and see what it looks like in the
+
+17
+00:00:28,000 --> 00:00:30,080
+disassembler now what i would tell you
+
+18
+00:00:29,679 --> 00:00:32,480
+here
+
+19
+00:00:30,080 --> 00:00:34,399
+is that everything up to the atoi and
+
+20
+00:00:32,480 --> 00:00:36,399
+essentially after it all of this
+
+21
+00:00:34,399 --> 00:00:38,800
+is stuff we've seen before in previous
+
+22
+00:00:36,399 --> 00:00:42,480
+examples so standard function prolog
+
+23
+00:00:38,800 --> 00:00:43,120
+subtract 20 from rsp these are the save
+
+24
+00:00:42,480 --> 00:00:46,399
+of the
+
+25
+00:00:43,120 --> 00:00:48,960
+argc and argv this is the
+
+26
+00:00:46,399 --> 00:00:50,800
+grabbing back the argv and putting into
+
+27
+00:00:48,960 --> 00:00:52,000
+rax adding 8 so that we're now
+
+28
+00:00:50,800 --> 00:00:54,480
+pointing at argv
+
+29
+00:00:52,000 --> 00:00:56,480
+of 1 we have the address of argv of 1
+
+30
+00:00:54,480 --> 00:00:58,000
+and then dereferencing argv of 1 so that
+
+31
+00:00:56,480 --> 00:01:00,480
+we have the value in it
+
+32
+00:00:58,000 --> 00:01:02,239
+which is essentially the pointer to the
+
+33
+00:01:00,480 --> 00:01:02,960
+argument that we passed as our first
+
+34
+00:01:02,239 --> 00:01:05,119
+argument
+
+35
+00:01:02,960 --> 00:01:06,600
+i am still using the same gdb
+
+36
+00:01:05,119 --> 00:01:09,760
+configuration file that has
+
+37
+00:01:06,600 --> 00:01:11,439
+31337 as the first parameter
+
+38
+00:01:09,760 --> 00:01:13,200
+after the start so that's what i would
+
+39
+00:01:11,439 --> 00:01:16,000
+expect here and then atoi is just going
+
+40
+00:01:13,200 --> 00:01:16,479
+to convert 31337 to an actual integer
+
+41
+00:01:16,000 --> 00:01:19,520
+value
+
+42
+00:01:16,479 --> 00:01:22,159
+and because that a the output of atoi
+
+43
+00:01:19,520 --> 00:01:23,280
+went into the local variable a that's
+
+44
+00:01:22,159 --> 00:01:25,920
+going to be the store
+
+45
+00:01:23,280 --> 00:01:27,119
+for a now what you see immediately after
+
+46
+00:01:25,920 --> 00:01:30,079
+that is a compare
+
+47
+00:01:27,119 --> 00:01:31,520
+0 against a and if it's equal then
+
+48
+00:01:30,079 --> 00:01:34,320
+jump to this address
+
+49
+00:01:31,520 --> 00:01:35,600
+180. so that's right here and so it
+
+50
+00:01:34,320 --> 00:01:37,520
+returns 1
+
+51
+00:01:35,600 --> 00:01:38,640
+and then jumps to the end of the
+
+52
+00:01:37,520 --> 00:01:40,159
+function so
+
+53
+00:01:38,640 --> 00:01:41,840
+you can see that this looks slightly
+
+54
+00:01:40,159 --> 00:01:42,640
+different than we had for the if
+
+55
+00:01:41,840 --> 00:01:44,880
+examples
+
+56
+00:01:42,640 --> 00:01:47,200
+instead we have compare against 0 and
+
+57
+00:01:44,880 --> 00:01:49,119
+if that works jump down to a return 1
+
+58
+00:01:47,200 --> 00:01:51,360
+instead of like falling through to
+
+59
+00:01:49,119 --> 00:01:53,040
+return to set 1 for the return value
+
+60
+00:01:51,360 --> 00:01:56,000
+and then jumping to the end so then
+
+61
+00:01:53,040 --> 00:01:58,719
+similarly there's a compare against 1
+
+62
+00:01:56,000 --> 00:02:00,320
+and if that is equal then it jumps down
+
+63
+00:01:58,719 --> 00:02:02,960
+to the returning of 2
+
+64
+00:02:00,320 --> 00:02:03,439
+followed by an immediate jump to the end
+
+65
+00:02:02,960 --> 00:02:05,360
+so
+
+66
+00:02:03,439 --> 00:02:06,799
+slightly different structure in some
+
+67
+00:02:05,360 --> 00:02:09,039
+sense it looks a little more
+
+68
+00:02:06,799 --> 00:02:10,479
+formulaic in that you might imagine if
+
+69
+00:02:09,039 --> 00:02:12,400
+you changed the switch
+
+70
+00:02:10,479 --> 00:02:14,400
+and you added more cases you get you
+
+71
+00:02:12,400 --> 00:02:14,959
+know case 0 case 1 case 2 case
+
+72
+00:02:14,400 --> 00:02:17,040
+3
+
+73
+00:02:14,959 --> 00:02:18,800
+you can go ahead and do that on your own
+
+74
+00:02:17,040 --> 00:02:21,360
+time just fiddle around with the switch
+
+75
+00:02:18,800 --> 00:02:23,280
+and see how the unoptimized compiler
+
+76
+00:02:21,360 --> 00:02:24,800
+will generate assembly and
+
+77
+00:02:23,280 --> 00:02:26,560
+see whether it looks exactly like you
+
+78
+00:02:24,800 --> 00:02:28,720
+would expect based on this
+
+79
+00:02:26,560 --> 00:02:30,319
+sort of templated form but for now let's
+
+80
+00:02:28,720 --> 00:02:31,120
+just go ahead and you know step on
+
+81
+00:02:30,319 --> 00:02:34,000
+through and
+
+82
+00:02:31,120 --> 00:02:34,319
+see what we see returned so i'm going to
+
+83
+00:02:34,000 --> 00:02:35,920
+use
+
+84
+00:02:34,319 --> 00:02:38,160
+next instruction because i want to just
+
+85
+00:02:35,920 --> 00:02:41,200
+go all the way past the end of
+
+86
+00:02:38,160 --> 00:02:44,239
+call to that so
+
+87
+00:02:41,200 --> 00:02:47,599
+do and now 31337
+
+88
+00:02:44,239 --> 00:02:50,239
+decimal 7869 hexadecimal
+
+89
+00:02:47,599 --> 00:02:50,959
+that's going to be stored into a and
+
+90
+00:02:50,239 --> 00:02:54,400
+then
+
+91
+00:02:50,959 --> 00:02:56,879
+comparing 0 to that value stored in a
+
+92
+00:02:54,400 --> 00:02:57,760
+is it equal no it is not so that's not
+
+93
+00:02:56,879 --> 00:03:00,319
+going to be taken
+
+94
+00:02:57,760 --> 00:03:00,959
+compare it against 1 is it equal no it's
+
+95
+00:03:00,319 --> 00:03:02,879
+not
+
+96
+00:03:00,959 --> 00:03:04,159
+so that's not going to be taken so
+
+97
+00:03:02,879 --> 00:03:06,080
+finally it hits this
+
+98
+00:03:04,159 --> 00:03:07,680
+default case which is for everything
+
+99
+00:03:06,080 --> 00:03:08,480
+else that we didn't have a specific case
+
+100
+00:03:07,680 --> 00:03:11,120
+for
+
+101
+00:03:08,480 --> 00:03:11,519
+then we default down to returning 3
+
+102
+00:03:11,120 --> 00:03:13,599
+and
+
+103
+00:03:11,519 --> 00:03:16,000
+leaving the function and returning so
+
+104
+00:03:13,599 --> 00:03:16,319
+the only real takeaway here is that gcc
+
+105
+00:03:16,000 --> 00:03:17,840
+is
+
+106
+00:03:16,319 --> 00:03:19,920
+generating things a little bit
+
+107
+00:03:17,840 --> 00:03:21,120
+differently from visual studio in terms
+
+108
+00:03:19,920 --> 00:03:22,560
+of switch statements
+
+109
+00:03:21,120 --> 00:03:24,239
+and you can go play around with the
+
+110
+00:03:22,560 --> 00:03:28,640
+switch statement to see
+
+111
+00:03:24,239 --> 00:03:28,640
+slight variations on how it generates it
+

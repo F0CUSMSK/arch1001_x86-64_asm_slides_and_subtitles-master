@@ -1,0 +1,968 @@
+1
+00:00:00,080 --> 00:00:04,799
+então, quais são os rep movs que buscamos?
+
+2
+00:00:02,399 --> 00:00:07,600
+esse tesouro tão zelosamente
+
+3
+00:00:04,799 --> 00:00:08,080
+bem, o movs de representante é basicamente uma cópia de memória
+
+4
+00:00:07,600 --> 00:00:09,920
+até
+
+5
+00:00:08,080 --> 00:00:11,920
+em si, é uma instrução que
+
+6
+00:00:09,920 --> 00:00:13,440
+copia repetidamente de uma fonte para um
+
+7
+00:00:11,920 --> 00:00:17,920
+destino
+
+8
+00:00:13,440 --> 00:00:17,920
+é a repetição do movimento de string para string
+
+9
+00:00:18,560 --> 00:00:23,920
+agora como rep stos movs
+
+10
+00:00:21,680 --> 00:00:25,039
+é, na verdade, sua própria instrução de assembly
+
+11
+00:00:23,920 --> 00:00:27,599
+que faz um movimento
+
+12
+00:00:25,039 --> 00:00:28,240
+de dados de um local de memória para outro
+
+13
+00:00:27,599 --> 00:00:29,359
+próximo
+
+14
+00:00:28,240 --> 00:00:31,039
+mas é um das
+
+15
+00:00:29,359 --> 00:00:33,120
+instruções que podem ter o representante
+
+16
+00:00:31,039 --> 00:00:35,120
+prefixo de instrução adicionado a ele
+
+17
+00:00:33,120 --> 00:00:37,920
+para que ele faça as coisas repetidamente
+
+18
+00:00:35,120 --> 00:00:38,480
+novamente, portanto, todas essas instruções que
+
+19
+00:00:37,920 --> 00:00:41,760
+ter um
+
+20
+00:00:38,480 --> 00:00:43,280
+formulário de prefixo rep, usaremos o cx
+
+21
+00:00:41,760 --> 00:00:46,680
+significa que o registro
+
+22
+00:00:43,280 --> 00:00:47,840
+cx no modo de 16 bits ecx no modo de 32 bits ou
+
+23
+00:00:46,680 --> 00:00:50,800
+rd rcx
+
+24
+00:00:47,840 --> 00:00:52,160
+no modo de 64 bits como um contador de quantas
+
+25
+00:00:50,800 --> 00:00:54,239
+vezes, ele deve percorrer o loop de
+
+26
+00:00:52,160 --> 00:00:56,559
+operação de cópia de memória para memória
+
+27
+00:00:54,239 --> 00:00:58,000
+cada vez que ele faz essa operação, é
+
+28
+00:00:56,559 --> 00:01:01,039
+indo para diminuir
+
+29
+00:00:58,000 --> 00:01:01,920
+cx em um e quando finalmente chegar a zero
+
+30
+00:01:01,039 --> 00:01:03,520
+isso será feito
+
+31
+00:01:01,920 --> 00:01:05,119
+e ele passará para a próxima
+
+32
+00:01:03,520 --> 00:01:08,000
+instrução assim
+
+33
+00:01:05,119 --> 00:01:09,520
+rep movs armazena 1, 2, 4 ou 8
+
+34
+00:01:08,000 --> 00:01:11,840
+bytes por vez
+
+35
+00:01:09,520 --> 00:01:13,360
+e vai acontecer
+
+36
+00:01:11,840 --> 00:01:15,200
+para ter duas formas principais
+
+37
+00:01:13,360 --> 00:01:16,479
+um byte de onde ele será movido
+
+38
+00:01:15,200 --> 00:01:19,600
+da memória
+
+39
+00:01:16,479 --> 00:01:21,759
+apontado por si a di, mas não nos interessa
+
+40
+00:01:19,600 --> 00:01:23,119
+tanto que é o tipo de formato de 16 bits
+
+41
+00:01:21,759 --> 00:01:25,119
+vamos nos preocupar com os dois primeiros
+
+42
+00:01:23,119 --> 00:01:26,159
+formato de quatro ou oito bytes que vai
+
+43
+00:01:25,119 --> 00:01:29,600
+preencher de
+
+44
+00:01:26,159 --> 00:01:30,560
+rsi para rdi e toda vez que ele faz essa
+
+45
+00:01:29,600 --> 00:01:33,600
+operação
+
+46
+00:01:30,560 --> 00:01:35,200
+ele vai incrementar o rdi ou
+
+47
+00:01:33,600 --> 00:01:38,079
+registro rsi
+
+48
+00:01:35,200 --> 00:01:39,759
+pelo número de bytes que estiver copiando, portanto, se
+
+49
+00:01:38,079 --> 00:01:40,000
+ele está copiando um byte de cada vez
+
+50
+00:01:39,759 --> 00:01:43,600
+indo
+
+51
+00:01:40,000 --> 00:01:45,200
+para adicionar 1 ao rdi e rsi
+
+52
+00:01:43,600 --> 00:01:46,640
+isso basicamente faz com que ele
+
+53
+00:01:45,200 --> 00:01:49,280
+apenas copie tudo
+
+54
+00:01:46,640 --> 00:01:50,479
+sequencialmente, de modo que o rep movs é basicamente
+
+55
+00:01:49,280 --> 00:01:52,640
+um memcpy em uma caixa
+
+56
+00:01:50,479 --> 00:01:54,560
+exceto o fato de que há uma configuração que
+
+57
+00:01:52,640 --> 00:01:55,280
+tem que ocorrer para que as três partes do
+
+58
+00:01:54,560 --> 00:01:56,960
+configuração
+
+59
+00:01:55,280 --> 00:01:58,640
+é que será necessário haver uma
+
+60
+00:01:56,960 --> 00:02:01,840
+instrução de assembly para
+
+61
+00:01:58,640 --> 00:02:04,640
+mover e preencher si esi ou rsi
+
+62
+00:02:01,840 --> 00:02:06,840
+com o local de memória de origem inicial
+
+63
+00:02:04,640 --> 00:02:08,640
+di com a memória inicial de destino
+
+64
+00:02:06,840 --> 00:02:11,520
+localização e
+
+65
+00:02:08,640 --> 00:02:13,040
+cx rcx em nosso caso com o número de
+
+66
+00:02:11,520 --> 00:02:14,400
+vezes que ele deve armazenar
+
+67
+00:02:13,040 --> 00:02:16,080
+então, eu disse durante toda a aula que
+
+68
+00:02:14,400 --> 00:02:16,640
+você sabe que não temos memória a memória
+
+69
+00:02:16,080 --> 00:02:18,720
+movimentos
+
+70
+00:02:16,640 --> 00:02:20,160
+mov não pode ter um r/mX e uma fonte e
+
+71
+00:02:18,720 --> 00:02:21,280
+um destino r/mX
+
+72
+00:02:20,160 --> 00:02:22,640
+e é por isso que estou apontando isso
+
+73
+00:02:21,280 --> 00:02:23,440
+esse não é realmente o movimento
+
+74
+00:02:22,640 --> 00:02:26,160
+de instrução
+
+75
+00:02:23,440 --> 00:02:27,680
+isso é movs e frequentemente você
+
+76
+00:02:26,160 --> 00:02:28,879
+ouvi-lo ser chamado de “oh, é um representante
+
+77
+00:02:27,680 --> 00:02:31,680
+movimento é um rep mov
+
+78
+00:02:28,879 --> 00:02:34,080
+bem, é um movimento de representante e é por isso que
+
+79
+00:02:31,680 --> 00:02:36,640
+tem permissão para fazer memória para memória
+
+80
+00:02:34,080 --> 00:02:37,920
+um ponto interessante e rápido é o fato de que
+
+81
+00:02:36,640 --> 00:02:39,519
+ele possui um código rígido
+
+82
+00:02:37,920 --> 00:02:42,640
+nessa instrução de assembly que
+
+83
+00:02:39,519 --> 00:02:44,239
+deve usar somente rdi e rsi
+
+84
+00:02:42,640 --> 00:02:46,720
+não tem outras opções para outros
+
+85
+00:02:44,239 --> 00:02:48,959
+registros para copiar memória para memória
+
+86
+00:02:46,720 --> 00:02:52,239
+e isso tem implicações para
+
+87
+00:02:48,959 --> 00:02:54,319
+registros callee-save e caller-save
+
+88
+00:02:52,239 --> 00:02:56,080
+portanto, como o Visual Studio trata isso como
+
+89
+00:02:54,319 --> 00:02:58,319
+um registro de salvamento de chamadas
+
+90
+00:02:56,080 --> 00:02:59,840
+será necessário salvar e restaurar
+
+91
+00:02:58,319 --> 00:03:03,599
+e podemos realmente ver que
+
+92
+00:02:59,840 --> 00:03:04,000
+em nosso assembly, portanto, quando
+
+93
+00:03:03,599 --> 00:03:06,720
+finalmente
+
+94
+00:03:04,000 --> 00:03:08,000
+fomos até os rep movs que podemos ver
+
+95
+00:03:06,720 --> 00:03:11,920
+que a primeira coisa que ele faz
+
+96
+00:03:08,000 --> 00:03:13,840
+é empurrar rdi, empurrar rsi e a última coisa
+
+97
+00:03:11,920 --> 00:03:15,360
+ele faz antes de retornar é que está indo
+
+98
+00:03:13,840 --> 00:03:18,640
+para estourar o rsi
+
+99
+00:03:15,360 --> 00:03:19,200
+e pop rdi, então agora que sabemos o que é o rep
+
+100
+00:03:18,640 --> 00:03:22,400
+movs
+
+101
+00:03:19,200 --> 00:03:24,000
+está fazendo, basicamente, o que vemos bem: empurrar o
+
+102
+00:03:22,400 --> 00:03:26,959
+registros de salvamento de chamadas
+
+103
+00:03:24,000 --> 00:03:27,519
+pegue o r11 e coloque-o no rax, bem, nós
+
+104
+00:03:26,959 --> 00:03:29,840
+não dissemos
+
+105
+00:03:27,519 --> 00:03:31,280
+o rep movs tem algo a ver com o rax, portanto
+
+106
+00:03:29,840 --> 00:03:33,120
+o que está acontecendo com isso?
+
+107
+00:03:31,280 --> 00:03:34,720
+se voltarmos e pesquisarmos em nosso
+
+108
+00:03:33,120 --> 00:03:37,920
+pseudocódigo, vemos que r11
+
+109
+00:03:34,720 --> 00:03:39,920
+mantém rcx mantém o destino e assim
+
+110
+00:03:37,920 --> 00:03:41,360
+na verdade, o memcpy if
+
+111
+00:03:39,920 --> 00:03:44,319
+você deve dar uma olhada no manual
+
+112
+00:03:41,360 --> 00:03:45,519
+ele deve retornar o valor original
+
+113
+00:03:44,319 --> 00:03:48,640
+endereço de destino
+
+114
+00:03:45,519 --> 00:03:51,040
+portanto, ele está movendo o destino para o rax porque
+
+115
+00:03:48,640 --> 00:03:54,799
+que será o valor de retorno
+
+116
+00:03:51,040 --> 00:03:57,439
+então vemos que rcx foi movido para di, portanto rcx
+
+117
+00:03:54,799 --> 00:03:59,680
+destino vamos dar uma olhada rcx
+
+118
+00:03:57,439 --> 00:04:03,280
+destino que se verifica
+
+119
+00:03:59,680 --> 00:04:04,879
+r8 em rcx bem, esse é o rcx é o
+
+120
+00:04:03,280 --> 00:04:05,840
+é o número de vezes que ele é
+
+121
+00:04:04,879 --> 00:04:07,840
+vai fazer um
+
+122
+00:04:05,840 --> 00:04:10,159
+cópia de memória para memória, o que torna
+
+123
+00:04:07,840 --> 00:04:14,080
+sentido porque esse é o nosso tamanho, que
+
+124
+00:04:10,159 --> 00:04:18,000
+agora é 0x84 na versão final deste
+
+125
+00:04:14,080 --> 00:04:21,440
+e r10 no rsi r10 é a fonte
+
+126
+00:04:18,000 --> 00:04:24,560
+portanto, contagem de destino de origem e, em seguida
+
+127
+00:04:21,440 --> 00:04:26,560
+boom rep move de que tamanho está fazendo isso
+
+128
+00:04:24,560 --> 00:04:28,240
+um está fazendo 1 byte de cada vez porque
+
+129
+00:04:26,560 --> 00:04:30,080
+ele está fazendo um ponteiro de byte
+
+130
+00:04:28,240 --> 00:04:32,000
+agora eles podem fazer pedaços maiores de cada vez
+
+131
+00:04:30,080 --> 00:04:34,639
+tempo em que eles podiam fazer 8 bytes por vez
+
+132
+00:04:32,000 --> 00:04:35,520
+mas se examinarmos esse pseudo
+
+133
+00:04:34,639 --> 00:04:37,840
+código e
+
+134
+00:04:35,520 --> 00:04:39,440
+temos uma noção de que, se for, você sabe
+
+135
+00:04:37,840 --> 00:04:40,240
+maior que 0x10 e é maior que
+
+136
+00:04:39,440 --> 00:04:42,880
+0x20
+
+137
+00:04:40,240 --> 00:04:43,600
+que é maior que 0x80. O problema é que
+
+138
+00:04:42,880 --> 00:04:45,840
+para que seja
+
+139
+00:04:43,600 --> 00:04:46,800
+genérico pode ser 0x81 pode ser 0x82 pode ser
+
+140
+00:04:45,840 --> 00:04:48,160
+poderia ser 0x83
+
+141
+00:04:46,800 --> 00:04:50,320
+portanto, você não vai querer estar
+
+142
+00:04:48,160 --> 00:04:52,000
+copiando 8 bytes de cada vez para isso
+
+143
+00:04:50,320 --> 00:04:53,680
+portanto, para torná-lo genérico, eles basicamente
+
+144
+00:04:52,000 --> 00:04:55,360
+basta tratá-lo como 1 byte de cada vez, portanto
+
+145
+00:04:53,680 --> 00:04:57,840
+que ele pode lidar com qualquer tamanho
+
+146
+00:04:55,360 --> 00:04:59,520
+que é maior que 0x80. e então isso é
+
+147
+00:04:57,840 --> 00:05:01,520
+praticamente ele vai fazer a cópia
+
+148
+00:04:59,520 --> 00:05:03,360
+de qualquer coisa para qualquer coisa e depois é
+
+149
+00:05:01,520 --> 00:05:05,039
+vai restaurar os registros e
+
+150
+00:05:03,360 --> 00:05:06,960
+retornar para fora
+
+151
+00:05:05,039 --> 00:05:09,280
+portanto, aqui está uma versão um pouco mais limpa
+
+152
+00:05:06,960 --> 00:05:10,320
+do pseudocódigo que eu estava escrevendo
+
+153
+00:05:09,280 --> 00:05:12,720
+em tempo real
+
+154
+00:05:10,320 --> 00:05:14,639
+você pode ver se o comprimento é menor que 0x10
+
+155
+00:05:12,720 --> 00:05:15,759
+até aqui e vai fazer alguns movimentos
+
+156
+00:05:14,639 --> 00:05:17,759
+instruções se
+
+157
+00:05:15,759 --> 00:05:19,840
+é maior que 0x10, mas menor que
+
+158
+00:05:17,759 --> 00:05:21,840
+0x20, então ele vai até aqui e usa estes
+
+159
+00:05:19,840 --> 00:05:23,360
+instruções de movimentação que não conhecemos
+
+160
+00:05:21,840 --> 00:05:26,240
+o que eles são
+
+161
+00:05:23,360 --> 00:05:28,560
+caso contrário, se a fonte for maior que o destino
+
+162
+00:05:26,240 --> 00:05:30,080
+ir para aqui, mas este endereço é
+
+163
+00:05:28,560 --> 00:05:33,360
+seja o endereço desse
+
+164
+00:05:30,080 --> 00:05:34,960
+comprimento menor que 0x80. e
+
+165
+00:05:33,360 --> 00:05:37,280
+se ele entrar aqui, você terá uma
+
+166
+00:05:34,960 --> 00:05:39,360
+situação de se a fonte é
+
+167
+00:05:37,280 --> 00:05:40,639
+menos que dest é menos que source pus
+
+168
+00:05:39,360 --> 00:05:42,720
+len, o que significa
+
+169
+00:05:40,639 --> 00:05:44,240
+dest está no meio dessa fonte
+
+170
+00:05:42,720 --> 00:05:46,720
+buffer que será copiado
+
+171
+00:05:44,240 --> 00:05:48,240
+ir aqui e lidar com isso, mas felizmente
+
+172
+00:05:46,720 --> 00:05:49,919
+para nós, ele não chegou lá
+
+173
+00:05:48,240 --> 00:05:51,440
+agora podemos, de fato, fazer uma espécie de
+
+174
+00:05:49,919 --> 00:05:53,360
+simplificar um pouco
+
+175
+00:05:51,440 --> 00:05:56,000
+porque sabemos que essa fonte é maior
+
+176
+00:05:53,360 --> 00:05:58,560
+do que dest vai para aqui
+
+177
+00:05:56,000 --> 00:05:59,680
+em vez de pensar nisso como um goto
+
+178
+00:05:58,560 --> 00:06:01,600
+poderíamos mais ou menos
+
+179
+00:05:59,680 --> 00:06:03,280
+livrar-se dele e tratá-lo como se fosse um
+
+180
+00:06:01,600 --> 00:06:06,240
+senão, se invertermos
+
+181
+00:06:03,280 --> 00:06:08,080
+a condição e dizemos se a fonte é
+
+182
+00:06:06,240 --> 00:06:11,360
+menor que o comprimento, vá para aqui
+
+183
+00:06:08,080 --> 00:06:13,280
+mais para lá e isso seria
+
+184
+00:06:11,360 --> 00:06:14,880
+tipo de versão simplificada da fonte
+
+185
+00:06:13,280 --> 00:06:16,960
+é menor que dest
+
+186
+00:06:14,880 --> 00:06:18,639
+e o destino é menor que a origem mais o comprimento
+
+187
+00:06:16,960 --> 00:06:20,400
+faça isso de outra forma
+
+188
+00:06:18,639 --> 00:06:21,919
+então ele vai cair e se transformar em
+
+189
+00:06:20,400 --> 00:06:24,000
+até aqui
+
+190
+00:06:21,919 --> 00:06:25,280
+e, portanto, esse é o caso em que, se o comprimento
+
+191
+00:06:24,000 --> 00:06:28,240
+é menor que 0x80, mas
+
+192
+00:06:25,280 --> 00:06:28,880
+maior que 0x20, então ele vai e faz
+
+193
+00:06:28,240 --> 00:06:30,560
+um pouco mais
+
+194
+00:06:28,880 --> 00:06:32,800
+mover coisas que não sabemos e
+
+195
+00:06:30,560 --> 00:06:33,600
+não se importamos porque estamos caçando rep
+
+196
+00:06:32,800 --> 00:06:35,759
+movs
+
+197
+00:06:33,600 --> 00:06:37,039
+portanto, definimos um valor maior que 80 e ele vai
+
+198
+00:06:35,759 --> 00:06:39,840
+até este caso
+
+199
+00:06:37,039 --> 00:06:40,240
+tem alguma verificação de memória contra você sabe
+
+200
+00:06:39,840 --> 00:06:42,000
+este
+
+201
+00:06:40,240 --> 00:06:44,240
+bit aqui que não sabemos o que está acontecendo com
+
+202
+00:06:42,000 --> 00:06:46,880
+isso, mas felizmente esse bit não está definido
+
+203
+00:06:44,240 --> 00:06:48,479
+sinto muito, mas felizmente esse bit está definido e
+
+204
+00:06:46,880 --> 00:06:49,599
+portanto, não aceita esse caso e
+
+205
+00:06:48,479 --> 00:06:51,919
+em vez disso, vai aqui
+
+206
+00:06:49,599 --> 00:06:53,440
+onde, por fim, encontramos os rep movs
+
+207
+00:06:51,919 --> 00:06:56,479
+então, basicamente, não importa o que aconteça
+
+208
+00:06:53,440 --> 00:06:57,120
+se for maior que 0x80 e esse bit for
+
+209
+00:06:56,479 --> 00:06:59,520
+definir
+
+210
+00:06:57,120 --> 00:07:01,440
+então é garantido que ele sempre fará uma repetição
+
+211
+00:06:59,520 --> 00:07:03,440
+movendo 1 byte de cada vez
+
+212
+00:07:01,440 --> 00:07:05,759
+portanto, uma pequena curiosidade interessante
+
+213
+00:07:03,440 --> 00:07:08,160
+para você, há realmente essa coisa
+
+214
+00:07:05,759 --> 00:07:10,400
+chamada de bandeira de direção
+
+215
+00:07:08,160 --> 00:07:12,560
+e o sinalizador de direção controla de fato
+
+216
+00:07:10,400 --> 00:07:16,080
+a direção das cópias que ocorrem
+
+217
+00:07:12,560 --> 00:07:18,720
+com um rep movs, portanto, esse é um controle C
+
+218
+00:07:16,080 --> 00:07:20,240
+e acontece que, com base no sinalizador
+
+219
+00:07:18,720 --> 00:07:23,199
+flag de direção, pode ser
+
+220
+00:07:20,240 --> 00:07:24,560
+incrementando rdi e rsi ou poderia
+
+221
+00:07:23,199 --> 00:07:25,759
+na verdade, está diminuindo para que possa
+
+222
+00:07:24,560 --> 00:07:27,919
+meio que copiando
+
+223
+00:07:25,759 --> 00:07:29,120
+de trás para frente em direção aos endereços inferiores
+
+224
+00:07:27,919 --> 00:07:30,800
+se você quiser
+
+225
+00:07:29,120 --> 00:07:32,880
+portanto, é interessante pensar sobre isso
+
+226
+00:07:30,800 --> 00:07:35,759
+e se o invasor pudesse de alguma forma
+
+227
+00:07:32,880 --> 00:07:37,759
+controle DF e fazer com que o dispositivo inicie
+
+228
+00:07:35,759 --> 00:07:39,840
+copiando para trás quando os programadores
+
+229
+00:07:37,759 --> 00:07:41,360
+esperar que ele esteja copiando para frente
+
+230
+00:07:39,840 --> 00:07:42,880
+é evidente que isso levará a algumas
+
+231
+00:07:41,360 --> 00:07:45,759
+tipo de corrupção de memória
+
+232
+00:07:42,880 --> 00:07:46,639
+então, pegamos nossa última
+
+233
+00:07:45,759 --> 00:07:49,520
+instrução
+
+234
+00:07:46,639 --> 00:07:51,280
+instrução 30 rep movs e minha
+
+235
+00:07:49,520 --> 00:07:51,919
+amigos amigáveis, é aqui que eu digo
+
+236
+00:07:51,280 --> 00:07:54,000
+você que
+
+237
+00:07:51,919 --> 00:07:56,240
+esta é a última instrução de montagem
+
+238
+00:07:54,000 --> 00:07:57,039
+o que vou tentar fazer especificamente
+
+239
+00:07:56,240 --> 00:07:59,360
+lhe ensinar
+
+240
+00:07:57,039 --> 00:08:00,680
+tudo o que vier depois disso será uma
+
+241
+00:07:59,360 --> 00:08:03,680
+RTFM
+
+242
+00:08:00,680 --> 00:08:03,680
+situação
+

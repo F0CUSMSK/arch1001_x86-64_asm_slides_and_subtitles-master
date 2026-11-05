@@ -1,0 +1,104 @@
+1
+00:00:00,080 --> 00:00:03,360
+We now enter the more cinematic portion
+
+2
+00:00:02,320 --> 00:00:06,640
+of this class
+
+3
+00:00:03,360 --> 00:00:09,599
+as OST presents Daniel Day-Lewis in
+
+4
+00:00:06,640 --> 00:00:10,480
+there will be hex blood! So here is the
+
+5
+00:00:09,599 --> 00:00:12,719
+source code
+
+6
+00:00:10,480 --> 00:00:14,160
+of interest. Like the previous example we
+
+7
+00:00:12,719 --> 00:00:17,440
+have a buffer, it's not
+
+8
+00:00:14,160 --> 00:00:19,840
+zero initialized and we simply move 42
+
+9
+00:00:17,440 --> 00:00:20,560
+into the last element of the buffer and
+
+10
+00:00:19,840 --> 00:00:23,680
+we return
+
+11
+00:00:20,560 --> 00:00:25,359
+0xb100d. But this generates some very
+
+12
+00:00:23,680 --> 00:00:28,560
+interesting looking assembly,
+
+13
+00:00:25,359 --> 00:00:28,960
+this assembly has a rep stos. Why is
+
+14
+00:00:28,560 --> 00:00:31,279
+that?
+
+15
+00:00:28,960 --> 00:00:33,040
+What's going on? Well the easy way to
+
+16
+00:00:31,279 --> 00:00:33,760
+find out would be to stop, step through
+
+17
+00:00:33,040 --> 00:00:36,399
+the assembly
+
+18
+00:00:33,760 --> 00:00:37,440
+and draw a stack diagram. Perhaps you'll
+
+19
+00:00:36,399 --> 00:00:39,200
+be able to infer
+
+20
+00:00:37,440 --> 00:00:41,200
+what's going on with this code. Perhaps
+
+21
+00:00:39,200 --> 00:00:41,840
+you want to change the source code a
+
+22
+00:00:41,200 --> 00:00:43,920
+little bit
+
+23
+00:00:41,840 --> 00:00:45,920
+in order to make sure you fully
+
+24
+00:00:43,920 --> 00:00:50,079
+understand what's going on on the stack
+
+25
+00:00:45,920 --> 00:00:50,079
+either way now's the time to seize the
+
+26
+00:00:50,440 --> 00:00:53,440
+day
+

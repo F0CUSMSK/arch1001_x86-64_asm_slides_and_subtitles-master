@@ -1,0 +1,176 @@
+1
+00:00:00,080 --> 00:00:03,120
+so by the point that you get to
+
+2
+00:00:02,080 --> 00:00:06,080
+assigning
+
+3
+00:00:03,120 --> 00:00:07,680
+"a" to "i" you should see a stack diagram
+
+4
+00:00:06,080 --> 00:00:09,120
+that looks like this
+
+5
+00:00:07,680 --> 00:00:10,960
+and you've got your typical return
+
+6
+00:00:09,120 --> 00:00:12,639
+addresses your padding the gray stuff
+
+7
+00:00:10,960 --> 00:00:13,519
+that we don't really understand why it's
+
+8
+00:00:12,639 --> 00:00:16,160
+there
+
+9
+00:00:13,519 --> 00:00:17,039
+except that in this particular case now
+
+10
+00:00:16,160 --> 00:00:20,240
+where we have
+
+11
+00:00:17,039 --> 00:00:23,199
+a function argument we see that
+
+12
+00:00:20,240 --> 00:00:23,600
+func actually reaches up outside of its
+
+13
+00:00:23,199 --> 00:00:26,560
+own
+
+14
+00:00:23,600 --> 00:00:28,240
+frame which seems a little weird and it
+
+15
+00:00:26,560 --> 00:00:30,800
+sticks that function argument
+
+16
+00:00:28,240 --> 00:00:32,239
+into this memory space it already has
+
+17
+00:00:30,800 --> 00:00:33,600
+the function argument it was passed
+
+18
+00:00:32,239 --> 00:00:35,760
+within a register
+
+19
+00:00:33,600 --> 00:00:37,040
+from main to func but then func goes and
+
+20
+00:00:35,760 --> 00:00:40,079
+sticks it in memory
+
+21
+00:00:37,040 --> 00:00:42,079
+that seems kind of weird so
+
+22
+00:00:40,079 --> 00:00:44,160
+that is pretty much our takeaway from
+
+23
+00:00:42,079 --> 00:00:46,239
+this single parameter passing thing
+
+24
+00:00:44,160 --> 00:00:47,760
+something weird is going on in the stack
+
+25
+00:00:46,239 --> 00:00:49,440
+and we're going to investigate that in
+
+26
+00:00:47,760 --> 00:00:51,360
+the next set of videos
+
+27
+00:00:49,440 --> 00:00:52,960
+the key thing is that it seems very
+
+28
+00:00:51,360 --> 00:00:55,120
+superfluous because
+
+29
+00:00:52,960 --> 00:00:56,960
+main had already successfully gotten a
+
+30
+00:00:55,120 --> 00:00:58,160
+parameter passed into func via a
+
+31
+00:00:56,960 --> 00:00:59,840
+register and that's
+
+32
+00:00:58,160 --> 00:01:01,520
+nice and fast you don't have to touch
+
+33
+00:00:59,840 --> 00:01:02,480
+memory remember with our memory
+
+34
+00:01:01,520 --> 00:01:04,000
+hierarchy
+
+35
+00:01:02,480 --> 00:01:05,760
+reading and writing registers is much
+
+36
+00:01:04,000 --> 00:01:06,479
+faster than reading or writing ram or
+
+37
+00:01:05,760 --> 00:01:08,080
+cache
+
+38
+00:01:06,479 --> 00:01:10,240
+and the fact that it's sticking it back
+
+39
+00:01:08,080 --> 00:01:12,479
+into the stack means that it's writing
+
+40
+00:01:10,240 --> 00:01:15,360
+to cache and or writing to ram
+
+41
+00:01:12,479 --> 00:01:17,280
+so that seems very suboptimal so why is
+
+42
+00:01:15,360 --> 00:01:19,119
+it doing it well let's move on and let's
+
+43
+00:01:17,280 --> 00:01:22,960
+do some more experimentation with more
+
+44
+00:01:19,119 --> 00:01:22,960
+parameters in order to find out
+

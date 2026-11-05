@@ -1,0 +1,1916 @@
+1
+00:00:00,480 --> 00:00:03,120
+all right let's see how we run the
+
+2
+00:00:02,000 --> 00:00:06,080
+binary bomb lab
+
+3
+00:00:03,120 --> 00:00:07,759
+on a Windows system in windbg so
+
+4
+00:00:06,080 --> 00:00:08,400
+inside of the source code that you
+
+5
+00:00:07,759 --> 00:00:10,559
+checked out
+
+6
+00:00:08,400 --> 00:00:11,519
+for this class there is a folder binary
+
+7
+00:00:10,559 --> 00:00:13,920
+bom lab
+
+8
+00:00:11,519 --> 00:00:15,360
+and inside of that is Windows folder
+
+9
+00:00:13,920 --> 00:00:18,240
+with a bomb.exe
+
+10
+00:00:15,360 --> 00:00:20,560
+and a bomb.pdb let's go ahead and copy
+
+11
+00:00:18,240 --> 00:00:24,640
+those to our desktop
+
+12
+00:00:20,560 --> 00:00:24,640
+and then we're going to open up windbg
+
+13
+00:00:25,359 --> 00:00:30,000
+from within windbg we go to file open
+
+14
+00:00:28,840 --> 00:00:34,800
+executable
+
+15
+00:00:30,000 --> 00:00:34,800
+and on our desktop we open the bomb.exe
+
+16
+00:00:34,880 --> 00:00:38,559
+okay so there's no output yet because
+
+17
+00:00:36,559 --> 00:00:39,920
+it's broken at the standard system break
+
+18
+00:00:38,559 --> 00:00:40,640
+point at the beginning so let's just go
+
+19
+00:00:39,920 --> 00:00:44,000
+ahead and
+
+20
+00:00:40,640 --> 00:00:46,399
+hit g for go to see what happens
+
+21
+00:00:44,000 --> 00:00:48,559
+after I bump up the font size a little
+
+22
+00:00:46,399 --> 00:00:51,520
+bit for you
+
+23
+00:00:48,559 --> 00:00:52,719
+all right g to go go back to the
+
+24
+00:00:51,520 --> 00:00:55,600
+executable
+
+25
+00:00:52,719 --> 00:00:57,440
+user interface it prints out welcome to
+
+26
+00:00:55,600 --> 00:00:59,520
+my fiendish little bomb you have 6
+
+27
+00:00:57,440 --> 00:01:01,440
+phases with which to blow yourself up
+
+28
+00:00:59,520 --> 00:01:03,520
+have a nice day and then we've got a
+
+29
+00:01:01,440 --> 00:01:05,439
+little blinking cursor here so
+
+30
+00:01:03,520 --> 00:01:07,280
+it's probably expecting some sort of
+
+31
+00:01:05,439 --> 00:01:09,360
+input so I'm going to go ahead and give
+
+32
+00:01:07,280 --> 00:01:12,080
+it some sort of input
+
+33
+00:01:09,360 --> 00:01:12,640
+and when I hit enter boom the binary
+
+34
+00:01:12,080 --> 00:01:15,920
+bomb
+
+35
+00:01:12,640 --> 00:01:18,000
+has blown up so the goal of this lab
+
+36
+00:01:15,920 --> 00:01:20,960
+is to figure out what are the inputs
+
+37
+00:01:18,000 --> 00:01:24,240
+that this binary executable is expecting
+
+38
+00:01:20,960 --> 00:01:26,159
+in order to avoid these explosions
+
+39
+00:01:24,240 --> 00:01:28,640
+so what does one do when one is faced
+
+40
+00:01:26,159 --> 00:01:31,119
+with a completely black box
+
+41
+00:01:28,640 --> 00:01:33,119
+binary executable that is doing
+
+42
+00:01:31,119 --> 00:01:35,600
+something that we have no idea how to
+
+43
+00:01:33,119 --> 00:01:37,280
+influence its behavior well we look at
+
+44
+00:01:35,600 --> 00:01:39,439
+the assembly of course
+
+45
+00:01:37,280 --> 00:01:40,640
+so let's go ahead and restart this and
+
+46
+00:01:39,439 --> 00:01:42,000
+try again
+
+47
+00:01:40,640 --> 00:01:43,759
+we can you know just look at the
+
+48
+00:01:42,000 --> 00:01:44,960
+assembly straight up but hey we've got a
+
+49
+00:01:43,759 --> 00:01:47,119
+debugger and so
+
+50
+00:01:44,960 --> 00:01:49,439
+since we're not you know analyzing known
+
+51
+00:01:47,119 --> 00:01:51,200
+malware we should always use a debugger
+
+52
+00:01:49,439 --> 00:01:52,159
+or use dynamic analysis whenever
+
+53
+00:01:51,200 --> 00:01:54,560
+possible
+
+54
+00:01:52,159 --> 00:01:56,240
+and you know use our supplemental static
+
+55
+00:01:54,560 --> 00:01:59,360
+analysis are reading the code
+
+56
+00:01:56,240 --> 00:02:02,000
+as you know appropriate so let's go
+
+57
+00:01:59,360 --> 00:02:03,600
+ahead and restart the program
+
+58
+00:02:02,000 --> 00:02:06,320
+and it's going to be broken up system
+
+59
+00:02:03,600 --> 00:02:08,239
+breakpoint again now I gave you the pdb
+
+60
+00:02:06,320 --> 00:02:10,479
+file for this that's the debug
+
+61
+00:02:08,239 --> 00:02:11,920
+symbol information so you're not going
+
+62
+00:02:10,479 --> 00:02:14,080
+to have that for most
+
+63
+00:02:11,920 --> 00:02:15,200
+real programs but we've got it so let's
+
+64
+00:02:14,080 --> 00:02:18,720
+use it
+
+65
+00:02:15,200 --> 00:02:21,040
+so reload the symbols and let's
+
+66
+00:02:18,720 --> 00:02:23,200
+examine let's first set a breakpoint at
+
+67
+00:02:21,040 --> 00:02:26,879
+main
+
+68
+00:02:23,200 --> 00:02:30,239
+and then using gdb
+
+69
+00:02:26,879 --> 00:02:33,680
+syntax breakpoint at main and then
+
+70
+00:02:30,239 --> 00:02:35,599
+let's unassemble the function main and
+
+71
+00:02:33,680 --> 00:02:36,800
+just kind of like skim over it and see
+
+72
+00:02:35,599 --> 00:02:39,920
+you know what do we see
+
+73
+00:02:36,800 --> 00:02:39,920
+what's going on at this thing
+
+74
+00:02:40,160 --> 00:02:44,560
+all right so at the very beginning of
+
+75
+00:02:43,599 --> 00:02:47,680
+main we see
+
+76
+00:02:44,560 --> 00:02:50,720
+some stuff that looks sort of like
+
+77
+00:02:47,680 --> 00:02:52,400
+stores to the shadow stack or shadow
+
+78
+00:02:50,720 --> 00:02:56,160
+store rather
+
+79
+00:02:52,400 --> 00:02:59,360
+we see push rbp push rdi
+
+80
+00:02:56,160 --> 00:03:00,480
+and if we see a balance to that then we
+
+81
+00:02:59,360 --> 00:03:03,519
+might expect that
+
+82
+00:03:00,480 --> 00:03:05,200
+it is a caller-save register save and
+
+83
+00:03:03,519 --> 00:03:07,519
+indeed we do see balance we see the
+
+84
+00:03:05,200 --> 00:03:09,440
+corresponding pops at the end so
+
+85
+00:03:07,519 --> 00:03:10,560
+perfectly balanced as all things should
+
+86
+00:03:09,440 --> 00:03:12,400
+be
+
+87
+00:03:10,560 --> 00:03:15,360
+all right what else do we see we see a
+
+88
+00:03:12,400 --> 00:03:19,120
+sub allocating some space on the stack
+
+89
+00:03:15,360 --> 00:03:21,920
+lea mov blah blah blah
+
+90
+00:03:19,120 --> 00:03:22,480
+we've got a rep stos and we've got CCs
+
+91
+00:03:21,920 --> 00:03:24,959
+so
+
+92
+00:03:22,480 --> 00:03:26,959
+that seems to be that kind of buffer
+
+93
+00:03:24,959 --> 00:03:28,720
+initialization stuff that we see in
+
+94
+00:03:26,959 --> 00:03:31,040
+debug build code
+
+95
+00:03:28,720 --> 00:03:33,040
+seems like when I compiled this I didn't
+
+96
+00:03:31,040 --> 00:03:34,560
+turn off all of that cruft so you're
+
+97
+00:03:33,040 --> 00:03:36,239
+going to see some cruft here which you
+
+98
+00:03:34,560 --> 00:03:38,159
+should of course ignore
+
+99
+00:03:36,239 --> 00:03:39,760
+got other stuff like this check for
+
+100
+00:03:38,159 --> 00:03:41,280
+debugger just my code
+
+101
+00:03:39,760 --> 00:03:43,040
+that has to do with the just my code
+
+102
+00:03:41,280 --> 00:03:44,000
+debugging stuff that we normally turned
+
+103
+00:03:43,040 --> 00:03:46,640
+off but which
+
+104
+00:03:44,000 --> 00:03:48,159
+I left on here so cruft cruft you know
+
+105
+00:03:46,640 --> 00:03:49,680
+skip the cruft
+
+106
+00:03:48,159 --> 00:03:51,599
+and then you know we could keep reading
+
+107
+00:03:49,680 --> 00:03:55,239
+we could see okay setting
+
+108
+00:03:51,599 --> 00:03:58,799
+eax ecx to 0 call to
+
+109
+00:03:55,239 --> 00:04:00,000
+imp acrt_iob_func
+
+110
+00:03:58,799 --> 00:04:02,640
+you know I don't know what that is
+
+111
+00:04:00,000 --> 00:04:06,080
+whatever just keep going
+
+112
+00:04:02,640 --> 00:04:08,159
+all right next call imp
+
+113
+00:04:06,080 --> 00:04:10,560
+fopen all right I might know what
+
+114
+00:04:08,159 --> 00:04:13,760
+fopen is that seems to be file system
+
+115
+00:04:10,560 --> 00:04:16,320
+opening from normal you know file system
+
+116
+00:04:13,760 --> 00:04:17,040
+access stuff uh we got some stuff that
+
+117
+00:04:16,320 --> 00:04:19,199
+looks like
+
+118
+00:04:17,040 --> 00:04:20,239
+indexes you got you know movs and imuls
+
+119
+00:04:19,199 --> 00:04:23,440
+you know
+
+120
+00:04:20,239 --> 00:04:25,919
+index 1 index 0 something uh
+
+121
+00:04:23,440 --> 00:04:26,639
+we got a call to printf we got a call to
+
+122
+00:04:25,919 --> 00:04:28,240
+exit
+
+123
+00:04:26,639 --> 00:04:30,240
+and you know quite frankly we can just
+
+124
+00:04:28,240 --> 00:04:32,639
+keep reading this but again
+
+125
+00:04:30,240 --> 00:04:33,919
+static analysis where appropriate but
+
+126
+00:04:32,639 --> 00:04:36,160
+we've got a debugger so
+
+127
+00:04:33,919 --> 00:04:36,960
+let's go ahead and use it so let's go
+
+128
+00:04:36,160 --> 00:04:40,080
+ahead and
+
+129
+00:04:36,960 --> 00:04:40,800
+continue on let's go and let the thing
+
+130
+00:04:40,080 --> 00:04:42,080
+run
+
+131
+00:04:40,800 --> 00:04:44,160
+now we're going to hit the break point
+
+132
+00:04:42,080 --> 00:04:46,320
+on main that I set so we're now
+
+133
+00:04:44,160 --> 00:04:47,600
+in main and let's just go ahead and you
+
+134
+00:04:46,320 --> 00:04:49,520
+know step through main and
+
+135
+00:04:47,600 --> 00:04:51,600
+see where it goes down here in the
+
+136
+00:04:49,520 --> 00:04:54,560
+disassembly window we've got
+
+137
+00:04:51,600 --> 00:04:56,080
+set to at dollar sign scopeip so it's
+
+138
+00:04:54,560 --> 00:04:56,720
+going to be just following along as we
+
+139
+00:04:56,080 --> 00:04:59,759
+go
+
+140
+00:04:56,720 --> 00:05:01,840
+so let's put in p for step
+
+141
+00:04:59,759 --> 00:05:03,440
+and that'll be doing a step over of
+
+142
+00:05:01,840 --> 00:05:05,039
+these various assembly instructions so
+
+143
+00:05:03,440 --> 00:05:08,880
+let's just you know step and
+
+144
+00:05:05,039 --> 00:05:10,000
+see where it leads us so I can just keep
+
+145
+00:05:08,880 --> 00:05:13,039
+hitting enter it'll just
+
+146
+00:05:10,000 --> 00:05:13,759
+keep repeating the p command step over
+
+147
+00:05:13,039 --> 00:05:17,199
+the cruft
+
+148
+00:05:13,759 --> 00:05:20,080
+buffer initialization rep stops just my
+
+149
+00:05:17,199 --> 00:05:20,960
+code debugging stepping stepping
+
+150
+00:05:20,080 --> 00:05:23,600
+stepping
+
+151
+00:05:20,960 --> 00:05:25,280
+don't know what they do cool oh whoa
+
+152
+00:05:23,600 --> 00:05:27,919
+where did what just happened
+
+153
+00:05:25,280 --> 00:05:29,440
+all right I just jumped somewhere and
+
+154
+00:05:27,919 --> 00:05:32,560
+where I jumped to
+
+155
+00:05:29,440 --> 00:05:34,240
+was a call to initialize bomb
+
+156
+00:05:32,560 --> 00:05:35,600
+all right well that's interesting and I
+
+157
+00:05:34,240 --> 00:05:37,520
+stepped over it and
+
+158
+00:05:35,600 --> 00:05:39,039
+doesn't look like there was any output
+
+159
+00:05:37,520 --> 00:05:41,600
+so whatever
+
+160
+00:05:39,039 --> 00:05:43,280
+now I see some printfs coming up so a
+
+161
+00:05:41,600 --> 00:05:46,000
+printf a printf and then
+
+162
+00:05:43,280 --> 00:05:47,440
+something called read line all right well
+
+163
+00:05:46,000 --> 00:05:48,800
+we know it takes some sort of input so
+
+164
+00:05:47,440 --> 00:05:49,360
+that's probably where it's getting its
+
+165
+00:05:48,800 --> 00:05:52,320
+input
+
+166
+00:05:49,360 --> 00:05:53,440
+let's go ahead and step over these first
+
+167
+00:05:52,320 --> 00:05:56,560
+printf
+
+168
+00:05:53,440 --> 00:05:59,039
+all right that's the first line step
+
+169
+00:05:56,560 --> 00:06:02,400
+over the second printf
+
+170
+00:05:59,039 --> 00:06:04,160
+and that is the second line so
+
+171
+00:06:02,400 --> 00:06:06,240
+now this read line is probably where it's
+
+172
+00:06:04,160 --> 00:06:08,560
+going to be expecting my input so
+
+173
+00:06:06,240 --> 00:06:10,160
+let's go ahead and step over that and
+
+174
+00:06:08,560 --> 00:06:12,800
+now you can see that all of a sudden the
+
+175
+00:06:10,160 --> 00:06:14,479
+debugger becomes inaccessible
+
+176
+00:06:12,800 --> 00:06:16,080
+I can't put commands in the window it
+
+177
+00:06:14,479 --> 00:06:18,400
+says busy here
+
+178
+00:06:16,080 --> 00:06:19,840
+and that's because basically this is
+
+179
+00:06:18,400 --> 00:06:22,160
+sitting here waiting for input
+
+180
+00:06:19,840 --> 00:06:24,800
+continuously
+
+181
+00:06:22,160 --> 00:06:26,000
+so we need to provide some sort of input
+
+182
+00:06:24,800 --> 00:06:28,240
+and we do that
+
+183
+00:06:26,000 --> 00:06:29,680
+and then finally it you know steps the
+
+184
+00:06:28,240 --> 00:06:32,240
+step over read line
+
+185
+00:06:29,680 --> 00:06:34,000
+finishes and now we've exited the
+
+186
+00:06:32,240 --> 00:06:36,479
+read line function
+
+187
+00:06:34,000 --> 00:06:38,400
+all right so from this point next up I
+
+188
+00:06:36,479 --> 00:06:40,960
+see some calls to phase 1
+
+189
+00:06:38,400 --> 00:06:42,319
+phase defused I see a printf and I see
+
+190
+00:06:40,960 --> 00:06:44,000
+a read line
+
+191
+00:06:42,319 --> 00:06:46,319
+okay so let's just keep you know
+
+192
+00:06:44,000 --> 00:06:50,000
+stepping see what happens
+
+193
+00:06:46,319 --> 00:06:51,680
+so phase 1 and phase 1 defused are
+
+194
+00:06:50,000 --> 00:06:54,000
+right adjacent to each other
+
+195
+00:06:51,680 --> 00:06:55,120
+so I would expect that if I even get out
+
+196
+00:06:54,000 --> 00:06:56,880
+of phase 1
+
+197
+00:06:55,120 --> 00:06:58,319
+I should immediately go into phase
+
+198
+00:06:56,880 --> 00:07:00,400
+defused
+
+199
+00:06:58,319 --> 00:07:02,240
+uh skimming down again printf read line
+
+200
+00:07:00,400 --> 00:07:03,680
+but then I can see phase 2 coming up
+
+201
+00:07:02,240 --> 00:07:06,800
+here as well
+
+202
+00:07:03,680 --> 00:07:08,479
+so basically what I expect is
+
+203
+00:07:06,800 --> 00:07:10,560
+phase 1 is going to be expecting some
+
+204
+00:07:08,479 --> 00:07:12,160
+input and if I successfully get out of
+
+205
+00:07:10,560 --> 00:07:13,440
+it phase is defused and then it moves
+
+206
+00:07:12,160 --> 00:07:15,120
+on to phase 2
+
+207
+00:07:13,440 --> 00:07:17,360
+so that means I need to figure out what
+
+208
+00:07:15,120 --> 00:07:18,800
+phase 1 is expecting that probably is
+
+209
+00:07:17,360 --> 00:07:21,680
+where the the checks of
+
+210
+00:07:18,800 --> 00:07:22,319
+input are happening so let's step into
+
+211
+00:07:21,680 --> 00:07:25,599
+phase 1
+
+212
+00:07:22,319 --> 00:07:25,599
+instead of stepping over it
+
+213
+00:07:26,400 --> 00:07:31,440
+oops sorry gdb syntax again it's getting
+
+214
+00:07:29,599 --> 00:07:35,520
+me
+
+215
+00:07:31,440 --> 00:07:37,520
+t for trace to step into phase 1
+
+216
+00:07:35,520 --> 00:07:38,880
+all right there's a extra little jump
+
+217
+00:07:37,520 --> 00:07:42,240
+thing again because of the
+
+218
+00:07:38,880 --> 00:07:43,280
+particular way I compiled it okay so now
+
+219
+00:07:42,240 --> 00:07:46,639
+we're in phase 1
+
+220
+00:07:43,280 --> 00:07:49,520
+and again if we unassemble function
+
+221
+00:07:46,639 --> 00:07:53,120
+phase 1 you can see you know what's
+
+222
+00:07:49,520 --> 00:07:57,680
+going on at a high level view
+
+223
+00:07:53,120 --> 00:08:00,160
+okay so we've got some cruft here again
+
+224
+00:07:57,680 --> 00:08:00,960
+yep so phase 1 starts right there got
+
+225
+00:08:00,160 --> 00:08:02,960
+some
+
+226
+00:08:00,960 --> 00:08:04,720
+cruft we got rep stos we got check for
+
+227
+00:08:02,960 --> 00:08:06,319
+debugger let's skip all over that and
+
+228
+00:08:04,720 --> 00:08:08,319
+then what do we got
+
+229
+00:08:06,319 --> 00:08:10,000
+all right we have an lea of something
+
+230
+00:08:08,319 --> 00:08:13,919
+into rdx
+
+231
+00:08:10,000 --> 00:08:18,000
+we've got a mov of a qword some
+
+232
+00:08:13,919 --> 00:08:20,000
+in some data into rcx and then we have
+
+233
+00:08:18,000 --> 00:08:21,120
+a strings not equal function being
+
+234
+00:08:20,000 --> 00:08:23,199
+called
+
+235
+00:08:21,120 --> 00:08:24,960
+now I don't know about you but if I see
+
+236
+00:08:23,199 --> 00:08:27,280
+something called strings not equal
+
+237
+00:08:24,960 --> 00:08:28,879
+I am thinking that probably the code is
+
+238
+00:08:27,280 --> 00:08:31,280
+going to take 2
+
+239
+00:08:28,879 --> 00:08:33,039
+pointers to strings and then go through
+
+240
+00:08:31,280 --> 00:08:34,640
+and walk through byte by byte and see
+
+241
+00:08:33,039 --> 00:08:36,320
+whether they're equal or not
+
+242
+00:08:34,640 --> 00:08:38,560
+so what I really want to do is I want to
+
+243
+00:08:36,320 --> 00:08:40,159
+step right up to the strings not equal I
+
+244
+00:08:38,560 --> 00:08:41,279
+don't necessarily want to go into it yet
+
+245
+00:08:40,159 --> 00:08:43,279
+I could I could go
+
+246
+00:08:41,279 --> 00:08:45,040
+you know disassemble it but I just want
+
+247
+00:08:43,279 --> 00:08:47,120
+to see what are the inputs to strings
+
+248
+00:08:45,040 --> 00:08:49,760
+not equal
+
+249
+00:08:47,120 --> 00:08:50,560
+so let's go ahead and you know run to
+
+250
+00:08:49,760 --> 00:08:53,839
+cursor and
+
+251
+00:08:50,560 --> 00:08:54,240
+get ourselves right up to that so I'm
+
+252
+00:08:53,839 --> 00:08:56,480
+going to
+
+253
+00:08:54,240 --> 00:08:58,000
+scroll down I'm going to click on this
+
+254
+00:08:56,480 --> 00:09:02,160
+line I'm going to hit this
+
+255
+00:08:58,000 --> 00:09:04,560
+run to cursor all right right up to
+
+256
+00:09:02,160 --> 00:09:06,160
+strings not equal now the question is
+
+257
+00:09:04,560 --> 00:09:08,560
+you know what are the inputs to that
+
+258
+00:09:06,160 --> 00:09:10,560
+well we can see there's you know rcx is
+
+259
+00:09:08,560 --> 00:09:11,680
+getting set rdx is getting set right
+
+260
+00:09:10,560 --> 00:09:13,519
+before that
+
+261
+00:09:11,680 --> 00:09:15,440
+so that kind of implies that those are
+
+262
+00:09:13,519 --> 00:09:17,680
+two different parameters here
+
+263
+00:09:15,440 --> 00:09:19,040
+now if you don't remember the calling
+
+264
+00:09:17,680 --> 00:09:20,720
+conventions for
+
+265
+00:09:19,040 --> 00:09:22,240
+Windows you can of course go back and
+
+266
+00:09:20,720 --> 00:09:25,200
+look at it but the
+
+267
+00:09:22,240 --> 00:09:26,160
+first argument it would be into rcx and
+
+268
+00:09:25,200 --> 00:09:29,200
+the second argument
+
+269
+00:09:26,160 --> 00:09:32,880
+into rdx so therefore I want to
+
+270
+00:09:29,200 --> 00:09:33,279
+see what is rcx what is rdx well both of
+
+271
+00:09:32,880 --> 00:09:35,680
+them
+
+272
+00:09:33,279 --> 00:09:36,720
+look kind of like pointerish values you
+
+273
+00:09:35,680 --> 00:09:39,360
+know they don't look like
+
+274
+00:09:36,720 --> 00:09:41,120
+specific constants or anything like that
+
+275
+00:09:39,360 --> 00:09:42,560
+so if I think these are pointers and if
+
+276
+00:09:41,120 --> 00:09:45,040
+I think they're pointing at
+
+277
+00:09:42,560 --> 00:09:47,920
+strings then it behooves me to go
+
+278
+00:09:45,040 --> 00:09:51,600
+examine those things as strings
+
+279
+00:09:47,920 --> 00:09:54,800
+so the da command lets you
+
+280
+00:09:51,600 --> 00:09:57,200
+look at display memory as a ASCII string
+
+281
+00:09:54,800 --> 00:09:58,240
+so I'm going to go ahead and do da on
+
+282
+00:09:57,200 --> 00:10:04,000
+rcx
+
+283
+00:09:58,240 --> 00:10:06,399
+that's my first argument
+
+284
+00:10:04,000 --> 00:10:07,680
+if I do that I get input that was the
+
+285
+00:10:06,399 --> 00:10:11,040
+input that I gave
+
+286
+00:10:07,680 --> 00:10:12,720
+the binary bomb now let's do da on the
+
+287
+00:10:11,040 --> 00:10:15,920
+second argument
+
+288
+00:10:12,720 --> 00:10:15,920
+and see what I see there
+
+289
+00:10:17,760 --> 00:10:21,440
+all right da on that is going to give me
+
+290
+00:10:20,399 --> 00:10:24,560
+the string
+
+291
+00:10:21,440 --> 00:10:26,240
+I am just a renegade hockey mom.
+
+292
+00:10:24,560 --> 00:10:27,920
+okay well that's interesting we have a
+
+293
+00:10:26,240 --> 00:10:30,959
+thing called strings not equal
+
+294
+00:10:27,920 --> 00:10:33,440
+being called where it's taking my input
+
+295
+00:10:30,959 --> 00:10:34,720
+and it's taking a string I am just a
+
+296
+00:10:33,440 --> 00:10:36,399
+renegade hockey mom.
+
+297
+00:10:34,720 --> 00:10:38,079
+which I definitely didn't put into this
+
+298
+00:10:36,399 --> 00:10:40,399
+program so
+
+299
+00:10:38,079 --> 00:10:42,399
+one might reasonably expect that this is
+
+300
+00:10:40,399 --> 00:10:44,480
+the input that it's expecting
+
+301
+00:10:42,399 --> 00:10:46,240
+but we now are feeding an input it's you
+
+302
+00:10:44,480 --> 00:10:48,000
+know not expecting so let's see what
+
+303
+00:10:46,240 --> 00:10:52,000
+happens next
+
+304
+00:10:48,000 --> 00:10:53,519
+well after this call there is a test eax
+
+305
+00:10:52,000 --> 00:10:56,640
+eax
+
+306
+00:10:53,519 --> 00:10:57,279
+and basically if the result of that is
+
+307
+00:10:56,640 --> 00:11:00,160
+0
+
+308
+00:10:57,279 --> 00:11:02,399
+it's going to jump somewhere and if the
+
+309
+00:11:00,160 --> 00:11:04,959
+result of that is non-zero
+
+310
+00:11:02,399 --> 00:11:06,000
+then it's going to call explode bomb on
+
+311
+00:11:04,959 --> 00:11:07,440
+this next line
+
+312
+00:11:06,000 --> 00:11:09,200
+well that's obviously something we want
+
+313
+00:11:07,440 --> 00:11:10,160
+to avoid we don't want to explode this
+
+314
+00:11:09,200 --> 00:11:13,519
+bomb so
+
+315
+00:11:10,160 --> 00:11:14,959
+we want this to be 0 because test is
+
+316
+00:11:13,519 --> 00:11:18,079
+like an and instruction
+
+317
+00:11:14,959 --> 00:11:20,160
+and 0 and 0 will be 0 and
+
+318
+00:11:18,079 --> 00:11:21,600
+jump equal would then jump over it
+
+319
+00:11:20,160 --> 00:11:24,800
+specifically to
+
+320
+00:11:21,600 --> 00:11:26,800
+2062 which if we check is
+
+321
+00:11:24,800 --> 00:11:28,000
+right here right after 2062
+
+322
+00:11:26,800 --> 00:11:30,720
+so it's basically just
+
+323
+00:11:28,000 --> 00:11:32,560
+jumping over the call to explode bomb so
+
+324
+00:11:30,720 --> 00:11:34,079
+we want this to return 0 let's see
+
+325
+00:11:32,560 --> 00:11:37,279
+what it actually returns
+
+326
+00:11:34,079 --> 00:11:37,279
+by stepping over it
+
+327
+00:11:37,519 --> 00:11:42,640
+all right we see rax is equal to 1
+
+328
+00:11:40,800 --> 00:11:43,279
+so that's not 0 that's not what we
+
+329
+00:11:42,640 --> 00:11:45,200
+want
+
+330
+00:11:43,279 --> 00:11:47,040
+and that means that this thing is going
+
+331
+00:11:45,200 --> 00:11:50,480
+to call to
+
+332
+00:11:47,040 --> 00:11:52,720
+explode bomb there we go the jump
+
+333
+00:11:50,480 --> 00:11:53,600
+zero was not taken the jump equal was
+
+334
+00:11:52,720 --> 00:11:55,279
+not taken
+
+335
+00:11:53,600 --> 00:11:57,440
+and so now it's going to call to explode
+
+336
+00:11:55,279 --> 00:12:00,000
+bomb if we do that
+
+337
+00:11:57,440 --> 00:12:01,040
+step over that then boom this process is
+
+338
+00:12:00,000 --> 00:12:04,000
+terminated
+
+339
+00:12:01,040 --> 00:12:05,200
+and the output is boom the bomb has
+
+340
+00:12:04,000 --> 00:12:07,600
+blown up
+
+341
+00:12:05,200 --> 00:12:08,639
+okay well now we have a reasonable
+
+342
+00:12:07,600 --> 00:12:10,800
+expectation
+
+343
+00:12:08,639 --> 00:12:12,160
+that probably the thing that this
+
+344
+00:12:10,800 --> 00:12:13,440
+program is looking for for this
+
+345
+00:12:12,160 --> 00:12:16,240
+particular phase
+
+346
+00:12:13,440 --> 00:12:18,000
+is I am just a renegade hockey mom. so
+
+347
+00:12:16,240 --> 00:12:22,399
+let's go ahead and restart the program
+
+348
+00:12:18,000 --> 00:12:22,399
+and try providing that as the input
+
+349
+00:12:22,639 --> 00:12:28,320
+restart the program set our break point
+
+350
+00:12:26,240 --> 00:12:32,639
+on main
+
+351
+00:12:28,320 --> 00:12:34,800
+reload the symbols go
+
+352
+00:12:32,639 --> 00:12:36,079
+all right now I'm going to also set a
+
+353
+00:12:34,800 --> 00:12:38,720
+break point on
+
+354
+00:12:36,079 --> 00:12:40,160
+phase 1 and while I'm at it why not
+
+355
+00:12:38,720 --> 00:12:43,680
+set one on phase 2
+
+356
+00:12:40,160 --> 00:12:46,959
+on the hopes that I will get past this
+
+357
+00:12:43,680 --> 00:12:49,920
+all right so break point phase 1
+
+358
+00:12:46,959 --> 00:12:53,680
+and break point phase 2 and let's just
+
+359
+00:12:49,920 --> 00:12:56,800
+go ahead and go
+
+360
+00:12:53,680 --> 00:12:57,440
+here's our typical output now let's
+
+361
+00:12:56,800 --> 00:13:03,519
+provide
+
+362
+00:12:57,440 --> 00:13:03,519
+the input that it's expecting
+
+363
+00:13:03,760 --> 00:13:08,320
+harder in a vm with different macintosh
+
+364
+00:13:07,120 --> 00:13:11,600
+keyboard
+
+365
+00:13:08,320 --> 00:13:13,440
+I am just a renegade hockey mom. hit enter
+
+366
+00:13:11,600 --> 00:13:14,639
+all right it hits the breakpoint at
+
+367
+00:13:13,440 --> 00:13:16,240
+phase 1
+
+368
+00:13:14,639 --> 00:13:18,560
+and let's just go ahead and you know
+
+369
+00:13:16,240 --> 00:13:22,000
+step and see what we're going to see
+
+370
+00:13:18,560 --> 00:13:24,639
+in terms of the output
+
+371
+00:13:22,000 --> 00:13:25,519
+from strings not equal so stepping over
+
+372
+00:13:24,639 --> 00:13:27,680
+stepping over
+
+373
+00:13:25,519 --> 00:13:30,079
+stepping over we're up to strings not
+
+374
+00:13:27,680 --> 00:13:30,959
+equal we could do a quick sanity check
+
+375
+00:13:30,079 --> 00:13:35,839
+that we
+
+376
+00:13:30,959 --> 00:13:39,040
+successfully got the right value in here
+
+377
+00:13:35,839 --> 00:13:42,399
+so let's do da
+
+378
+00:13:39,040 --> 00:13:44,079
+and that okay cool this rcx which was
+
+379
+00:13:42,399 --> 00:13:47,279
+previously our input is now
+
+380
+00:13:44,079 --> 00:13:50,399
+this input I am renegade hockey mom. so
+
+381
+00:13:47,279 --> 00:13:50,959
+let's step over strings not equal the
+
+382
+00:13:50,399 --> 00:13:54,000
+output
+
+383
+00:13:50,959 --> 00:13:57,440
+is rax is 0 great so
+
+384
+00:13:54,000 --> 00:14:01,199
+0 and 0 is 0 so the jump zero
+
+385
+00:13:57,440 --> 00:14:02,320
+should be taken and indeed we
+
+386
+00:14:01,199 --> 00:14:05,519
+successfully jumped
+
+387
+00:14:02,320 --> 00:14:07,199
+over the explode bomb
+
+388
+00:14:05,519 --> 00:14:08,560
+and we will now return out of the
+
+389
+00:14:07,199 --> 00:14:12,320
+function so
+
+390
+00:14:08,560 --> 00:14:13,040
+step step step step and boom I returned
+
+391
+00:14:12,320 --> 00:14:16,160
+out
+
+392
+00:14:13,040 --> 00:14:17,279
+phase defused cool gonna just keep
+
+393
+00:14:16,160 --> 00:14:20,639
+stepping
+
+394
+00:14:17,279 --> 00:14:22,480
+keep going keep going some printf
+
+395
+00:14:20,639 --> 00:14:24,240
+some read line let's go ahead and step
+
+396
+00:14:22,480 --> 00:14:26,480
+over the read line
+
+397
+00:14:24,240 --> 00:14:28,399
+and let's examine the new output all
+
+398
+00:14:26,480 --> 00:14:30,480
+right it says phase 1 defused how
+
+399
+00:14:28,399 --> 00:14:31,199
+about the next one and it is once again
+
+400
+00:14:30,480 --> 00:14:34,560
+looking for
+
+401
+00:14:31,199 --> 00:14:36,079
+some sort of input so I can give it some
+
+402
+00:14:34,560 --> 00:14:38,480
+sort of input
+
+403
+00:14:36,079 --> 00:14:39,920
+and I can continue the process and try
+
+404
+00:14:38,480 --> 00:14:43,279
+it all over again
+
+405
+00:14:39,920 --> 00:14:44,000
+next up phase 2 all right well this is
+
+406
+00:14:43,279 --> 00:14:46,240
+where I'm going
+
+407
+00:14:44,000 --> 00:14:47,360
+to mostly leave you basically saying you
+
+408
+00:14:46,240 --> 00:14:48,959
+know this is the game
+
+409
+00:14:47,360 --> 00:14:50,560
+like figure out to the rest of the
+
+410
+00:14:48,959 --> 00:14:52,240
+inputs that is needed for this
+
+411
+00:14:50,560 --> 00:14:54,399
+particular binary executable
+
+412
+00:14:52,240 --> 00:14:55,839
+to successfully complete it without
+
+413
+00:14:54,399 --> 00:14:58,639
+exploding
+
+414
+00:14:55,839 --> 00:14:59,600
+one little thing that I should tell you
+
+415
+00:14:58,639 --> 00:15:03,440
+this particular
+
+416
+00:14:59,600 --> 00:15:04,560
+executable accepts a file provided on
+
+417
+00:15:03,440 --> 00:15:07,839
+the command line
+
+418
+00:15:04,560 --> 00:15:11,360
+with solutions one per line so
+
+419
+00:15:07,839 --> 00:15:15,920
+in order to do that we would open up
+
+420
+00:15:11,360 --> 00:15:18,399
+notepad my nano and notepad kind of guy
+
+421
+00:15:15,920 --> 00:15:19,680
+so we need to provide the you know right
+
+422
+00:15:18,399 --> 00:15:23,199
+input there was
+
+423
+00:15:19,680 --> 00:15:25,600
+I am just a renegade hockey mom.
+
+424
+00:15:23,199 --> 00:15:27,360
+that may have copied that may have not
+
+425
+00:15:25,600 --> 00:15:29,759
+oh success
+
+426
+00:15:27,360 --> 00:15:30,480
+all right and now I'm going to save this
+
+427
+00:15:29,759 --> 00:15:34,720
+file
+
+428
+00:15:30,480 --> 00:15:39,519
+as a.txt on my desktop
+
+429
+00:15:34,720 --> 00:15:39,519
+a.txt on my desktop
+
+430
+00:15:39,759 --> 00:15:43,839
+and so the way that we would provide
+
+431
+00:15:41,680 --> 00:15:44,639
+a.txt so you can basically provide as you
+
+432
+00:15:43,839 --> 00:15:46,639
+solve this
+
+433
+00:15:44,639 --> 00:15:48,480
+each time you solve the phase just put
+
+434
+00:15:46,639 --> 00:15:50,240
+the new solution here and then you can
+
+435
+00:15:48,480 --> 00:15:52,399
+set a break point in a later phase
+
+436
+00:15:50,240 --> 00:15:54,639
+and these solutions will be fed into
+
+437
+00:15:52,399 --> 00:15:57,600
+each phase you know one at a time
+
+438
+00:15:54,639 --> 00:15:59,199
+and so the right way to do that is quit
+
+439
+00:15:57,600 --> 00:16:02,880
+this out
+
+440
+00:15:59,199 --> 00:16:05,279
+open executable select your bomb.exe
+
+441
+00:16:02,880 --> 00:16:07,440
+and then under arguments the first
+
+442
+00:16:05,279 --> 00:16:10,000
+command line argument needs to be
+
+443
+00:16:07,440 --> 00:16:11,279
+the path to your solutions file so mine
+
+444
+00:16:10,000 --> 00:16:15,040
+is
+
+445
+00:16:11,279 --> 00:16:18,720
+users\user\
+
+446
+00:16:15,040 --> 00:16:22,000
+desktop\a.txt
+
+447
+00:16:18,720 --> 00:16:25,839
+so if I run the program like that
+
+448
+00:16:22,000 --> 00:16:27,759
+and I just go ahead and hit g for go
+
+449
+00:16:25,839 --> 00:16:29,519
+then I probably specified something
+
+450
+00:16:27,759 --> 00:16:30,480
+wrong about the path so let's try that
+
+451
+00:16:29,519 --> 00:16:32,320
+again
+
+452
+00:16:30,480 --> 00:16:34,240
+okay no it wasn't that i had the path
+
+453
+00:16:32,320 --> 00:16:36,959
+wrong it was just that you need to have
+
+454
+00:16:34,240 --> 00:16:38,959
+a new line after this so it needs to be
+
+455
+00:16:36,959 --> 00:16:41,040
+I am just a renegade hockey mom. and then
+
+456
+00:16:38,959 --> 00:16:42,639
+new line so that there's a blank line
+
+457
+00:16:41,040 --> 00:16:45,120
+afterwards
+
+458
+00:16:42,639 --> 00:16:46,639
+so let's go ahead and open it again open
+
+459
+00:16:45,120 --> 00:16:50,399
+executable
+
+460
+00:16:46,639 --> 00:16:53,759
+C:\users\user\desktop\a.txt
+
+461
+00:16:50,399 --> 00:16:55,120
+select the bomb and this time as long as
+
+462
+00:16:53,759 --> 00:16:58,399
+we have the right new line there
+
+463
+00:16:55,120 --> 00:16:58,959
+if we just hit go we will see that it
+
+464
+00:16:58,399 --> 00:17:00,639
+says
+
+465
+00:16:58,959 --> 00:17:02,880
+phase 1 defused how about the next
+
+466
+00:17:00,639 --> 00:17:04,160
+one and it'll basically be waiting for
+
+467
+00:17:02,880 --> 00:17:06,160
+the phase 2 input
+
+468
+00:17:04,160 --> 00:17:07,199
+so you could basically set a phase 2
+
+469
+00:17:06,160 --> 00:17:10,319
+breakpoint
+
+470
+00:17:07,199 --> 00:17:12,240
+provide your solutions in your a.txt
+
+471
+00:17:10,319 --> 00:17:14,559
+and then just continue on you know
+
+472
+00:17:12,240 --> 00:17:18,000
+provide a proposed solution for the next
+
+473
+00:17:14,559 --> 00:17:20,559
+phase like so and then just
+
+474
+00:17:18,000 --> 00:17:22,240
+continue on and analyze the code to see
+
+475
+00:17:20,559 --> 00:17:24,160
+how it's actually used
+
+476
+00:17:22,240 --> 00:17:25,679
+alright this is where I will leave you
+
+477
+00:17:24,160 --> 00:17:28,640
+and now it's time for you to
+
+478
+00:17:25,679 --> 00:17:31,520
+dig into the guts of the binary bomb lab
+
+479
+00:17:28,640 --> 00:17:31,520
+good luck
+

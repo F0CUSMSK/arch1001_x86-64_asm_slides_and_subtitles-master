@@ -1,0 +1,88 @@
+1
+00:00:00,080 --> 00:00:04,319
+and once again you should have seen what
+
+2
+00:00:02,080 --> 00:00:07,440
+i was expecting to see you should see
+
+3
+00:00:04,319 --> 00:00:07,919
+three variables filled in and there's
+
+4
+00:00:07,440 --> 00:00:10,800
+still
+
+5
+00:00:07,919 --> 00:00:11,840
+extra eight bytes in order to achieve 16
+
+6
+00:00:10,800 --> 00:00:13,840
+byte alignment
+
+7
+00:00:11,840 --> 00:00:15,519
+because microsoft is essentially trying
+
+8
+00:00:13,840 --> 00:00:18,320
+to allocate space
+
+9
+00:00:15,519 --> 00:00:19,359
+in 16 byte chunks at a time plus of
+
+10
+00:00:18,320 --> 00:00:22,400
+course the
+
+11
+00:00:19,359 --> 00:00:24,080
+return address padding
+
+12
+00:00:22,400 --> 00:00:25,680
+all right well i think we've got this
+
+13
+00:00:24,080 --> 00:00:28,000
+mystery solved so
+
+14
+00:00:25,680 --> 00:00:31,279
+you know let's find out who this is this
+
+15
+00:00:28,000 --> 00:00:34,239
+too large local variable allocations
+
+16
+00:00:31,279 --> 00:00:35,840
+aha it's 16 byte alignment padding of
+
+17
+00:00:34,239 --> 00:00:38,399
+course
+
+18
+00:00:35,840 --> 00:00:40,559
+all right well good job gang this is the
+
+19
+00:00:38,399 --> 00:00:42,559
+first of our mysteries solved
+
+20
+00:00:40,559 --> 00:00:44,480
+and i look forward to solving more of
+
+21
+00:00:42,559 --> 00:00:47,280
+them with you as the mystery machine
+
+22
+00:00:44,480 --> 00:00:47,280
+rolls on
+

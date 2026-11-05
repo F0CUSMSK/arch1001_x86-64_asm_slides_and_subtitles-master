@@ -1,0 +1,232 @@
+1
+00:00:00,320 --> 00:00:03,120
+all right now let's see some examples
+
+2
+00:00:02,480 --> 00:00:06,799
+using
+
+3
+00:00:03,120 --> 00:00:10,880
+shift so ShiftExample1
+
+4
+00:00:06,799 --> 00:00:12,880
+first so as a reminder this was
+
+5
+00:00:10,880 --> 00:00:15,599
+literally using shift as in the
+
+6
+00:00:12,880 --> 00:00:16,720
+C operator for left shift and right
+
+7
+00:00:15,599 --> 00:00:18,800
+shift so if we take
+
+8
+00:00:16,720 --> 00:00:20,160
+5 and we left shift it by 4 and
+
+9
+00:00:18,800 --> 00:00:22,640
+right shift it by 3
+
+10
+00:00:20,160 --> 00:00:23,359
+the net result is that it's left shifted
+
+11
+00:00:22,640 --> 00:00:25,199
+by 1
+
+12
+00:00:23,359 --> 00:00:27,279
+so we would expect that we would see you
+
+13
+00:00:25,199 --> 00:00:28,640
+know shift left and shift right assembly
+
+14
+00:00:27,279 --> 00:00:29,439
+instructions which we already learned
+
+15
+00:00:28,640 --> 00:00:32,480
+about here
+
+16
+00:00:29,439 --> 00:00:34,239
+so let's compile it and debug it get rid
+
+17
+00:00:32,480 --> 00:00:37,840
+of this little optimization thing i'm
+
+18
+00:00:34,239 --> 00:00:37,840
+going to use on the next examples
+
+19
+00:00:41,760 --> 00:00:45,840
+all right so what do we see here
+
+20
+00:00:46,320 --> 00:00:50,719
+well we see standard function prolog we
+
+21
+00:00:48,879 --> 00:00:52,879
+see 5 which was a variable
+
+22
+00:00:50,719 --> 00:00:54,559
+moved into rbp minus 4 that's about
+
+23
+00:00:52,879 --> 00:00:55,360
+what we would expect based on the past
+
+24
+00:00:54,559 --> 00:00:57,920
+examples
+
+25
+00:00:55,360 --> 00:00:58,960
+then we see rbp minus 4 into eax
+
+26
+00:00:57,920 --> 00:01:01,680
+shifted left by
+
+27
+00:00:58,960 --> 00:01:02,160
+4 and shifted right by 3 so this
+
+28
+00:01:01,680 --> 00:01:04,000
+one's
+
+29
+00:01:02,160 --> 00:01:05,920
+pretty stock pretty standard but let's
+
+30
+00:01:04,000 --> 00:01:09,200
+just go ahead and watch the
+
+31
+00:01:05,920 --> 00:01:11,360
+changes in the registers step step step
+
+32
+00:01:09,200 --> 00:01:13,600
+all right 5 into rbp minus 4 it looks
+
+33
+00:01:11,360 --> 00:01:14,880
+like rbp minus 8 is the smallest so i'm
+
+34
+00:01:13,600 --> 00:01:17,920
+going to go ahead and
+
+35
+00:01:14,880 --> 00:01:22,080
+put a display here of 2 words
+
+36
+00:01:17,920 --> 00:01:22,080
+from rbp minus 8
+
+37
+00:01:22,640 --> 00:01:26,240
+there goes the 5 and then read it back
+
+38
+00:01:25,680 --> 00:01:29,680
+out
+
+39
+00:01:26,240 --> 00:01:30,320
+put it into eax and it gets left shifted
+
+40
+00:01:29,680 --> 00:01:34,799
+by 4
+
+41
+00:01:30,320 --> 00:01:38,079
+so now it's 50 and stored back over here
+
+42
+00:01:34,799 --> 00:01:38,720
+and read back in and shifted to the
+
+43
+00:01:38,079 --> 00:01:42,000
+right
+
+44
+00:01:38,720 --> 00:01:42,399
+so now it's 10 so 5 left shifted by
+
+45
+00:01:42,000 --> 00:01:45,280
+1
+
+46
+00:01:42,399 --> 00:01:46,479
+would be 10 because times 2 times 2
+
+47
+00:01:45,280 --> 00:01:49,280
+to the power of 1
+
+48
+00:01:46,479 --> 00:01:50,640
+and that goes out to oh no rbp minus 0xc
+
+49
+00:01:49,280 --> 00:01:52,880
+which i don't have on my thing and i
+
+50
+00:01:50,640 --> 00:01:55,200
+don't wanna change
+
+51
+00:01:52,880 --> 00:01:55,920
+so step and let's just go ahead and do
+
+52
+00:01:55,200 --> 00:01:58,719
+it
+
+53
+00:01:55,920 --> 00:01:58,719
+x slash
+
+54
+00:01:58,960 --> 00:02:05,360
+word x rbp minus
+
+55
+00:02:02,320 --> 00:02:05,680
+0xc there you go there's your 10. and put
+
+56
+00:02:05,360 --> 00:02:08,640
+that
+
+57
+00:02:05,680 --> 00:02:11,599
+into the return value and exit out
+
+58
+00:02:08,640 --> 00:02:11,599
+pretty simple
+

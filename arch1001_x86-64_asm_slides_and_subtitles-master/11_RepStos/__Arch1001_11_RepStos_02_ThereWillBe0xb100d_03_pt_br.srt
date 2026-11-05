@@ -1,0 +1,140 @@
+1
+00:00:00,080 --> 00:00:03,840
+então, de onde vem este relatório?
+
+2
+00:00:03,040 --> 00:00:06,960
+acontece que
+
+3
+00:00:03,840 --> 00:00:10,639
+que esse código está lá porque
+
+4
+00:00:06,960 --> 00:00:12,000
+escolhi propositalmente não desativar as
+
+5
+00:00:10,639 --> 00:00:14,160
+verificações de tempo de execução
+
+6
+00:00:12,000 --> 00:00:15,200
+e, portanto, especificamente esta pilha
+
+7
+00:00:14,160 --> 00:00:17,600
+verificação do quadro
+
+8
+00:00:15,200 --> 00:00:18,480
+que está sendo responsável pelo preenchimento
+
+9
+00:00:17,600 --> 00:00:21,119
+para fora do buffer
+
+10
+00:00:18,480 --> 00:00:22,960
+em ambos os lados, colocando o c's ali e
+
+11
+00:00:21,119 --> 00:00:24,160
+e depois verificar no final se alguém
+
+12
+00:00:22,960 --> 00:00:26,080
+corromper meus c's
+
+13
+00:00:24,160 --> 00:00:28,320
+porque, se o fizeram, isso significa que
+
+14
+00:00:26,080 --> 00:00:30,320
+têm um buffer overflow
+
+15
+00:00:28,320 --> 00:00:32,079
+agora, isso não é de fato uma segurança
+
+16
+00:00:30,320 --> 00:00:32,880
+e geralmente não se espera que
+
+17
+00:00:32,079 --> 00:00:35,520
+verá isto
+
+18
+00:00:32,880 --> 00:00:37,440
+No código de produção, isso é mais justo para
+
+19
+00:00:35,520 --> 00:00:39,040
+ajudar os programadores a saber quando eles
+
+20
+00:00:37,440 --> 00:00:39,920
+vão quebrar
+
+21
+00:00:39,040 --> 00:00:42,239
+alguma coisa
+
+22
+00:00:39,920 --> 00:00:44,559
+e é essa complexidade adicional que é
+
+23
+00:00:42,239 --> 00:00:46,800
+o motivo pelo qual especifiquei que as pessoas
+
+24
+00:00:44,559 --> 00:00:48,559
+deve sempre desativar todos esses recursos
+
+25
+00:00:46,800 --> 00:00:51,120
+verificações de tempo de execução para tornar nosso
+
+26
+00:00:48,559 --> 00:00:53,760
+código assembly muito mais simples até o momento
+
+27
+00:00:51,120 --> 00:00:54,399
+se desabilitarmos essa verificação de tempo de execução, então
+
+28
+00:00:53,760 --> 00:00:56,399
+nos veremos
+
+29
+00:00:54,399 --> 00:00:58,320
+código muito mais simples, que é mais
+
+30
+00:00:56,399 --> 00:01:00,800
+familiarizado com o típico
+
+31
+00:00:58,320 --> 00:01:02,000
+alocação geral do espaço para a sombra
+
+32
+00:01:00,800 --> 00:01:05,119
+armazena
+
+33
+00:01:02,000 --> 00:01:09,680
+indexando em nossa matriz no índice 0x27
+
+34
+00:01:05,119 --> 00:01:13,360
+que é 39 armazenando 42 no array
+
+35
+00:01:09,680 --> 00:01:13,360
+e retornando 0xb100d
+

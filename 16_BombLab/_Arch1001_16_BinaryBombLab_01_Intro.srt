@@ -1,0 +1,808 @@
+1
+00:00:00,960 --> 00:00:04,400
+welcome at last my friends to the binary
+
+2
+00:00:03,120 --> 00:00:06,240
+bomb lab
+
+3
+00:00:04,400 --> 00:00:08,160
+I say without a doubt and without
+
+4
+00:00:06,240 --> 00:00:10,800
+hyperbole that this is
+
+5
+00:00:08,160 --> 00:00:12,160
+the most important assembly exercise you
+
+6
+00:00:10,800 --> 00:00:14,240
+will ever do
+
+7
+00:00:12,160 --> 00:00:16,320
+so just like college classes have weed
+
+8
+00:00:14,240 --> 00:00:19,199
+out courses which are basically designed
+
+9
+00:00:16,320 --> 00:00:20,320
+to dissuade someone from continuing in a
+
+10
+00:00:19,199 --> 00:00:22,560
+particular major
+
+11
+00:00:20,320 --> 00:00:25,119
+if they're not cut out for it this lab
+
+12
+00:00:22,560 --> 00:00:26,880
+is kind of the weed out exercise for the
+
+13
+00:00:25,119 --> 00:00:28,160
+learning paths that continue to build on
+
+14
+00:00:26,880 --> 00:00:30,320
+this knowledge
+
+15
+00:00:28,160 --> 00:00:31,519
+so things like reverse engineering for
+
+16
+00:00:30,320 --> 00:00:32,800
+purposes of understanding
+
+17
+00:00:31,519 --> 00:00:35,120
+vulnerabilities or
+
+18
+00:00:32,800 --> 00:00:35,920
+malware or just software in general
+
+19
+00:00:35,120 --> 00:00:37,760
+these things that
+
+20
+00:00:35,920 --> 00:00:39,680
+build on top of this you have to have a
+
+21
+00:00:37,760 --> 00:00:40,480
+particular personality type that allows
+
+22
+00:00:39,680 --> 00:00:42,960
+you to be
+
+23
+00:00:40,480 --> 00:00:44,000
+you know very detail-oriented very
+
+24
+00:00:42,960 --> 00:00:46,160
+single-mindedly
+
+25
+00:00:44,000 --> 00:00:48,160
+focused so that you can understand what
+
+26
+00:00:46,160 --> 00:00:50,320
+exactly is going on with software
+
+27
+00:00:48,160 --> 00:00:52,960
+when faced with a lot of ambiguity and a
+
+28
+00:00:50,320 --> 00:00:55,199
+lot of difficult choices
+
+29
+00:00:52,960 --> 00:00:56,480
+so it's better for you to find out now
+
+30
+00:00:55,199 --> 00:00:58,160
+that this is not for you
+
+31
+00:00:56,480 --> 00:00:59,520
+than to continue on because there's
+
+32
+00:00:58,160 --> 00:01:01,440
+nothing wrong with not having this
+
+33
+00:00:59,520 --> 00:01:03,120
+particular personality type
+
+34
+00:01:01,440 --> 00:01:04,720
+it's just the kind of thing where we
+
+35
+00:01:03,120 --> 00:01:05,360
+know that there are different types of
+
+36
+00:01:04,720 --> 00:01:08,479
+people who
+
+37
+00:01:05,360 --> 00:01:11,600
+work better in different types of jobs
+
+38
+00:01:08,479 --> 00:01:13,119
+so this binary bomb lab is derived from
+
+39
+00:01:11,600 --> 00:01:14,960
+the carnegie mellon computer
+
+40
+00:01:13,119 --> 00:01:18,640
+architecture course
+
+41
+00:01:14,960 --> 00:01:21,360
+and you can find the course at this url
+
+42
+00:01:18,640 --> 00:01:22,880
+now I originally had this in undergrad
+
+43
+00:01:21,360 --> 00:01:24,400
+at the university of minnesota as
+
+44
+00:01:22,880 --> 00:01:26,960
+opposed to carnegie mellon
+
+45
+00:01:24,400 --> 00:01:28,960
+and of course as you might expect the
+
+46
+00:01:26,960 --> 00:01:32,560
+class was a little bit less rigorous at
+
+47
+00:01:28,960 --> 00:01:34,320
+the university of minnesota than cmu
+
+48
+00:01:32,560 --> 00:01:36,880
+and you know my anecdote for this
+
+49
+00:01:34,320 --> 00:01:38,560
+particular material goes like this
+
+50
+00:01:36,880 --> 00:01:40,479
+so when I was first taking this college
+
+51
+00:01:38,560 --> 00:01:41,040
+class I was paying my way through
+
+52
+00:01:40,479 --> 00:01:43,600
+college
+
+53
+00:01:41,040 --> 00:01:44,240
+working night audit at a hotel basically
+
+54
+00:01:43,600 --> 00:01:46,640
+stay up
+
+55
+00:01:44,240 --> 00:01:48,640
+overnight audit their books and
+
+56
+00:01:46,640 --> 00:01:50,560
+ostensibly I was supposed to be able to
+
+57
+00:01:48,640 --> 00:01:52,320
+work on my homework all night
+
+58
+00:01:50,560 --> 00:01:54,560
+in order to you know give me more time
+
+59
+00:01:52,320 --> 00:01:56,719
+and make some money at the same time
+
+60
+00:01:54,560 --> 00:01:58,399
+now the reality of this situation is it
+
+61
+00:01:56,719 --> 00:02:00,799
+didn't work out well at all
+
+62
+00:01:58,399 --> 00:02:01,759
+that particular semester I got three C's
+
+63
+00:02:00,799 --> 00:02:03,759
+and a B
+
+64
+00:02:01,759 --> 00:02:05,759
+which meant that later on I had to come
+
+65
+00:02:03,759 --> 00:02:08,000
+back and retake this course to try to
+
+66
+00:02:05,759 --> 00:02:10,959
+bring up my gpa
+
+67
+00:02:08,000 --> 00:02:12,000
+now when I first took this class me plus
+
+68
+00:02:10,959 --> 00:02:14,080
+a partner took
+
+69
+00:02:12,000 --> 00:02:15,360
+about 2 weeks in order to complete the
+
+70
+00:02:14,080 --> 00:02:16,959
+binary bomb lab
+
+71
+00:02:15,360 --> 00:02:18,959
+that's you know off and on between
+
+72
+00:02:16,959 --> 00:02:21,760
+courses whenever we would get together
+
+73
+00:02:18,959 --> 00:02:23,120
+that kind of thing later on when I
+
+74
+00:02:21,760 --> 00:02:24,959
+retook the class
+
+75
+00:02:23,120 --> 00:02:27,040
+of course everything was much easier and
+
+76
+00:02:24,959 --> 00:02:28,239
+that's kind of you know hint for people
+
+77
+00:02:27,040 --> 00:02:29,680
+when you have something difficult
+
+78
+00:02:28,239 --> 00:02:30,319
+especially here on open security
+
+79
+00:02:29,680 --> 00:02:32,400
+training
+
+80
+00:02:30,319 --> 00:02:34,560
+just take the class again it's always
+
+81
+00:02:32,400 --> 00:02:35,760
+easier the second time around
+
+82
+00:02:34,560 --> 00:02:37,920
+well the second time around through the
+
+83
+00:02:35,760 --> 00:02:41,040
+computer architecture class it only took
+
+84
+00:02:37,920 --> 00:02:44,239
+me perhaps a day by myself
+
+85
+00:02:41,040 --> 00:02:46,000
+and so these days you know just to see
+
+86
+00:02:44,239 --> 00:02:47,280
+approximately how long you know to give
+
+87
+00:02:46,000 --> 00:02:49,360
+some kind of gauge
+
+88
+00:02:47,280 --> 00:02:50,480
+these days being you know extremely
+
+89
+00:02:49,360 --> 00:02:52,080
+rusty because
+
+90
+00:02:50,480 --> 00:02:53,760
+having worked at apple for the last five
+
+91
+00:02:52,080 --> 00:02:54,800
+years I didn't have to look at assembly
+
+92
+00:02:53,760 --> 00:02:56,400
+most of the time
+
+93
+00:02:54,800 --> 00:02:58,000
+I just forced you know third party
+
+94
+00:02:56,400 --> 00:02:59,599
+vendors to give me the source code and I
+
+95
+00:02:58,000 --> 00:03:02,879
+just read that instead
+
+96
+00:02:59,599 --> 00:03:04,959
+so I'm extremely rusty at this and still
+
+97
+00:03:02,879 --> 00:03:08,800
+it only took me about 2 hours to do
+
+98
+00:03:04,959 --> 00:03:08,800
+the entire binary bomb lab
+
+99
+00:03:17,440 --> 00:03:20,879
+so somewhere between 2 weeks and 2
+
+100
+00:03:20,239 --> 00:03:22,560
+hours
+
+101
+00:03:20,879 --> 00:03:24,159
+is approximately how long it should take
+
+102
+00:03:22,560 --> 00:03:26,560
+you to do this
+
+103
+00:03:24,159 --> 00:03:27,360
+so basically this is an intentionally
+
+104
+00:03:26,560 --> 00:03:29,440
+difficult
+
+105
+00:03:27,360 --> 00:03:30,879
+exercise and it's the kind of thing
+
+106
+00:03:29,440 --> 00:03:32,480
+where there's going to be a lot of
+
+107
+00:03:30,879 --> 00:03:34,000
+situations where you're
+
+108
+00:03:32,480 --> 00:03:35,200
+blocked and you can't understand what's
+
+109
+00:03:34,000 --> 00:03:36,720
+going on and you know you're just
+
+110
+00:03:35,200 --> 00:03:38,720
+hitting your head against the wall
+
+111
+00:03:36,720 --> 00:03:40,640
+and that's by design so you know I
+
+112
+00:03:38,720 --> 00:03:42,560
+didn't make this original material but I
+
+113
+00:03:40,640 --> 00:03:45,840
+found it to be extremely useful
+
+114
+00:03:42,560 --> 00:03:47,360
+and I found it to be very indicative of
+
+115
+00:03:45,840 --> 00:03:50,319
+whether a particular person
+
+116
+00:03:47,360 --> 00:03:51,840
+is good at this kind of material or not
+
+117
+00:03:50,319 --> 00:03:53,680
+so I have to give thanks to
+
+118
+00:03:51,840 --> 00:03:56,959
+the professors for the architecture
+
+119
+00:03:53,680 --> 00:03:58,959
+class professor Bryant and O'Hallaron
+
+120
+00:03:56,959 --> 00:04:00,319
+basically they provided me the source
+
+121
+00:03:58,959 --> 00:04:02,080
+code for the binary bomb
+
+122
+00:04:00,319 --> 00:04:03,680
+a long time ago when I was still at
+
+123
+00:04:02,080 --> 00:04:05,439
+mitre I asked for the source code so
+
+124
+00:04:03,680 --> 00:04:07,040
+that I could you know port it to 64-bit
+
+125
+00:04:05,439 --> 00:04:08,000
+before they had a 64-bit version of
+
+126
+00:04:07,040 --> 00:04:10,799
+their course
+
+127
+00:04:08,000 --> 00:04:12,319
+port it to Windows port it to arm and so
+
+128
+00:04:10,799 --> 00:04:14,159
+you know I definitely appreciate them
+
+129
+00:04:12,319 --> 00:04:16,320
+providing this so that we can use this
+
+130
+00:04:14,159 --> 00:04:18,320
+as kind of a common material for
+
+131
+00:04:16,320 --> 00:04:19,840
+learning different assembly languages
+
+132
+00:04:18,320 --> 00:04:21,680
+learning more about reverse engineering
+
+133
+00:04:19,840 --> 00:04:23,280
+that kind of thing because this was not
+
+134
+00:04:21,680 --> 00:04:25,199
+originally you know intentionally a
+
+135
+00:04:23,280 --> 00:04:26,000
+security or reverse engineering type
+
+136
+00:04:25,199 --> 00:04:27,759
+exercise
+
+137
+00:04:26,000 --> 00:04:29,199
+it just happens to work really well for
+
+138
+00:04:27,759 --> 00:04:31,600
+that
+
+139
+00:04:29,199 --> 00:04:33,360
+and so the textbooks for their course is
+
+140
+00:04:31,600 --> 00:04:35,280
+here if you want to you know find the
+
+141
+00:04:33,360 --> 00:04:35,840
+link below the video later on go check
+
+142
+00:04:35,280 --> 00:04:38,400
+it out
+
+143
+00:04:35,840 --> 00:04:39,040
+you can learn about their you know
+
+144
+00:04:38,400 --> 00:04:41,280
+similar
+
+145
+00:04:39,040 --> 00:04:43,120
+architecture the the y86 architecture
+
+146
+00:04:41,280 --> 00:04:45,199
+that they teach in the class as a way to
+
+147
+00:04:43,120 --> 00:04:46,560
+try to build you up on x86 but
+
+148
+00:04:45,199 --> 00:04:48,560
+but here I want to just like get
+
+149
+00:04:46,560 --> 00:04:51,759
+directly to it and so we we learn
+
+150
+00:04:48,560 --> 00:04:53,919
+x86 directly so
+
+151
+00:04:51,759 --> 00:04:56,240
+what is the binary bomb well it is a
+
+152
+00:04:53,919 --> 00:04:58,960
+simple binary that we provide you
+
+153
+00:04:56,240 --> 00:04:59,680
+and your goal is to figure out what the
+
+154
+00:04:58,960 --> 00:05:01,840
+inputs are
+
+155
+00:04:59,680 --> 00:05:03,600
+that this binary is expecting of you
+
+156
+00:05:01,840 --> 00:05:04,320
+you're provided no other information
+
+157
+00:05:03,600 --> 00:05:06,160
+it's just
+
+158
+00:05:04,320 --> 00:05:08,080
+run the executable and if you give the
+
+159
+00:05:06,160 --> 00:05:08,479
+wrong input it explodes and if you give
+
+160
+00:05:08,080 --> 00:05:11,600
+the right
+
+161
+00:05:08,479 --> 00:05:14,880
+input it continues on so your job
+
+162
+00:05:11,600 --> 00:05:16,720
+is to avoid the explosion
+
+163
+00:05:14,880 --> 00:05:18,000
+so I'm going to walk through the very
+
+164
+00:05:16,720 --> 00:05:20,080
+first phase with you
+
+165
+00:05:18,000 --> 00:05:21,360
+in the actual architecture class you
+
+166
+00:05:20,080 --> 00:05:23,680
+didn't even get that much
+
+167
+00:05:21,360 --> 00:05:25,120
+but here just to show you in the
+
+168
+00:05:23,680 --> 00:05:26,400
+particular tools that we've been
+
+169
+00:05:25,120 --> 00:05:28,960
+learning about
+
+170
+00:05:26,400 --> 00:05:30,720
+in this course this will help you
+
+171
+00:05:28,960 --> 00:05:31,919
+understand a bit of you know how you
+
+172
+00:05:30,720 --> 00:05:33,680
+should continue on through the
+
+173
+00:05:31,919 --> 00:05:35,199
+subsequent phases
+
+174
+00:05:33,680 --> 00:05:37,039
+so we're going to have a variety of
+
+175
+00:05:35,199 --> 00:05:39,039
+different debuggers that
+
+176
+00:05:37,039 --> 00:05:40,080
+we will teach about on the open security
+
+177
+00:05:39,039 --> 00:05:42,560
+training site
+
+178
+00:05:40,080 --> 00:05:43,919
+and so depending on you know what you
+
+179
+00:05:42,560 --> 00:05:45,360
+think you're going to be using this
+
+180
+00:05:43,919 --> 00:05:47,199
+material for later on
+
+181
+00:05:45,360 --> 00:05:49,039
+in your career or the learning path that
+
+182
+00:05:47,199 --> 00:05:49,759
+you're taking you're going to want to
+
+183
+00:05:49,039 --> 00:05:51,680
+use
+
+184
+00:05:49,759 --> 00:05:52,960
+you know gdb if you're going to be using
+
+185
+00:05:51,680 --> 00:05:54,560
+Linux systems a lot
+
+186
+00:05:52,960 --> 00:05:56,400
+you're going to use windbg if you're
+
+187
+00:05:54,560 --> 00:05:58,240
+going to work on Windows or possibly
+
+188
+00:05:56,400 --> 00:06:00,800
+will eventually have some of the
+
+189
+00:05:58,240 --> 00:06:03,840
+what I call multi-tools the professional
+
+190
+00:06:00,800 --> 00:06:07,199
+reverse engineers tools things like IDA
+
+191
+00:06:03,840 --> 00:06:09,280
+uh Ghidra Radare2
+
+192
+00:06:07,199 --> 00:06:11,759
+things like that so basically you're
+
+193
+00:06:09,280 --> 00:06:13,520
+going to want to pick the specific tool
+
+194
+00:06:11,759 --> 00:06:15,280
+for your eventual learning path in your
+
+195
+00:06:13,520 --> 00:06:16,880
+eventual focus area
+
+196
+00:06:15,280 --> 00:06:18,880
+but we'll teach a bunch of different
+
+197
+00:06:16,880 --> 00:06:21,120
+tools and then it's up to you to decide
+
+198
+00:06:18,880 --> 00:06:23,440
+what's the right one for you so now
+
+199
+00:06:21,120 --> 00:06:24,800
+let's go see some videos where I walk
+
+200
+00:06:23,440 --> 00:06:26,759
+through the first phase and then we'll
+
+201
+00:06:24,800 --> 00:06:29,759
+come back and get a few more comments
+
+202
+00:06:26,759 --> 00:06:29,759
+afterwards
+

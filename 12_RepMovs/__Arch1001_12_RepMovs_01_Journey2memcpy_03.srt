@@ -1,0 +1,968 @@
+1
+00:00:00,080 --> 00:00:04,799
+so what is rep movs that we sought
+
+2
+00:00:02,399 --> 00:00:07,600
+this treasure so zealously
+
+3
+00:00:04,799 --> 00:00:08,080
+well rep movs is basically a mem copy
+
+4
+00:00:07,600 --> 00:00:09,920
+unto
+
+5
+00:00:08,080 --> 00:00:11,920
+itself it's an instruction which
+
+6
+00:00:09,920 --> 00:00:13,440
+repeatedly copies from a source to a
+
+7
+00:00:11,920 --> 00:00:17,920
+destination
+
+8
+00:00:13,440 --> 00:00:17,920
+is the repeat move string to string
+
+9
+00:00:18,560 --> 00:00:23,920
+now like rep stos movs
+
+10
+00:00:21,680 --> 00:00:25,039
+is actually its own assembly instruction
+
+11
+00:00:23,920 --> 00:00:27,599
+that does a move
+
+12
+00:00:25,039 --> 00:00:28,240
+of data from one memory location to the
+
+13
+00:00:27,599 --> 00:00:29,359
+next
+
+14
+00:00:28,240 --> 00:00:31,039
+but it is one of the special
+
+15
+00:00:29,359 --> 00:00:33,120
+instructions that can have the rep
+
+16
+00:00:31,039 --> 00:00:35,120
+instruction prefix added to it
+
+17
+00:00:33,120 --> 00:00:37,920
+so that it will do things over and over
+
+18
+00:00:35,120 --> 00:00:38,480
+again so all of these instructions that
+
+19
+00:00:37,920 --> 00:00:41,760
+have a
+
+20
+00:00:38,480 --> 00:00:43,280
+rep prefix form we'll use the cx
+
+21
+00:00:41,760 --> 00:00:46,680
+register meaning either the
+
+22
+00:00:43,280 --> 00:00:47,840
+cx in 16-bit mode ecx in 32-bit mode or
+
+23
+00:00:46,680 --> 00:00:50,800
+rd rcx
+
+24
+00:00:47,840 --> 00:00:52,160
+in 64-bit mode as a counter for how many
+
+25
+00:00:50,800 --> 00:00:54,239
+times it should loop through the
+
+26
+00:00:52,160 --> 00:00:56,559
+operation copying memory to memory
+
+27
+00:00:54,239 --> 00:00:58,000
+each time it does that operation it's
+
+28
+00:00:56,559 --> 00:01:01,039
+going to decrement
+
+29
+00:00:58,000 --> 00:01:01,920
+cx by one and when it finally hits zero
+
+30
+00:01:01,039 --> 00:01:03,520
+it's going to be done
+
+31
+00:01:01,920 --> 00:01:05,119
+and it'll fall through to the next
+
+32
+00:01:03,520 --> 00:01:08,000
+instruction so
+
+33
+00:01:05,119 --> 00:01:09,520
+rep movs stores 1, 2, 4, or 8
+
+34
+00:01:08,000 --> 00:01:11,840
+bytes at a time
+
+35
+00:01:09,520 --> 00:01:13,360
+and it's going to either have it's going
+
+36
+00:01:11,840 --> 00:01:15,200
+to have two main forms either
+
+37
+00:01:13,360 --> 00:01:16,479
+one byte form where it's going to move
+
+38
+00:01:15,200 --> 00:01:19,600
+from memory
+
+39
+00:01:16,479 --> 00:01:21,759
+pointed to by si to di but we don't care
+
+40
+00:01:19,600 --> 00:01:23,119
+so much that's the sort of 16-bit form
+
+41
+00:01:21,759 --> 00:01:25,119
+we're going to care about the one two
+
+42
+00:01:23,119 --> 00:01:26,159
+four or eight byte form that's going to
+
+43
+00:01:25,119 --> 00:01:29,600
+fill from
+
+44
+00:01:26,159 --> 00:01:30,560
+rsi to rdi and each time it does this
+
+45
+00:01:29,600 --> 00:01:33,600
+operation
+
+46
+00:01:30,560 --> 00:01:35,200
+it is then going to increment the rdi or
+
+47
+00:01:33,600 --> 00:01:38,079
+rsi register
+
+48
+00:01:35,200 --> 00:01:39,759
+by however many bytes it's copying so if
+
+49
+00:01:38,079 --> 00:01:40,000
+it's copying one byte at a time it's
+
+50
+00:01:39,759 --> 00:01:43,600
+going
+
+51
+00:01:40,000 --> 00:01:45,200
+to do a plus 1 to the rdi and rsi
+
+52
+00:01:43,600 --> 00:01:46,640
+this basically makes it so that it'll
+
+53
+00:01:45,200 --> 00:01:49,280
+just copy everything
+
+54
+00:01:46,640 --> 00:01:50,479
+sequentially so rep movs is basically
+
+55
+00:01:49,280 --> 00:01:52,640
+a memcpy in a box
+
+56
+00:01:50,479 --> 00:01:54,560
+except the fact that there's setup that
+
+57
+00:01:52,640 --> 00:01:55,280
+has to occur so the three pieces of
+
+58
+00:01:54,560 --> 00:01:56,960
+setup
+
+59
+00:01:55,280 --> 00:01:58,640
+is that there's going to need to be an
+
+60
+00:01:56,960 --> 00:02:01,840
+assembly instruction to
+
+61
+00:01:58,640 --> 00:02:04,640
+move and fill in si esi or rsi
+
+62
+00:02:01,840 --> 00:02:06,840
+with the starting source memory location
+
+63
+00:02:04,640 --> 00:02:08,640
+di with the starting destination memory
+
+64
+00:02:06,840 --> 00:02:11,520
+location and
+
+65
+00:02:08,640 --> 00:02:13,040
+cx rcx in our case with the number of
+
+66
+00:02:11,520 --> 00:02:14,400
+times that it should store
+
+67
+00:02:13,040 --> 00:02:16,080
+so i've said throughout the class that
+
+68
+00:02:14,400 --> 00:02:16,640
+you know we don't have memory to memory
+
+69
+00:02:16,080 --> 00:02:18,720
+moves
+
+70
+00:02:16,640 --> 00:02:20,160
+mov cannot have an r/mX and source and
+
+71
+00:02:18,720 --> 00:02:21,280
+an r/mX destination
+
+72
+00:02:20,160 --> 00:02:22,640
+and that's why i'm pointing out that
+
+73
+00:02:21,280 --> 00:02:23,440
+this is not actually the mov
+
+74
+00:02:22,640 --> 00:02:26,160
+instruction
+
+75
+00:02:23,440 --> 00:02:27,680
+this is movs and frequently you'll
+
+76
+00:02:26,160 --> 00:02:28,879
+hear it referred to as oh it's a rep
+
+77
+00:02:27,680 --> 00:02:31,680
+move it's a rep move
+
+78
+00:02:28,879 --> 00:02:34,080
+well it's a rep movs and that's why it
+
+79
+00:02:31,680 --> 00:02:36,640
+is allowed to do memory to memory
+
+80
+00:02:34,080 --> 00:02:37,920
+quick interesting point is the fact that
+
+81
+00:02:36,640 --> 00:02:39,519
+it has hard-coded
+
+82
+00:02:37,920 --> 00:02:42,640
+into this assembly instruction that it
+
+83
+00:02:39,519 --> 00:02:44,239
+must use only rdi and rsi
+
+84
+00:02:42,640 --> 00:02:46,720
+it has no other choices for other
+
+85
+00:02:44,239 --> 00:02:48,959
+registers to copy memory to memory
+
+86
+00:02:46,720 --> 00:02:52,239
+and that has implications then for
+
+87
+00:02:48,959 --> 00:02:54,319
+callee-save and caller-save registers
+
+88
+00:02:52,239 --> 00:02:56,080
+so because visual studio treats this as
+
+89
+00:02:54,319 --> 00:02:58,319
+a callee save register
+
+90
+00:02:56,080 --> 00:02:59,840
+it's going to need to save and restore
+
+91
+00:02:58,319 --> 00:03:03,599
+this and we can actually see that
+
+92
+00:02:59,840 --> 00:03:04,000
+over in our assembly so here when we
+
+93
+00:03:03,599 --> 00:03:06,720
+finally
+
+94
+00:03:04,000 --> 00:03:08,000
+made our way to rep movs we can see
+
+95
+00:03:06,720 --> 00:03:11,920
+that the first thing it does
+
+96
+00:03:08,000 --> 00:03:13,840
+is push rdi push rsi and the last thing
+
+97
+00:03:11,920 --> 00:03:15,360
+it does before it returns is it's going
+
+98
+00:03:13,840 --> 00:03:18,640
+to pop rsi
+
+99
+00:03:15,360 --> 00:03:19,200
+and pop rdi so now that we know what rep
+
+100
+00:03:18,640 --> 00:03:22,400
+movs
+
+101
+00:03:19,200 --> 00:03:24,000
+is doing basically we see okay push the
+
+102
+00:03:22,400 --> 00:03:26,959
+callee-save registers
+
+103
+00:03:24,000 --> 00:03:27,519
+take r11 and put it into rax well we
+
+104
+00:03:26,959 --> 00:03:29,840
+didn't say
+
+105
+00:03:27,519 --> 00:03:31,280
+rep movs has anything to do with rax so
+
+106
+00:03:29,840 --> 00:03:33,120
+what's up with that
+
+107
+00:03:31,280 --> 00:03:34,720
+if we go back and we search through our
+
+108
+00:03:33,120 --> 00:03:37,920
+pseudocode we see that r11
+
+109
+00:03:34,720 --> 00:03:39,920
+holds rcx holds the destination and so
+
+110
+00:03:37,920 --> 00:03:41,360
+it's actually the case that memcpy if
+
+111
+00:03:39,920 --> 00:03:44,319
+you go look at the manual
+
+112
+00:03:41,360 --> 00:03:45,519
+it is supposed to return the original
+
+113
+00:03:44,319 --> 00:03:48,640
+destination address
+
+114
+00:03:45,519 --> 00:03:51,040
+so it's moving the dest into rax because
+
+115
+00:03:48,640 --> 00:03:54,799
+that's going to be the return value
+
+116
+00:03:51,040 --> 00:03:57,439
+then we see rcx moved into di so rcx
+
+117
+00:03:54,799 --> 00:03:59,680
+destination let's check it out rcx
+
+118
+00:03:57,439 --> 00:04:03,280
+destination it checks out
+
+119
+00:03:59,680 --> 00:04:04,879
+r8 into rcx well that's the rcx is the
+
+120
+00:04:03,280 --> 00:04:05,840
+counter it's the number of times it's
+
+121
+00:04:04,879 --> 00:04:07,840
+going to do a
+
+122
+00:04:05,840 --> 00:04:10,159
+memory to memory copy so that makes
+
+123
+00:04:07,840 --> 00:04:14,080
+sense because that's our size which
+
+124
+00:04:10,159 --> 00:04:18,000
+is now 0x84 in the final version of this
+
+125
+00:04:14,080 --> 00:04:21,440
+and r10 into rsi r10 is the source
+
+126
+00:04:18,000 --> 00:04:24,560
+so source destination count and then
+
+127
+00:04:21,440 --> 00:04:26,560
+boom rep movs how big is it doing this
+
+128
+00:04:24,560 --> 00:04:28,240
+one is doing 1 byte at a time because
+
+129
+00:04:26,560 --> 00:04:30,080
+it's doing a byte pointer
+
+130
+00:04:28,240 --> 00:04:32,000
+now they could do larger chunks at a
+
+131
+00:04:30,080 --> 00:04:34,639
+time they could do 8 bytes at a time
+
+132
+00:04:32,000 --> 00:04:35,520
+but if we sort of examine this pseudo
+
+133
+00:04:34,639 --> 00:04:37,840
+code and
+
+134
+00:04:35,520 --> 00:04:39,440
+we get a sense of well if it's you know
+
+135
+00:04:37,840 --> 00:04:40,240
+greater than 0x10 and it's greater than
+
+136
+00:04:39,440 --> 00:04:42,880
+0x20
+
+137
+00:04:40,240 --> 00:04:43,600
+that's greater than 0x80. the thing is
+
+138
+00:04:42,880 --> 00:04:45,840
+in order to be
+
+139
+00:04:43,600 --> 00:04:46,800
+generic it could be 0x81 it could be 0x82 it
+
+140
+00:04:45,840 --> 00:04:48,160
+could be 0x83
+
+141
+00:04:46,800 --> 00:04:50,320
+so you're not going to want to be
+
+142
+00:04:48,160 --> 00:04:52,000
+copying 8 bytes at a time for that
+
+143
+00:04:50,320 --> 00:04:53,680
+so to make it generic they basically
+
+144
+00:04:52,000 --> 00:04:55,360
+just treat it as 1 byte at a time so
+
+145
+00:04:53,680 --> 00:04:57,840
+that it can handle any size
+
+146
+00:04:55,360 --> 00:04:59,520
+that's greater than 0x80. and then that's
+
+147
+00:04:57,840 --> 00:05:01,520
+pretty much it it's going to do the copy
+
+148
+00:04:59,520 --> 00:05:03,360
+of whatever to whatever and then it's
+
+149
+00:05:01,520 --> 00:05:05,039
+going to restore the registers and
+
+150
+00:05:03,360 --> 00:05:06,960
+return back out
+
+151
+00:05:05,039 --> 00:05:09,280
+so here's a slightly cleaned up version
+
+152
+00:05:06,960 --> 00:05:10,320
+of the pseudocode that i was writing out
+
+153
+00:05:09,280 --> 00:05:12,720
+on the fly
+
+154
+00:05:10,320 --> 00:05:14,639
+you can see if length is less than 0x10 go
+
+155
+00:05:12,720 --> 00:05:15,759
+to here and it's going to do some mov
+
+156
+00:05:14,639 --> 00:05:17,759
+instructions if
+
+157
+00:05:15,759 --> 00:05:19,840
+length is greater than 0x10 but less than
+
+158
+00:05:17,759 --> 00:05:21,840
+0x20 then it goes here and uses these
+
+159
+00:05:19,840 --> 00:05:23,360
+movups instructions that we don't know
+
+160
+00:05:21,840 --> 00:05:26,240
+what they are
+
+161
+00:05:23,360 --> 00:05:28,560
+else if the source is greater than dest
+
+162
+00:05:26,240 --> 00:05:30,080
+go to here but this address happens to
+
+163
+00:05:28,560 --> 00:05:33,360
+be the address of this
+
+164
+00:05:30,080 --> 00:05:34,960
+length less than 0x80. and
+
+165
+00:05:33,360 --> 00:05:37,280
+if it goes in here then you've got a
+
+166
+00:05:34,960 --> 00:05:39,360
+situation of if source is
+
+167
+00:05:37,280 --> 00:05:40,639
+less than dest is less than source plus
+
+168
+00:05:39,360 --> 00:05:42,720
+len which means
+
+169
+00:05:40,639 --> 00:05:44,240
+dest is in the middle of this source
+
+170
+00:05:42,720 --> 00:05:46,720
+buffer that's going to be copied
+
+171
+00:05:44,240 --> 00:05:48,240
+go here and deal with it but thankfully
+
+172
+00:05:46,720 --> 00:05:49,919
+for us it didn't go there
+
+173
+00:05:48,240 --> 00:05:51,440
+now we can actually sort of you know
+
+174
+00:05:49,919 --> 00:05:53,360
+simplify this a little bit
+
+175
+00:05:51,440 --> 00:05:56,000
+because we know that this source greater
+
+176
+00:05:53,360 --> 00:05:58,560
+than dest it goes to here
+
+177
+00:05:56,000 --> 00:05:59,680
+instead of thinking of this as a goto
+
+178
+00:05:58,560 --> 00:06:01,600
+we could sort of
+
+179
+00:05:59,680 --> 00:06:03,280
+get rid of it and treat it like it's an
+
+180
+00:06:01,600 --> 00:06:06,240
+else so if we flip
+
+181
+00:06:03,280 --> 00:06:08,080
+the condition and we say if source is
+
+182
+00:06:06,240 --> 00:06:11,360
+less than length goto here
+
+183
+00:06:08,080 --> 00:06:13,280
+else goto there and that would be
+
+184
+00:06:11,360 --> 00:06:14,880
+sort of the simplified version if source
+
+185
+00:06:13,280 --> 00:06:16,960
+is less than dest
+
+186
+00:06:14,880 --> 00:06:18,639
+and dest is less than source plus length
+
+187
+00:06:16,960 --> 00:06:20,400
+do this else
+
+188
+00:06:18,639 --> 00:06:21,919
+then it's going to fall through and go
+
+189
+00:06:20,400 --> 00:06:24,000
+to here
+
+190
+00:06:21,919 --> 00:06:25,280
+and so this is the case where if length
+
+191
+00:06:24,000 --> 00:06:28,240
+is less than 0x80 but
+
+192
+00:06:25,280 --> 00:06:28,880
+greater than 0x20 then it goes and does
+
+193
+00:06:28,240 --> 00:06:30,560
+some more
+
+194
+00:06:28,880 --> 00:06:32,800
+movups stuff that we don't know and
+
+195
+00:06:30,560 --> 00:06:33,600
+don't care because we're hunting for rep
+
+196
+00:06:32,800 --> 00:06:35,759
+movs
+
+197
+00:06:33,600 --> 00:06:37,039
+so we set it greater than 80 and it goes
+
+198
+00:06:35,759 --> 00:06:39,840
+down to this case
+
+199
+00:06:37,039 --> 00:06:40,240
+got some memory check against you know
+
+200
+00:06:39,840 --> 00:06:42,000
+this
+
+201
+00:06:40,240 --> 00:06:44,240
+bit here we don't know what's up with
+
+202
+00:06:42,000 --> 00:06:46,880
+that but thankfully that bit is not set
+
+203
+00:06:44,240 --> 00:06:48,479
+so sorry thankfully that bit is set and
+
+204
+00:06:46,880 --> 00:06:49,599
+therefore it doesn't take this case and
+
+205
+00:06:48,479 --> 00:06:51,919
+instead goes here
+
+206
+00:06:49,599 --> 00:06:53,440
+where we ultimately find the rep movs
+
+207
+00:06:51,919 --> 00:06:56,479
+so basically no matter what
+
+208
+00:06:53,440 --> 00:06:57,120
+if it's greater than 0x80 and this bit is
+
+209
+00:06:56,479 --> 00:06:59,520
+set
+
+210
+00:06:57,120 --> 00:07:01,440
+then it's guaranteed to always do a rep
+
+211
+00:06:59,520 --> 00:07:03,440
+movs 1 byte at a time
+
+212
+00:07:01,440 --> 00:07:05,759
+so an interesting little bit of trivia
+
+213
+00:07:03,440 --> 00:07:08,160
+for you there is actually this thing
+
+214
+00:07:05,759 --> 00:07:10,400
+called the direction flag
+
+215
+00:07:08,160 --> 00:07:12,560
+and the direction flag actually controls
+
+216
+00:07:10,400 --> 00:07:16,080
+the direction of copies that occur
+
+217
+00:07:12,560 --> 00:07:18,720
+with a rep movs so this is a C control
+
+218
+00:07:16,080 --> 00:07:20,240
+flag and it turns out that based on the
+
+219
+00:07:18,720 --> 00:07:23,199
+direction flag it could either be
+
+220
+00:07:20,240 --> 00:07:24,560
+incrementing rdi and rsi or it could
+
+221
+00:07:23,199 --> 00:07:25,759
+actually be decrementing so it could
+
+222
+00:07:24,560 --> 00:07:27,919
+kind of be copying
+
+223
+00:07:25,759 --> 00:07:29,120
+backwards down towards lower addresses
+
+224
+00:07:27,919 --> 00:07:30,800
+if you want
+
+225
+00:07:29,120 --> 00:07:32,880
+so sort of interesting to think about
+
+226
+00:07:30,800 --> 00:07:35,759
+what if the attacker somehow could
+
+227
+00:07:32,880 --> 00:07:37,759
+control DF and cause the thing to start
+
+228
+00:07:35,759 --> 00:07:39,840
+copying backwards when the programmers
+
+229
+00:07:37,759 --> 00:07:41,360
+expect it to be copying forwards
+
+230
+00:07:39,840 --> 00:07:42,880
+clearly that's going to lead to some
+
+231
+00:07:41,360 --> 00:07:45,759
+sort of memory corruption
+
+232
+00:07:42,880 --> 00:07:46,639
+okay so we picked up our final
+
+233
+00:07:45,759 --> 00:07:49,520
+instruction
+
+234
+00:07:46,639 --> 00:07:51,280
+instruction 30 rep movs and my
+
+235
+00:07:49,520 --> 00:07:51,919
+friendly friends this is where I tell
+
+236
+00:07:51,280 --> 00:07:54,000
+you that
+
+237
+00:07:51,919 --> 00:07:56,240
+this is the last assembly instruction
+
+238
+00:07:54,000 --> 00:07:57,039
+which I am specifically going to try to
+
+239
+00:07:56,240 --> 00:07:59,360
+teach you
+
+240
+00:07:57,039 --> 00:08:00,680
+everything after this is going to be an
+
+241
+00:07:59,360 --> 00:08:03,680
+RTFM
+
+242
+00:08:00,680 --> 00:08:03,680
+situation
+

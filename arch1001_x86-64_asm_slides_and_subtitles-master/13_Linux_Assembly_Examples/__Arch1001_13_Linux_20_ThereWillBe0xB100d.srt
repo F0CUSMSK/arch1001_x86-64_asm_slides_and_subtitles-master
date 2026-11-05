@@ -1,0 +1,60 @@
+1
+00:00:00,080 --> 00:00:04,240
+now I know ThereWillBe0xb100d was
+
+2
+00:00:02,159 --> 00:00:06,720
+probably one of your favorite examples
+
+3
+00:00:04,240 --> 00:00:08,639
+but I'm here to tell you that that is a
+
+4
+00:00:06,720 --> 00:00:11,920
+very boring example here
+
+5
+00:00:08,639 --> 00:00:12,559
+because the use of rep stos in that
+
+6
+00:00:11,920 --> 00:00:15,920
+case
+
+7
+00:00:12,559 --> 00:00:16,720
+in order to you know set the thing to
+
+8
+00:00:15,920 --> 00:00:18,880
+0xCCs
+
+9
+00:00:16,720 --> 00:00:20,480
+was just something that is visual studio
+
+10
+00:00:18,880 --> 00:00:23,680
+runtime debugging
+
+11
+00:00:20,480 --> 00:00:27,439
+exclusive so when we compile this
+
+12
+00:00:23,680 --> 00:00:29,840
+and we debug it the output is that
+
+13
+00:00:27,439 --> 00:00:30,720
+boring version of just doing exactly
+
+14
+00:00:29,840 --> 00:00:36,640
+what you expect
+
+15
+00:00:30,720 --> 00:00:36,640
+just putting 42 into the array sorry
+

@@ -1,0 +1,492 @@
+1
+00:00:00,080 --> 00:00:03,120
+so for the rest of the class we're
+
+2
+00:00:01,520 --> 00:00:04,080
+mostly going to be covering common
+
+3
+00:00:03,120 --> 00:00:07,120
+things you see
+
+4
+00:00:04,080 --> 00:00:08,480
+in the C language and how they translate
+
+5
+00:00:07,120 --> 00:00:10,320
+down to
+
+6
+00:00:08,480 --> 00:00:12,080
+assembly in this particular case we're
+
+7
+00:00:10,320 --> 00:00:13,200
+going to talk about boolean logic
+
+8
+00:00:12,080 --> 00:00:14,880
+operations
+
+9
+00:00:13,200 --> 00:00:16,720
+so for instance we wrote some very
+
+10
+00:00:14,880 --> 00:00:20,240
+simple C here that had things like
+
+11
+00:00:16,720 --> 00:00:22,240
+xor, not, and and or
+
+12
+00:00:20,240 --> 00:00:23,519
+and consequently we're going to see new
+
+13
+00:00:22,240 --> 00:00:26,800
+assembly instructions for
+
+14
+00:00:23,519 --> 00:00:28,160
+xor, not, and and or. So the boolean logic
+
+15
+00:00:26,800 --> 00:00:31,279
+assembly instructions do
+
+16
+00:00:28,160 --> 00:00:33,200
+set the majority of the status flags and
+
+17
+00:00:31,279 --> 00:00:35,120
+the ones we care about for instance sign
+
+18
+00:00:33,200 --> 00:00:36,000
+flag or zero flag you can imagine that
+
+19
+00:00:35,120 --> 00:00:38,239
+if you do an
+
+20
+00:00:36,000 --> 00:00:40,079
+or and if the result leads to something
+
+21
+00:00:38,239 --> 00:00:42,160
+with a 1 in the most significant bit
+
+22
+00:00:40,079 --> 00:00:44,160
+then the status flag will be set. If you
+
+23
+00:00:42,160 --> 00:00:46,399
+do an and, and you ultimately get
+
+24
+00:00:44,160 --> 00:00:47,360
+0 as the output result that'll set
+
+25
+00:00:46,399 --> 00:00:49,280
+the zero flag.
+
+26
+00:00:47,360 --> 00:00:50,960
+so each of these instructions basically
+
+27
+00:00:49,280 --> 00:00:54,399
+exactly follows the boolean
+
+28
+00:00:50,960 --> 00:00:55,280
+logic in C the binary operator single
+
+29
+00:00:54,399 --> 00:00:57,520
+ampersand
+
+30
+00:00:55,280 --> 00:00:58,800
+not the double ampersand is going to be
+
+31
+00:00:57,520 --> 00:01:01,920
+your bitwise and.
+
+32
+00:00:58,800 --> 00:01:05,280
+Double ampersand is the logical and.
+
+33
+00:01:01,920 --> 00:01:07,280
+The and can have a two operand form and
+
+34
+00:01:05,280 --> 00:01:09,680
+the destination can be an r/mX or a
+
+35
+00:01:07,280 --> 00:01:11,119
+register and the source can be an r/mX or
+
+36
+00:01:09,680 --> 00:01:12,880
+a register or an immediate
+
+37
+00:01:11,119 --> 00:01:15,119
+but you can't have both the source and
+
+38
+00:01:12,880 --> 00:01:16,720
+the destination as r/mXs is because again
+
+39
+00:01:15,119 --> 00:01:17,520
+that would lead to a memory to memory
+
+40
+00:01:16,720 --> 00:01:19,920
+move
+
+41
+00:01:17,520 --> 00:01:21,520
+which isn't supported on Intel for basic
+
+42
+00:01:19,920 --> 00:01:24,320
+assembly instructions
+
+43
+00:01:21,520 --> 00:01:24,640
+so as an example if we had
+
+44
+00:01:24,320 --> 00:01:28,479
+and al, bl
+
+45
+00:01:24,640 --> 00:01:30,240
+and if al held this value 0x33 and bl held
+
+46
+00:01:28,479 --> 00:01:33,200
+this value 0x55
+
+47
+00:01:30,240 --> 00:01:34,240
+the bitwise and is basically just one at
+
+48
+00:01:33,200 --> 00:01:37,119
+a time go: 1 and 1
+
+49
+00:01:34,240 --> 00:01:37,680
+that is 1, 1 and 0
+
+50
+00:01:37,119 --> 00:01:39,920
+that is 0
+
+51
+00:01:37,680 --> 00:01:41,360
+and so forth... So it's just down the line
+
+52
+00:01:39,920 --> 00:01:44,960
+doing the and operation
+
+53
+00:01:41,360 --> 00:01:48,159
+on these two operands bit at a time
+
+54
+00:01:44,960 --> 00:01:50,159
+so here's 42 and al so using an
+
+55
+00:01:48,159 --> 00:01:51,600
+immediate this time
+
+56
+00:01:50,159 --> 00:01:53,200
+but you're ultimately doing the same
+
+57
+00:01:51,600 --> 00:01:55,680
+thing just go vertically
+
+58
+00:01:53,200 --> 00:01:57,040
+do an and operation: 1 and 0 is 0
+
+59
+00:01:55,680 --> 00:01:59,520
+1 and 1 is 1
+
+60
+00:01:57,040 --> 00:02:00,240
+and so forth all the way down the line
+
+61
+00:01:59,520 --> 00:02:03,280
+the or
+
+62
+00:02:00,240 --> 00:02:05,280
+instruction is the bitwise or the binary
+
+63
+00:02:03,280 --> 00:02:06,719
+operator is a single bar
+
+64
+00:02:05,280 --> 00:02:08,800
+it's not the double bar that's the
+
+65
+00:02:06,719 --> 00:02:11,039
+logical or once again
+
+66
+00:02:08,800 --> 00:02:13,360
+destination can be r/mX or register
+
+67
+00:02:11,039 --> 00:02:16,400
+source can be r/mX register or immediate
+
+68
+00:02:13,360 --> 00:02:18,400
+and no source and destination as r/mXs
+
+69
+00:02:16,400 --> 00:02:19,680
+or is going to be a bit or, so it just
+
+70
+00:02:18,400 --> 00:02:23,360
+does 1 or 1
+
+71
+00:02:19,680 --> 00:02:24,319
+that's 1, 1 or 0 that's 1, 0 or 1
+
+72
+00:02:23,360 --> 00:02:26,560
+that's 1.
+
+73
+00:02:24,319 --> 00:02:28,239
+so basically as long as you know the
+
+74
+00:02:26,560 --> 00:02:29,920
+basic boolean operations
+
+75
+00:02:28,239 --> 00:02:32,800
+then you just go down the line and do it
+
+76
+00:02:29,920 --> 00:02:36,319
+bit wise on the two operands
+
+77
+00:02:32,800 --> 00:02:39,360
+xor exclusive or is represented in C
+
+78
+00:02:36,319 --> 00:02:42,080
+as the carret symbol and once again
+
+79
+00:02:39,360 --> 00:02:43,040
+source and destination same forms as the
+
+80
+00:02:42,080 --> 00:02:45,760
+and and or
+
+81
+00:02:43,040 --> 00:02:47,599
+so FYI you may commonly see xor
+
+82
+00:02:45,760 --> 00:02:49,840
+appearing in the assembly even if a
+
+83
+00:02:47,599 --> 00:02:51,519
+human didn't actually write an xor
+
+84
+00:02:49,840 --> 00:02:53,680
+that's because by definition
+
+85
+00:02:51,519 --> 00:02:54,640
+xoring something with itself will lead
+
+86
+00:02:53,680 --> 00:02:56,560
+to 0
+
+87
+00:02:54,640 --> 00:02:58,480
+and so frequently the compiler will
+
+88
+00:02:56,560 --> 00:03:00,560
+automatically generate a
+
+89
+00:02:58,480 --> 00:03:02,319
+xor of a register with itself in order
+
+90
+00:03:00,560 --> 00:03:05,519
+to zero that register
+
+91
+00:03:02,319 --> 00:03:06,400
+so here if we had xor al, al
+
+92
+00:03:05,519 --> 00:03:09,519
+and 1 xor 1
+
+93
+00:03:06,400 --> 00:03:10,400
+is 0, 1 xor 1 is 0,
+
+94
+00:03:09,519 --> 00:03:13,120
+0 xor 0 is 0,
+
+95
+00:03:10,400 --> 00:03:13,840
+and so forth... Finally, the NOT is
+
+96
+00:03:13,120 --> 00:03:15,599
+essentially
+
+97
+00:03:13,840 --> 00:03:17,680
+one's complement negation we talked
+
+98
+00:03:15,599 --> 00:03:19,440
+before that negative numbers are two's
+
+99
+00:03:17,680 --> 00:03:20,239
+complement which is one's complement
+
+100
+00:03:19,440 --> 00:03:21,840
+where you flip
+
+101
+00:03:20,239 --> 00:03:23,360
+all the bits from 0 to 1 and 1 to
+
+102
+00:03:21,840 --> 00:03:26,000
+0 and then you add 1
+
+103
+00:03:23,360 --> 00:03:26,959
+so NOT is just one's complement flip all
+
+104
+00:03:26,000 --> 00:03:30,080
+the bits
+
+105
+00:03:26,959 --> 00:03:34,239
+so in C, this is given by the tilde
+
+106
+00:03:30,080 --> 00:03:36,159
+it's not the exclamation point symbol or
+
+107
+00:03:34,239 --> 00:03:39,519
+I implicitly want to say it's not the
+
+108
+00:03:36,159 --> 00:03:39,519
+NOT, that's the logical NOT
+
+109
+00:03:40,000 --> 00:03:43,840
+and NOT takes a single source and
+
+110
+00:03:42,239 --> 00:03:45,440
+destination operand so
+
+111
+00:03:43,840 --> 00:03:47,440
+whatever you give as the source is going
+
+112
+00:03:45,440 --> 00:03:49,760
+to be the destination it's going to
+
+113
+00:03:47,440 --> 00:03:51,920
+in place flip all the bits the operand
+
+114
+00:03:49,760 --> 00:03:54,080
+is specified in an r/mX form
+
+115
+00:03:51,920 --> 00:03:56,159
+so if we had this value right here then
+
+116
+00:03:54,080 --> 00:03:57,760
+I think you can all see clearly that if
+
+117
+00:03:56,159 --> 00:04:01,760
+you flip all the bits which you get
+
+118
+00:03:57,760 --> 00:04:06,080
+is tessellated toads! tessellated toads!
+
+119
+00:04:01,760 --> 00:04:06,080
+tesselated toads!
+
+120
+00:04:08,239 --> 00:04:11,599
+and now you should stop and step through
+
+121
+00:04:10,239 --> 00:04:13,120
+the assembly and check your
+
+122
+00:04:11,599 --> 00:04:18,239
+understanding.
+
+123
+00:04:13,120 --> 00:04:18,239
+all glory to Hypnotoad
+

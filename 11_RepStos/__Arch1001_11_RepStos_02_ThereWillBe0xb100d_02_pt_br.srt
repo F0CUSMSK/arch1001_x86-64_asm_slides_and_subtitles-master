@@ -1,0 +1,43 @@
+1
+00:00:00,160 --> 00:00:04,319
+portanto, mesmo quando você passa pelo
+
+2
+00:00:01,920 --> 00:00:06,240
+montagem e desenhar um diagrama de pilha, você
+
+3
+00:00:04,319 --> 00:00:06,879
+talvez ainda não saiba exatamente o que está acontecendo
+
+4
+00:00:06,240 --> 00:00:09,760
+em
+
+5
+00:00:06,879 --> 00:00:10,480
+Então, se eu puder fazer uma proposta modesta, eu
+
+6
+00:00:09,760 --> 00:00:13,759
+sugerir
+
+7
+00:00:10,480 --> 00:00:15,040
+que você incremente o índice do buffer para
+
+8
+00:00:13,759 --> 00:00:17,440
+o ponto em que ele ultrapassa
+
+9
+00:00:15,040 --> 00:00:19,039
+o fim do buffer e siga em frente
+
+10
+00:00:17,440 --> 00:00:25,760
+e execute o código
+
+11
+00:00:19,039 --> 00:00:25,760
+e veja o que acontece

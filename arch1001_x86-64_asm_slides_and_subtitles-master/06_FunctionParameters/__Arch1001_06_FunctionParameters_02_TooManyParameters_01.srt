@@ -1,0 +1,32 @@
+1
+00:00:00,080 --> 00:00:04,319
+so now we're going to look at the
+
+2
+00:00:01,360 --> 00:00:06,960
+so-called too manyparameters.c
+
+3
+00:00:04,319 --> 00:00:07,600
+too many parameters for who and for what
+
+4
+00:00:06,960 --> 00:00:10,880
+i don't know
+
+5
+00:00:07,600 --> 00:00:13,200
+you tell me go ahead and step through
+
+6
+00:00:10,880 --> 00:00:15,120
+the assembly and draw a stack diagram
+
+7
+00:00:13,200 --> 00:00:17,920
+and we will see a very interesting
+
+8
+00:00:15,120 --> 00:00:17,920
+pattern emerge
+

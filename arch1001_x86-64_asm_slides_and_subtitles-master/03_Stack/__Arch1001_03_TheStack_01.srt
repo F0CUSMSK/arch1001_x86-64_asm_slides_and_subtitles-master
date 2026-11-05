@@ -1,0 +1,676 @@
+0
+00:00:00,080 --> 00:00:04,160
+understanding how the stack works is
+
+1
+00:00:01,920 --> 00:00:05,600
+extremely essential to understanding how
+
+2
+00:00:04,160 --> 00:00:08,639
+the code is working
+
+3
+00:00:05,600 --> 00:00:11,040
+so conceptually the stack is a last in
+
+4
+00:00:08,639 --> 00:00:12,799
+first out data structure where data is
+
+5
+00:00:11,040 --> 00:00:13,759
+pushed on the top of the stack and then
+
+6
+00:00:12,799 --> 00:00:15,679
+popped off
+
+7
+00:00:13,759 --> 00:00:17,840
+so frequently people talk about it as if
+
+8
+00:00:15,679 --> 00:00:19,439
+it were a stack of plates where you push
+
+9
+00:00:17,840 --> 00:00:20,080
+something on the top you push something
+
+10
+00:00:19,439 --> 00:00:21,760
+on the top
+
+11
+00:00:20,080 --> 00:00:23,439
+but you can't take data out of the
+
+12
+00:00:21,760 --> 00:00:26,640
+middle of the stack you can only
+
+13
+00:00:23,439 --> 00:00:28,960
+pop something off pop something off so
+
+14
+00:00:26,640 --> 00:00:30,960
+in general the stack is a conceptual
+
+15
+00:00:28,960 --> 00:00:31,599
+area of memory where the operating
+
+16
+00:00:30,960 --> 00:00:33,680
+system
+
+17
+00:00:31,599 --> 00:00:35,280
+says okay i'm going to assign this area
+
+18
+00:00:33,680 --> 00:00:35,840
+to be the stack when the program starts
+
+19
+00:00:35,280 --> 00:00:37,600
+running
+
+20
+00:00:35,840 --> 00:00:38,879
+and different operating systems use
+
+21
+00:00:37,600 --> 00:00:41,440
+different addresses
+
+22
+00:00:38,879 --> 00:00:43,360
+to be the stack and if they're using
+
+23
+00:00:41,440 --> 00:00:45,039
+address space layout randomization it
+
+24
+00:00:43,360 --> 00:00:47,280
+could actually change between different
+
+25
+00:00:45,039 --> 00:00:49,360
+invocations of the program
+
+26
+00:00:47,280 --> 00:00:50,719
+so again as i said in the endianness
+
+27
+00:00:49,360 --> 00:00:52,640
+section i draw
+
+28
+00:00:50,719 --> 00:00:53,760
+low addresses low high address is high
+
+29
+00:00:52,640 --> 00:00:56,320
+so if this is
+
+30
+00:00:53,760 --> 00:00:58,000
+generically some process memory the
+
+31
+00:00:56,320 --> 00:00:59,760
+operating system decides where it wants
+
+32
+00:00:58,000 --> 00:01:00,320
+to place the stack and where it places
+
+33
+00:00:59,760 --> 00:01:01,920
+the heap
+
+34
+00:01:00,320 --> 00:01:03,440
+which is where memory is allocated for
+
+35
+00:01:01,920 --> 00:01:05,840
+things like malloc
+
+36
+00:01:03,440 --> 00:01:08,560
+and where it puts the code and global
+
+37
+00:01:05,840 --> 00:01:11,840
+data and other elements
+
+38
+00:01:08,560 --> 00:01:13,600
+so by convention most operating systems
+
+39
+00:01:11,840 --> 00:01:14,560
+have the stack grow towards low
+
+40
+00:01:13,600 --> 00:01:16,400
+addresses
+
+41
+00:01:14,560 --> 00:01:17,840
+and conversely the heap will grow
+
+42
+00:01:16,400 --> 00:01:19,920
+towards high addresses
+
+43
+00:01:17,840 --> 00:01:21,600
+so as you use more heap space and use
+
+44
+00:01:19,920 --> 00:01:23,600
+more stack space these will grow towards
+
+45
+00:01:21,600 --> 00:01:25,439
+each other and eventually if you use too
+
+46
+00:01:23,600 --> 00:01:26,960
+much stack and too much heap
+
+47
+00:01:25,439 --> 00:01:28,880
+they will collide and the program will
+
+48
+00:01:26,960 --> 00:01:31,280
+take some sort of error and have to be
+
+49
+00:01:28,880 --> 00:01:33,840
+terminated so a very important message
+
+50
+00:01:31,280 --> 00:01:35,200
+brought to you by the m308 gunner from
+
+51
+00:01:33,840 --> 00:01:37,920
+metalstorm
+
+52
+00:01:35,200 --> 00:01:39,840
+so metalstorm is a video game on the
+
+53
+00:01:37,920 --> 00:01:41,119
+nintendo entertainment system where you
+
+54
+00:01:39,840 --> 00:01:44,159
+could flip the gravity
+
+55
+00:01:41,119 --> 00:01:45,520
+go up go down at a moment's notice and
+
+56
+00:01:44,159 --> 00:01:47,520
+so this stack
+
+57
+00:01:45,520 --> 00:01:48,640
+grows towards low addresses in our
+
+58
+00:01:47,520 --> 00:01:50,880
+representation
+
+59
+00:01:48,640 --> 00:01:52,640
+and you the student need to be mentally
+
+60
+00:01:50,880 --> 00:01:54,320
+flexible to be able to handle it if the
+
+61
+00:01:52,640 --> 00:01:55,040
+stack is growing down towards lower
+
+62
+00:01:54,320 --> 00:01:56,880
+addresses
+
+63
+00:01:55,040 --> 00:01:58,240
+or if you go off and see someone else
+
+64
+00:01:56,880 --> 00:02:00,079
+who draws the stack
+
+65
+00:01:58,240 --> 00:02:02,240
+growing towards high addresses you could
+
+66
+00:02:00,079 --> 00:02:04,079
+also see the stack growing left to right
+
+67
+00:02:02,240 --> 00:02:05,840
+or right to left the famous hacking
+
+68
+00:02:04,079 --> 00:02:06,719
+paper smashing the stack for fun and
+
+69
+00:02:05,840 --> 00:02:08,879
+profit
+
+70
+00:02:06,719 --> 00:02:10,720
+draws the stack horizontally so i've
+
+71
+00:02:08,879 --> 00:02:12,879
+also asked ender wiggin here
+
+72
+00:02:10,720 --> 00:02:14,480
+in order to remind you that the enemy's
+
+73
+00:02:12,879 --> 00:02:16,400
+plate is down
+
+74
+00:02:14,480 --> 00:02:17,520
+and if you don't believe him here's
+
+75
+00:02:16,400 --> 00:02:20,080
+another luminary
+
+76
+00:02:17,520 --> 00:02:21,920
+weird al yankovic to let you know that
+
+77
+00:02:20,080 --> 00:02:22,319
+everything you know is wrong black is
+
+78
+00:02:21,920 --> 00:02:24,560
+white
+
+79
+00:02:22,319 --> 00:02:26,000
+up is down and short is long now
+
+80
+00:02:24,560 --> 00:02:29,360
+specifically in the context
+
+81
+00:02:26,000 --> 00:02:32,000
+of the stack on intel systems is the rsp
+
+82
+00:02:29,360 --> 00:02:34,239
+register the really long stack pointer
+
+83
+00:02:32,000 --> 00:02:36,319
+which points to the top of the stack and
+
+84
+00:02:34,239 --> 00:02:38,239
+again that's the lowest address which is
+
+85
+00:02:36,319 --> 00:02:38,640
+being used to store data and while data
+
+86
+00:02:38,239 --> 00:02:40,640
+will
+
+87
+00:02:38,640 --> 00:02:42,400
+exist that address is beyond the top of
+
+88
+00:02:40,640 --> 00:02:44,400
+the stack it should be considered
+
+89
+00:02:42,400 --> 00:02:46,720
+undefined and it should not be dependent
+
+90
+00:02:44,400 --> 00:02:48,400
+upon for program execution behavior
+
+91
+00:02:46,720 --> 00:02:50,560
+so what kind of information might you
+
+92
+00:02:48,400 --> 00:02:51,680
+find on the stack first there's return
+
+93
+00:02:50,560 --> 00:02:53,680
+addresses
+
+94
+00:02:51,680 --> 00:02:56,480
+which is when a function calls another
+
+95
+00:02:53,680 --> 00:02:58,319
+function it has to push a return address
+
+96
+00:02:56,480 --> 00:02:58,879
+onto the stack so that the called
+
+97
+00:02:58,319 --> 00:03:01,040
+function
+
+98
+00:02:58,879 --> 00:03:01,920
+knows how to get back to the calling
+
+99
+00:03:01,040 --> 00:03:03,519
+function
+
+100
+00:03:01,920 --> 00:03:04,959
+so you know when you're learning C
+
+101
+00:03:03,519 --> 00:03:06,560
+programming you know that you can call
+
+102
+00:03:04,959 --> 00:03:08,239
+from one function to the next but you
+
+103
+00:03:06,560 --> 00:03:09,280
+don't necessarily ever think about how
+
+104
+00:03:08,239 --> 00:03:11,760
+you get back
+
+105
+00:03:09,280 --> 00:03:13,360
+to the calling function and here when we
+
+106
+00:03:11,760 --> 00:03:15,440
+look at the assembly we'll understand
+
+107
+00:03:13,360 --> 00:03:17,280
+exactly how that works
+
+108
+00:03:15,440 --> 00:03:19,200
+also local variables are stored on the
+
+109
+00:03:17,280 --> 00:03:21,599
+stack
+
+110
+00:03:19,200 --> 00:03:23,120
+sometimes we're going to see parameters
+
+111
+00:03:21,599 --> 00:03:25,280
+passed between two different
+
+112
+00:03:23,120 --> 00:03:27,040
+functions on the stack but it's going to
+
+113
+00:03:25,280 --> 00:03:28,640
+depend on things we'll learn about later
+
+114
+00:03:27,040 --> 00:03:30,319
+also the stack is a place where the
+
+115
+00:03:28,640 --> 00:03:32,480
+compiler may choose to
+
+116
+00:03:30,319 --> 00:03:34,400
+save registers because at the end of the
+
+117
+00:03:32,480 --> 00:03:35,280
+day if there's only 16 general purpose
+
+118
+00:03:34,400 --> 00:03:36,720
+registers
+
+119
+00:03:35,280 --> 00:03:38,640
+then they need to be shared between
+
+120
+00:03:36,720 --> 00:03:40,720
+different functions without them
+
+121
+00:03:38,640 --> 00:03:43,920
+you know function one overwriting the
+
+122
+00:03:40,720 --> 00:03:46,400
+values from function two
+
+123
+00:03:43,920 --> 00:03:47,200
+also if a function gets extremely
+
+124
+00:03:46,400 --> 00:03:49,360
+complicated
+
+125
+00:03:47,200 --> 00:03:51,280
+and 16 registers are not enough to
+
+126
+00:03:49,360 --> 00:03:53,360
+juggle all the possible values
+
+127
+00:03:51,280 --> 00:03:56,799
+then the compiler may need to save them
+
+128
+00:03:53,360 --> 00:04:00,480
+temporarily off to the stack as well
+
+129
+00:03:56,799 --> 00:04:03,280
+finally there are some macros like alloca()
+
+130
+00:04:00,480 --> 00:04:04,319
+which will just explicitly allocate
+
+131
+00:04:03,280 --> 00:04:08,400
+space on the stack
+
+132
+00:04:04,319 --> 00:04:10,400
+instead of the heap so in past classes
+
+133
+00:04:08,400 --> 00:04:12,239
+i sort of tried to draw the diagram that
+
+134
+00:04:10,400 --> 00:04:13,439
+got into all of those different things
+
+135
+00:04:12,239 --> 00:04:15,519
+right here up front
+
+136
+00:04:13,439 --> 00:04:17,680
+but for this class i've decided to try
+
+137
+00:04:15,519 --> 00:04:19,600
+to take it you know much slower
+
+138
+00:04:17,680 --> 00:04:21,359
+and cover the stack each of those pieces
+
+139
+00:04:19,600 --> 00:04:22,479
+of the stack as we get into them in
+
+140
+00:04:21,359 --> 00:04:24,560
+future classes
+
+141
+00:04:22,479 --> 00:04:25,840
+so so this is going to be a reoccurring
+
+142
+00:04:24,560 --> 00:04:27,680
+diagram which i'm going to draw and
+
+143
+00:04:25,840 --> 00:04:29,120
+it'll get more complicated over time
+
+144
+00:04:27,680 --> 00:04:31,440
+but for now i just want to keep it
+
+145
+00:04:29,120 --> 00:04:34,479
+simple so if you have
+
+146
+00:04:31,440 --> 00:04:36,880
+a code like this then when main
+
+147
+00:04:34,479 --> 00:04:39,280
+executes main will conceptually have an
+
+148
+00:04:36,880 --> 00:04:42,639
+area of space on the stack for itself
+
+149
+00:04:39,280 --> 00:04:45,520
+which is called its frame so mains frame
+
+150
+00:04:42,639 --> 00:04:47,120
+is a area on the stack and it may have
+
+151
+00:04:45,520 --> 00:04:48,160
+stuff in it and it may not it's going to
+
+152
+00:04:47,120 --> 00:04:49,360
+all depend on things we're going to
+
+153
+00:04:48,160 --> 00:04:51,600
+learn about later
+
+154
+00:04:49,360 --> 00:04:53,440
+but when main calls to some other
+
+155
+00:04:51,600 --> 00:04:56,160
+function like foo
+
+156
+00:04:53,440 --> 00:04:56,880
+then foo will have a conceptual area on
+
+157
+00:04:56,160 --> 00:05:00,080
+the stack for
+
+158
+00:04:56,880 --> 00:05:02,320
+its information foo's frame
+
+159
+00:05:00,080 --> 00:05:03,600
+and then when foo calls to bar, bar will
+
+160
+00:05:02,320 --> 00:05:05,759
+have a frame as well
+
+161
+00:05:03,600 --> 00:05:06,880
+and so as functions call to other
+
+162
+00:05:05,759 --> 00:05:09,280
+functions
+
+163
+00:05:06,880 --> 00:05:10,960
+the stack moves towards lower addresses
+
+164
+00:05:09,280 --> 00:05:13,039
+and new frames get created
+
+165
+00:05:10,960 --> 00:05:14,000
+and as functions return from other
+
+166
+00:05:13,039 --> 00:05:17,199
+functions
+
+167
+00:05:14,000 --> 00:05:20,560
+the stack has data coming back off of it
+
+168
+00:05:17,199 --> 00:05:20,560
+and those frames disappear
+

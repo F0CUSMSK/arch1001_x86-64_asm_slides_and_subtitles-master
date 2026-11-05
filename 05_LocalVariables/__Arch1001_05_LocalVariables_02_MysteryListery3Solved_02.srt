@@ -1,0 +1,592 @@
+0
+00:00:00,080 --> 00:00:03,280
+so what you should have seen for your
+
+1
+00:00:01,760 --> 00:00:05,440
+stack diagram is
+
+2
+00:00:03,280 --> 00:00:07,200
+something like this first of course
+
+3
+00:00:05,440 --> 00:00:09,360
+there's the return address on the stack
+
+4
+00:00:07,200 --> 00:00:10,960
+from whoever called main
+
+5
+00:00:09,360 --> 00:00:12,639
+then there's going to be the hex 28
+
+6
+00:00:10,960 --> 00:00:14,480
+worth of allocation for main and i'm
+
+7
+00:00:12,639 --> 00:00:15,440
+going to start adding some color coding
+
+8
+00:00:14,480 --> 00:00:17,039
+here which will
+
+9
+00:00:15,440 --> 00:00:19,680
+you know give you a hint at you know
+
+10
+00:00:17,039 --> 00:00:20,480
+what's going on hex 28 worth of stuff
+
+11
+00:00:19,680 --> 00:00:22,800
+from main
+
+12
+00:00:20,480 --> 00:00:23,680
+main calls func that's going to push
+
+13
+00:00:22,800 --> 00:00:26,960
+return address
+
+14
+00:00:23,680 --> 00:00:29,439
+for getting back from func to main
+
+15
+00:00:26,960 --> 00:00:32,239
+then func does the same thing hex 28
+
+16
+00:00:29,439 --> 00:00:34,640
+worth of space and a return address
+
+17
+00:00:32,239 --> 00:00:37,120
+when it calls func2 then we have our
+
+18
+00:00:34,640 --> 00:00:39,120
+hex 38 worth of space
+
+19
+00:00:37,120 --> 00:00:40,640
+and specifically we're going to see the
+
+20
+00:00:39,120 --> 00:00:45,039
+'tale' 0x7a1e
+
+21
+00:00:40,640 --> 00:00:48,079
+is placed at this location 0xfd90
+
+22
+00:00:45,039 --> 00:00:51,199
+so that's the overall situation
+
+23
+00:00:48,079 --> 00:00:52,640
+and then when func calls func sorry func2
+
+24
+00:00:51,199 --> 00:00:54,239
+calls func3
+
+25
+00:00:52,640 --> 00:00:57,199
+then it'll put a return address onto the
+
+26
+00:00:54,239 --> 00:00:59,039
+stack and func3 will only allocate hex
+
+27
+00:00:57,199 --> 00:01:01,199
+18.
+
+28
+00:00:59,039 --> 00:01:02,559
+so i've added my little color coding
+
+29
+00:01:01,199 --> 00:01:03,680
+here to give you the hint of what's
+
+30
+00:01:02,559 --> 00:01:05,360
+going to be going on but
+
+31
+00:01:03,680 --> 00:01:07,680
+even without the color coding you might
+
+32
+00:01:05,360 --> 00:01:10,799
+have sort of started to see a pattern
+
+33
+00:01:07,680 --> 00:01:11,760
+of okay well the hex 18 is here and I
+
+34
+00:01:10,799 --> 00:01:15,280
+can see that
+
+35
+00:01:11,760 --> 00:01:16,320
+hex 18 out of that hex 38 is right here
+
+36
+00:01:15,280 --> 00:01:19,360
+and that leaves hex
+
+37
+00:01:16,320 --> 00:01:21,200
+20. and so if this hex 20 is you know
+
+38
+00:01:19,360 --> 00:01:24,560
+related to calling a function
+
+39
+00:01:21,200 --> 00:01:27,840
+maybe these hex 28s are actually hex 20
+
+40
+00:01:24,560 --> 00:01:28,320
+plus 8, hex 20 plus 8 and you know maybe
+
+41
+00:01:27,840 --> 00:01:31,600
+this
+
+42
+00:01:28,320 --> 00:01:34,640
+is hex 10 plus 8 and hex
+
+43
+00:01:31,600 --> 00:01:35,759
+20 hex 10 plus 8. and so that's kind of
+
+44
+00:01:34,640 --> 00:01:37,759
+what's going on here
+
+45
+00:01:35,759 --> 00:01:39,520
+so now this is the most important bit
+
+46
+00:01:37,759 --> 00:01:40,000
+about justifying you know what's going
+
+47
+00:01:39,520 --> 00:01:41,840
+on
+
+48
+00:01:40,000 --> 00:01:43,280
+this is from microsoft's documentation
+
+49
+00:01:41,840 --> 00:01:45,360
+about stack usage
+
+50
+00:01:43,280 --> 00:01:46,720
+and specifically they say the stack will
+
+51
+00:01:45,360 --> 00:01:49,040
+always be maintained
+
+52
+00:01:46,720 --> 00:01:50,960
+16 byte aligned except within the
+
+53
+00:01:49,040 --> 00:01:52,320
+prologue for example after return
+
+54
+00:01:50,960 --> 00:01:54,159
+address is pushed
+
+55
+00:01:52,320 --> 00:01:56,320
+so there's some you know exceptions to
+
+56
+00:01:54,159 --> 00:01:56,799
+that rule but in general what we should
+
+57
+00:01:56,320 --> 00:01:59,280
+think of
+
+58
+00:01:56,799 --> 00:02:00,079
+is that the microsoft compiler is trying
+
+59
+00:01:59,280 --> 00:02:03,040
+to maintain
+
+60
+00:02:00,079 --> 00:02:04,159
+a 16 byte alignment when it's allocating
+
+61
+00:02:03,040 --> 00:02:06,560
+space on the stack
+
+62
+00:02:04,159 --> 00:02:07,520
+so therefore what i'm going to make is
+
+63
+00:02:06,560 --> 00:02:09,840
+an assertion
+
+64
+00:02:07,520 --> 00:02:11,440
+i'm going to assert that these initial
+
+65
+00:02:09,840 --> 00:02:14,319
+yellow on depths
+
+66
+00:02:11,440 --> 00:02:15,760
+are actually 16 byte stack alignment
+
+67
+00:02:14,319 --> 00:02:17,680
+padding
+
+68
+00:02:15,760 --> 00:02:18,879
+if that's true then okay great we've got
+
+69
+00:02:17,680 --> 00:02:21,520
+these you know weird hex
+
+70
+00:02:18,879 --> 00:02:22,080
+20s going on here but you know we start
+
+71
+00:02:21,520 --> 00:02:24,800
+to see
+
+72
+00:02:22,080 --> 00:02:26,080
+some you know more pattern furthermore
+
+73
+00:02:24,800 --> 00:02:29,040
+i'm going to make a further
+
+74
+00:02:26,080 --> 00:02:31,360
+alignment assertion that the green
+
+75
+00:02:29,040 --> 00:02:34,000
+undefined area is actually
+
+76
+00:02:31,360 --> 00:02:36,080
+16 byte alignment padding because visual
+
+77
+00:02:34,000 --> 00:02:37,360
+studio is trying to keep these local
+
+78
+00:02:36,080 --> 00:02:40,239
+variable space
+
+79
+00:02:37,360 --> 00:02:41,040
+hex 16 byte aligned so the first thing
+
+80
+00:02:40,239 --> 00:02:43,120
+would be
+
+81
+00:02:41,040 --> 00:02:44,319
+16 byte alignment in order to pad out
+
+82
+00:02:43,120 --> 00:02:46,239
+the return address so
+
+83
+00:02:44,319 --> 00:02:48,560
+if they're trying to stay 16 by the line
+
+84
+00:02:46,239 --> 00:02:50,000
+so an address that ends in zero here
+
+85
+00:02:48,560 --> 00:02:51,840
+if they're trying to stay 16 byte
+
+86
+00:02:50,000 --> 00:02:53,599
+aligned and then they call
+
+87
+00:02:51,840 --> 00:02:55,360
+a function that's going to naturally
+
+88
+00:02:53,599 --> 00:02:57,360
+unalign it because the return address
+
+89
+00:02:55,360 --> 00:02:59,040
+is going to get put on the stack and so
+
+90
+00:02:57,360 --> 00:03:01,360
+then the compiler is going to
+
+91
+00:02:59,040 --> 00:03:02,959
+compensate for that by adding at least
+
+92
+00:03:01,360 --> 00:03:04,959
+hex 8 of
+
+93
+00:03:02,959 --> 00:03:06,159
+padding in order to get back to a 16
+
+94
+00:03:04,959 --> 00:03:09,280
+byte aligned thing
+
+95
+00:03:06,159 --> 00:03:11,680
+but then when it goes on to allocate
+
+96
+00:03:09,280 --> 00:03:13,200
+space for local variables, I'm going to claim
+
+97
+00:03:11,680 --> 00:03:16,959
+again it shall allocate
+
+98
+00:03:13,200 --> 00:03:19,200
+in not less than hex 16 bytes at a
+
+99
+00:03:16,959 --> 00:03:20,879
+time hex 10 at a time
+
+100
+00:03:19,200 --> 00:03:22,480
+and that's what's going to lead to this
+
+101
+00:03:20,879 --> 00:03:23,280
+over allocation for a single local
+
+102
+00:03:22,480 --> 00:03:24,879
+variable
+
+103
+00:03:23,280 --> 00:03:26,319
+but you might be saying to yourself you
+
+104
+00:03:24,879 --> 00:03:28,319
+know that doesn't really
+
+105
+00:03:26,319 --> 00:03:29,519
+add up because if that's all they were
+
+106
+00:03:28,319 --> 00:03:31,519
+trying to do then
+
+107
+00:03:29,519 --> 00:03:33,840
+you know why would they have this 16 and
+
+108
+00:03:31,519 --> 00:03:36,000
+this 6 sorry this 8 and this 8
+
+109
+00:03:33,840 --> 00:03:36,879
+they could have left both of those out
+
+110
+00:03:36,000 --> 00:03:39,440
+and they would have still
+
+111
+00:03:36,879 --> 00:03:40,159
+yielded a 16 by the line address this
+
+112
+00:03:39,440 --> 00:03:41,760
+tail
+
+113
+00:03:40,159 --> 00:03:43,200
+could have been placed right here and
+
+114
+00:03:41,760 --> 00:03:44,640
+then everything would have still worked
+
+115
+00:03:43,200 --> 00:03:46,480
+out
+
+116
+00:03:44,640 --> 00:03:48,400
+all right well so you know why would i
+
+117
+00:03:46,480 --> 00:03:49,360
+say something so controversial yet so
+
+118
+00:03:48,400 --> 00:03:51,680
+brave
+
+119
+00:03:49,360 --> 00:03:53,840
+the answer is because the data backs me
+
+120
+00:03:51,680 --> 00:03:55,439
+up we can start doing simple empirical
+
+121
+00:03:53,840 --> 00:03:58,400
+tests to try to
+
+122
+00:03:55,439 --> 00:03:59,040
+see whether or not that holds true so
+
+123
+00:03:58,400 --> 00:04:01,519
+i'm going to
+
+124
+00:03:59,040 --> 00:04:03,920
+have some new simple code and i'm going
+
+125
+00:04:01,519 --> 00:04:06,959
+to have two local variables
+
+126
+00:04:03,920 --> 00:04:07,920
+i and j this one is a "foldable football"
+
+127
+00:04:06,959 --> 00:04:11,519
+and this one is
+
+128
+00:04:07,920 --> 00:04:14,159
+"obstacles" so paper football
+
+129
+00:04:11,519 --> 00:04:16,079
+so you can now go ahead and build a
+
+130
+00:04:14,159 --> 00:04:18,000
+stack diagram for this code
+
+131
+00:04:16,079 --> 00:04:19,280
+and you should see some proof of what i
+
+132
+00:04:18,000 --> 00:04:23,120
+was saying if i say
+
+133
+00:04:19,280 --> 00:04:23,840
+that the allocations for local variables
+
+134
+00:04:23,120 --> 00:04:27,120
+are in
+
+135
+00:04:23,840 --> 00:04:29,440
+hex 16 sorry 16 hex 10
+
+136
+00:04:27,120 --> 00:04:31,120
+byte chunks at a time and microsoft
+
+137
+00:04:29,440 --> 00:04:33,199
+wants to do not less than that
+
+138
+00:04:31,120 --> 00:04:35,680
+then that would imply that when we have
+
+139
+00:04:33,199 --> 00:04:37,520
+at least 16 bytes worth of data
+
+140
+00:04:35,680 --> 00:04:40,160
+then it should perfectly fill this up
+
+141
+00:04:37,520 --> 00:04:42,639
+without adding extra undefined padding
+
+142
+00:04:40,160 --> 00:04:43,600
+on either side of it so let's see if
+
+143
+00:04:42,639 --> 00:04:46,160
+that's true
+
+144
+00:04:43,600 --> 00:04:47,680
+go ahead and stop and go through the
+
+145
+00:04:46,160 --> 00:04:50,720
+double local variable
+
+146
+00:04:47,680 --> 00:04:56,320
+example and draw a stack diagram and
+
+147
+00:04:50,720 --> 00:04:56,320
+see how it all plays out
+

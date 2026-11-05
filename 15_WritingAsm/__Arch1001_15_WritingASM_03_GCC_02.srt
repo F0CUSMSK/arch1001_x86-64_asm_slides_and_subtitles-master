@@ -1,0 +1,120 @@
+1
+00:00:00,080 --> 00:00:04,240
+all right now we've got a lab for you it
+
+2
+00:00:02,399 --> 00:00:06,879
+is read the fund manual and write the
+
+3
+00:00:04,240 --> 00:00:08,639
+front instructions so i want you to go
+
+4
+00:00:06,879 --> 00:00:11,280
+into the manuals and i want you to look
+
+5
+00:00:08,639 --> 00:00:13,120
+up the bytes that specify these assembly
+
+6
+00:00:11,280 --> 00:00:15,120
+instructions then i want you to write
+
+7
+00:00:13,120 --> 00:00:17,520
+the raw bytes using that dot byte
+
+8
+00:00:15,120 --> 00:00:19,680
+keyword and confirm whether or not you
+
+9
+00:00:17,520 --> 00:00:21,600
+can create this assembly sequence so
+
+10
+00:00:19,680 --> 00:00:22,960
+again don't write the human
+
+11
+00:00:21,600 --> 00:00:24,720
+viewable form
+
+12
+00:00:22,960 --> 00:00:27,039
+write raw bytes and see if you can get
+
+13
+00:00:24,720 --> 00:00:31,039
+this now as a reminder
+
+14
+00:00:27,039 --> 00:00:33,200
+the att syntax adds some suffixes to
+
+15
+00:00:31,039 --> 00:00:34,960
+uh in assembly instructions so if you go
+
+16
+00:00:33,200 --> 00:00:36,640
+looking in the manual for move w you're
+
+17
+00:00:34,960 --> 00:00:39,120
+not going to find it that's just because
+
+18
+00:00:36,640 --> 00:00:41,280
+of 18c syntax so that's just the move
+
+19
+00:00:39,120 --> 00:00:42,719
+assembly instruction so go look at the
+
+20
+00:00:41,280 --> 00:00:44,480
+manual there's going to be things that
+
+21
+00:00:42,719 --> 00:00:47,120
+we haven't even covered in class like
+
+22
+00:00:44,480 --> 00:00:48,640
+saf and you know that's the whole point
+
+23
+00:00:47,120 --> 00:00:51,039
+is you know how to read the manual now
+
+24
+00:00:48,640 --> 00:00:53,280
+so go ahead and read the manual and
+
+25
+00:00:51,039 --> 00:00:54,879
+write this sequence once you're done you
+
+26
+00:00:53,280 --> 00:00:56,879
+know you want to compile it and then you
+
+27
+00:00:54,879 --> 00:00:59,920
+want to look at it with a disassembler
+
+28
+00:00:56,879 --> 00:01:01,760
+in gcc gdb for instance in order to see
+
+29
+00:00:59,920 --> 00:01:04,719
+whether you successfully emitted the
+
+30
+00:01:01,760 --> 00:01:04,719
+correct assembly
+

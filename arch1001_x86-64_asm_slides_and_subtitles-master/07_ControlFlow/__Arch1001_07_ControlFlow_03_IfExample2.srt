@@ -1,0 +1,336 @@
+1
+00:00:00,320 --> 00:00:04,480
+now in IfExample2, the only
+
+2
+00:00:02,639 --> 00:00:05,279
+substantive thing we've actually changed
+
+3
+00:00:04,480 --> 00:00:07,520
+about the code
+
+4
+00:00:05,279 --> 00:00:08,400
+is that instead of a signed integer we
+
+5
+00:00:07,520 --> 00:00:11,120
+are now using an
+
+6
+00:00:08,400 --> 00:00:11,440
+unsigned integer and the net result of
+
+7
+00:00:11,120 --> 00:00:13,759
+that
+
+8
+00:00:11,440 --> 00:00:15,519
+on our assembly is we actually see some
+
+9
+00:00:13,759 --> 00:00:18,240
+new jump conditional codes
+
+10
+00:00:15,519 --> 00:00:19,119
+we see below and we see above instead of
+
+11
+00:00:18,240 --> 00:00:22,960
+greater than
+
+12
+00:00:19,119 --> 00:00:24,400
+and sorry less than and greater than
+
+13
+00:00:22,960 --> 00:00:26,880
+there's still this jne but we've
+
+14
+00:00:24,400 --> 00:00:28,880
+seen that before. So this is what the
+
+15
+00:00:26,880 --> 00:00:30,320
+Bangle taught us about below, above,
+
+16
+00:00:28,880 --> 00:00:32,640
+greater than, less than.
+
+17
+00:00:30,320 --> 00:00:34,239
+Below and above are the unsigned notion,
+
+18
+00:00:32,640 --> 00:00:36,559
+so that makes sense, we just
+
+19
+00:00:34,239 --> 00:00:37,600
+declared an unsigned integer instead of
+
+20
+00:00:36,559 --> 00:00:38,879
+a signed integer
+
+21
+00:00:37,600 --> 00:00:41,760
+that we're going to use in our
+
+22
+00:00:38,879 --> 00:00:42,160
+comparisons. So we can start to develop
+
+23
+00:00:41,760 --> 00:00:45,520
+some
+
+24
+00:00:42,160 --> 00:00:47,760
+inference from this tiny change. If there
+
+25
+00:00:45,520 --> 00:00:50,000
+are different conditions for unsigned
+
+26
+00:00:47,760 --> 00:00:52,559
+versus signed,
+
+27
+00:00:50,000 --> 00:00:53,120
+and that leads to different assembly
+
+28
+00:00:52,559 --> 00:00:56,879
+such as
+
+29
+00:00:53,120 --> 00:00:59,280
+jump above versus jump greater than.
+
+30
+00:00:56,879 --> 00:01:00,559
+This implies that the compiler emits
+
+31
+00:00:59,280 --> 00:01:01,680
+different code
+
+32
+00:01:00,559 --> 00:01:03,760
+depending on whether or not the
+
+33
+00:01:01,680 --> 00:01:07,119
+programmer declared the variables
+
+34
+00:01:03,760 --> 00:01:09,439
+as unsigned versus signed.
+
+35
+00:01:07,119 --> 00:01:10,320
+And ultimately a reverse engineer or a
+
+36
+00:01:09,439 --> 00:01:12,080
+decompiler
+
+37
+00:01:10,320 --> 00:01:13,840
+can use those different assembly
+
+38
+00:01:12,080 --> 00:01:16,080
+instructions to infer
+
+39
+00:01:13,840 --> 00:01:17,360
+whether the variables were likely to be
+
+40
+00:01:16,080 --> 00:01:19,840
+unsigned or signed
+
+41
+00:01:17,360 --> 00:01:20,880
+based in the original high-level
+
+42
+00:01:19,840 --> 00:01:23,200
+language.
+
+43
+00:01:20,880 --> 00:01:24,960
+What's less obvious because I sort of
+
+44
+00:01:23,200 --> 00:01:26,880
+skipped over it when I was talking about
+
+45
+00:01:24,960 --> 00:01:28,799
+things like add and subtract
+
+46
+00:01:26,880 --> 00:01:30,000
+is that it turns out that the
+
+47
+00:01:28,799 --> 00:01:32,960
+instructions which
+
+48
+00:01:30,000 --> 00:01:35,040
+set status flags such as the arithmetic
+
+49
+00:01:32,960 --> 00:01:37,200
+operations like add and subtract
+
+50
+00:01:35,040 --> 00:01:39,600
+the hardware behind the scenes does the
+
+51
+00:01:37,200 --> 00:01:40,640
+operation as if the operands were both
+
+52
+00:01:39,600 --> 00:01:43,439
+unsigned and
+
+53
+00:01:40,640 --> 00:01:45,439
+signed so basically the hardware doesn't
+
+54
+00:01:43,439 --> 00:01:47,439
+care about whether the humans are going
+
+55
+00:01:45,439 --> 00:01:48,960
+to later on choose to interpret the bits
+
+56
+00:01:47,439 --> 00:01:51,840
+as signed or unsigned
+
+57
+00:01:48,960 --> 00:01:52,159
+it just does operations like subtract
+
+58
+00:01:51,840 --> 00:01:54,560
+and
+
+59
+00:01:52,159 --> 00:01:56,240
+sets status flags all of those status
+
+60
+00:01:54,560 --> 00:01:58,399
+flags not just zero and sign but
+
+61
+00:01:56,240 --> 00:02:01,040
+the overflow flag, the parity flag and so
+
+62
+00:01:58,399 --> 00:02:04,000
+forth it just sets them
+
+63
+00:02:01,040 --> 00:02:05,920
+as if both the operands were signed and
+
+64
+00:02:04,000 --> 00:02:07,600
+they were unsigned
+
+65
+00:02:05,920 --> 00:02:09,599
+and then it ultimately allows the
+
+66
+00:02:07,600 --> 00:02:09,920
+compiler to just go ahead and sort it
+
+67
+00:02:09,599 --> 00:02:11,840
+out
+
+68
+00:02:09,920 --> 00:02:13,200
+oh well I can see that the human at the
+
+69
+00:02:11,840 --> 00:02:15,520
+high level when I'm
+
+70
+00:02:13,200 --> 00:02:17,200
+parsing the tokens of the particular
+
+71
+00:02:15,520 --> 00:02:17,760
+syntax of the particular high level
+
+72
+00:02:17,200 --> 00:02:19,280
+language
+
+73
+00:02:17,760 --> 00:02:21,360
+the compiler just figures out
+
+74
+00:02:19,280 --> 00:02:23,440
+the human means to say this is
+
+75
+00:02:21,360 --> 00:02:26,400
+signed so I should emit the
+
+76
+00:02:23,440 --> 00:02:28,319
+signed instructions, signed comparisons
+
+77
+00:02:26,400 --> 00:02:29,840
+so that's ultimately the only takeaway
+
+78
+00:02:28,319 --> 00:02:32,720
+that I'm going to want you to have from
+
+79
+00:02:29,840 --> 00:02:34,319
+IfExample2 is that the compiler emits
+
+80
+00:02:32,720 --> 00:02:35,599
+different instructions based on whether
+
+81
+00:02:34,319 --> 00:02:37,680
+it's signed or unsigned.
+
+82
+00:02:35,599 --> 00:02:39,360
+But now go ahead and still step through
+
+83
+00:02:37,680 --> 00:02:44,319
+the assembly, make sure that you get
+
+84
+00:02:39,360 --> 00:02:44,319
+what's going on there.
+

@@ -1,0 +1,236 @@
+1
+00:00:00,04 --> 00:00:03,01
+the result of adding the pragma pack one is that
+
+2
+00:00:03,01 --> 00:00:05,96
+it will basically squish together all of the fields in
+
+3
+00:00:05,96 --> 00:00:08,77
+the struct and make sure that there's no padding between
+
+4
+00:00:08,77 --> 00:00:08,95
+them
+
+5
+00:00:09,64 --> 00:00:13,01
+So now you'll see something that looks like "a", two
+
+6
+00:00:13,01 --> 00:00:13,88
+bytes babe,
+
+7
+00:00:13,88 --> 00:00:18,28
+the short immediately followed by "b" and then immediately followed
+
+8
+00:00:18,28 --> 00:00:18,85
+by "c"
+
+9
+00:00:19,54 --> 00:00:22,15
+But if we're drawing this in this four byte aligned
+
+10
+00:00:22,15 --> 00:00:22,89
+way,
+
+11
+00:00:22,9 --> 00:00:26,07
+then essentially the b[0] is going to end
+
+12
+00:00:26,07 --> 00:00:28,05
+up getting split across this boundary.
+
+13
+00:00:28,19 --> 00:00:28,52
+The least
+
+14
+00:00:28,52 --> 00:00:30,13
+significant bytes are going to be here,
+
+15
+00:00:30,13 --> 00:00:31,75
+followed by the most significant bytes
+
+16
+00:00:32,34 --> 00:00:35,46
+b[1] which got babe with 0xffff on top
+
+17
+00:00:35,84 --> 00:00:37,98
+is going to be here and so on
+
+18
+00:00:37,98 --> 00:00:38,55
+and so forth,
+
+19
+00:00:38,56 --> 00:00:41,15
+ultimately leading to b[5],
+
+20
+00:00:41,64 --> 00:00:42,75
+followed by "c",
+
+21
+00:00:42,75 --> 00:00:45,29
+which then actually gets split across three of these lines
+
+22
+00:00:45,29 --> 00:00:48,76
+because Balboa bled blood,
+
+23
+00:00:48,83 --> 00:00:51,2
+it's going to split across all these lines
+
+24
+00:00:51,32 --> 00:00:51,86
+Furthermore,
+
+25
+00:00:51,86 --> 00:00:54,01
+we're going to see lots of padding in this four
+
+26
+00:00:54,01 --> 00:00:56,72
+byte-aligned view because in some sense you can think
+
+27
+00:00:56,72 --> 00:00:59,05
+of this like that case where you had a single
+
+28
+00:00:59,05 --> 00:01:03,37
+local variable taking up this first slot of eight and
+
+29
+00:01:03,37 --> 00:01:05,38
+visual studio wants to make sure it's in a slot
+
+30
+00:01:05,38 --> 00:01:06,17
+of 16,
+
+31
+00:01:06,17 --> 00:01:07,56
+a total size of 16
+
+32
+00:01:07,84 --> 00:01:08,89
+So you know,
+
+33
+00:01:08,9 --> 00:01:10,29
+it's as if this was eight,
+
+34
+00:01:10,29 --> 00:01:10,91
+and it says no
+
+35
+00:01:10,91 --> 00:01:12,64
+But I want another 8 for padding here
+
+36
+00:01:12,65 --> 00:01:15,34
+and so it adds that. That might suggest, and you
+
+37
+00:01:15,34 --> 00:01:17,65
+might test on your own time that if you,
+
+38
+00:01:17,65 --> 00:01:18,3
+for instance,
+
+39
+00:01:18,3 --> 00:01:22,12
+decreased the size of b[] that maybe we would see
+
+40
+00:01:22,13 --> 00:01:23,46
+no padding whatsoever
+
+41
+00:01:23,84 --> 00:01:24,55
+I don't know
+
+42
+00:01:24,56 --> 00:01:25,65
+It's a hypothesis
+
+43
+00:01:25,66 --> 00:01:27,05
+Maybe you should find out
+
+44
+00:01:27,06 --> 00:01:29,42
+That's a good example of part of the point of
+
+45
+00:01:29,42 --> 00:01:31,63
+teaching you this from within visual studio
+
+46
+00:01:31,64 --> 00:01:34,46
+You can now go play around and see what the
+
+47
+00:01:34,46 --> 00:01:38,18
+actual changes and effects are from changing source code changing
+
+48
+00:01:38,18 --> 00:01:40,16
+assembly changing stack layout.
+
+49
+00:01:41,54 --> 00:01:44,68
+So the takeaway from StructLocalVariable.c is
+
+50
+00:01:44,68 --> 00:01:46,56
+that the fields of the struct must be stored in the
+
+51
+00:01:46,56 --> 00:01:48,41
+same order that they are defined in the high level
+
+52
+00:01:48,41 --> 00:01:49,06
+language.
+
+53
+00:01:49,54 --> 00:01:52,92
+You're going to see these uppermost elements like "a" showing up
+
+54
+00:01:52,92 --> 00:01:56,76
+at the lower locations on the stack, something like this:
+
+55
+00:01:56,77 --> 00:01:58,66
+If you had a, b, c,
+
+56
+00:01:58,7 --> 00:01:59,19
+then,
+
+57
+00:01:59,2 --> 00:02:00,96
+given the way that we draw a stack diagram in
+
+58
+00:02:00,96 --> 00:02:01,59
+this class,
+
+59
+00:02:01,6 --> 00:02:04,46
+you should expect to see a, b, c
+

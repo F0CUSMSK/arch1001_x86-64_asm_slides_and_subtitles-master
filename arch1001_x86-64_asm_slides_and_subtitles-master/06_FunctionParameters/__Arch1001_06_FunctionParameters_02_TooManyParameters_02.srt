@@ -1,0 +1,368 @@
+1
+00:00:00,240 --> 00:00:04,560
+so what did you see in your stack by the
+
+2
+00:00:02,879 --> 00:00:06,000
+time that all of that addition gets
+
+3
+00:00:04,560 --> 00:00:08,000
+assigned to "i"
+
+4
+00:00:06,000 --> 00:00:09,120
+what you should have seen is something
+
+5
+00:00:08,000 --> 00:00:11,440
+like this
+
+6
+00:00:09,120 --> 00:00:12,559
+a return address as usual for whoever
+
+7
+00:00:11,440 --> 00:00:15,280
+called main
+
+8
+00:00:12,559 --> 00:00:16,400
+some stack padding some undefined space
+
+9
+00:00:15,280 --> 00:00:19,359
+and then
+
+10
+00:00:16,400 --> 00:00:20,720
+five four three two one these are our
+
+11
+00:00:19,359 --> 00:00:23,760
+function parameters
+
+12
+00:00:20,720 --> 00:00:26,160
+that main is passing to func
+
+13
+00:00:23,760 --> 00:00:27,439
+another return address and then some
+
+14
+00:00:26,160 --> 00:00:30,880
+padding and some padding
+
+15
+00:00:27,439 --> 00:00:34,320
+and the result of that math so
+
+16
+00:00:30,880 --> 00:00:36,000
+here we have that 0x20
+
+17
+00:00:34,320 --> 00:00:37,600
+chunk of memory that we always see
+
+18
+00:00:36,000 --> 00:00:38,960
+getting allocated right before the
+
+19
+00:00:37,600 --> 00:00:41,120
+return address
+
+20
+00:00:38,960 --> 00:00:43,040
+showing up and holding the first four
+
+21
+00:00:41,120 --> 00:00:43,680
+parameters that were passed into the
+
+22
+00:00:43,040 --> 00:00:45,760
+function
+
+23
+00:00:43,680 --> 00:00:47,200
+and why is it too many parameters
+
+24
+00:00:45,760 --> 00:00:48,000
+because if you have more than four
+
+25
+00:00:47,200 --> 00:00:50,719
+parameters
+
+26
+00:00:48,000 --> 00:00:52,399
+you're ultimately going to see a fifth a
+
+27
+00:00:50,719 --> 00:00:54,640
+sixth the seventh value
+
+28
+00:00:52,399 --> 00:00:56,239
+pushed onto the stack as opposed to
+
+29
+00:00:54,640 --> 00:00:59,440
+passed in a register
+
+30
+00:00:56,239 --> 00:01:01,600
+and fed back into memory so this is what
+
+31
+00:00:59,440 --> 00:01:02,800
+we call the microsoft shadow store why
+
+32
+00:01:01,600 --> 00:01:05,840
+do we call it that
+
+33
+00:01:02,800 --> 00:01:09,280
+because from the microsoft documentation
+
+34
+00:01:05,840 --> 00:01:11,360
+the x64 abi uses a four
+
+35
+00:01:09,280 --> 00:01:13,760
+register fast call calling convention by
+
+36
+00:01:11,360 --> 00:01:14,640
+default space is allocated on the call
+
+37
+00:01:13,760 --> 00:01:17,360
+stack as a
+
+38
+00:01:14,640 --> 00:01:18,720
+shadow store for callees to save
+
+39
+00:01:17,360 --> 00:01:21,439
+those registers
+
+40
+00:01:18,720 --> 00:01:22,240
+so it's passing four parameters in four
+
+41
+00:01:21,439 --> 00:01:25,040
+registers
+
+42
+00:01:22,240 --> 00:01:26,240
+but it's all also allocating space for
+
+43
+00:01:25,040 --> 00:01:28,080
+the callee
+
+44
+00:01:26,240 --> 00:01:29,680
+to save those registers back to the
+
+45
+00:01:28,080 --> 00:01:31,360
+shadow store if it wants
+
+46
+00:01:29,680 --> 00:01:33,200
+the caller must always allocate
+
+47
+00:01:31,360 --> 00:01:35,119
+sufficient space to store these four
+
+48
+00:01:33,200 --> 00:01:37,439
+register parameters even if the callee
+
+49
+00:01:35,119 --> 00:01:39,840
+doesn't take that many parameters so
+
+50
+00:01:37,439 --> 00:01:40,799
+that explains why before when we saw the
+
+51
+00:01:39,840 --> 00:01:42,880
+simplest
+
+52
+00:01:40,799 --> 00:01:44,159
+function with zero parameters calling
+
+53
+00:01:42,880 --> 00:01:46,560
+another function
+
+54
+00:01:44,159 --> 00:01:47,439
+that we actually saw this hex 28 worth
+
+55
+00:01:46,560 --> 00:01:50,159
+of allocation
+
+56
+00:01:47,439 --> 00:01:51,600
+eight for padding and space for four
+
+57
+00:01:50,159 --> 00:01:53,840
+eight byte registers
+
+58
+00:01:51,600 --> 00:01:56,000
+and any parameter beyond the first form
+
+59
+00:01:53,840 --> 00:01:56,960
+must be stored on the stack after the
+
+60
+00:01:56,000 --> 00:01:59,759
+shadow store
+
+61
+00:01:56,960 --> 00:02:01,360
+before the call so that is why we see
+
+62
+00:01:59,759 --> 00:02:04,399
+0x55
+
+63
+00:02:01,360 --> 00:02:06,719
+being pushed onto the stack before
+
+64
+00:02:04,399 --> 00:02:07,680
+in such a way that it ultimately shows
+
+65
+00:02:06,719 --> 00:02:11,280
+up here
+
+66
+00:02:07,680 --> 00:02:14,160
+above the shadow store so who knows what
+
+67
+00:02:11,280 --> 00:02:16,800
+evil lies in the stacks of compilers
+
+68
+00:02:14,160 --> 00:02:18,080
+the shadow knows so the takeaway from
+
+69
+00:02:16,800 --> 00:02:20,480
+too many parameters
+
+70
+00:02:18,080 --> 00:02:22,400
+is that microsoft has a something it
+
+71
+00:02:20,480 --> 00:02:24,800
+calls a calling convention
+
+72
+00:02:22,400 --> 00:02:26,959
+where it passes the first four arguments
+
+73
+00:02:24,800 --> 00:02:28,480
+to a function through registers but also
+
+74
+00:02:26,959 --> 00:02:30,800
+reserves space
+
+75
+00:02:28,480 --> 00:02:32,560
+on this shadow store on the stack this
+
+76
+00:02:30,800 --> 00:02:33,040
+is also sometimes called the shadow
+
+77
+00:02:32,560 --> 00:02:34,239
+space
+
+78
+00:02:33,040 --> 00:02:35,280
+because there's a quote in there that
+
+79
+00:02:34,239 --> 00:02:36,800
+says the callee has the
+
+80
+00:02:35,280 --> 00:02:38,480
+responsibility of dumping
+
+81
+00:02:36,800 --> 00:02:40,640
+the register parameters into their
+
+82
+00:02:38,480 --> 00:02:42,959
+shadow space if needed
+
+83
+00:02:40,640 --> 00:02:44,959
+so it's ultimately up to the callee as
+
+84
+00:02:42,959 --> 00:02:47,040
+we can see it's func reaching back
+
+85
+00:02:44,959 --> 00:02:49,280
+up and placing the values into the
+
+86
+00:02:47,040 --> 00:02:50,480
+shadow store if necessary
+
+87
+00:02:49,280 --> 00:02:52,400
+and as stated before in the
+
+88
+00:02:50,480 --> 00:02:54,640
+documentation the compiler reserves this
+
+89
+00:02:52,400 --> 00:02:56,239
+space even if no function parameters are
+
+90
+00:02:54,640 --> 00:02:58,400
+passed to another function
+
+91
+00:02:56,239 --> 00:03:01,760
+and even if the callee isn't going to do
+
+92
+00:02:58,400 --> 00:03:01,760
+anything with that space
+

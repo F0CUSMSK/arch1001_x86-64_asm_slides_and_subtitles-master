@@ -1,0 +1,312 @@
+1
+00:00:00,080 --> 00:00:04,720
+and our last example that exemplified
+
+2
+00:00:02,159 --> 00:00:05,520
+some boolean operations was the 
+
+3
+00:00:04,720 --> 00:00:07,520
+BitmaskExample
+
+4
+00:00:05,520 --> 00:00:08,880
+so let's take a look at that that was
+
+5
+00:00:07,520 --> 00:00:11,519
+the one where we had
+
+6
+00:00:08,880 --> 00:00:13,440
+some hex value and some other hex value
+
+7
+00:00:11,519 --> 00:00:14,160
+and we were explicitly anding them
+
+8
+00:00:13,440 --> 00:00:15,679
+together
+
+9
+00:00:14,160 --> 00:00:17,680
+and so there's going to be an explicit
+
+10
+00:00:15,679 --> 00:00:19,359
+and in here but then there's also
+
+11
+00:00:17,680 --> 00:00:21,840
+an implicit and in that there's going to
+
+12
+00:00:19,359 --> 00:00:24,160
+be a test assembly instruction and tests
+
+13
+00:00:21,840 --> 00:00:25,680
+act like and instructions just throw the
+
+14
+00:00:24,160 --> 00:00:28,720
+result away set the flags
+
+15
+00:00:25,680 --> 00:00:31,279
+so if the a and b
+
+16
+00:00:28,720 --> 00:00:32,239
+yield some non-zero results so anything
+
+17
+00:00:31,279 --> 00:00:35,760
+that's non-zero
+
+18
+00:00:32,239 --> 00:00:36,880
+is a logical true if it's non-zero which
+
+19
+00:00:35,760 --> 00:00:37,920
+we know it's definitely going to be
+
+20
+00:00:36,880 --> 00:00:40,320
+non-zero because
+
+21
+00:00:37,920 --> 00:00:41,600
+that one and the one and the three are
+
+22
+00:00:40,320 --> 00:00:44,719
+going to yield a
+
+23
+00:00:41,600 --> 00:00:47,039
+final result of 0x100 here so if that
+
+24
+00:00:44,719 --> 00:00:48,000
+0x100 is not equal to 0 which is true
+
+25
+00:00:47,039 --> 00:00:50,480
+then it's going to return
+
+26
+00:00:48,000 --> 00:00:51,280
+0x70dd1e else return 0x707 so this will
+
+27
+00:00:50,480 --> 00:00:55,039
+always return
+
+28
+00:00:51,280 --> 00:00:55,039
+0x70dd1e so let's compile it
+
+29
+00:00:55,680 --> 00:00:59,840
+and disassemble it
+
+30
+00:01:00,160 --> 00:01:07,439
+so step step step now we have 301
+
+31
+00:01:04,400 --> 00:01:10,479
+into rbp minus 4 100
+
+32
+00:01:07,439 --> 00:01:13,680
+into rbp minus 8 so that's a
+
+33
+00:01:10,479 --> 00:01:15,680
+and b respectively so go ahead and
+
+34
+00:01:13,680 --> 00:01:17,840
+set those into memory and then plug them
+
+35
+00:01:15,680 --> 00:01:21,600
+back out put them into the register
+
+36
+00:01:17,840 --> 00:01:25,040
+so a into eax and now it's going to do a
+
+37
+00:01:21,600 --> 00:01:29,119
+and b a and b
+
+38
+00:01:25,040 --> 00:01:30,880
+stored back into the register eax
+
+39
+00:01:29,119 --> 00:01:32,400
+and we know the result of that is always
+
+40
+00:01:30,880 --> 00:01:34,400
+going to be 0x100
+
+41
+00:01:32,400 --> 00:01:36,400
+and now there is a test assembly
+
+42
+00:01:34,400 --> 00:01:38,159
+instruction and we said test
+
+43
+00:01:36,400 --> 00:01:40,159
+the same way that compare acts like a
+
+44
+00:01:38,159 --> 00:01:40,640
+subtraction that throws away the results
+
+45
+00:01:40,159 --> 00:01:43,280
+test
+
+46
+00:01:40,640 --> 00:01:43,680
+acts like an and and throws the results
+
+47
+00:01:43,280 --> 00:01:47,040
+away
+
+48
+00:01:43,680 --> 00:01:49,200
+so testing this value with itself
+
+49
+00:01:47,040 --> 00:01:50,640
+right so it's going to be 0x100 and
+
+50
+00:01:49,200 --> 00:01:53,680
+0x100 and then
+
+51
+00:01:50,640 --> 00:01:56,399
+a jump if equal now jump if equal
+
+52
+00:01:53,680 --> 00:01:57,119
+is another mnemonic for jump if zero and
+
+53
+00:01:56,399 --> 00:02:00,000
+so
+
+54
+00:01:57,119 --> 00:02:01,360
+jump zero means the zero flag was set
+
+55
+00:02:00,000 --> 00:02:04,320
+and so the question is
+
+56
+00:02:01,360 --> 00:02:04,880
+when would this instruction set the zero
+
+57
+00:02:04,320 --> 00:02:06,560
+flag
+
+58
+00:02:04,880 --> 00:02:09,039
+and the answer is it would set the zero
+
+59
+00:02:06,560 --> 00:02:11,680
+flag when an and would set the zero flag
+
+60
+00:02:09,039 --> 00:02:13,360
+when would it and set the zero flag when
+
+61
+00:02:11,680 --> 00:02:16,640
+the net result is 0
+
+62
+00:02:13,360 --> 00:02:18,319
+is this anded with itself 0 it is not
+
+63
+00:02:16,640 --> 00:02:18,560
+because the 1 and the 1 again line
+
+64
+00:02:18,319 --> 00:02:20,720
+up
+
+65
+00:02:18,560 --> 00:02:21,680
+and you get a net result of
+
+66
+00:02:20,720 --> 00:02:25,040
+0x100 so
+
+67
+00:02:21,680 --> 00:02:26,319
+0 is not true so this jump of 0 is not
+
+68
+00:02:25,040 --> 00:02:28,000
+going to be taken
+
+69
+00:02:26,319 --> 00:02:30,239
+and it's going to fall through and
+
+70
+00:02:28,000 --> 00:02:32,319
+return 0x70dd1e so step
+
+71
+00:02:30,239 --> 00:02:33,519
+step and there we go it was not taken
+
+72
+00:02:32,319 --> 00:02:35,200
+and it fell through
+
+73
+00:02:33,519 --> 00:02:37,440
+it's going to return 0x70dd1e putting it
+
+74
+00:02:35,200 --> 00:02:38,160
+into eax right before an unconditional
+
+75
+00:02:37,440 --> 00:02:40,800
+jump past
+
+76
+00:02:38,160 --> 00:02:42,879
+the 0x707 and now we're to the function
+
+77
+00:02:40,800 --> 00:02:46,800
+epilogue and it's just going to exit out
+
+78
+00:02:42,879 --> 00:02:46,800
+with 0x70dd1e in the return value
+

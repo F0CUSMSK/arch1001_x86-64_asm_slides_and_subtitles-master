@@ -1,0 +1,132 @@
+1
+00:00:00,04 --> 00:00:00,46
+Okay,
+
+2
+00:00:00,46 --> 00:00:02,91
+So what you should have seen is proof of what
+
+3
+00:00:02,91 --> 00:00:06,63
+I was saying in that when we have 16 bytes
+
+4
+00:00:06,63 --> 00:00:09,97
+worth of local variables than visual studio perfectly fills it
+
+5
+00:00:09,97 --> 00:00:11,2
+in with 16 bytes,
+
+6
+00:00:11,2 --> 00:00:13,86
+there's no extra padding associated with it
+
+7
+00:00:14,24 --> 00:00:18,08
+Only this extra alignment padding that comes after the return
+
+8
+00:00:18,08 --> 00:00:18,64
+address
+
+9
+00:00:18,66 --> 00:00:22,18
+So that basically is separating local variable padding to keep
+
+10
+00:00:22,18 --> 00:00:25,81
+it 16 byte aligned from return address padding in order
+
+11
+00:00:25,81 --> 00:00:27,08
+to keep it 16 byte aligned
+
+12
+00:00:27,29 --> 00:00:27,8
+And again,
+
+13
+00:00:27,81 --> 00:00:31,61
+Microsoft could have over optimize and when you have only
+
+14
+00:00:31,61 --> 00:00:34,36
+a single variable they could have collapsed it down
+
+15
+00:00:34,64 --> 00:00:35,39
+But you know,
+
+16
+00:00:35,39 --> 00:00:38,66
+it's much better to have sort of simple code doing
+
+17
+00:00:38,72 --> 00:00:40,17
+the same thing in all cases,
+
+18
+00:00:40,17 --> 00:00:45,39
+instead of trying to over optimize for one particular case
+
+19
+00:00:45,4 --> 00:00:47,8
+just to save a couple of bytes that really has
+
+20
+00:00:47,8 --> 00:00:49,3
+no implication on code,
+
+21
+00:00:49,3 --> 00:00:50,75
+execution time or anything else
+
+22
+00:00:51,84 --> 00:00:53,97
+And just in case you don't believe me yet,
+
+23
+00:00:53,98 --> 00:00:57,28
+we can have one further empirical test where we can
+
+24
+00:00:57,28 --> 00:00:59,3
+go greater than 16 bytes,
+
+25
+00:00:59,31 --> 00:01:02,42
+so we can now have three local variables and let's
+
+26
+00:01:02,42 --> 00:01:04,25
+see what the stack is going to look like
+
+27
+00:01:04,25 --> 00:01:04,76
+For that
+
+28
+00:01:05,24 --> 00:01:05,81
+Go ahead,
+
+29
+00:01:05,82 --> 00:01:08,13
+stop and walk through the assembly,
+
+30
+00:01:08,13 --> 00:01:11,17
+draw a stack diagram and see whether or not they keep
+
+31
+00:01:11,18 --> 00:01:12,88
+the local variable space
+
+32
+00:01:12,89 --> 00:01:16,14
+16 byte aligned and whether or not there's any padding
+
+33
+00:01:16,14 --> 00:01:16,75
+within there
+

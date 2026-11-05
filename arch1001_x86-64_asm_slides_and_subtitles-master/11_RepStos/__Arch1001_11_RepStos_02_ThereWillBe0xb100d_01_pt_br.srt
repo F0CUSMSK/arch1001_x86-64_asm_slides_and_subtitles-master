@@ -1,0 +1,104 @@
+1
+00:00:00,080 --> 00:00:03,360
+Agora entramos na parte mais cinematográfica
+
+2
+00:00:02,320 --> 00:00:06,640
+dessa aula
+
+3
+00:00:03,360 --> 00:00:09,599
+enquanto a OST apresenta Daniel Day-Lewis em
+
+4
+00:00:06,640 --> 00:00:10,480
+haverá sangue hexagonal! Então, aqui está o
+
+5
+00:00:09,599 --> 00:00:12,719
+código fonte
+
+6
+00:00:10,480 --> 00:00:14,160
+de interesse. Como no exemplo anterior, nós
+
+7
+00:00:12,719 --> 00:00:17,440
+ter um buffer, não é
+
+8
+00:00:14,160 --> 00:00:19,840
+zero inicializado e simplesmente movemos 42
+
+9
+00:00:17,440 --> 00:00:20,560
+no último elemento do buffer e
+
+10
+00:00:19,840 --> 00:00:23,680
+retornamos
+
+11
+00:00:20,560 --> 00:00:25,359
+0xb100d. Mas isso gera alguns problemas muito
+
+12
+00:00:23,680 --> 00:00:28,560
+interessante olhando o assembly,
+
+13
+00:00:25,359 --> 00:00:28,960
+esse assembly tem um representante. Por que a
+
+14
+00:00:28,560 --> 00:00:31,279
+isso?
+
+15
+00:00:28,960 --> 00:00:33,040
+O que está acontecendo? Bem, a maneira mais fácil de
+
+16
+00:00:31,279 --> 00:00:33,760
+descobrir seria parar, passar pelo
+
+17
+00:00:33,040 --> 00:00:36,399
+o assembly
+
+18
+00:00:33,760 --> 00:00:37,440
+e desenhe um diagrama de pilha. Talvez você
+
+19
+00:00:36,399 --> 00:00:39,200
+seja capaz de inferir
+
+20
+00:00:37,440 --> 00:00:41,200
+o que está acontecendo com esse código. Talvez
+
+21
+00:00:39,200 --> 00:00:41,840
+você deseja alterar o código fonte de um
+
+22
+00:00:41,200 --> 00:00:43,920
+pouco
+
+23
+00:00:41,840 --> 00:00:45,920
+para ter certeza de que você está totalmente
+
+24
+00:00:43,920 --> 00:00:50,079
+compreendendo o que está acontecendo na pilha
+
+25
+00:00:45,920 --> 00:00:50,079
+De qualquer forma, agora é a hora de aproveitar o
+
+26
+00:00:50,440 --> 00:00:53,440
+dia
+

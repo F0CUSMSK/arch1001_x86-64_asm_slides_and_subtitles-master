@@ -1,0 +1,192 @@
+1
+00:00:00,320 --> 00:00:03,199
+and finally in our boolean logic section
+
+2
+00:00:02,320 --> 00:00:06,480
+we have this
+
+3
+00:00:03,199 --> 00:00:08,720
+BitmaskExample.c in the code we have
+
+4
+00:00:06,480 --> 00:00:10,160
+a which is set to some hex value, b which
+
+5
+00:00:08,720 --> 00:00:12,880
+is set to some hex value
+
+6
+00:00:10,160 --> 00:00:15,440
+and then an if statement where it takes
+
+7
+00:00:12,880 --> 00:00:17,840
+and it does a bitwise and on a
+
+8
+00:00:15,440 --> 00:00:19,119
+and b and then based on whether or not
+
+9
+00:00:17,840 --> 00:00:22,080
+that's zero or
+
+10
+00:00:19,119 --> 00:00:23,359
+non-zero it's going to return 0x70dd1e or
+
+11
+00:00:22,080 --> 00:00:25,439
+0x707
+
+12
+00:00:23,359 --> 00:00:27,039
+so we can tell just by looking at the
+
+13
+00:00:25,439 --> 00:00:28,480
+values that are operated on that it's
+
+14
+00:00:27,039 --> 00:00:30,880
+definitely going to return
+
+15
+00:00:28,480 --> 00:00:31,920
+non-zero but the interesting thing about
+
+16
+00:00:30,880 --> 00:00:34,239
+this example is
+
+17
+00:00:31,920 --> 00:00:36,079
+even though this is a bitwise and here
+
+18
+00:00:34,239 --> 00:00:38,559
+we don't see a bitwise and in the
+
+19
+00:00:36,079 --> 00:00:38,559
+assembly
+
+20
+00:00:40,960 --> 00:00:44,320
+instead what we see is a test
+
+21
+00:00:43,280 --> 00:00:46,399
+instruction
+
+22
+00:00:44,320 --> 00:00:48,079
+so what is the test instruction so the
+
+23
+00:00:46,399 --> 00:00:49,520
+test instruction according to the manual
+
+24
+00:00:48,079 --> 00:00:51,680
+computes a bit wise
+
+25
+00:00:49,520 --> 00:00:54,640
+and of the first operand and second
+
+26
+00:00:51,680 --> 00:00:57,840
+operand and sets the flags accordingly
+
+27
+00:00:54,640 --> 00:01:00,160
+so test is similar to cmp in that
+
+28
+00:00:57,840 --> 00:01:02,160
+cmp was behind the scenes actually a
+
+29
+00:01:00,160 --> 00:01:03,680
+subtract instruction that throws away
+
+30
+00:01:02,160 --> 00:01:06,640
+the result after
+
+31
+00:01:03,680 --> 00:01:08,640
+setting the flags test is an and
+
+32
+00:01:06,640 --> 00:01:11,040
+instruction that throws away the result
+
+33
+00:01:08,640 --> 00:01:12,640
+after setting the flags. So we can
+
+34
+00:01:11,040 --> 00:01:13,680
+understand why this might be generated
+
+35
+00:01:12,640 --> 00:01:16,880
+here because although
+
+36
+00:01:13,680 --> 00:01:18,560
+the C says to do a bitwise and, it's not
+
+37
+00:01:16,880 --> 00:01:20,479
+actually storing that bitwise and
+
+38
+00:01:18,560 --> 00:01:22,000
+anywhere, so it doesn't need any
+
+39
+00:01:20,479 --> 00:01:24,000
+so it doesn't want to overwrite any
+
+40
+00:01:22,000 --> 00:01:26,320
+particular value with the result of that
+
+41
+00:01:24,000 --> 00:01:27,840
+and so therefore you should now be able
+
+42
+00:01:26,320 --> 00:01:29,040
+to understand why there's a test
+
+43
+00:01:27,840 --> 00:01:31,360
+instruction here
+
+44
+00:01:29,040 --> 00:01:32,720
+and go and step through the assembly in
+
+45
+00:01:31,360 --> 00:01:34,320
+order to confirm
+
+46
+00:01:32,720 --> 00:01:36,640
+that the jump is taken the way you
+
+47
+00:01:34,320 --> 00:01:41,840
+expect and that you understand all of
+
+48
+00:01:36,640 --> 00:01:41,840
+the other assembly in this example
+

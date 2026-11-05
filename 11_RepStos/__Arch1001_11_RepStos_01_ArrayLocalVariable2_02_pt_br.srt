@@ -1,0 +1,208 @@
+1
+00:00:00,080 --> 00:00:03,439
+então eu disse que o rep stos é basicamente um memset
+
+2
+00:00:02,480 --> 00:00:05,920
+em uma caixa
+
+3
+00:00:03,439 --> 00:00:07,120
+e, portanto, esse memset está sendo usado em
+
+4
+00:00:05,920 --> 00:00:10,080
+comprimento do
+
+5
+00:00:07,120 --> 00:00:11,040
+inicialização zero, definindo todos os valores de b
+
+6
+00:00:10,080 --> 00:00:14,960
+de 64
+
+7
+00:00:11,040 --> 00:00:17,600
+para 0, pois eu lhe dei uma dica
+
+8
+00:00:14,960 --> 00:00:18,240
+push edi no início pop rdi desculpa
+
+9
+00:00:17,600 --> 00:00:21,199
+push
+
+10
+00:00:18,240 --> 00:00:22,880
+rdi no início pop rdi no final
+
+11
+00:00:21,199 --> 00:00:25,680
+que não cheira a frutos do mar que
+
+12
+00:00:22,880 --> 00:00:27,840
+me cheira a um salvo callee 
+
+13
+00:00:25,680 --> 00:00:29,599
+aloca algum espaço na pilha
+
+14
+00:00:27,840 --> 00:00:32,719
+calcula um endereço e colocá-lo em
+
+15
+00:00:29,599 --> 00:00:34,800
+rax, move rax para rdi
+
+16
+00:00:32,719 --> 00:00:35,920
+bem, essa é provavelmente o
+
+17
+00:00:34,800 --> 00:00:37,760
+destino
+
+18
+00:00:35,920 --> 00:00:39,120
+para os representantes, provavelmente é o
+
+19
+00:00:37,760 --> 00:00:43,040
+início do
+
+20
+00:00:39,120 --> 00:00:45,840
+b, b[0] por exemplo then xor eax, eax
+
+21
+00:00:43,040 --> 00:00:48,000
+bem, isso vai zerar o
+
+22
+00:00:45,840 --> 00:00:50,160
+registrador rax
+
+23
+00:00:48,000 --> 00:00:52,559
+o que significa que o valor que é
+
+24
+00:00:50,160 --> 00:00:54,079
+que será armazenado todas as vezes nos stos de representação
+
+25
+00:00:52,559 --> 00:00:55,760
+será 0
+
+26
+00:00:54,079 --> 00:00:57,360
+e armazenará um byte por
+
+27
+00:00:55,760 --> 00:00:58,399
+tempo, porque você pode ver que é um byte
+
+28
+00:00:57,360 --> 00:01:01,520
+indicador
+
+29
+00:00:58,399 --> 00:01:04,320
+portanto, ele está copiando um byte de 0
+
+30
+00:01:01,520 --> 00:01:05,199
+para o rdi e quantas vezes ele está fazendo isso
+
+31
+00:01:04,320 --> 00:01:08,640
+está copiando-o
+
+32
+00:01:05,199 --> 00:01:12,159
+0x80 vezes porque 0x80
+
+33
+00:01:08,640 --> 00:01:15,520
+é 2 vezes 64 é 128
+
+34
+00:01:12,159 --> 00:01:18,799
+128 em hexadecimal é hexadecimal 80. Então, aí está
+
+35
+00:01:15,520 --> 00:01:21,920
+estas instruções de configuração e estas porcas
+
+36
+00:01:18,799 --> 00:01:24,159
+e essa instrução de derrubada os rep stos
+
+37
+00:01:21,920 --> 00:01:26,000
+vão inicializar todo o
+
+38
+00:01:24,159 --> 00:01:28,799
+b[64]
+
+39
+00:01:26,000 --> 00:01:30,159
+e, depois disso, é apenas o
+
+40
+00:01:28,799 --> 00:01:31,920
+tipo de coisa que já vimos
+
+41
+00:01:30,159 --> 00:01:32,560
+anteriormente em arraylocalvariable
+
+42
+00:01:31,920 --> 00:01:35,600
+há
+
+43
+00:01:32,560 --> 00:01:38,799
+indexando em b[1], aqui b
+
+44
+00:01:35,600 --> 00:01:39,680
+é uma array de shorts, portanto, mova 2 o tamanho
+
+45
+00:01:38,799 --> 00:01:42,720
+de um curto
+
+46
+00:01:39,680 --> 00:01:44,799
+multiplicar por 1 o índice da array
+
+47
+00:01:42,720 --> 00:01:46,479
+e você sabe como fazer a atribuição de acesso
+
+48
+00:01:44,799 --> 00:01:48,560
+e o eventual valor de retorno
+
+49
+00:01:46,479 --> 00:01:50,240
+bem, mais um que morde a poeira, nós temos
+
+50
+00:01:48,560 --> 00:01:53,520
+adicionou uma nova instrução de assembly
+
+51
+00:01:50,240 --> 00:01:58,399
+rep stos em nosso conjunto de truques de assembly
+
+52
+00:01:53,520 --> 00:01:58,399
+número 29 como outros
+

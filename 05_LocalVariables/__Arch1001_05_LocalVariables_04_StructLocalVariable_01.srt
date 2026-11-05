@@ -1,0 +1,96 @@
+1
+00:00:00,080 --> 00:00:03,919
+let's see a slight variation on the
+
+2
+00:00:02,639 --> 00:00:05,759
+previous example
+
+3
+00:00:03,919 --> 00:00:07,440
+where we were allocating three things on
+
+4
+00:00:05,759 --> 00:00:09,040
+the stack as local variables
+
+5
+00:00:07,440 --> 00:00:10,639
+this time we're going to take those same
+
+6
+00:00:09,040 --> 00:00:13,920
+three things the short a
+
+7
+00:00:10,639 --> 00:00:16,160
+the int b six elements and c
+
+8
+00:00:13,920 --> 00:00:17,840
+let's put them into a struct and let's
+
+9
+00:00:16,160 --> 00:00:20,400
+instead allocate a struct
+
+10
+00:00:17,840 --> 00:00:22,240
+as a local variable on our stack once
+
+11
+00:00:20,400 --> 00:00:22,800
+again we're going to say that you know
+
+12
+00:00:22,240 --> 00:00:25,519
+babe
+
+13
+00:00:22,800 --> 00:00:26,480
+balboa bled blood and we're going to do
+
+14
+00:00:25,519 --> 00:00:29,439
+the same sort of math
+
+15
+00:00:26,480 --> 00:00:30,320
+a going into b of 1 b of 1 being added
+
+16
+00:00:29,439 --> 00:00:33,200
+to c
+
+17
+00:00:30,320 --> 00:00:34,239
+and put back into b of 4 and returning
+
+18
+00:00:33,200 --> 00:00:36,559
+b of 4 as a short
+
+19
+00:00:34,239 --> 00:00:38,000
+so something slightly
+
+20
+00:00:36,559 --> 00:00:39,280
+different here
+
+21
+00:00:38,000 --> 00:00:41,120
+only way you're going to be able to see
+
+22
+00:00:39,280 --> 00:00:43,680
+it is by stopping stepping through the
+
+23
+00:00:41,120 --> 00:00:49,520
+assembly and drawing a stack diagram
+
+24
+00:00:43,680 --> 00:00:49,520
+go ahead and take that on now
+

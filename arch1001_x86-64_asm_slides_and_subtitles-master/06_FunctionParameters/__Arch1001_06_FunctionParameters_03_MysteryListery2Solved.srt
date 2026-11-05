@@ -1,0 +1,164 @@
+1
+00:00:00,480 --> 00:00:04,480
+so at this point I think we have enough
+
+2
+00:00:02,159 --> 00:00:05,520
+information in order to solve our second
+
+3
+00:00:04,480 --> 00:00:08,080
+mystery
+
+4
+00:00:05,520 --> 00:00:09,200
+what's up with the sub/add 0x28 in
+
+5
+00:00:08,080 --> 00:00:11,599
+main
+
+6
+00:00:09,200 --> 00:00:12,960
+so when we first call we first saw this
+
+7
+00:00:11,599 --> 00:00:15,599
+it was in our very first
+
+8
+00:00:12,960 --> 00:00:17,359
+example CallASubroutine1, main was
+
+9
+00:00:15,599 --> 00:00:20,000
+just calling func no parameters
+
+10
+00:00:17,359 --> 00:00:23,439
+no variables anywhere super simple but
+
+11
+00:00:20,000 --> 00:00:25,680
+0x28 was being allocated in main
+
+12
+00:00:23,439 --> 00:00:27,519
+and we saw this in our sort of virtual
+
+13
+00:00:25,680 --> 00:00:28,800
+debugging session where we said yeah
+
+14
+00:00:27,519 --> 00:00:30,400
+there's you know something there's a
+
+15
+00:00:28,800 --> 00:00:31,679
+return address on the stack
+
+16
+00:00:30,400 --> 00:00:33,040
+there's some undefined stuff there's
+
+17
+00:00:31,679 --> 00:00:34,480
+another return address we didn't know
+
+18
+00:00:33,040 --> 00:00:35,280
+enough about what was going on in the
+
+19
+00:00:34,480 --> 00:00:37,280
+stack yet
+
+20
+00:00:35,280 --> 00:00:39,360
+to figure this out so let's go ahead and
+
+21
+00:00:37,280 --> 00:00:41,200
+expand out our view of the stack
+
+22
+00:00:39,360 --> 00:00:42,640
+fill in the coloring convention that
+
+23
+00:00:41,200 --> 00:00:45,039
+we've been using thus far
+
+24
+00:00:42,640 --> 00:00:46,719
+and what we see is inside of this
+
+25
+00:00:45,039 --> 00:00:47,280
+function there's a return address
+
+26
+00:00:46,719 --> 00:00:50,480
+there's
+
+27
+00:00:47,280 --> 00:00:51,199
+16 byte alignment padding and then
+
+28
+00:00:50,480 --> 00:00:54,320
+there's
+
+29
+00:00:51,199 --> 00:00:56,320
+four register locations for the shadow
+
+30
+00:00:54,320 --> 00:01:00,160
+store for microsoft for rcx
+
+31
+00:00:56,320 --> 00:01:01,120
+rdx r8 and r9 then of course there's a
+
+32
+00:01:00,160 --> 00:01:04,479
+return address
+
+33
+00:01:01,120 --> 00:01:06,159
+when main calls to func so who is this
+
+34
+00:01:04,479 --> 00:01:08,159
+seemingly useless over allocation of
+
+35
+00:01:06,159 --> 00:01:11,119
+space and functions that call functions
+
+36
+00:01:08,159 --> 00:01:13,920
+that's been terrorizing us well it turns
+
+37
+00:01:11,119 --> 00:01:16,640
+out it's the microsoft x64 ABI
+
+38
+00:01:13,920 --> 00:01:16,640
+shadow space
+
+39
+00:01:17,040 --> 00:01:21,680
+and with that the mystery machine rolls
+
+40
+00:01:19,280 --> 00:01:24,960
+on and has solved another case
+
+41
+00:01:21,680 --> 00:01:24,960
+only one more to go
+

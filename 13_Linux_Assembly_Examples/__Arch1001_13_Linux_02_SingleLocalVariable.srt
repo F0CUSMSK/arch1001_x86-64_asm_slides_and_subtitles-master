@@ -1,0 +1,600 @@
+1
+00:00:00,320 --> 00:00:03,439
+all right next we're going to look at
+
+2
+00:00:01,599 --> 00:00:05,440
+SingleLocalVariable which again
+
+3
+00:00:03,439 --> 00:00:06,799
+for historical reasons is in the wrong
+
+4
+00:00:05,440 --> 00:00:10,800
+folder name
+
+5
+00:00:06,799 --> 00:00:12,799
+so go to ExampleSubroutine2
+
+6
+00:00:10,800 --> 00:00:14,160
+and let's go ahead and cap that out so
+
+7
+00:00:12,799 --> 00:00:16,000
+we can remember what that was
+
+8
+00:00:14,160 --> 00:00:17,520
+okay we had a single function we're
+
+9
+00:00:16,000 --> 00:00:19,600
+calling a function and it has a single
+
+10
+00:00:17,520 --> 00:00:21,520
+variable 0x5ca1ab1e which goes into i
+
+11
+00:00:19,600 --> 00:00:24,240
+which gets returned so let's go ahead
+
+12
+00:00:21,520 --> 00:00:26,560
+and compile it so gcc again no stack
+
+13
+00:00:24,240 --> 00:00:29,920
+protector SingleLocalVariable.c
+
+14
+00:00:26,560 --> 00:00:30,640
+and let's do gdb again as well so at the
+
+15
+00:00:29,920 --> 00:00:34,480
+beginning again
+
+16
+00:00:30,640 --> 00:00:34,960
+this nop and a typical function prolog
+
+17
+00:00:34,480 --> 00:00:36,320
+here
+
+18
+00:00:34,960 --> 00:00:38,879
+we've got the 0 which I didn't
+
+19
+00:00:36,320 --> 00:00:40,640
+comment on before 0 into eax
+
+20
+00:00:38,879 --> 00:00:42,640
+basically this function doesn't take any
+
+21
+00:00:40,640 --> 00:00:44,239
+arguments so this to me seems like the
+
+22
+00:00:42,640 --> 00:00:46,239
+compiler is choosing to
+
+23
+00:00:44,239 --> 00:00:47,760
+zero initialize eax just in case the
+
+24
+00:00:46,239 --> 00:00:50,960
+function doesn't return anything
+
+25
+00:00:47,760 --> 00:00:52,079
+so let's go ahead and step step step now
+
+26
+00:00:50,960 --> 00:00:54,719
+we've got
+
+27
+00:00:52,079 --> 00:00:56,640
+zero which was rbp was pushed onto the
+
+28
+00:00:54,719 --> 00:00:59,440
+stack the return address is there
+
+29
+00:00:56,640 --> 00:01:00,960
+rsp was moved into rbp so now they point
+
+30
+00:00:59,440 --> 00:01:04,640
+at the same location this
+
+31
+00:01:00,960 --> 00:01:08,159
+0x7ffdf60 right 0
+
+32
+00:01:04,640 --> 00:01:09,920
+into eax so you can see 0 there
+
+33
+00:01:08,159 --> 00:01:11,840
+and now we're going to step into this
+
+34
+00:01:09,920 --> 00:01:13,600
+function which didn't actually take any
+
+35
+00:01:11,840 --> 00:01:15,680
+arguments okay the typical nop
+
+36
+00:01:13,600 --> 00:01:16,640
+at the beginning function prolog
+
+37
+00:01:15,680 --> 00:01:19,840
+setup
+
+38
+00:01:16,640 --> 00:01:23,680
+step step and so now
+
+39
+00:01:19,840 --> 00:01:26,240
+the stack frame has the saved rbp
+
+40
+00:01:23,680 --> 00:01:27,759
+the saved return address the old rbp
+
+41
+00:01:26,240 --> 00:01:29,200
+which was 0 and the other return
+
+42
+00:01:27,759 --> 00:01:31,920
+address to get back out of main
+
+43
+00:01:29,200 --> 00:01:32,560
+now it's going to push it's going to
+
+44
+00:01:31,920 --> 00:01:36,799
+sorry
+
+45
+00:01:32,560 --> 00:01:38,400
+mov 0x5ca1ab1e into rbp minus 4
+
+46
+00:01:36,799 --> 00:01:40,320
+and that's kind of weird because we can
+
+47
+00:01:38,400 --> 00:01:43,439
+see that you know our stack
+
+48
+00:01:40,320 --> 00:01:45,439
+has rbp pointing at df50 but it's
+
+49
+00:01:43,439 --> 00:01:48,079
+actually going to be accessing
+
+50
+00:01:45,439 --> 00:01:49,759
+below the end of the stack and we had
+
+51
+00:01:48,079 --> 00:01:51,439
+said previously that in general that's
+
+52
+00:01:49,759 --> 00:01:53,920
+supposed to be treated as undefined
+
+53
+00:01:51,439 --> 00:01:55,360
+that should never be touched so why
+
+54
+00:01:53,920 --> 00:01:56,799
+exactly is it doing this
+
+55
+00:01:55,360 --> 00:01:59,360
+this is what our stack looks like at
+
+56
+00:01:56,799 --> 00:02:00,320
+this point we have the saved rip the
+
+57
+00:01:59,360 --> 00:02:03,520
+saved rbp
+
+58
+00:02:00,320 --> 00:02:06,719
+saved rip saved rbp and then 0x5ca1ab1e
+
+59
+00:02:03,520 --> 00:02:08,640
+going into rbp minus 4 so
+
+60
+00:02:06,719 --> 00:02:10,479
+8 byte granularity here and then
+
+61
+00:02:08,640 --> 00:02:12,239
+moving to four byte granularity there
+
+62
+00:02:10,479 --> 00:02:13,599
+so how come I can get away with this
+
+63
+00:02:12,239 --> 00:02:16,640
+well if we consult
+
+64
+00:02:13,599 --> 00:02:19,280
+the System V ABI it turns out that
+
+65
+00:02:16,640 --> 00:02:21,200
+there's this discussion of how the stack
+
+66
+00:02:19,280 --> 00:02:22,959
+should look like when you're using a
+
+67
+00:02:21,200 --> 00:02:23,840
+base pointer and so we have the things
+
+68
+00:02:22,959 --> 00:02:26,319
+you might ex
+
+69
+00:02:23,840 --> 00:02:27,920
+expect about arguments potentially up
+
+70
+00:02:26,319 --> 00:02:30,239
+here above the return address
+
+71
+00:02:27,920 --> 00:02:31,920
+uh sort of looking like the shadow stack
+
+72
+00:02:30,239 --> 00:02:33,680
+so they're not necessarily going to be
+
+73
+00:02:31,920 --> 00:02:34,720
+used that way we'll see more about that
+
+74
+00:02:33,680 --> 00:02:36,640
+when we
+
+75
+00:02:34,720 --> 00:02:38,160
+look at multiple function parameters
+
+76
+00:02:36,640 --> 00:02:40,879
+later on return address
+
+77
+00:02:38,160 --> 00:02:42,239
+and then rbp and so rbp minus something
+
+78
+00:02:40,879 --> 00:02:43,120
+is typically going to be your local
+
+79
+00:02:42,239 --> 00:02:45,360
+variables
+
+80
+00:02:43,120 --> 00:02:47,519
+and then there's this discussion of an
+
+81
+00:02:45,360 --> 00:02:48,080
+area called the red zone so specifically
+
+82
+00:02:47,519 --> 00:02:51,280
+it says
+
+83
+00:02:48,080 --> 00:02:52,640
+the 128-byte area beyond the location
+
+84
+00:02:51,280 --> 00:02:54,319
+pointed to by rsp
+
+85
+00:02:52,640 --> 00:02:56,160
+is considered to be reserved and shall
+
+86
+00:02:54,319 --> 00:02:56,879
+not be modified by signal or interrupt
+
+87
+00:02:56,160 --> 00:02:59,280
+handlers
+
+88
+00:02:56,879 --> 00:03:00,800
+therefore functions may use this area as
+
+89
+00:02:59,280 --> 00:03:04,000
+temporary data
+
+90
+00:03:00,800 --> 00:03:06,000
+that is not needed across function calls
+
+91
+00:03:04,000 --> 00:03:07,920
+in particular leaf functions may use
+
+92
+00:03:06,000 --> 00:03:09,599
+this area for their entire stack frame
+
+93
+00:03:07,920 --> 00:03:11,280
+rather than adjusting the stack pointer
+
+94
+00:03:09,599 --> 00:03:12,720
+in the prologue and epilogue this area
+
+95
+00:03:11,280 --> 00:03:13,680
+is known as the red zone so essentially
+
+96
+00:03:12,720 --> 00:03:16,000
+what it's saying is
+
+97
+00:03:13,680 --> 00:03:17,120
+normally you might see a function prolog
+
+98
+00:03:16,000 --> 00:03:19,599
+subtract
+
+99
+00:03:17,120 --> 00:03:20,800
+rsp down to here to allocate space for
+
+100
+00:03:19,599 --> 00:03:23,280
+the local variables
+
+101
+00:03:20,800 --> 00:03:25,280
+and then add rsp back up when you're
+
+102
+00:03:23,280 --> 00:03:27,120
+leaving the function but it's saying
+
+103
+00:03:25,280 --> 00:03:28,799
+if you're in a leaf function you can go
+
+104
+00:03:27,120 --> 00:03:30,159
+ahead and just not bother with the
+
+105
+00:03:28,799 --> 00:03:32,640
+subtract and the add
+
+106
+00:03:30,159 --> 00:03:35,200
+go ahead and just use this area below
+
+107
+00:03:32,640 --> 00:03:35,840
+where rbp and rsp would be both pointing
+
+108
+00:03:35,200 --> 00:03:38,000
+right here
+
+109
+00:03:35,840 --> 00:03:39,680
+go ahead and just use it because we know
+
+110
+00:03:38,000 --> 00:03:41,360
+that your function is a leaf function
+
+111
+00:03:39,680 --> 00:03:43,200
+it's not going to call anything else and
+
+112
+00:03:41,360 --> 00:03:44,000
+so it should just be you know used and
+
+113
+00:03:43,200 --> 00:03:45,760
+then destroyed
+
+114
+00:03:44,000 --> 00:03:47,680
+immediately when it goes out of scope so
+
+115
+00:03:45,760 --> 00:03:48,400
+basically that's why it's allowed to get
+
+116
+00:03:47,680 --> 00:03:50,640
+away with
+
+117
+00:03:48,400 --> 00:03:52,080
+accessing below the bottom of the stack
+
+118
+00:03:50,640 --> 00:03:54,400
+like this it'll be safe
+
+119
+00:03:52,080 --> 00:03:56,080
+because they define in the ABI that you
+
+120
+00:03:54,400 --> 00:03:57,360
+know exception handlers if some sort of
+
+121
+00:03:56,080 --> 00:03:59,280
+interrupt occurs
+
+122
+00:03:57,360 --> 00:04:00,720
+it shall not you know clobber over these
+
+123
+00:03:59,280 --> 00:04:01,760
+things so you can resume from the
+
+124
+00:04:00,720 --> 00:04:03,840
+interrupt without
+
+125
+00:04:01,760 --> 00:04:05,840
+destroying your stack data which would
+
+126
+00:04:03,840 --> 00:04:06,879
+you know ruin the program execution so
+
+127
+00:04:05,840 --> 00:04:09,920
+let's go ahead and
+
+128
+00:04:06,879 --> 00:04:11,760
+step over this and then it's going to
+
+129
+00:04:09,920 --> 00:04:12,159
+just immediately plug that value back
+
+130
+00:04:11,760 --> 00:04:14,480
+out
+
+131
+00:04:12,159 --> 00:04:16,079
+that was the i local variable so it was
+
+132
+00:04:14,480 --> 00:04:17,519
+moving the 0x5ca1ab1e into i
+
+133
+00:04:16,079 --> 00:04:19,440
+and then it was returning i so it's
+
+134
+00:04:17,519 --> 00:04:21,120
+plucking the value back out and putting
+
+135
+00:04:19,440 --> 00:04:23,759
+it into the return value
+
+136
+00:04:21,120 --> 00:04:25,440
+eax step now we're going to pop rbp so
+
+137
+00:04:23,759 --> 00:04:27,759
+we're going to take this saved rbp
+
+138
+00:04:25,440 --> 00:04:30,720
+pop it into there there we go that now
+
+139
+00:04:27,759 --> 00:04:32,880
+is df60 instead of df50
+
+140
+00:04:30,720 --> 00:04:34,880
+and then return is going to pop the
+
+141
+00:04:32,880 --> 00:04:36,160
+value off the top of the stack and put
+
+142
+00:04:34,880 --> 00:04:39,440
+it into rip
+
+143
+00:04:36,160 --> 00:04:42,240
+so we should go to 14f for rip
+
+144
+00:04:39,440 --> 00:04:42,560
+there we go 14f for rip and then we
+
+145
+00:04:42,240 --> 00:04:44,080
+just
+
+146
+00:04:42,560 --> 00:04:46,240
+exit out of the function because we're
+
+147
+00:04:44,080 --> 00:04:48,560
+done tearing down mains frame
+
+148
+00:04:46,240 --> 00:04:49,440
+step and we're now back in the function
+
+149
+00:04:48,560 --> 00:04:52,720
+that called main
+
+150
+00:04:49,440 --> 00:04:52,720
+that's it for that example
+

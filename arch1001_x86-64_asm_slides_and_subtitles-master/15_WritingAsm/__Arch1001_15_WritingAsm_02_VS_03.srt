@@ -1,0 +1,228 @@
+1
+00:00:00,160 --> 00:00:04,160
+now I've got a little bit of a challenge
+
+2
+00:00:01,839 --> 00:00:04,720
+for you I want you to read the fun
+
+3
+00:00:04,160 --> 00:00:07,359
+manual
+
+4
+00:00:04,720 --> 00:00:08,480
+and write the fun instructions so I want
+
+5
+00:00:07,359 --> 00:00:11,360
+you to use the
+
+6
+00:00:08,480 --> 00:00:11,840
+visual studio masm assembly syntax the
+
+7
+00:00:11,360 --> 00:00:14,080
+db
+
+8
+00:00:11,840 --> 00:00:15,120
+followed by the bytes to emit and I want
+
+9
+00:00:14,080 --> 00:00:17,760
+you to create
+
+10
+00:00:15,120 --> 00:00:18,480
+this assembly sequence using only bytes
+
+11
+00:00:17,760 --> 00:00:20,640
+don't write this
+
+12
+00:00:18,480 --> 00:00:22,480
+in assembly and then you know look at
+
+13
+00:00:20,640 --> 00:00:22,960
+the raw bytes I want you to look at the
+
+14
+00:00:22,480 --> 00:00:24,880
+mov
+
+15
+00:00:22,960 --> 00:00:26,720
+assembly instruction in the manual and
+
+16
+00:00:24,880 --> 00:00:28,560
+figure out how you would emit this
+
+17
+00:00:26,720 --> 00:00:30,000
+assembly instruction I want you to look
+
+18
+00:00:28,560 --> 00:00:31,359
+at the sahf
+
+19
+00:00:30,000 --> 00:00:33,920
+assembly instruction which we haven't
+
+20
+00:00:31,359 --> 00:00:35,440
+even covered in class but you now know
+
+21
+00:00:33,920 --> 00:00:37,840
+how to read the fun manual so
+
+22
+00:00:35,440 --> 00:00:39,760
+go read the fun manual find out what it
+
+23
+00:00:37,840 --> 00:00:41,200
+is figure out what bytes you need to
+
+24
+00:00:39,760 --> 00:00:42,960
+emit to do that
+
+25
+00:00:41,200 --> 00:00:44,719
+this one's then going to be a little bit
+
+26
+00:00:42,960 --> 00:00:47,760
+tricky so we've got
+
+27
+00:00:44,719 --> 00:00:50,079
+jump if zero zero flag is set
+
+28
+00:00:47,760 --> 00:00:51,840
+and it's going to jump to my label and
+
+29
+00:00:50,079 --> 00:00:54,160
+so go look at what the
+
+30
+00:00:51,840 --> 00:00:56,559
+manual says about the jump zero assembly
+
+31
+00:00:54,160 --> 00:00:59,440
+instruction and how it formats
+
+32
+00:00:56,559 --> 00:01:01,920
+the target where it's going to jump to
+
+33
+00:00:59,440 --> 00:01:04,400
+and figure out what that target would be
+
+34
+00:01:01,920 --> 00:01:05,360
+based on what this assembly instruction
+
+35
+00:01:04,400 --> 00:01:07,439
+is encoded as
+
+36
+00:01:05,360 --> 00:01:09,119
+so in order to do this you're probably
+
+37
+00:01:07,439 --> 00:01:09,439
+going to first have to figure out what
+
+38
+00:01:09,119 --> 00:01:11,520
+this
+
+39
+00:01:09,439 --> 00:01:13,119
+is how many bytes that is so that you
+
+40
+00:01:11,520 --> 00:01:13,840
+understand how many bytes you're going
+
+41
+00:01:13,119 --> 00:01:16,000
+to have to jump
+
+42
+00:01:13,840 --> 00:01:17,920
+forward and then cap it all off with a
+
+43
+00:01:16,000 --> 00:01:19,680
+return assembly instruction
+
+44
+00:01:17,920 --> 00:01:22,080
+all right so again don't write the
+
+45
+00:01:19,680 --> 00:01:23,920
+assembly in human readable form I want
+
+46
+00:01:22,080 --> 00:01:25,520
+you to just write a whole bunch of bytes
+
+47
+00:01:23,920 --> 00:01:26,159
+in order to create this assembly
+
+48
+00:01:25,520 --> 00:01:28,720
+sequence
+
+49
+00:01:26,159 --> 00:01:30,240
+when you do that you can set breakpoints
+
+50
+00:01:28,720 --> 00:01:31,840
+in your assembly file
+
+51
+00:01:30,240 --> 00:01:33,119
+and then you can just go ahead and
+
+52
+00:01:31,840 --> 00:01:35,360
+compile it run it and look at the
+
+53
+00:01:33,119 --> 00:01:37,280
+disassembly you can see whether or not
+
+54
+00:01:35,360 --> 00:01:39,200
+the disassembler thinks the bytes you
+
+55
+00:01:37,280 --> 00:01:40,079
+put in correspond to what you were
+
+56
+00:01:39,200 --> 00:01:42,640
+trying to actually
+
+57
+00:01:40,079 --> 00:01:42,640
+put in
+

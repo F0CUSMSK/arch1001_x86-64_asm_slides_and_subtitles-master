@@ -1,0 +1,1012 @@
+1
+00:00:00,080 --> 00:00:04,080
+so our next example was
+
+2
+00:00:02,000 --> 00:00:05,680
+TooManyParameters and that was one where we
+
+3
+00:00:04,080 --> 00:00:08,000
+were basically trying to
+
+4
+00:00:05,680 --> 00:00:10,160
+overwhelm the number of register past
+
+5
+00:00:08,000 --> 00:00:12,000
+parameters and force things to start
+
+6
+00:00:10,160 --> 00:00:14,400
+being passed on the stack so as a
+
+7
+00:00:12,000 --> 00:00:16,080
+reminder let's take a look at that again
+
+8
+00:00:14,400 --> 00:00:17,920
+that was the one where basically
+
+9
+00:00:16,080 --> 00:00:20,000
+we had a function with 1, 2, 3,
+
+10
+00:00:17,920 --> 00:00:22,080
+4, 5 and it took
+
+11
+00:00:20,000 --> 00:00:24,080
+5 parameters now if we look back at
+
+12
+00:00:22,080 --> 00:00:28,160
+the System V calling convention
+
+13
+00:00:24,080 --> 00:00:30,800
+we see that actually unlike windows it
+
+14
+00:00:28,160 --> 00:00:31,760
+has 6 register passed parameters
+
+15
+00:00:30,800 --> 00:00:36,000
+instead of 4
+
+16
+00:00:31,760 --> 00:00:38,320
+so this would lead to rdi rsi rdx rcx r8
+
+17
+00:00:36,000 --> 00:00:40,480
+we haven't actually exceeded the number
+
+18
+00:00:38,320 --> 00:00:42,800
+of register passed parameters
+
+19
+00:00:40,480 --> 00:00:44,399
+so the the statement said you know any
+
+20
+00:00:42,800 --> 00:00:46,239
+remaining parameters above and beyond
+
+21
+00:00:44,399 --> 00:00:47,520
+these 6 will be pushed onto the stack
+
+22
+00:00:46,239 --> 00:00:47,840
+we're not actually going to see that
+
+23
+00:00:47,520 --> 00:00:49,520
+here
+
+24
+00:00:47,840 --> 00:00:51,680
+so let's just go ahead and you know go
+
+25
+00:00:49,520 --> 00:00:53,360
+through this quick and and see it as is
+
+26
+00:00:51,680 --> 00:00:55,039
+and then we'll adjust it in order to add
+
+27
+00:00:53,360 --> 00:00:55,840
+more parameters and see what that does
+
+28
+00:00:55,039 --> 00:00:59,840
+to the stack
+
+29
+00:00:55,840 --> 00:00:59,840
+so let's go ahead and compile it
+
+30
+00:01:00,879 --> 00:01:05,920
+and debug it so you can see that the
+
+31
+00:01:04,159 --> 00:01:08,240
+values are being placed into their
+
+32
+00:01:05,920 --> 00:01:10,320
+respective registers 0x11 into edi
+
+33
+00:01:08,240 --> 00:01:12,240
+it's edi instead of rdi because it's
+
+34
+00:01:10,320 --> 00:01:14,960
+just an int being passed so
+
+35
+00:01:12,240 --> 00:01:16,240
+32-bit value so 0x11, 0x22, 0x33,
+
+36
+00:01:14,960 --> 00:01:19,360
+0x44, 0x45,
+
+37
+00:01:16,240 --> 00:01:22,479
+0x55 into *di, *si, *dx,
+
+38
+00:01:19,360 --> 00:01:23,759
+*cx, *8, right so let's go ahead and
+
+39
+00:01:22,479 --> 00:01:26,960
+step into this function
+
+40
+00:01:23,759 --> 00:01:29,280
+step step step step step step step step
+
+41
+00:01:26,960 --> 00:01:30,000
+step now inside of the function we're
+
+42
+00:01:29,280 --> 00:01:31,840
+going to
+
+43
+00:01:30,000 --> 00:01:33,200
+see the typical function prologue which
+
+44
+00:01:31,840 --> 00:01:36,240
+we'll go ahead and step past
+
+45
+00:01:33,200 --> 00:01:36,960
+and then we have rdi that was the first
+
+46
+00:01:36,240 --> 00:01:40,560
+parameter
+
+47
+00:01:36,960 --> 00:01:41,520
+being placed into rbp minus 0x18 rsi the
+
+48
+00:01:40,560 --> 00:01:44,079
+second parameter
+
+49
+00:01:41,520 --> 00:01:45,040
+rbp minus 0x20. so just looking at this I
+
+50
+00:01:44,079 --> 00:01:46,880
+can see that
+
+51
+00:01:45,040 --> 00:01:49,439
+I'm going to need you know space for at
+
+52
+00:01:46,880 --> 00:01:50,960
+least 0x38 worth of things so let's go
+
+53
+00:01:49,439 --> 00:01:53,040
+ahead and display the stack
+
+54
+00:01:50,960 --> 00:01:54,479
+and let's display it because these are
+
+55
+00:01:53,040 --> 00:01:56,240
+rdi rsi so
+
+56
+00:01:54,479 --> 00:01:58,000
+even though they're passed in as you
+
+57
+00:01:56,240 --> 00:01:58,960
+know 4 byte values uh they're being
+
+58
+00:01:58,000 --> 00:02:01,759
+used as
+
+59
+00:01:58,960 --> 00:02:02,880
+8 byte values here so let's go ahead
+
+60
+00:02:01,759 --> 00:02:05,920
+and
+
+61
+00:02:02,880 --> 00:02:06,399
+30 is going to be 6 and so we're going
+
+62
+00:02:05,920 --> 00:02:09,360
+to need
+
+63
+00:02:06,399 --> 00:02:10,399
+7 space for 7 qwords seven
+
+64
+00:02:09,360 --> 00:02:13,520
+giant words
+
+65
+00:02:10,399 --> 00:02:16,959
+in gdb hexadecimal display at
+
+66
+00:02:13,520 --> 00:02:18,560
+rbp minus 0x38
+
+67
+00:02:16,959 --> 00:02:20,319
+so let's go ahead and start stepping and
+
+68
+00:02:18,560 --> 00:02:23,520
+seeing that get filled in
+
+69
+00:02:20,319 --> 00:02:26,560
+so step there's our 0x11
+
+70
+00:02:23,520 --> 00:02:30,160
+step there's our 0x22
+
+71
+00:02:26,560 --> 00:02:32,480
+and step step step and we're gonna see
+
+72
+00:02:30,160 --> 00:02:33,280
+you know basically 0x11, 0x22,
+
+73
+00:02:32,480 --> 00:02:36,560
+0x33, 0x44,
+
+74
+00:02:33,280 --> 00:02:38,319
+0x55 then it's going to turn around
+
+75
+00:02:36,560 --> 00:02:39,680
+it's going to start plucking them out of
+
+76
+00:02:38,319 --> 00:02:43,519
+those locations for
+
+77
+00:02:39,680 --> 00:02:46,879
+doing the math so pull rbp minus 0x18
+
+78
+00:02:43,519 --> 00:02:50,400
+that was this 0x11 put it into rax
+
+79
+00:02:46,879 --> 00:02:53,440
+and then move that down to edx
+
+80
+00:02:50,400 --> 00:02:55,840
+rdx and then move rbp minus
+
+81
+00:02:53,440 --> 00:02:56,640
+0x20 and put it into rax and add the two
+
+82
+00:02:55,840 --> 00:02:59,680
+so that's the
+
+83
+00:02:56,640 --> 00:03:01,440
+a + b - c + d etc
+
+84
+00:02:59,680 --> 00:03:02,959
+so that's just going to be doing a bunch
+
+85
+00:03:01,440 --> 00:03:05,040
+of math it's going to
+
+86
+00:03:02,959 --> 00:03:06,400
+pull all those values out and when it's
+
+87
+00:03:05,040 --> 00:03:09,760
+done with all of it
+
+88
+00:03:06,400 --> 00:03:12,400
+it's going to be storing them into
+
+89
+00:03:09,760 --> 00:03:13,040
+rbp minus 4. so like we saw with the
+
+90
+00:03:12,400 --> 00:03:15,519
+single
+
+91
+00:03:13,040 --> 00:03:16,800
+local single parameter pass or
+
+92
+00:03:15,519 --> 00:03:19,680
+Pass1Parameter.c
+
+93
+00:03:16,800 --> 00:03:20,800
+rbp minus 4 is where the actual i
+
+94
+00:03:19,680 --> 00:03:22,800
+value is
+
+95
+00:03:20,800 --> 00:03:25,440
+that's going to store the result of that
+
+96
+00:03:22,800 --> 00:03:27,920
+math so if we step step step
+
+97
+00:03:25,440 --> 00:03:28,560
+we will see that being filled in right
+
+98
+00:03:27,920 --> 00:03:31,680
+here
+
+99
+00:03:28,560 --> 00:03:33,120
+so that's rbp minus 4 and because of
+
+100
+00:03:31,680 --> 00:03:35,120
+endianness it's showing up
+
+101
+00:03:33,120 --> 00:03:36,959
+on the most significant bytes because
+
+102
+00:03:35,120 --> 00:03:38,720
+it's minus 4 but it's 4 bytes
+
+103
+00:03:36,959 --> 00:03:40,400
+then of course that will be plucked out
+
+104
+00:03:38,720 --> 00:03:42,640
+and put into rax
+
+105
+00:03:40,400 --> 00:03:43,760
+as the return value of this function so
+
+106
+00:03:42,640 --> 00:03:46,319
+if we were to see that
+
+107
+00:03:43,760 --> 00:03:48,080
+stack it would look something like this
+
+108
+00:03:46,319 --> 00:03:50,640
+got the return address out of main
+
+109
+00:03:48,080 --> 00:03:52,560
+you've got mains saved rbp got the
+
+110
+00:03:50,640 --> 00:03:53,040
+return address when main is calling into
+
+111
+00:03:52,560 --> 00:03:56,159
+func
+
+112
+00:03:53,040 --> 00:03:58,239
+func's saved rbp which rsp and rbp
+
+113
+00:03:56,159 --> 00:04:00,560
+point at accessing in the red zone the
+
+114
+00:03:58,239 --> 00:04:01,120
+area below rsp just because it's a leaf
+
+115
+00:04:00,560 --> 00:04:02,560
+function
+
+116
+00:04:01,120 --> 00:04:04,799
+and it doesn't need to you know just
+
+117
+00:04:02,560 --> 00:04:06,879
+subtract and then add immediately
+
+118
+00:04:04,799 --> 00:04:09,200
+and then the i got filled in with the
+
+119
+00:04:06,879 --> 00:04:11,360
+math but we sort of see the pattern here
+
+120
+00:04:09,200 --> 00:04:13,360
+of these parameters which were passed in
+
+121
+00:04:11,360 --> 00:04:16,400
+the registers a, b, c, d, e
+
+122
+00:04:13,360 --> 00:04:18,000
+are put into stack space sort of at the
+
+123
+00:04:16,400 --> 00:04:19,840
+bottom of the function frame
+
+124
+00:04:18,000 --> 00:04:21,440
+so this looks very similar to the
+
+125
+00:04:19,840 --> 00:04:23,120
+microsoft shadow store
+
+126
+00:04:21,440 --> 00:04:25,600
+and you know you would expect it to have
+
+127
+00:04:23,120 --> 00:04:27,919
+the same general purpose which is to
+
+128
+00:04:25,600 --> 00:04:29,280
+help debuggers figure out you know for a
+
+129
+00:04:27,919 --> 00:04:30,880
+particular function
+
+130
+00:04:29,280 --> 00:04:32,639
+what were the function parameters which
+
+131
+00:04:30,880 --> 00:04:34,240
+were passed in because the registers are
+
+132
+00:04:32,639 --> 00:04:34,800
+going to get clobbered as the function
+
+133
+00:04:34,240 --> 00:04:37,680
+runs
+
+134
+00:04:34,800 --> 00:04:39,360
+so it's desirable to have some way to
+
+135
+00:04:37,680 --> 00:04:41,360
+find out what the parameters were
+
+136
+00:04:39,360 --> 00:04:42,800
+so let's go ahead and edit this source
+
+137
+00:04:41,360 --> 00:04:44,880
+code in order to
+
+138
+00:04:42,800 --> 00:04:47,280
+make it have actually too many
+
+139
+00:04:44,880 --> 00:04:50,240
+parameters
+
+140
+00:04:47,280 --> 00:04:51,840
+and see the full pattern so we added two
+
+141
+00:04:50,240 --> 00:04:54,560
+more things so now we have
+
+142
+00:04:51,840 --> 00:04:56,320
+a total of 7 parameters which is
+
+143
+00:04:54,560 --> 00:04:57,040
+going to be 1 too many and we would
+
+144
+00:04:56,320 --> 00:05:01,280
+expect this
+
+145
+00:04:57,040 --> 00:05:03,120
+g as 0x77 to end up pushed onto the stack
+
+146
+00:05:01,280 --> 00:05:04,639
+instead of you know past and register
+
+147
+00:05:03,120 --> 00:05:04,960
+because there's no more registers to use
+
+148
+00:05:04,639 --> 00:05:06,720
+so
+
+149
+00:05:04,960 --> 00:05:08,800
+let's go ahead and compile that and
+
+150
+00:05:06,720 --> 00:05:10,240
+debug it and indeed right at the very
+
+151
+00:05:08,800 --> 00:05:13,440
+beginning we see this
+
+152
+00:05:10,240 --> 00:05:15,280
+push quad word 0x77 onto the stack so
+
+153
+00:05:13,440 --> 00:05:18,000
+function prolog push 0x77
+
+154
+00:05:15,280 --> 00:05:19,759
+and then moving all of the values into
+
+155
+00:05:18,000 --> 00:05:20,720
+their respective registers used by the
+
+156
+00:05:19,759 --> 00:05:22,560
+calling convention
+
+157
+00:05:20,720 --> 00:05:24,080
+so let's go ahead and step into the
+
+158
+00:05:22,560 --> 00:05:24,479
+function and see if there's anything
+
+159
+00:05:24,080 --> 00:05:26,479
+else
+
+160
+00:05:24,479 --> 00:05:27,759
+interesting in there so once we get into
+
+161
+00:05:26,479 --> 00:05:30,320
+the function we see
+
+162
+00:05:27,759 --> 00:05:31,360
+it well let's just disassemble it simple
+
+163
+00:05:30,320 --> 00:05:33,600
+function if we
+
+164
+00:05:31,360 --> 00:05:35,680
+skim across to the entirety of the
+
+165
+00:05:33,600 --> 00:05:38,479
+accesses to rbp
+
+166
+00:05:35,680 --> 00:05:40,479
+we see what looks like 0x40 is the
+
+167
+00:05:38,479 --> 00:05:42,080
+lowest that it's ever accessing so let's
+
+168
+00:05:40,479 --> 00:05:45,199
+put up a new display
+
+169
+00:05:42,080 --> 00:05:48,560
+display of 8 giant
+
+170
+00:05:45,199 --> 00:05:51,600
+words in hex at rbp minus
+
+171
+00:05:48,560 --> 00:05:53,280
+0x40 and we expect that this r9 value is
+
+172
+00:05:51,600 --> 00:05:55,680
+going to go into the minus 0x40
+
+173
+00:05:53,280 --> 00:05:56,560
+and so forth and we again at the very
+
+174
+00:05:55,680 --> 00:05:58,800
+end to see
+
+175
+00:05:56,560 --> 00:06:01,039
+rbp minus 4 being used to store the
+
+176
+00:05:58,800 --> 00:06:04,960
+integer result of all of this math
+
+177
+00:06:01,039 --> 00:06:07,039
+step step step step step step step
+
+178
+00:06:04,960 --> 00:06:08,639
+and then there's only one little
+
+179
+00:06:07,039 --> 00:06:10,960
+interesting bit here
+
+180
+00:06:08,639 --> 00:06:12,800
+at the end right at the end because the
+
+181
+00:06:10,960 --> 00:06:14,240
+very last math that's being done
+
+182
+00:06:12,800 --> 00:06:16,240
+is you know once you've accumulated
+
+183
+00:06:14,240 --> 00:06:19,440
+everything you're doing the last
+
+184
+00:06:16,240 --> 00:06:23,199
+minus g uh it's taking from rbp
+
+185
+00:06:19,440 --> 00:06:24,400
+plus 0x10 to find the g value the 0x77 that
+
+186
+00:06:23,199 --> 00:06:27,039
+was pushed onto the stack
+
+187
+00:06:24,400 --> 00:06:28,880
+and it's moving it into rax so we can
+
+188
+00:06:27,039 --> 00:06:32,160
+see on our stack diagram here
+
+189
+00:06:28,880 --> 00:06:35,280
+rbp is set to df48
+
+190
+00:06:32,160 --> 00:06:37,600
+df48 and that plus 0x10
+
+191
+00:06:35,280 --> 00:06:39,199
+is this 0x77 on the stack so back when we
+
+192
+00:06:37,600 --> 00:06:40,479
+were talking about calling conventions i
+
+193
+00:06:39,199 --> 00:06:42,080
+said that you know on
+
+194
+00:06:40,479 --> 00:06:44,560
+back in 32-bit systems you would
+
+195
+00:06:42,080 --> 00:06:46,319
+frequently see rbp minus something
+
+196
+00:06:44,560 --> 00:06:49,360
+equals local variables and rbp
+
+197
+00:06:46,319 --> 00:06:50,560
+plus something equals parameters passed
+
+198
+00:06:49,360 --> 00:06:52,000
+to a function
+
+199
+00:06:50,560 --> 00:06:53,440
+here because the only parameter that
+
+200
+00:06:52,000 --> 00:06:55,039
+actually lands on the stack instead of
+
+201
+00:06:53,440 --> 00:06:57,280
+registers in that regard
+
+202
+00:06:55,039 --> 00:06:58,080
+is the final one the too many the
+
+203
+00:06:57,280 --> 00:06:59,520
+seventh one
+
+204
+00:06:58,080 --> 00:07:02,560
+it's still going to be accessing that
+
+205
+00:06:59,520 --> 00:07:04,400
+one as rbp plus 0x10 as opposed to
+
+206
+00:07:02,560 --> 00:07:06,240
+for instance it could have stuck it
+
+207
+00:07:04,400 --> 00:07:08,160
+somewhere down here on the stack if it
+
+208
+00:07:06,240 --> 00:07:11,280
+wanted to
+
+209
+00:07:08,160 --> 00:07:13,360
+so step step step step step step step
+
+210
+00:07:11,280 --> 00:07:15,039
+and we've got kind of the stack all set
+
+211
+00:07:13,360 --> 00:07:16,800
+up and we're about to exit the function
+
+212
+00:07:15,039 --> 00:07:18,240
+so if we want to see what the stack
+
+213
+00:07:16,800 --> 00:07:19,919
+frame would look like here
+
+214
+00:07:18,240 --> 00:07:21,680
+it looks like this very similar to the
+
+215
+00:07:19,919 --> 00:07:24,479
+previous one it just has this
+
+216
+00:07:21,680 --> 00:07:27,280
+insertion and that's an error let's fix
+
+217
+00:07:24,479 --> 00:07:30,880
+that just on the fly
+
+218
+00:07:27,280 --> 00:07:33,199
+77. so insertion of g
+
+219
+00:07:30,880 --> 00:07:34,720
+it was pushed before it ever called into
+
+220
+00:07:33,199 --> 00:07:36,240
+the function
+
+221
+00:07:34,720 --> 00:07:38,240
+and therefore it's going to be above the
+
+222
+00:07:36,240 --> 00:07:41,199
+return address and so
+
+223
+00:07:38,240 --> 00:07:41,599
+rbp plus 10 is where it can find that
+
+224
+00:07:41,199 --> 00:07:43,919
+and then
+
+225
+00:07:41,599 --> 00:07:45,520
+i gets the same you know actually that's
+
+226
+00:07:43,919 --> 00:07:47,680
+probably not even the same value because
+
+227
+00:07:45,520 --> 00:07:48,720
+it's different math right so what is the
+
+228
+00:07:47,680 --> 00:07:52,479
+actual value
+
+229
+00:07:48,720 --> 00:07:54,160
+de copy and paste errors so I get the
+
+230
+00:07:52,479 --> 00:07:55,919
+result of that math
+
+231
+00:07:54,160 --> 00:07:58,160
+and a little bit of padding here and
+
+232
+00:07:55,919 --> 00:08:00,080
+then this thing that looks very similar
+
+233
+00:07:58,160 --> 00:08:02,800
+to the microsoft shadow store the
+
+234
+00:08:00,080 --> 00:08:04,720
+basic debug area the home area haven't
+
+235
+00:08:02,800 --> 00:08:06,720
+found a good documentation for a
+
+236
+00:08:04,720 --> 00:08:09,599
+canonical name for that yet as
+
+237
+00:08:06,720 --> 00:08:11,280
+used by gcc but if I do find some good
+
+238
+00:08:09,599 --> 00:08:13,039
+canonical documentation
+
+239
+00:08:11,280 --> 00:08:15,680
+I will point you that in the links for
+
+240
+00:08:13,039 --> 00:08:18,240
+this video so the basic takeaway here
+
+241
+00:08:15,680 --> 00:08:19,919
+is that a couple of things as we've
+
+242
+00:08:18,240 --> 00:08:20,800
+already seen there's of course access to
+
+243
+00:08:19,919 --> 00:08:23,039
+the red zone
+
+244
+00:08:20,800 --> 00:08:25,039
+for leaf nodes but also function
+
+245
+00:08:23,039 --> 00:08:26,800
+parameters can be stored
+
+246
+00:08:25,039 --> 00:08:28,800
+down in the red zone at the sort of
+
+247
+00:08:26,800 --> 00:08:31,199
+notional end of the stack frame or
+
+248
+00:08:28,800 --> 00:08:32,880
+top of the stack frame if you want and
+
+249
+00:08:31,199 --> 00:08:34,560
+basically they're going to be used
+
+250
+00:08:32,880 --> 00:08:35,919
+and useful for debuggers to be able to
+
+251
+00:08:34,560 --> 00:08:37,440
+find the
+
+252
+00:08:35,919 --> 00:08:40,159
+arguments that were passed into a
+
+253
+00:08:37,440 --> 00:08:40,159
+function
+
